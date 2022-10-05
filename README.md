@@ -1,10 +1,10 @@
-# mmsc-7810-pdba
+# bmsc-7810-pdba
 
 Practical biological data analysis
 
 # website  
 
-https://rnabioco.github.io/mbsc-7810-pdba/ 
+https://rnabioco.github.io/bmsc-7810-pbda/
 
 
 # adding content
