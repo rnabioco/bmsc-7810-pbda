@@ -1,0 +1,5 @@
+---
+title: "Practical Biological Data Analysis"
+site: distill::distill_website
+listing: posts
+---

@@ -1,0 +1,19 @@
+{
+  "articles": [
+    {
+      "path": "classes.html",
+      "title": "Practical Biological Data Analysis",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2022-10-05T10:41:49-06:00"
+    },
+    {
+      "path": "index.html",
+      "title": "Practical Biological Data Analysis",
+      "author": [],
+      "contents": "\nPractical Biological Data Analysis with R and RStudio\nParticipation in this course requires completion of an assignment prior to the course start date (see the Prerequisites section).\nOverview\nIn this short course you will learn to analyze and visualize complex data sets using the R statistical programming language, the RStudio IDE and new tools available in the “tidyverse”. We will focus on key analysis skills and foundational programming concepts necessary for the efficient and reproducible analysis of biological data sets.\nOrganization and Contacts\nKent Riemondy (Director, Instructor): kent.riemondy@cuanschutz.edu\nMichael Kaufman (Instructor): michael.kaufman@cuanschutz.edu\nRyan Sheridan (Instructor): ryan.sheridan@cuanschutz.edu\nKristen Wells-Wrasman (Instructor): kristen.wells-wrasman@cuanschutz.edu\nThe course (2 credit hours) consists of 13 2 hour classes held Mon through Fri from Nov 30 through Dec 16 from 8:00 -10:00 am. The course is tentatively scheduled to be held in the Strauss Health Science Library (V23) in the HS Library Teaching Lab 2, with a remote option provided. All classes will be recorded and made available through Canvas.\nVirtual office hours will also be provided outside of course hours.\nGoals\nBuild competence in R so that students use R for data analysis rather than using interactive applications such as Excel or Prism.\nDevelop reproducible and efficient data analysis habits.\nIntroduce data visualization techniques for complex datasets.\nPrerequisites\nA personal computer with a common operating system ( macOS, Linux, or Windows), and internet access is necessary to participate in this class. Tablets or iPads will not be supported. Please reach out to us ASAP if you do not have access to a computer, or if you have concerns about the suitability of your device. There will be a required prerequisite assignment to be completed prior to the start of the course. The assignment will involve installing necessary software, and completion of material providing basic familiarity with R and interacting with the Rstudio IDE. Office hours will be provided prior to the course to assist with any issues that arise with completing the prerequisite assignment.\nAssignments\nStudent’s grades will be determined by completion of the prerequisite assignment (20%), class participation (30%), and 3 homework assignments (60%), to be completed by the end of the course.\nCourse assistance\nWe will provide a Slack workspace for discussion during and after classes, to collaborate, and to get help. In addition the course instructors will hold virtual office hours to provide assistance outside of the course. Please email the course instructors via (rbi.fellows@cuanschutz.edu) to schedule a time.\n\n\n\n",
+      "last_modified": "2022-10-05T10:41:50-06:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}
