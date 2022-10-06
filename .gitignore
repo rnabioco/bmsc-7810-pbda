@@ -1,2 +1,4 @@
 .DS_Store
 .Rproj.user
+_posts/*/*.html
+_posts/*/*_files
