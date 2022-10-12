@@ -1,0 +1,405 @@
+---
+title: "Class 2: Data wrangling with the tidyverse"
+author:
+  - name: "Kent Riemondy"
+    url: https://github.com/kriemo
+    affiliation: "RNA Bioscience Initiative"
+    affiliation_url: https://medschool.cuanschutz.edu/rbi
+    orcid_id: 0000-0003-0750-1273
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+draft: true 
+---
+
+## Introduction to the tidyverse
+
+The [tidyverse](https://www.tidyverse.org/) is a collection of packages that share similar design philosophy, syntax, and data structures. The packages are largely developed by the same team that builds Rstudio. 
+
+Some key packages that we will touch on in this course:
+
+`ggplot2`: plotting based on the "grammar of graphics". 
+`dplyr`: functions to manipulate tabular data
+`tidyr`: functions to help reshape data into a tidy format
+`readr`: functions for data import and export
+`stringr`: functions for working with strings
+`tibble`: a redesigned data.frame
+
+## loading R packages
+
+To use an R package in an analysis we need to load the package using the `library()` function. This needs to be done once in each R session and it is a good idea to do this at the beginning of your Rmarkdown. 
+
+```{r}
+library(readr)
+library(dplyr)
+library(tibble)
+```
+
+## tibble versus data.frame
+
+A `tibble` is a reimagining of the base R `data.frame`. It has a few differences from the `data.frame`.The biggest differences are that it doesn't have row.names and it has an enhanced print method. If interested in learning more, see the tibble [vignette](https://tibble.tidyverse.org/articles/tibble.html).
+
+
+Compare `data` to `data_tbl`.
+
+**Note, by default Rstudio displays data.frames in a tibble-like format**
+```{r, eval = FALSE}
+data <- data.frame(a = 1:3, 
+                   b = letters[1:3], 
+                   c = Sys.Date() - 1:3, 
+                   row.names = c("a", "b", "c"))
+data_tbl <- as_tibble(data)
+```
+
+When you work with tidyverse functions it is a good practice to convert data.frames to tibbles. 
+
+## Convertly a typical data.frame to a tibble
+
+If the data.frame has rownames, you can preserve these by moving them into a column before converting to a tibble using the `rownames_to_column()` from `tibble`.  
+
+```{r}
+mtcars_tbl <- rownames_to_column(mtcars, "vehicle")
+mtcars_tbl <- as_tibble(mtcars_tbl)
+mtcars_tbl
+```
+
+If you don't need the rownames, then you can use the `as_tibble()` function directly. 
+
+```{r}
+mtcars_tbl <- as_tibble(mtcars)
+```
+
+### Exploring data 
+
+`View()` can be used to open an excel like view of a data.frame. This is a good way to quickly look at the data. `glimpse()` or `str()` give an additional view of the data. 
+
+```r
+View(mtcars)
+glimpse(mtcars)
+str(mtcars)
+```
+
+Additional R functions to help with exploring data.frames (and tibbles):
+
+```{r, eval = FALSE}
+dim(mtcars) # of rows and columns
+nrow(mtcars)
+ncol(mtcars)
+
+head(mtcars) # first 6 lines
+head(mtcars, n = 2)
+tail(mtcars) # last 6 lines
+colnames(mtcars) # column names
+rownames(mtcars) # row names (not present in tibble)
+```
+
+Useful base R functions for exploring values in vectors  
+
+```{r, eval = FALSE}
+mtcars$gear # extract gear column data as a vector
+summary(mtcars$gear) # get summary stats on column
+
+unique(mtcars$cyl) # find unique values in column cyl
+table(mtcars$cyl) # get frequency of each value in column cyl
+table(mtcars$gear, mtcars$cyl) # get frequency of each combination of values
+```
+## Data import using readr
+
+The [`readr`](https://readr.tidyverse.org/) package provides a series of functions for importing or writing data in common text formats.
+
+`read_csv()`: comma-separated values (CSV) files
+`read_tsv()`: tab-separated values (TSV) files
+`read_delim()`: delimited files (CSV and TSV are important special cases)
+`read_fwf()`: fixed-width files
+`read_table()`: whitespace-separated files
+
+These functions are faster and have better defaults than the base R equivalents (e.g. `read.table`). These functions also directly output tibbles compatible with the tidyverse. 
+
+The [readr checksheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf) provides a concise overview of the functionality in the package. 
+
+To illustrate how to use readr we will load a `.csv` file containing information about flights from 2014. 
+
+First we will download the data. You can download this data manually from [github](https://github.com/arunsrinivasan/flights). Instead we will use R to download the dataset using the `download.file()` base R function.
+
+
+```{r}
+if(!file.exists("flights14.csv")) {
+  url <- "https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv" 
+  download.file(url, "flights14.csv")
+}  
+```
+
+You should now have a file called "flights14.csv" in your working directory (the same directory as the Rmarkdown). To read this data into R, we can use the `read_csv()` function. The defaults for this function often work for many datasets. 
+
+```{r}
+flights <- read_csv("flights14.csv")
+flights
+```
+
+There are a few commonly used arguments:
+`col_names`: if the data doesn't have column names, you can provide them (or skip them). 
+`col_types`: set this if the data type of a column is incorrectly inferred by readr
+`comment`: if there are comment lines in the file, such as a header line prefixed with `#`, you want to skip, set this to `#`. 
+`skip`: # of lines to skip before reading in the data.
+`n_max`: maximum number of lines to read, useful for testing reading in large datasets.
+
+The readr functions will also automatically uncompress gzipped or zipped datasets, and additionally can read data directly from a URL. 
+
+```r
+read_csv("https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv")
+```
+
+There are equivalent functions for writing data from R to files:
+`write_csv`, `write_tsv`, `write_delim`.
+
+## Data import/export for excel files
+
+The `readxl` package can read data from excel files and is included in the tidyverse. The `read_excel()` function is the main function for reading data. 
+The `openxlsx` package, which is not part of tidyverse but is on [CRAN](https://ycphs.github.io/openxlsx/index.html), can write excel files. The `write.xlsx()` function is the main function for writing data to excel spreadsheets.
+
+## Data import/export of R objects
+
+Often it is useful to store R objects on disk. These could be large processed datasets, intermediate results, or complex datastructures that are not easily stored in rectangular text formats. 
+
+R provides the `readRDS()` and `saveRDS()` functions for storing data in binary formats. 
+
+```{r}
+saveRDS(flights, "flights.rds") # save single object into a file
+df <- readRDS("flights.rds") # read object back into R
+df
+```
+
+If you want to save/load multiple objects you can use `save()` and `load()`. 
+
+```{r}
+save(flights, df, file = "robjs.rda")  # save flight_df and df 
+```
+
+`load()` will load the data into the environment with the same objects names used when saving the objects.
+
+```{r}
+rm(flights, df)
+load("robjs.rda")
+```
+
+## Grammar for data manipulation: dplyr
+
+`dplyr` provides a suite of functions for manipulating data 
+in tibbles. 
+
+*Rows:
+  *filter() chooses rows based on column values.
+  *slice() chooses rows based on location.
+  *arrange() changes the order of the rows.
+  *distinct() selects distinct/unique rows.
+*Columns:
+  *select() changes whether or not a column is included.
+  *rename() changes the name of columns.
+  *mutate() changes the values of columns and creates new columns.
+Groups of rows:
+  *summarise() collapses a group into a single row.
+
+
+## Chaining operations
+
+The `magrittr` package provides the pipe operator `%>%`. This operator allows you to pass data from one function to another. The pipe takes data from the left-hand operation and passes it to the first argument of the right-hand operation. `x %>% f(y)` is equivalent to `f(x, y)`.
+
+This allows complex operations to be conducted without having many intermediate variables. Chaining multiple dplyr commands is a very power and readable 
+
+```{r}
+nrow(flights)
+flights %>% nrow() # get number of rows
+flights %>% nrow(.) # the `.` is a placeholder for the data moving through the pipe and is implied
+flights %>% colnames() %>% head(3) # get first three column names
+
+number_of_rows <- flights %>% nrow() # you still need to assign the output if you want to use it later
+number_of_rows + 10
+```
+
+The pipe is so popular that it has been introduced into base R (as `|>`).
+
+### Filter rows
+
+Returning to our `flights` data. Let's use `filter()` to select certain rows. 
+
+`filter(tibble, conditional_expression, ...)`
+
+
+```{r}
+filter(flights, dest == "LAX") #select rows where the `dest` column is equal to `LAX
+filter(flights, arr_delay > 200) # flights with arr_delay > 200
+filter(flights, distance < 100) # flights less than 100 miles
+filter(flights, year != 2014) # if no rows satisfy condition, then an empty tibble
+```
+
+Multiple conditions can be used to select rows. For example we can select rows where the `dest` column is equal to `LAX` and the `origin` is equal to `EWR`. You can either use the `&` operator, or supply multiple arguments. 
+
+```{r}
+filter(flights, dest == "LAX", origin == "EWR")
+filter(flights, dest == "LAX" & origin == "EWR")
+```
+
+We can select rows where the `dest` column is equal to `LAX` **or** the `origin` is equal to `EWR` using the `|` operator.
+
+```{r}
+filter(flights, dest == "LAX" | origin == "EWR")
+```
+The `%in%` operator is useful for identifing rows with entries matching those in a vector of possibilities.
+
+```{r}
+filter(flights, dest %in% c("LAX", "SLC", "SFO"))
+filter(flights, !dest %in% c("LAX", "SLC", "SFO")) # ! will negate
+```
+### arrange rows 
+
+`arrange()` can be used to sort the data based on values in a single or multiple columns
+
+`arrange(tibble, <columns_to_sort_by>)`
+
+For example, let's find the shortest flights by arranging the table based on the `distance`. 
+```{r}
+arrange(flights, distance) 
+arrange(flights, distance, air_time) # sort first on distance, then on air_time
+arrange(flights, distance, desc(air_time)) # to sort in decreasing order, wrap the column name in `desc()`.
+```
+
+## Column operations
+
+### select columns
+
+`select()` is a simple function that subsets the tibble to keep certain columns. 
+
+`select(tibble, <columns_to_keep>)`
+
+```{r}
+select(flights, origin, dest)
+```
+the `:` operator can select a range of columns, such as the columns from `air_time` to `hour`. The `!` operator selects columns not listed. 
+
+```{r}
+select(flights, air_time:hour)
+select(flights, !(air_time:hour))
+```
+There is a  suite of utilities in the tidyverse to help with select columns based on conditions: `matches()`, `starts_with()`, `ends_with()`, `contains()`, `any_of()` and `all_of()`. See help ?select
+
+```{r}
+select(flights, contains("delay"))
+```
+
+## When to quote or not quote?
+
+In general, when working with the tidyverse, you don't need to quote the names of columns. In the example above, we needed quotes because "delay" is not a column name in the flights tibblew.  
+
+## Adding new columns with mutate
+
+`mutate()` allows you to add new columns to the tibble. 
+
+`mutate(tibble, new_column_name = expression, ...)`
+
+```{r}
+mutate(flights, total_delay = dep_delay + arr_delay)
+```
+
+We can't see the new column, so we add a select command to examine the columns of interest.
+  
+```{r}
+mutate(flights, total_delay = dep_delay + arr_delay) %>% 
+  select(dep_delay, arr_delay, total_delay)
+```
+
+Multiple new columns can be made, and you can refer to columns made in preceding statements. 
+
+```{r}
+mutate(flights, 
+       total_delay = dep_delay + arr_delay,
+       rank_delay = rank(total_delay)) %>% 
+  select(total_delay, rank_delay)
+```
+
+## Summarizing columns
+
+`summarize()` is a function that will collapse the data from a column into a summary value based on a function that takes a vector and returns a single value (e.g. mean(), sum(), median()). It is not very useful yet, but will be very powerful when we discuss grouped operations. 
+
+```{r}
+summarize(flights, 
+          avg_arr_delay = mean(arr_delay),
+          med_air_time= median(air_time))
+```
+
+## grouped operations
+
+All of the functionality described above can be easily expressed in base R syntax (see examples [here](https://dplyr.tidyverse.org/articles/base.html)). However, where dplyr rely shines is the ability to apply the functions above to groups of data within each data frame. 
+
+We can establish groups within the data using `group_by()`. The functions `mutate()`, `summarize()`, and optionally `arrange()` will instead operate on each group independently. 
+
+Common approaches:
+group_by -> summarize: calculate summaries per group
+group_by -> mutate: calculate summaries per group and add as new column to original tibble
+
+`group_by(tibble, <columns_to_establish_groups>)`
+
+```{r, eval = FALSE}
+group_by(flights, carrier) # notice the new "Groups:" metadata. 
+
+# calculate average dep_delay per carrier
+group_by(flights, carrier) %>% 
+  summarize(avg_dep_delay = mean(dep_delay)) 
+
+# calculate average arr_delay per carrier at each airport
+group_by(flights, carrier, origin) %>% 
+  summarize(avg_dep_delay = mean(dep_delay)) 
+
+# calculate # of flights between each origin and destination city, per carrier, and average air time.
+ # n() is a special function that returns the # of rows per group
+group_by(flights, carrier, origin, dest) %>%
+  summarize(n_flights = n(),
+            mean_air_time = mean(air_time))  
+```
+
+Here are some questions that we can answer using grouped operations in a few lines of dplyr code. Use pipes. 
+
+- What is the average flight `air_time` between each origin airport and destination airport?
+
+```{r}
+group_by(flights, origin, dest) %>% 
+  summarize(avg_air_time = mean(air_time))
+```
+
+- What are the shortest and longest cities to fly between on average?
+
+```{r, echo = FALSE}
+group_by(flights, origin, dest) %>% 
+  summarize(avg_air_time = mean(air_time)) %>% 
+  arrange(avg_air_time) %>% 
+  head()
+
+group_by(flights, origin, dest) %>% 
+  summarize(avg_air_time = mean(air_time)) %>% 
+  arrange(desc(avg_air_time)) %>% 
+  head()
+```
+
+- Which carrier has the fastest flight on average from JFK to LAX?
+
+```{r}
+filter(flights, origin == "JFK", dest == "LAX") %>% 
+  group_by(carrier) %>% 
+  summarize(avg_air_time = mean(air_time)) %>% 
+  arrange(avg_air_time)
+```
+
+- Which month has the longest departure delays on average when flying from JFK to HNL?
+
+```{r}
+filter(flights, origin == "JFK", dest == "HNL") %>% 
+  group_by(month) %>% 
+  summarize(avg_dep_delays = mean(dep_delay)) %>% 
+  arrange(desc(avg_dep_delays))
+```
+## String manipulation (if we have time)
+
+`stringr` is a package for working with strings (i.e. character vectors). 
+
+
+...

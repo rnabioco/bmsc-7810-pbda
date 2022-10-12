@@ -1,0 +1,600 @@
+---
+title: "Class 1: Introduction to the R statistical programming language"
+author:
+  - name: "Kent Riemondy"
+    url: https://github.com/kriemo
+    affiliation: "RNA Bioscience Initiative"
+    affiliation_url: https://medschool.cuanschutz.edu/rbi
+    orcid_id: 0000-0003-0750-1273
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+draft: true 
+---
+
+## Goals for this class
+
+* R language history and ecosystem
+* Analysis and coding best practices
+* Review R basics
+    * Basic R usage
+    * Data types
+    * Data structures
+    * Functions 
+    * Getting help and reading R documentation
+* Review Rmarkdown documents
+* Data analysis workflow 
+
+## What is R
+
+From the R core developers:
+
+>
+R is an integrated suite of software facilities for data manipulation, calculation and graphical display. It includes
+an effective data handling and storage facility,
+a suite of operators for calculations on arrays, in particular matrices,
+a large, coherent, integrated collection of intermediate tools for data analysis,
+graphical facilities for data analysis and display either on-screen or on hardcopy, and
+a well-developed, simple and effective programming language which includes conditionals, loops, user-defined recursive functions and input and output facilities.  
+
+>The term “environment” is intended to characterize it as a fully planned and coherent system, rather than an incremental accretion of very specific and inflexible tools, as is frequently the case with other data analysis software.  
+
+>R, like S, is designed around a true computer language, and it allows users to add additional functionality by defining new functions. Much of the system is itself written in the R dialect of S, which makes it easy for users to follow the algorithmic choices made. For computationally-intensive tasks, C, C++ and Fortran code can be linked and called at run time. Advanced users can write C code to manipulate R objects directly.
+
+>Many users think of R as a statistics system. We prefer to think of it as an environment within which statistical techniques are implemented. R can be extended (easily) via packages. There are about eight packages supplied with the R distribution and many more are available through the CRAN family of Internet sites covering a very wide range of modern statistics.
+>
+
+## Why use R
+
+R is a [programming language](https://en.wikipedia.org/wiki/R_(programming_language)) built by statisticians to facilitate interactive exporatory data analysis.
+
+R comes with (almost) everything you need built in to rapidly conduct data analysis and visualization. 
+
+R has a [large following](https://pypl.github.io/PYPL.html), which makes it easy to find help and examples of analyses.  
+- [Rstudio Community](https://community.rstudio.com/)
+- [Bioconductor Support](https://support.bioconductor.org/)
+- [R stackoverflow](https://stackoverflow.com/questions/tagged/r)
+
+R works out of the box on major operating systems.
+
+R has a robust package system of packages from [CRAN](https://cran.r-project.org/) and bioinformatics focused packages from [Bioconductor](https://www.bioconductor.org/)
+
+Publication quality plots can be produced with ease using functionality in the base R installation or provided by additional packages.
+
+R has a built in documentation system to make it easy to find help and examples of how to use R functionality. 
+
+It's free, [open-source](https://github.com/wch/r-source), and has been around in it's first public release in 1993. 
+
+
+## The R ecosystem
+
+When you download R from CRAN, there are a number of packages included in the base installation (e.g. `base`, `stats`, and `datasets`). You can do effective data analysis with only the base installation (e.g. [faster](`https://github.com/matloff/fasteR`). However a key strength of R is the 10,000+ user-developed packages which extend base R functionality. 
+
+
+```{r, echo = FALSE, fig.cap = "Major R package repositories and functions used to install packages."}
+knitr::include_graphics("img/r-ecosystem.jpg")
+```
+
+CRAN is the official R package repository and source for R. The tidyverse (which we will use in subsequent classes) is a set of packages with consistent design principles meant to extend functionality in base R. 
+
+Bioconductor hosts and maintains bioinformatics focused packages, built around a set of core data structures and functionality focused on genomics and bioinformatics.
+
+Github hosts software for any software project. It is often used to host R packages in development stages and the actively developed source code for R packages. 
+
+## Organizing data analyses
+
+A little bit of time spent upfront organizing your projects will make analyses easier to manage and reproduce. 
+
+- Use Rstudio projects. For the course I recommend making a new project for each class.
+
+- Use multiple directories to separate raw data files from the analysis of the data. Organize the analyses with directories names with chronological dates
+
+Here's an example organization strategy.
+
+```
+.
+├── data
+│   ├── 2022-09-flow
+│   ├── 2022-09-rnaseq-1
+│   └── 2022-09-rnaseq-2
+├── docs
+│   └── project-goals.txt
+├── results
+│   ├── 2022-09-01-rnaseq-expt1
+│   │   └── gene-expression-analysis.Rmd
+│   ├── 2022-09-28-rnaseq-expt2
+│   │   └── splicing-analysis.Rmd
+│   └── 2022-10-01-flow-expt1
+│       └── flow-plots.R
+└── src
+    └── rnaseq_pipeline.sh
+```
+
+Some very good ideas and examples are provided here:
+
+>Noble WS. A quick guide to organizing computational biology projects. PLoS Comput Biol. 2009 Jul;5(7):e1000424. doi: 10.1371/journal.pcbi.1000424.
+
+Provide meaningful names for your files. Consider including ordinal values (e.g. 01, 02, 03) if analyses depend on previous results to indicate ordering of execution.
+
+
+```r
+# bad
+models.R
+analysis.R
+explore.R
+analysis-redo-final-v2.R
+```
+
+```r
+# good
+clean-data.R
+fit-model.R
+plot-data.R
+```
+
+```r
+# better
+01_clean-data.R
+02_fit-model.R
+03_plot-data.R
+```
+
+## Organizing your code
+
+>   "Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread."
+>   
+>   --- Hadley Wickham
+
+Code is used to communicate with your computer, but it also is used to communicate with your future self and your colleagues. Don't just write code for yourself right now, instead write your code with the expectation that your future self will need to reread, understand, and modify it in 6 months. 
+
+1) Use comments to remind yourself what the code does
+
+```r
+# convert x to zscores
+zs <- (x - mean(x)) / sd(x)
+```
+
+2) Use comments to break up long scripts into logical blocks
+
+```r
+# Load data ---------------------------
+dat <- read_csv("awesome-data.csv)
+colnames(dat) <- c("sample", "color", "score", "prediction")
+...
+...
+# modify data -------------------------
+dat <- mutate(dat, result = score + prediction)
+...
+...
+# Plot data ---------------------------
+ggplot(dat, aes(sample, score)) + 
+  geom_point()
+```
+
+3) Use sensible names for variables. Keep them short, but meaningful. Separate words with snake_case (e.g plot_df) or camelCase (plotDf) approach.  
+
+```r
+# good
+a <- width * height
+p <- 2* width + 2 * height
+measurement_df <- data.frame(area = a, perimeter = p)
+```
+
+```r
+# bad
+y <- x1 * x2
+yy <- 2*x1 + 2*x2
+tmp <- data.frame(a = y, b = yy)
+```
+
+4) Space is free in code, use it liberally. Add spaces around operators. 
+
+```r
+# Good
+average <- mean(feet / 12 + inches, na.rm = TRUE)
+
+# Bad
+average<-mean(feet/12+inches,na.rm=TRUE)
+```
+
+5) Split up complicated operations or long function calls into multiple lines. In general you can add a newline after a comma. Indenting the code can also help with readability.
+
+```r
+# good
+data <- complicated_function(x,
+                             minimizer = 1.4, 
+                             sigma = 100,
+                             scale_values = FALSE, 
+                             verbose = TRUE, 
+                             additional_args = list(x = 100,
+                                                    fun = rnorm))
+# bad
+data <- complicated_function(x, minimizer = 1.4, sigma = 100, scale_values = FALSE, verbose = TRUE, additional_args = list(x = 100, fun = rnorm))
+```
+
+```r
+#good
+plot_df <- read_csv("awesome_data.csv") %>% 
+  select(sample, scores, condition) %>%
+  mutate(norm_scores = scores / sum(scores))
+  
+#bad
+plot_df <- read_csv("awesome_data.csv") %>% select(sample, scores, condition) %>% mutate(norm_scores = scores / sum(scores)) 
+```
+
+Rstudio has a shortcuts to help format code  
+
+Code -> Reformat code
+
+Code -> Reindent lines
+
+## Using R as a calculator
+
+```{r}
+2 + 3 * 5     # Note the order of operations.
+3-7           # value of 3-7
+3/2           # Division
+5^2           # 5 raised to the second power
+```
+
+## Assigning values to variables
+
+In R you can use either the `<-` or the `=` operators to assign objects to variables. The `<-` is the preferred style. If we don't assign an operation to a variable, then it will be printed then disappear from our environment. 
+
+
+```{r}
+x <- 1 + 1
+x # now stores the value 2
+```
+
+```{r}
+x <- x + 10 
+x + 20
+```
+
+Now, if we use x, what is it's value?
+
+## Vectors and atomic types in R
+
+Atomic R types are actually vectors of length 1, in contrast to other languages. For example there is no `int` type, only integer vectors. This is why you see the `[1]` next to `42` when you print it, which indicates the length of the vector. 
+
+```{r}
+42
+```
+
+### Types
+
+R has `character`, `integer`, `double`(aka `numeric`) and `logical` vector types. 
+
+```{r}
+typeof(1.0)
+typeof("1.0")
+typeof(1)
+typeof(1L)
+typeof(TRUE)
+typeof("hello world")
+```
+
+Also `raw` and `complex` types, but we wont use these in the course. 
+
+You can change the type of a vector, provided that there is a method to convert between types.
+
+```{r}
+as.numeric("1.0")
+as.numeric("hello world")
+as.character(1.5)
+as.integer(TRUE)
+as.integer(FALSE)
+```
+
+### NA, Inf, and NaN values
+
+```{r}
+1 / 0
+-( 1 / 0)
+0 / 0
+```
+
+```r
+"0" / 1
+#' Error in "0"/1 : non-numeric argument to binary operator
+```
+
+### making vectors from scratch
+
+The `c` function concatenates values into a vector.
+
+```{r}
+c(1, 2, 3)
+c(TRUE, FALSE, TRUE)
+c("dog", "cat", "bird")
+```
+
+Vectors can only have 1 type, so if you supply multiple types `c` will silently coerce the result to a single type. 
+
+```{r}
+c(TRUE, 1.9)
+c(FALSE, "TRUE")
+c(1L, 2.0, TRUE, "Hello")
+```
+
+Numeric ranges can be generated using `:` or `seq`
+
+```{r}
+1:10
+seq(1, 10, by = 2)
+```
+
+### Subsetting vectors in R
+
+R uses 1-based indexing to select values from a vector. The first element of a vector is at index 1. The `[` operator can be used to extract (or assign) elements in a vector
+
+```{r}
+x <- 30:40
+x[1]
+x[2:5]
+x[1000]
+```
+
+Values in a vector can be replaced by assignment at specific indexes.
+
+```{r}
+x[2] <- 12345
+x
+x[3:10] <- 3:10
+x
+```
+
+## Fundamental data structures
+
+```{r, echo = FALSE, fig.cap = "Ceballos, Maite and Nicolás Cardiel. 2013. Data structure. First Steps in R. https://web.archive.org/web/20200621022950/http://venus.ifca.unican.es/Rintro/dataStruct.html"}
+ 
+knitr::include_graphics("img/dataStructures.png")
+```
+
+
+
+
+### matrix
+
+A matrix is a 2 dimensional rectangular data structure, where all values have the same type. A matrix is used to store a collection of vectors of the same type and same length. We can subset or assign values to specific rows or columns using the bracket notation `[row_index, col_index]`.
+
+```{r}
+m <- matrix(1:25, nrow = 5, ncol = 5)
+typeof(m)
+m
+m[1:2, 1:3] # [row_index, column_index]
+```
+
+Matrices can have column names and row names that identify the columns. These names can also be used for subsetting the matrix.  
+```{r}
+colnames(m) <- LETTERS[1:5]
+rownames(m) <- letters[1:5]
+m
+```
+
+```{r}
+m[c("a", "b"), c("C", "D")]
+```
+
+### data.frame
+
+A `data.frame` is similar to a matrix, but each column (vector) can have a different type. The same subsetting operators for matrices work on data.frames. 
+
+```{r}
+df <- data.frame(vals = 1:4, 
+                 ids = c("cat", "fish", "bear", "dog"),
+                 is_mammal = c(TRUE, FALSE, TRUE, TRUE))
+df
+```
+
+### list 
+
+A `list` is a collection of data structures, which can have different types, and each entry can have a different length or type. 
+
+```{r}
+lst <- list(vals = 1:4, 
+            ids = c("bear", "dog"),
+            is_valid = TRUE,
+            aux = m)
+lst
+```
+```r
+lst[1] # list of length 1
+lst[[1]] # first element of list
+lst[[1]][1] # first value in first element of list
+```
+
+A data.frame is a specialized form of a list, whereby each list entry is a vector, and all vectors have the same length. There are functions to convert between data structures (e.g. `as.list()`, `as.data.frame()`, `as.matrix()`)
+
+```{r}
+df_lst <- as.list(df)
+df_lst
+as.data.frame(df_lst)
+
+```
+
+## Calling functions in R
+
+We have already used some functions e.g. `seq`, `typeof`, `matrix`, `as.data.frame`. Functions in R have rules for how arguments are specified. 
+
+```r
+round(x, digits = 0)
+```
+
+`round`: function name  
+`x`: required argument  
+`digits`: optional argument (Defaults to 0)  
+
+```{r}
+nums <- c(1.5, 1.4, -1.6, 0.0099)
+round(nums)
+round(nums, digits = 1)
+```
+
+The positional order of the arguments specifies that `nums` will be assigned to `x`. Alternatively you can explicitly provide the argument `x = nums`.
+
+```{r}
+round(x = nums, digits = 1)
+round(nums, 1)
+round(digits = 1, x = nums)
+```
+
+## R functions are vectorized
+
+Most functions in R are vectorized, meaning that the functions will operate on each element of a vector. 
+
+For example to take the natural log of an element we use the `log` function.
+
+```{r}
+x <- 1:5
+log(x)
+```
+
+If you are used to programming in other languages (e.g `C` or `python`) you might have written a `for` loop to do the same, something like this.
+
+```r
+for(i in x){ 
+  log(i)
+}
+```
+
+In R this is generally not necessary. The built in vectorization saves much typing and makes for very compact and efficient code in R. You can write `for` loops in R (more on this later in the course) however using the built in vectorization is generally a faster and easier to read solution.
+
+Arithmetic  (e.g `+` `-`, `*`) and comparisons operators (`>`, `<`, `==`) are vectorized. 
+
+```{r}
+x <- 1:5
+y <- 2
+
+x * y
+x + y
+
+x == 3
+x > 5
+x < y
+```
+
+You can write your own functions as well. Functions reduce copying and pasting code, which reduces errors and simplifies code by reducing objects in the global environment.
+
+We'll learn more about functions later in the course. 
+
+```{r}
+add <- function(x, y){
+  x + y
+}
+add(2, 2)
+
+add <- function(x, y, z = 10){
+  x + y + z
+}
+add(2, 2)
+add(1:10, 1:10)
+```
+
+
+## Getting help 
+
+### Built-in documentation
+
+The `?` operator can be used to pull up documentation about a function. The `??` operator uses a fuzzy search which can pull up help if you don't remember the exact function name. 
+
+```r
+?install.packages
+``` 
+
+```r
+??install.package
+``` 
+
+Alternatively you can click on the help pane and search for help in Rstudio. 
+
+### Vignettes
+
+Every R package includes a vignette to describe the functionality of the package which can be a great resource to learn about new packages.
+
+These can be accessed via the `vignette()` function, or via the help menu in Rstudio. 
+
+```r
+vignette("dplyr")
+```
+
+### Rstudio Cheatsheets
+
+See `Help > Cheatsheets` for very helpful graphical references. Print them out and pin them up next to your screen. The `base R`, `dplyr`, and `ggplot2` cheatsheets are especially useful.
+
+
+## Workspaces  
+
+Objects that we generate get stored in an environment known as the Global Environment. You can see the objects in the global environment using the `ls()` function, or by clicking on the environment tab in Rstudio.
+
+```{r}
+ls()
+```
+
+Objects can be removed from the environment, which can be helpful if you have a large memory object that is no longer needed.
+
+```r
+big_matrix <- matrix(1:1e6, nrow = 1e5, ncol = 100)
+# show # of rows and columns
+dim(big_matrix)
+#' [1] 100000    100
+
+# remove matrix from enviroment
+rm(big_matrix)
+big_matrix
+# 'Error: object 'big_matrix' not found
+```
+
+<br/>
+
+**When you close Rstudio, by default your global R environment is saved to a hidden file called .Rdata in the project directory. When you relaunch rstudio, R objects from your previous environment will be reloaded. This behavior can lead to many problems and we recommend disabling this option **
+
+To disable this option, go to Rstudio preferences and uncheck the "Restore .RData into workspace at startup" option and select the "Never" option for the "Save workspace to .RData on exit". 
+
+We will discuss in later classes how you can save and reload specific R objects and discuss methods to import/export specific data types. 
+
+<br/>
+
+## Using Rmarkdown to conduct data analysis
+
+* Rmarkdown is a reproducible framework to create, collaborate, and communicate your work. 
+* Rmarkdown supports a number of output formats including pdfs, word documents, slide shows, html, etc. 
+* An Rmarkdown document is a plain text file with the extension `.Rmd` and contains the following basic components: 
+    - An (optional) YAML header surrounded by ---s.
+    - Chunks of R code surrounded by ```.
+    - Text mixed with simple text formatting like # heading and _italics_.
+    
+Let's do the following to explore Rmarkdown documents
+* Create a new .Rmd document
+* `knit` the document to see the output
+
+## The data analysis model
+
+```{r, echo = FALSE, fig.cap = "Data analysis workflow."}
+knitr::include_graphics("img/tidy-data-model.png")
+```
+
+In this course we will introduce how to conduct each of these key steps in data analysis in R. 
+
+
+## Exercises
+
+See problem_set1.Rmd (problems 1 - X) for exercises related to this content. 
+
+## Acknowldgements and additional references 
+
+The content of this class borrows heavily from previous tutorials:
+
+R code style guide: 
+http://adv-r.had.co.nz/Style.html 
+
+Tutorial organization:
+https://github.com/sjaganna/molb7910-2019 
+
+Other R tutorials:
+https://github.com/matloff/fasteR 
+https://r4ds.had.co.nz/index.html 
+https://bookdown.org/rdpeng/rprogdatascience/
+

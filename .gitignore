@@ -2,3 +2,7 @@
 .Rproj.user
 _posts/*/*.html
 _posts/*/*_files
+*.rds
+*.rda
+*.csv
+*.tsv

@@ -1,0 +1,21 @@
+
+Submit your knitted .html document to Canvas by XXX.
+
+Your assignment will be graded with the following rubric:
+
+
+5 pts.
+
+1) Using a function from the readr package, import the "XXX.csv" file into R. Print the
+first 5 lines
+
+```{r}
+read...()
+```
+
+
+2) plot the data. 
+
+
+3) make the plots as ugly as possible
+
