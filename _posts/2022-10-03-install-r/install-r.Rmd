@@ -16,7 +16,7 @@ draft: false
 
 This article will explain how to install R, Rstudio, and R packages. 
 
-**Please also watch the video at the end of the article that gives an overview of using Rstudio and the Rmarkdown format.**
+**Please watch the video at the end of the article that gives an overview of using Rstudio and the Rmarkdown format.**
 
 ## Download R
 
@@ -155,9 +155,18 @@ install.packages("rmarkdown")
 
 and verify installation by running `library(rmarkdown)`
 
-## Install packages from other sources
+## Introduction to using Rstudio and Rmarkdown
 
-**At this you will only need to install the tidyverse and rmarkdown packages **
+Now that you have installed R and Rstudio, please watch this video (~20 minutes) that provides an overview of how to use Rstudio [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) and an introduction to the [Rmarkdown format](https://rmarkdown.rstudio.com/lesson-1.html).
+
+[intro-to-rstudio.mp4](https://www.dropbox.com/s/zuh153mlp7w2fio/intro-to-rstudio.mp4?dl=0)
+
+[intro-to-rstudio.mov](https://www.dropbox.com/s/alrmoszei1ou6vr/intro-to-rstudio.mov?dl=0)
+
+
+## (Appendix) Installing packages from other sources
+
+**At this point you will only need to install the tidyverse and rmarkdown packages **
 
 There are 2 additional commonly used repositories for R packages that you should know about:
 
@@ -184,10 +193,3 @@ install.packages("remotes")
 remotes::install_github('johannesbjork/LaCroixColoR')
 ```
 
-## Introduction to using Rstudio and Rmarkdown
-
-Now that you have installed R and Rstudio, please watch this video (~20 minutes) that provides an overview of how to use Rstudio [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) and an introduction to the [Rmarkdown format](https://rmarkdown.rstudio.com/lesson-1.html).
-
-[intro-to-rstudio.mp4](https://www.dropbox.com/s/zuh153mlp7w2fio/intro-to-rstudio.mp4?dl=0)
-
-[intro-to-rstudio.mov](https://www.dropbox.com/s/alrmoszei1ou6vr/intro-to-rstudio.mov?dl=0)
