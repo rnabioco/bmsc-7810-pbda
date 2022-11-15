@@ -4,5 +4,6 @@ _posts/*/*.html
 _posts/*/*_files
 *.rds
 *.rda
-*.csv
 *.tsv
+*.csv
+*.gz
