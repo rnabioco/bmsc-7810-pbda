@@ -1,0 +1,53 @@
+---
+title: "Schedule"
+---
+
+# Class Schedule
+
+- Class 1: Wednesday, Nov. 30th  
+  + Introduction to the R statistical programming language 
+
+- Class 2: Thursday, Dec. 1st
+  + Data wrangling with the tidyverse  
+
+- Class 3: Friday, Dec. 2nd 
+  + Reshaping data into a tidy format
+
+- Class 4: Monday, Dec. 5th 
+  + Introduction to ggplot2 (pt.1)
+  
+- Class 5: Tuesday, Dec. 6th 
+  + Introduction to ggplot2 (pt.2)
+  
+- Class 6: Wednesday, Dec. 7th 
+  + Introduction to ggplot2 (pt.3)
+
+- Class 7: Thursday, Dec. 8th
+  + Introduction to matrix operations 
+
+- Class 8: Friday, Dec. 9th
+  + Introduction to clustering techniques
+  
+- Class 9: Monday, Dec. 12th
+  + Introduction to Heatmaps 
+  
+- Class 10: Tuesday, Dec. 13th
+  + Introduction to programming in R
+
+- Class 11: Wednesday, Dec. 14th
+  + Introduction to programming in R
+
+- Class 12: Thursday, Dec. 15th
+  + Introduction to programming in R
+  
+- Class 13: Friday, Dec. 16th
+  + Course wrap up
+  
+# Problem Sets
+
+- Problem set 1: Due Monday Dec 5th (5p)
+- Problem set 2: Due Friday Dec 9th (5p)
+- Problem set 3: Due Thursday Dec. 15th (5p)
+- Problem set 4: Due Monday Dec. 19th (5p)
+
+

@@ -47,7 +47,3 @@ Student's grades will be determined by completion of the prerequisite assignment
 
 # Course assistance
  We will provide a Slack workspace for discussion during and after classes, to collaborate, and to get help. In addition the course instructors will hold virtual office hours to provide assistance outside of the course. Please email the course instructors via (`rbi.fellows@cuanschutz.edu`) to schedule a time.
-
- 
-
- 

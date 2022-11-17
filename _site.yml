@@ -8,6 +8,8 @@ navbar:
   right:
     - text: "Overview"
       href: index.html
+    - text: "Schedule"
+      href: schedule.html
     - text: "Classes"
       href: classes.html
   source_url: https://github.com/rnabioco/bmsc-7810-pbda

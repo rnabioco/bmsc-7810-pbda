@@ -13,6 +13,8 @@ output:
 draft: true 
 ---
 
+*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-10-04-class-2/class-2.Rmd)*
+
 ## Introduction to the tidyverse
 
 The [tidyverse](https://www.tidyverse.org/) is a collection of packages that share similar design philosophy, syntax, and data structures. The packages are largely developed by the same team that builds Rstudio. 
@@ -38,12 +40,12 @@ library(tibble)
 
 ## tibble versus data.frame
 
-A `tibble` is a reimagining of the base R `data.frame`. It has a few differences from the `data.frame`.The biggest differences are that it doesn't have row.names and it has an enhanced print method. If interested in learning more, see the tibble [vignette](https://tibble.tidyverse.org/articles/tibble.html).
-
+A `tibble` is a reimagining of the base R `data.frame`. It has a few differences from the `data.frame`.The biggest differences are that it doesn't have `row.names` and it has an enhanced `print` method. If interested in learning more, see the tibble [vignette](https://tibble.tidyverse.org/articles/tibble.html).
 
 Compare `data` to `data_tbl`.
 
 **Note, by default Rstudio displays data.frames in a tibble-like format**
+
 ```{r, eval = FALSE}
 data <- data.frame(a = 1:3, 
                    b = letters[1:3], 
@@ -56,7 +58,7 @@ When you work with tidyverse functions it is a good practice to convert data.fra
 
 ## Convertly a typical data.frame to a tibble
 
-If the data.frame has rownames, you can preserve these by moving them into a column before converting to a tibble using the `rownames_to_column()` from `tibble`.  
+If a data.frame has rownames, you can preserve these by moving them into a column before converting to a tibble using the `rownames_to_column()` from `tibble`.  
 
 ```{r}
 mtcars_tbl <- rownames_to_column(mtcars, "vehicle")
@@ -160,7 +162,7 @@ The `openxlsx` package, which is not part of tidyverse but is on [CRAN](https://
 
 ## Data import/export of R objects
 
-Often it is useful to store R objects on disk. These could be large processed datasets, intermediate results, or complex datastructures that are not easily stored in rectangular text formats. 
+Often it is useful to store R objects on disk. These could be large processed datasets, intermediate results, or complex data structures that are not easily stored in rectangular text formats. 
 
 R provides the `readRDS()` and `saveRDS()` functions for storing data in binary formats. 
 
@@ -324,14 +326,14 @@ mutate(flights,
 ```{r}
 summarize(flights, 
           avg_arr_delay = mean(arr_delay),
-          med_air_time= median(air_time))
+          med_air_time = median(air_time))
 ```
 
-## grouped operations
+## Grouped operations
 
-All of the functionality described above can be easily expressed in base R syntax (see examples [here](https://dplyr.tidyverse.org/articles/base.html)). However, where dplyr rely shines is the ability to apply the functions above to groups of data within each data frame. 
+All of the functionality described above can be easily expressed in base R syntax (see examples [here](https://dplyr.tidyverse.org/articles/base.html)). However, where dplyr really shines is the ability to apply the functions above to groups of data within each data frame. 
 
-We can establish groups within the data using `group_by()`. The functions `mutate()`, `summarize()`, and optionally `arrange()` will instead operate on each group independently. 
+We can establish groups within the data using `group_by()`. The functions `mutate()`, `summarize()`, and optionally `arrange()` will instead operate on each group independently rather than all of the rows.
 
 Common approaches:
 group_by -> summarize: calculate summaries per group
@@ -366,7 +368,7 @@ group_by(flights, origin, dest) %>%
   summarize(avg_air_time = mean(air_time))
 ```
 
-- What are the shortest and longest cities to fly between on average?
+- What are the fastest and longest cities to fly between on average?
 
 ```{r, echo = FALSE}
 group_by(flights, origin, dest) %>% 
@@ -399,7 +401,46 @@ filter(flights, origin == "JFK", dest == "HNL") %>%
 ```
 ## String manipulation (if we have time)
 
-`stringr` is a package for working with strings (i.e. character vectors). 
+`stringr` is a package for working with strings (i.e. character vectors). It provides a consistent syntax for string manipulation and can perform many routine tasks:
+
+e.g.
+`str_c`: concatenate strings (similar to `paste()` in base R)
+`str_count`: count occurrence of a substring in a string
+`str_subset`: keep strings with a substring
+`str_replace`: replace a string with another string
+`str_split`: split a string into multiple pieces based on a string
 
 
-...
+
+```{r, eval = FALSE}
+library(stringr)
+some_words <- c("a sentance", "with a ", "needle in a", "haystack")
+str_detect(some_words, "needle") # use with dplyr::filter
+str_subset(some_words, "needle")
+str_replace(some_words, "needle", "pumpkin")
+str_count(some_words, "a")
+str_split(some_words, " ")
+```
+
+stringr uses [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) to pattern match strings. This means that you can perform complex matching to the strings of interest. Additionally this means that there are special characters with behaviors that may be surprising if you are unaware of regular expressions.
+
+A useful resource when using regular expressions is https://regex101.com 
+
+```{r, eval = FALSE}
+complex_strings <- c("10101-howdy", "34-world", "howdy-1010", "world-.")
+str_subset(complex_strings, "[0-9]+-") # keep words with a series of #s followed by a dash, + indicates one or more occurrences.
+str_subset(complex_strings, "-[0-9]+") # keep words with a dash followed by a series of #s
+str_subset(complex_strings, "^howdy") # keep words starting with howdy
+str_subset(complex_strings, "howdy$") # keep words ending with howdy
+str_subset(complex_strings, ".") # . signifies any character
+str_subset(complex_strings, "\\.") # need to use backticks to match literal special character
+```
+
+Use dplyr filter and stringr functions to do something...
+```{r}
+
+```
+
+```{r}
+sessionInfo()
+```
