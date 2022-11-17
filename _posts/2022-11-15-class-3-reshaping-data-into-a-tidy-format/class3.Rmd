@@ -21,6 +21,9 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 source("download_files.R")
 ```
 
+*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/class3.Rmd)*
+
+
 ## Goals for today
 
 - Discuss wide and long (tidy) data representations for analysis 

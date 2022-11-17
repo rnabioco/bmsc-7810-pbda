@@ -13,6 +13,8 @@ output:
 draft: true 
 ---
 
+*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-10-03-intro-to-r-language/intro-to-r-language.Rmd)*
+
 ## Goals for this class
 
 * R language history and ecosystem
