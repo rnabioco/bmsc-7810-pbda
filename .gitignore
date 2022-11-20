@@ -7,6 +7,6 @@ _posts/*/*_files
 *.tsv
 *.csv
 *.gz
-_posts/2022-11-15-2022-11-15-class-8-clustering
-_posts/2022-11-16-2022-11-16-class-9-heatmap
+_posts/2022-11-15-class-8-clustering
+_posts/2022-11-16-class-9-heatmap
 .Rhistory

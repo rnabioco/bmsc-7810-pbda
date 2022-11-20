@@ -7,10 +7,17 @@ author:
     orcid_id: 0000-0002-7466-8164
 output:
   distill::distill_article:
-  self_contained: false
-toc: true
+    self_contained: false
+    toc: true
 draft: true 
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+
+*The Rmarkdown for this class is [on github](https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/class_7-9/_posts/2022-11-10-class-7-matricies/class7_matricies.Rmd)*
 
 ## Goals for this class
 * Learn what is a matrix
@@ -146,6 +153,7 @@ typeof(M[,1])
 ## Matrix opearions
 If you've taken linear algebra, you've probably worked with matrices before. These same matrix operations can be done in R
 
+### Basic operations
 We can do any of the mathematical operations for a matrix and one value. For example, we can add 5 to all values in a matrix, or subtract 2, or divide by 10
 
 ```{r}
@@ -267,6 +275,8 @@ M %*% M2
 ```
 
 
+*10 minute break*
+
 ## Performing functions on a matrix
 So far, a matrix has looked a lot like a dataframe with some limitations. One of the places where matrices become the most useful is performing statistical functions because all items in a matrix are of the same type.
 
@@ -276,7 +286,7 @@ First let's download the file I made
 
 ```{r}
 # This downloads the file and saves it anywhere you want - let's just save
-# it in the same direcotory as this script for simplicity
+# it in the same directory as this script for simplicity
 download.file("https://raw.githubusercontent.com/kwells4/pdba_files/main/files/boy_name_counts.csv",
               destfile = "boy_name_counts.csv")
 ```
@@ -334,7 +344,7 @@ You can see that this calculates the min, max, mean, median, and quartiles for t
 What if we just want the minimum value for the "Alabama" names? We can run `min` while subsetting to just the column of interest
 
 ```{r}
-min(names_mat[, "Alabama_number_of_males"])
+min(names_mat[, "Alabama"])
 ```
 
 We can do the same for the rows Lets try this for "William"
@@ -378,15 +388,15 @@ sd(names_mat["William", ])
 By column:
 
 ```{r}
-mean(names_mat[ , "Alabama_number_of_males"])
+mean(names_mat[ , "Alabama"])
 ```
 
 ```{r}
-median(names_mat[ , "Alabama_number_of_males"])
+median(names_mat[ , "Alabama"])
 ```
 
 ```{r}
-sd(names_mat[ , "Alabama_number_of_males"])
+sd(names_mat[ , "Alabama"])
 ```
 
 ### Transposition
@@ -505,20 +515,25 @@ names_dat[1:3,1:3]
 # names_dat$name <- rownames(names_dat)
 ```
 
-Next, we need to `pivot_longer` from `tidyr`. Because all of the columns that we want to shift longer end with "number_of_males" we can use `contains` to find all of these columns
+Next, we need to `pivot_longer` from `tidyr`. We want to take everything but the names column
 
 ```{r}
-names_dat <- pivot_longer(names_dat, cols = contains("number_of_males"),
+pivot_columns <- colnames(names_dat)[colnames(names_dat) != "name"]
+
+names_dat <- pivot_longer(names_dat, cols = pivot_columns,
                           names_to = "state", values_to = "count")
 ```
 
 Note, we can use the pipe `%>%` from `dplyr` to put all of this into one statement.
 
 ```{r}
+# Here we will specify the columns to keep first
+pivot_columns <- colnames(names_mat)
+
 names_dat <- names_mat %>% 
   data.frame %>% 
   rownames_to_column("name") %>% 
-  pivot_longer(cols = contains("number_of_males"), 
+  pivot_longer(cols = pivot_columns, 
                names_to = "state", values_to = "count")
 ```
 
@@ -544,19 +559,17 @@ Can you make the same plot as above but use our normalized values?
 ```{r}
 # TODO make plot above with normalized values
 # Hint start with normalized_dat
-normalized_dat <- normalized_mat %>% 
-  data.frame %>% 
-  rownames_to_column("name") %>% 
-  pivot_longer(cols = contains("number_of_males"), 
-               names_to = "state", values_to = "normalized_count")
 
-ggplot(normalized_dat, aes(x = name, y = normalized_count,
-                              fill = name)) + 
-  geom_violin() +
-  theme(axis.text.x = element_text(angle = 90,
-                                   vjust = 0.5, hjust=1)) # rotate x axis
 ```
 
+## I'm a biologist, why should I care?
+
+* Many of your datasets can be analyzed using matrices
+  * If you analyze RNA-seq data, all of the processing and differential testing will be done in a matrix through `DESeq2`
+  * If you analyze protein data, that is best done in a matrix
+  * Single cell RNA-seq data is analyzed using matrices, especially sparse matrices
+  * Even just many measurements can be analyzed using a matrix
+* Matrices are efficient object types for most types of analysis you would want to do
 
 
 ## Acknowldgements and additional references 
