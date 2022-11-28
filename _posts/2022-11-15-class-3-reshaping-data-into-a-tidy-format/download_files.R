@@ -1,5 +1,5 @@
-library(here)
-data_dir <- here("_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/data")
+
+data_dir <- "data"
 dir.create(data_dir, showWarnings = FALSE)
 
 files_to_dl <- list(
