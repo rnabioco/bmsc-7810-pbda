@@ -7,5 +7,5 @@ _posts/*/*_files
 *.tsv
 *.csv
 *.gz
-_posts/2022-11-16-class-9-heatmap
 .Rhistory
+class_7-9_data

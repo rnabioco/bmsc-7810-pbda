@@ -1,0 +1,545 @@
+---
+title: "Class 9: Introduction to heatmaps"
+author:
+  - name: "Kristen Wells"
+    url: https://github.com/kwells4
+    affiliation: "RNA Bioscience Iniative, Barbara Davis Diabetes Center"
+    orcid_id: 0000-0002-7466-8164
+output:
+  distill::distill_article:
+  self_contained: false
+  toc: true
+draft: true 
+---
+
+## Goals for this class
+* Learn how to make a heat map using `pheatmap`
+* Understand how data is generally processed before making a heat gimap, understand what interpretations can be made given the processing.
+* Learn how to change the aesthetics of a heat map
+* Learn how to visualize and access clustering information from the heat map
+
+## Load packages
+```{r load-packages}
+library(tidyverse)
+library(pheatmap)
+library(viridis)
+library(MetBrewer)
+library(here)
+```
+
+## Making a heatmap
+Today we are going to continue working with the same data we used to talk about matrices and clustering, the top 100 boy and girl names by state for 2020.
+
+```{r}
+male_names_mat <- read.csv(here("class_7-9_data", "boy_name_counts.csv"),
+                           row.names = 1) %>%
+  as.matrix()
+
+female_names_mat <- read.csv(here("class_7-9_data", "girl_name_counts.csv"),
+                             row.names = 1) %>%
+  as.matrix()
+```
+
+We've loaded in both the boy and the girl names as separate matrices, we can combine these using `rbind` to bind the rows
+
+```{r}
+names_mat <- rbind(male_names_mat, female_names_mat)
+```
+
+To make a heatmap, we will use the pheatmap package
+
+```{r, fig.height=10}
+pheatmap(names_mat)
+```
+
+Notice here we can only see the names for California
+
+### Cleaning up by normalizing values
+
+It's pretty hard to see much strucutre in the data just using the raw values. Let's try with our normalized values
+
+```{r, fig.height=10}
+normalized_mat <- t(t(names_mat) / colSums(names_mat))
+pheatmap(normalized_mat)
+```
+
+You can see that when we try to normalize the values by dividing each number by the total number for the state, the trends in the data are much more clear and we don't only see the data for California.
+
+### Cleaning up by normalizing values
+
+Another popular way to normalize the data for a heatmap is called a z-score. This is also know a mean-centered scaled data. The z-score is calculated as follows
+
+
+$$
+zscore = \frac{x - \mu}{\sigma}
+$$
+
+Where x is each value $\mu$ is the mean for the values and $\sigma$ is the standard deviation for the values. Here, $x - \mu$ is called "centering" and dividing by $\sigma$ is called "scaling"
+
+In R, we can scale the data using the `scale` function. Scaling is done on the columns, so here we can use the original matrix without any transformations
+
+`scale` takes 3 arguments
+
+```
+x - a numeric matrix(like object).
+
+center - either a logical value or numeric-alike vector of length equal to the number of columns of x, where ‘numeric-alike’ means that as.numeric(.) will be applied successfully if is.numeric(.) is not true.
+
+scale	- either a logical value or a numeric-alike vector of length equal to the number of columns of x.
+```
+
+The `center` refers to $x - \mu$ from the equation above and scaling refers to dividing by $\sigma$. We will set both to be true to be a z-score.
+
+
+```{r}
+scaled_mat <- scale(names_mat, scale = TRUE, center = TRUE)
+```
+
+
+```{r, fig.height=10}
+pheatmap(scaled_mat)
+```
+
+Notice how we again can see more structure in the data.
+
+
+The scale shows both negative and positive values. Negative values had counts less than the mean, positive values had counts above the mean, and 0 means the value was equal to the mean. An important note here, values that are negative do not mean they were zero. For example, the scaled value for "Grayson" in California is negative:
+
+```{r}
+scaled_mat["Grayson", "California"]
+```
+
+but there are still several hundred individuals named "Grayson" in California.
+
+
+```{r}
+names_mat["Grayson", "California"]
+```
+
+
+
+**Note if you want a z-score of gene expression data, you will want to center and scale by the genes not the samples. Most gene expression data is stored as gene x sample so you will likely need to transform the matrix before scaling:**
+```
+scaled_mat <- t(scale(t(unscaled_mat), scale = TRUE, center = TRUE))
+```
+
+**Exercise**
+Looking at the three heatmaps, what is the most popular name? What heatmap is easist to interpret?
+
+### Changing the color palette
+
+The default color palete for pheatmap isn't always the color palette you want. One color palette I like is the magma color from the `viridis` package. To use this package you can just call any of the color functions. and provide the number of colors you want in the palette. We will use the `magma` function below.
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat, color = magma(100))
+```
+
+You can also add custom color palettes using `colorRampPalette`. This creates a function to generate a color palette with your colors for any number of values:
+
+```{r}
+color_function <- colorRampPalette(c("navy", "white", "red"))
+color_function
+```
+
+```{r}
+color_function(10)
+```
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat, color = color_function(100))
+```
+
+You can also run this in one line of code and not save the function
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat, color = colorRampPalette(c("navy", "white", "red"))(100))
+```
+
+You can even use custom color palettes with any HEX color codes you want. A personal favorite of mine is a blue/yellow palette from the `ArchR` package.
+
+
+
+```{r, fig.height = 10}
+blueYellow <- c("#352A86", "#343DAE", "#0262E0", "#1389D2", "#2DB7A3",
+                  "#A5BE6A", "#F8BA43", "#F6DA23", "#F8FA0D")
+
+pheatmap(scaled_mat, color = blueYellow)
+```
+
+**Exercise**
+Make a heatmap with your own color palette
+
+```{r}
+# TODO make the heatmap with your unique color palette
+
+```
+
+### Adding annotations
+
+We can help interpretation by adding row and column annotations to the plot. Let's first add some row annotations showing if the name is a male or a female name. We start by making a data frame of the names and indicating if the name was from the male or female database.
+
+```{r}
+names_annotation <- data.frame("sex" = c(rep("female", nrow(female_names_mat)),
+                                         rep("male", nrow(male_names_mat))),
+                               row.names = c(rownames(female_names_mat),
+                                             rownames(male_names_mat)))
+
+head(names_annotation)
+
+```
+
+Note here the row names are the same as the row names of our matrix and we have one column named "sex"
+
+We can now add this to the plot using the `annotation_row`. The key here is that the row names of your matrix must be the same as the row names of your data frame.
+
+```{r, fig.height = 10}
+blueYellow <- c("#352A86", "#343DAE", "#0262E0", "#1389D2", "#2DB7A3",
+                  "#A5BE6A", "#F8BA43", "#F6DA23", "#F8FA0D")
+
+pheatmap(scaled_mat,
+         color = blueYellow,
+         annotation_row = names_annotation)
+```
+
+Now you can see very clearly what names were in the female database and what names were in the male database. Again, we can change the default colors by using a `list` object. Here the names of the `list` must match the column names in your data frame and the names of the colors in the list must match the levels of that column.
+
+We can either use the name of colors:
+
+```{r}
+all_colors <- list("sex" = c("male" = "red", "female" = "yellow"))
+
+all_colors
+```
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat,
+         color = blueYellow,
+         annotation_row = names_annotation,
+         annotation_colors = all_colors)
+```
+
+Or a HEX code:
+
+```{r}
+all_colors <- list("sex" = c("male" = "#B067A3", "female" = "#9C954D"))
+
+all_colors
+```
+
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat,
+         color = blueYellow,
+         annotation_row = names_annotation,
+         annotation_colors = all_colors)
+```
+
+**Exercise**
+Add your own colors to the row annotations
+```{r}
+# TODO Add your own row annotaiton colors
+
+```
+
+We can also add annotations to the columns using the same approach. Let's load in some of the data I've compiled for the states
+
+```{r}
+state_info <- read.csv(here("class_7-9_data", "state_info.csv"))
+
+head(state_info)
+```
+
+This table has information about the location, the size (based on population as small middle or large) and the density (on a scale of 1-6). 
+
+We first will need to reformat so that the row names are the sates. Now the row names must be the same as the column names in the matrix.
+
+```{r}
+state_info <- tibble::column_to_rownames(state_info, "State")
+
+
+head(state_info)
+```
+
+We can now pass this data frame to `annotation_col` in `pheatmap`
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat,
+         color = blueYellow,
+         annotation_col = state_info)
+```
+
+You can see that we now have three levels of annotation on our heatmap. One thing to notice is that our population density is given as a scale of colors because it is seen as a numeric score. If we instead use this as a factor, this scale will go away:
+
+```{r, fig.height = 10}
+state_info$Density <- factor(state_info$Density)
+
+pheatmap(scaled_mat,
+         color = blueYellow,
+         annotation_col = state_info)
+```
+
+As before, we can add in our own color palettes by using a named list where the list names correspond to the column names of our data frame. Here, I'm going to use the package `MetBrewer` to generate palettes for me. [You can see all possible palette options here](https://github.com/BlakeRMills/MetBrewer)
+
+```{r}
+location_colors <- met.brewer("Pissaro",
+                              n = length(unique(state_info$Location))) %>%
+  as.character()
+
+names(location_colors) <- unique(state_info$Location)
+
+location_colors
+
+size_colors <- met.brewer("Navajo",
+                          n = length(unique(state_info$Size))) %>%
+  as.character()
+
+names(size_colors) <- unique(state_info$Size)
+
+size_colors
+
+density_colors <- met.brewer("Juarez",
+                             n = length(levels(state_info$Density))) %>%
+  as.character()
+
+names(density_colors) <- levels(state_info$Density)
+
+density_colors
+
+all_colors <- list("Location" = location_colors,
+                   "Size" = size_colors,
+                   "Density" = density_colors)
+
+all_colors
+```
+
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat,
+         color = blueYellow,
+         annotation_col = state_info,
+         annotation_colors = all_colors)
+```
+
+Finally, we can add in the annotation from the rows as well. First we can add in the colors we had before
+
+```{r}
+all_colors <- c(all_colors, 
+                list("sex" = c("male" = "#B067A3", "female" = "#9C954D")))
+
+```
+
+And then add the `names_annotation` back into the argument for `annotation_row`
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat,
+         color = blueYellow,
+         annotation_col = state_info,
+         annotation_row = names_annotation,
+         annotation_colors = all_colors)
+```
+
+**Exercise**
+What happens if `all_colors` only has some of the colors in the annotation data frames?
+
+```{r}
+# TODO try making the heatmap with a list that only contains color arguments for some of the columns in the annotation data frames
+
+```
+
+Notice how the `annotation_colors` argument accepts the color arguments for both the rows and the columns. The important things about this argument to color the annotation is
+
+1. It must be a list
+2. The names of the list must be in the columns for the `annotation_row` or `annotation_col` data frame
+3. The names of the colors must match the values in the matching column
+4. You do not need to have all columns present in your color list - any missing columns will be given the default colors
+
+There are also a few important aspects of the annotation data frames
+1. The rownames of `annotation_row` must match the rownames of the matrix (although the order does not need to be the same)
+2. The rownames of `annotation_col` must match the column names of the matrix (although the order does not need to be the same)
+3. You can add as many annotations to the rows and columns that you want. You just need to include these as columns in either the `annotation_row` or `annotation_col` data frame.
+
+### Clustering
+One aspect of the plots that you've probably noticed is dendrograms for both the rows and the columns. The clustering is done using `hclust`like we did in the clustering lecture.
+
+Just like with our clustering methods we can cut the dendrogram based on an expected number of clusters to group either the states or the names. `pheatmap` has a function that uses `cutree` to identify clusters and physically separates these clusters with a white space using `cutree_rows` and `cutree_cols`. First, we can visualize three clusters of the names.
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat,
+         color = blueYellow,
+         annotation_col = state_info,
+         annotation_row = names_annotation,
+         annotation_colors = all_colors,
+         cutree_rows = 3)
+```
+
+Or we can visualize three clusters of the states
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat,
+         color = blueYellow,
+         annotation_col = state_info,
+         annotation_row = names_annotation,
+         annotation_colors = all_colors,
+         cutree_cols = 3)
+```
+
+
+We could even visuzalize both at once
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat,
+         color = blueYellow,
+         annotation_col = state_info,
+         annotation_row = names_annotation,
+         annotation_colors = all_colors,
+         cutree_rows = 3,
+         cutree_cols = 3)
+```
+
+**Exercise**
+Try making the heatmap with different numbers of clusters. What number of clusters makes the most sense?
+
+```{r}
+# TODO Make the heatmap cutting to make different numbers of clusters
+
+```
+
+As with using `cutree` ourselves, you can pick any number of clusters to visualize in this way.
+
+In addition to visualizing these clusters, we can also pull the clustering information out of the heatmap object. First we can save the plot to a variable. Right now we are setting `silent` to `TRUE` so the heatmap isn't drawn
+
+```{r}
+heatmap <- pheatmap(scaled_mat,
+                    color = blueYellow,
+                    annotation_col = state_info,
+                    annotation_row = names_annotation,
+                    annotation_colors = all_colors,
+                    cutree_rows = 3,
+                    cutree_cols = 3,
+                    silent = TRUE)
+
+names(heatmap)
+
+```
+
+The `hclust` object for the row are in `tree_row` and the `hclust` object for the column are in `tree_col`
+
+We can plot just the dendrogram as we did previously
+
+```{r}
+plot(heatmap$tree_col)
+```
+
+```{r, fig.width = 12}
+plot(heatmap$tree_row)
+```
+
+We can also now use `cutree` on these `hclust` objects in the exact same way we did in the clustering lecture to pull out clusters
+
+Columns: 
+
+```{r}
+cutree(tree = heatmap$tree_col, k = 3)
+```
+
+Rows:
+
+```{r}
+cutree(tree = heatmap$tree_row, k = 3)
+```
+
+**Exercise**
+What names are the most similar? What states are the most similar?
+
+Another option is to remove the clustering all together using `cluster_rows` and `cluster_cols`
+
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat,
+         color = blueYellow,
+         annotation_col = state_info,
+         annotation_row = names_annotation,
+         annotation_colors = all_colors,
+         cluster_rows = FALSE,
+         cluster_cols = FALSE)
+```
+
+
+If we don't cluster, the order of the rows and columns is taken directly from the order of the matrix. We can change to alphabetical order as follows
+
+```{r, fig.height=10}
+scaled_mat_ord <- scaled_mat[order(rownames(scaled_mat)), ]
+
+pheatmap(scaled_mat_ord,
+         color = blueYellow,
+         annotation_col = state_info,
+         annotation_row = names_annotation,
+         annotation_colors = all_colors,
+         cluster_rows = FALSE,
+         cluster_cols = FALSE)
+```
+
+We could even order the states by the density
+
+```{r, fig.height=10}
+state_info <- state_info %>%
+  dplyr::arrange(Density)
+
+scaled_mat_ord <- scaled_mat[ , order(match(colnames(scaled_mat),
+                                            rownames(state_info)))]
+
+pheatmap(scaled_mat_ord,
+         color = blueYellow,
+         annotation_col = state_info,
+         annotation_row = names_annotation,
+         annotation_colors = all_colors,
+         cluster_rows = FALSE,
+         cluster_cols = FALSE)
+```
+
+**Exercise**
+Order the heat map by density, but cluster the names
+
+```{r}
+# TODO order the heat map by density but cluster the names
+
+```
+
+
+**Exercise**
+Order the heat map by location, but cluster the names
+
+```{r, fig.height=10}
+# TODO order the heat map by location and cluster the names
+
+```
+
+### Remove column and row names
+One other helpful way to adjust your heat map is to remove the row and column names. You can control if the row and column names are seen using `show_rownames` and `show_colnames`
+
+```{r, fig.height = 10}
+pheatmap(scaled_mat,
+         color = blueYellow,
+         annotation_col = state_info,
+         annotation_row = names_annotation,
+         annotation_colors = all_colors,
+         show_rownames = FALSE,
+         show_colnames = FALSE)
+```
+
+### Other aesthetics
+There are many possible adjustments you can make, we've just gone through the adjustments I use the most often. To see all possible arguments see `?pheatmap`
+
+## Acknowldgements and additional references 
+
+The content of this class borrows heavily from previous tutorials:
+
+[making heat maps](https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/)
+
+## I'm a biologist, why should I care?
+
+* Heat maps are common tools to visualize data
+  * They are frequently used for sequencing data - RNA-seq, scRNA-seq, ATAC-seq
+  * They are a good way of showing lots of data
+  * Because of the scaling, they can be misleading so it's good to know how to interpret them
+* You will likely encounter heatmaps in papers that you read. My goal is to improve your understanding of the techniques so you can better interpret them on your own
