@@ -19,6 +19,8 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 *The Rmarkdown for this class is [on github](https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/class_7-9/_posts/2022-11-10-class-7-matricies/class7_matricies.Rmd)*
 
+*The script to download files for this class is [on github]()*
+
 ## Goals for this class
 * Learn what is a matrix
 * Describe difference between matrix and data frame
@@ -28,6 +30,16 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ## Load packages
 ```{r load-packages}
 library(tidyverse)
+library(here)
+```
+
+## Download files
+
+Before we get started, let's download all of the files you will need for the next three classes. This script can be found [here](). You should put this script in the same folder as your rmarkdown
+
+```{r}
+# conditionally download all of the files used in rmarkdown from github 
+source("download_files.R")
 ```
 
 ## What is a matrix?
@@ -282,19 +294,11 @@ So far, a matrix has looked a lot like a dataframe with some limitations. One of
 
 For this next section, let's use some data that I downloaded from the social security office. This has the top 100 boy and girl names by state for 2020.
 
-First let's download the file I made
-
-```{r}
-# This downloads the file and saves it anywhere you want - let's just save
-# it in the same directory as this script for simplicity
-download.file("https://raw.githubusercontent.com/kwells4/pdba_files/main/files/boy_name_counts.csv",
-              destfile = "boy_name_counts.csv")
-```
-
 We can now read in the data and convert it to a matrix
 
 ```{r}
-names_mat <- read.csv("boy_name_counts.csv", row.names = 1) %>%
+names_mat <- read.csv(here("class_7-9_data", "boy_name_counts.csv"),
+                           row.names = 1) %>%
   as.matrix()
 
 names_mat[1:5, 1:5]

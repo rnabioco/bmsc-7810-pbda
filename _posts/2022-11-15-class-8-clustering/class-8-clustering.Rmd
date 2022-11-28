@@ -27,6 +27,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```{r load-packages}
 library(tidyverse)
 library(factoextra)
+library(here)
 ```
 
 ## What is clustering
@@ -249,12 +250,8 @@ Although it's good to know the inner workings of PCA, we can simply run this PCA
 Now that we have learned about some of the clustering techniques, we are going to continue working with the same data we used to talk about matrices, the top 100 boy and girl names by state for 2020. We will want to use the normalized data for these examples.
 
 ```{r}
-# This downloads the file and saves it anywhere you want - let's just save
-# it in the same direcotory as this script for simplicity
-download.file("https://raw.githubusercontent.com/kwells4/pdba_files/main/files/boy_name_counts.csv",
-              destfile = "boy_name_counts.csv")
-
-names_mat <- read.csv("boy_name_counts.csv", row.names = 1) %>%
+names_mat <- read.csv(here("class_7-9_data", "boy_name_counts.csv"),
+                      row.names = 1) %>%
   as.matrix()
 
 
