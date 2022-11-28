@@ -10,7 +10,6 @@ output:
   distill::distill_article:
     self_contained: false
     toc: true
-draft: true 
 ---
 
 *The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-10-03-intro-to-r-language/intro-to-r-language.Rmd)*
@@ -18,15 +17,15 @@ draft: true
 ## Goals for this class
 
 * R language history and ecosystem
-* Analysis and coding best practices
+* Review Rstudio and Rmarkdown documents
+* Discuss analysis and coding best practices
+* Getting help and reading R documentation
 * Review R basics
     * Basic R usage
     * Data types
     * Data structures
     * Functions 
-    * Getting help and reading R documentation
-* Review Rmarkdown documents
-* Data analysis workflow 
+  
 
 ## What is R
 
@@ -47,7 +46,11 @@ a well-developed, simple and effective programming language which includes condi
 >Many users think of R as a statistics system. We prefer to think of it as an environment within which statistical techniques are implemented. R can be extended (easily) via packages. There are about eight packages supplied with the R distribution and many more are available through the CRAN family of Internet sites covering a very wide range of modern statistics.
 >
 
-## Why use R
+## Why is R a popular language?
+
+```{r, echo = FALSE, fig.cap = "R facilitates the data analysis process. From https://r4ds.had.co.nz/explore-intro.html."}
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-10-03-intro-to-r-language/img/tidy-data-model.png")
+```
 
 R is a [programming language](https://en.wikipedia.org/wiki/R_(programming_language)) built by statisticians to facilitate interactive exporatory data analysis.
 
@@ -66,16 +69,16 @@ Publication quality plots can be produced with ease using functionality in the b
 
 R has a built in documentation system to make it easy to find help and examples of how to use R functionality. 
 
-It's free, [open-source](https://github.com/wch/r-source), and has been around in it's first public release in 1993. 
+It's free, [open-source](https://github.com/wch/r-source), and has been around in it's first public release since 1993. 
 
 
 ## The R ecosystem
 
-When you download R from CRAN, there are a number of packages included in the base installation (e.g. `base`, `stats`, and `datasets`). You can do effective data analysis with only the base installation (e.g. [faster](`https://github.com/matloff/fasteR`). However a key strength of R is the 10,000+ user-developed packages which extend base R functionality. 
+When you download R from CRAN, there are a number of packages included in the base installation (e.g. `base`, `stats`, and `datasets`). You can do effective data analysis with only the base installation (e.g. see [fasteR](`https://github.com/matloff/fasteR`) tutorial). However a key strength of R is the 10,000+ user-developed packages which extend base R functionality. 
 
 
 ```{r, echo = FALSE, fig.cap = "Major R package repositories and functions used to install packages."}
-knitr::include_graphics("img/r-ecosystem.jpg")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-10-03-intro-to-r-language/img/r-ecosystem.jpg")
 ```
 
 CRAN is the official R package repository and source for R. The tidyverse (which we will use in subsequent classes) is a set of packages with consistent design principles meant to extend functionality in base R. 
@@ -84,7 +87,64 @@ Bioconductor hosts and maintains bioinformatics focused packages, built around a
 
 Github hosts software for any software project. It is often used to host R packages in development stages and the actively developed source code for R packages. 
 
-## Organizing data analyses
+## Getting help 
+
+### Built-in documentation
+
+The `?` operator can be used to pull up documentation about a function. The `??` operator uses a fuzzy search which can pull up help if you don't remember the exact function name. 
+
+```r
+?install.packages
+``` 
+
+```r
+??install.package
+``` 
+
+Alternatively you can click on the help pane and search for help in Rstudio. 
+
+### Vignettes
+
+Every R package includes a vignette to describe the functionality of the package which can be a great resource to learn about new packages.
+
+These can be accessed via the `vignette()` function, or via the help menu in Rstudio. 
+
+```r
+vignette("dplyr")
+```
+
+### Rstudio Cheatsheets
+
+See `Help > Cheatsheets` for very helpful graphical references.The `base R`, `dplyr`, and `ggplot2` cheatsheets are especially useful.
+
+
+## Using Rmarkdown to conduct data analysis
+
+* Rmarkdown is a reproducible framework to create, collaborate, and communicate your work. 
+* Rmarkdown supports a number of output formats including pdfs, word documents, slide shows, html, etc. 
+* An Rmarkdown document is a plain text file with the extension `.Rmd` and contains the following basic components: 
+    - An (optional) YAML header surrounded by ---s.
+    - Chunks of R code surrounded by ```.
+    - Text mixed with simple text formatting like # heading and _italics_.  
+    
+* Rmarkdown documents are executable documents. You can execute the code and render the markdown into html using the `render()` function, or alternatively by clicking the knit button in Rstudio.
+
+```{r, eval = FALSE}
+library(rmarkdown)
+render("your-rmarkdown.Rmd")
+```
+
+## Using R scripts
+
+R code can also be executed using R scripts, which  have the `.R` extension. R scripts can only contain R code, not plain text or markdown. R scripts are useful if you have code that you want to run but don't need the functionality of an Rmarkdown. You can also put custom R functions into an .R script and then use them in another document. The `source()` function will execute the R code in a Rscript.
+
+```{r, eval = FALSE}
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-10-03-intro-to-r-language/custom-functions.R") # can also be a file rather than a URL
+
+greeting("class")
+```
+
+## Organizing  projects
 
 A little bit of time spent upfront organizing your projects will make analyses easier to manage and reproduce. 
 
@@ -113,7 +173,7 @@ Here's an example organization strategy.
     └── rnaseq_pipeline.sh
 ```
 
-Some very good ideas and examples are provided here:
+Some very good ideas and examples are discussed here:
 
 >Noble WS. A quick guide to organizing computational biology projects. PLoS Comput Biol. 2009 Jul;5(7):e1000424. doi: 10.1371/journal.pcbi.1000424.
 
@@ -150,7 +210,7 @@ plot-data.R
 
 Code is used to communicate with your computer, but it also is used to communicate with your future self and your colleagues. Don't just write code for yourself right now, instead write your code with the expectation that your future self will need to reread, understand, and modify it in 6 months. 
 
-1) Use comments to remind yourself what the code does
+1) Use comments to remind yourself what the code does. The `#` character tells R to ignore a line of text.
 
 ```r
 # convert x to zscores
@@ -174,7 +234,7 @@ ggplot(dat, aes(sample, score)) +
   geom_point()
 ```
 
-3) Use sensible names for variables. Keep them short, but meaningful. Separate words with snake_case (e.g plot_df) or camelCase (plotDf) approach.  
+3) Use sensible names for variables. Keep them short, but meaningful. Separate words with snake_case (e.g `plot_df`) or camelCase (`plotDf`) approach.  
 
 ```r
 # good
@@ -200,7 +260,7 @@ average <- mean(feet / 12 + inches, na.rm = TRUE)
 average<-mean(feet/12+inches,na.rm=TRUE)
 ```
 
-5) Split up complicated operations or long function calls into multiple lines. In general you can add a newline after a comma. Indenting the code can also help with readability.
+5) Split up complicated operations or long function calls into multiple lines. In general you can add a newline after a comma or a pipe operation (`%>%`). Indenting the code can also help with readability.
 
 ```r
 # good
@@ -352,7 +412,7 @@ x
 
 ```{r, echo = FALSE, fig.cap = "Ceballos, Maite and Nicolás Cardiel. 2013. Data structure. First Steps in R. https://web.archive.org/web/20200621022950/http://venus.ifca.unican.es/Rintro/dataStruct.html"}
  
-knitr::include_graphics("img/dataStructures.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-10-03-intro-to-r-language/img/dataStructures.png")
 ```
 
 
@@ -360,7 +420,7 @@ knitr::include_graphics("img/dataStructures.png")
 
 ### matrix
 
-A matrix is a 2 dimensional rectangular data structure, where all values have the same type. A matrix is used to store a collection of vectors of the same type and same length. We can subset or assign values to specific rows or columns using the bracket notation `[row_index, col_index]`.
+A matrix is a 2 dimensional rectangular data structure, where all values have the same type. A matrix is used to store a collection of vectors of the same type and same length. We can subset or assign values to specific rows or columns using the bracket notation `[row_index, col_index]`.  
 
 ```{r}
 m <- matrix(1:25, nrow = 5, ncol = 5)
@@ -369,7 +429,9 @@ m
 m[1:2, 1:3] # [row_index, column_index]
 ```
 
-Matrices can have column names and row names that identify the columns. These names can also be used for subsetting the matrix.  
+
+Matrices can have column names and row names that identify the columns. These names can also be used for subsetting the matrix.    
+
 ```{r}
 colnames(m) <- LETTERS[1:5]
 rownames(m) <- letters[1:5]
@@ -416,6 +478,38 @@ df_lst
 as.data.frame(df_lst)
 
 ```
+
+## Workspaces  
+
+Objects that we generate get stored in an environment known as the Global Environment. You can see the objects in the global environment using the `ls()` function, or by clicking on the environment tab in Rstudio.
+
+```{r}
+ls()
+```
+
+Objects can be removed from the environment, which can be helpful if you have a large memory object that is no longer needed.
+
+```{r, eval = FALSE}
+big_matrix <- matrix(1:1e6, nrow = 1e5, ncol = 100)
+# show # of rows and columns
+dim(big_matrix)
+#' [1] 100000    100
+
+# remove matrix from enviroment
+rm(big_matrix)
+big_matrix
+# 'Error: object 'big_matrix' not found
+```
+
+<br/>
+
+**When you close Rstudio, by default your global R environment is saved to a hidden file called .Rdata in the project directory. When you relaunch rstudio, R objects from your previous environment will be reloaded. This behavior can lead to many problems and we recommend disabling this option **
+
+To disable this option, go to Rstudio preferences and uncheck the "Restore .RData into workspace at startup" option and select the "Never" option for the "Save workspace to .RData on exit". 
+
+We will discuss in later classes how you can save and reload specific R objects and discuss methods to import/export specific data types. 
+
+<br/>
 
 ## Calling functions in R
 
@@ -483,109 +577,22 @@ You can write your own functions as well. Functions reduce copying and pasting c
 We'll learn more about functions later in the course. 
 
 ```{r}
-add <- function(x, y){
-  x + y
-}
-add(2, 2)
-
 add <- function(x, y, z = 10){
   x + y + z
 }
 add(2, 2)
-add(1:10, 1:10)
 ```
 
+## Review
 
-## Getting help 
+To review todays material, do the following:  
 
-### Built-in documentation
+1) For each section with code, add you own commands. You will learn faster if you try out the code yourself. If you get errors, try to find help, or ask questions in the class slack channel.
 
-The `?` operator can be used to pull up documentation about a function. The `??` operator uses a fuzzy search which can pull up help if you don't remember the exact function name. 
-
-```r
-?install.packages
-``` 
-
-```r
-??install.package
-``` 
-
-Alternatively you can click on the help pane and search for help in Rstudio. 
-
-### Vignettes
-
-Every R package includes a vignette to describe the functionality of the package which can be a great resource to learn about new packages.
-
-These can be accessed via the `vignette()` function, or via the help menu in Rstudio. 
-
-```r
-vignette("dplyr")
-```
-
-### Rstudio Cheatsheets
-
-See `Help > Cheatsheets` for very helpful graphical references. Print them out and pin them up next to your screen. The `base R`, `dplyr`, and `ggplot2` cheatsheets are especially useful.
+2) Knit the rmarkdown after you make changes. 
 
 
-## Workspaces  
-
-Objects that we generate get stored in an environment known as the Global Environment. You can see the objects in the global environment using the `ls()` function, or by clicking on the environment tab in Rstudio.
-
-```{r}
-ls()
-```
-
-Objects can be removed from the environment, which can be helpful if you have a large memory object that is no longer needed.
-
-```r
-big_matrix <- matrix(1:1e6, nrow = 1e5, ncol = 100)
-# show # of rows and columns
-dim(big_matrix)
-#' [1] 100000    100
-
-# remove matrix from enviroment
-rm(big_matrix)
-big_matrix
-# 'Error: object 'big_matrix' not found
-```
-
-<br/>
-
-**When you close Rstudio, by default your global R environment is saved to a hidden file called .Rdata in the project directory. When you relaunch rstudio, R objects from your previous environment will be reloaded. This behavior can lead to many problems and we recommend disabling this option **
-
-To disable this option, go to Rstudio preferences and uncheck the "Restore .RData into workspace at startup" option and select the "Never" option for the "Save workspace to .RData on exit". 
-
-We will discuss in later classes how you can save and reload specific R objects and discuss methods to import/export specific data types. 
-
-<br/>
-
-## Using Rmarkdown to conduct data analysis
-
-* Rmarkdown is a reproducible framework to create, collaborate, and communicate your work. 
-* Rmarkdown supports a number of output formats including pdfs, word documents, slide shows, html, etc. 
-* An Rmarkdown document is a plain text file with the extension `.Rmd` and contains the following basic components: 
-    - An (optional) YAML header surrounded by ---s.
-    - Chunks of R code surrounded by ```.
-    - Text mixed with simple text formatting like # heading and _italics_.
-    
-Let's do the following to explore Rmarkdown documents
-* Create a new .Rmd document
-* `knit` the document to see the output
-
-## The data analysis model
-
-```{r, echo = FALSE, fig.cap = "Data analysis workflow."}
-knitr::include_graphics("img/tidy-data-model.png")
-```
-
-In this course we will introduce how to conduct each of these key steps in data analysis in R. 
-
-
-## Exercises
-
-See problem_set1.Rmd (problems 1 - X) for exercises related to this content. 
-
-## Acknowldgements and additional references 
+## Acknowledgements and additional references {.appendix}
 
 The content of this class borrows heavily from previous tutorials:
 
