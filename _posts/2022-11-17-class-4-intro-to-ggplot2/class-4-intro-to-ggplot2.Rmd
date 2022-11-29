@@ -9,7 +9,7 @@ author:
 output:
   distill::distill_article:
     self_contained: false
-draft: true 
+draft: False 
 ---
 
 

@@ -9,16 +9,18 @@ author:
 output:
   distill::distill_article:
     self_contained: false
-draft: true 
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE, 
+                      warning = FALSE,
+                      R.options = list(width = 80))
 ```
 
 ```{r, echo = FALSE}
 # conditionally download all of the files used in rmarkdown from github 
-source("download_files.R")
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/download_files.R")
 ```
 
 *The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/class3.Rmd)*
@@ -71,7 +73,7 @@ The long format of this data simplifies the many columns of a matrix into a 3 co
 
 Tidy data is a concept introduced by Hadley Wickham, chief scientist at Rstudio, and developer of many of the tidyverse packages. A tidy dataset is structured in a manner to be most effectively processed in R using the tidyverse. It makes the data easier to plot, easier to perform computations and perform complex tasks.  
 
-** Most data tables that you've worked with are probably not tidy. ** It takes experience to understand the best way to format the data. As you work more in R and the tidyverse this will become more natural. 
+Most data tables that you've worked with are probably not tidy. It takes experience to understand the best way to format the data. As you work more in R and the tidyverse this will become more natural. 
 
 Tidy data has the following attributes:
 
@@ -91,7 +93,7 @@ What is a variable, what is an observation, and what is a value?
 
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/tidydata.png")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/tidydata.png")
 ```
 
 Shown below is a simple data table in a tidy format, provided by the tidyr package. 
@@ -114,7 +116,7 @@ e.g a matrix with the `population` values per country
 table4b
 ```
 
-What advantages does the tidy format provide:  
+What advantages does the tidy format provide? 
 
 1) Easy to generate summaries of the data. 
    e.g. via group_by() -> summarize()  
@@ -132,7 +134,7 @@ Some disadvantages:
 
 ## Converting between long and wide formats using tidyr 
 
-The [`tidyr`](https://tidyr.tidyverse.org/) package provides function to convert datasets into tidy formats. 
+The [`tidyr`](https://tidyr.tidyverse.org/) package provides functionality to convert datasets into tidy formats. 
 
 - pivot_longer(): convert wide data to long data  
 - pivot_wider(): convert long data to wide data  
@@ -146,7 +148,7 @@ The `pivot_longer` function requires specifying the columns to pivot using the [
 `pivot_longer(tbl, cols = <...>)`
 
 ```{r, echo = FALSE, fig.cap= "Tables from tidyr cheatsheet from https://posit.co/wp-content/uploads/2022/10/tidyr.pdf" }
-knitr::include_graphics("img/pivot_longer.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/pivot_longer.png")
 ```
 
 
@@ -162,7 +164,7 @@ pivot_longer(table4a, cols = -country) # pivot all columns not matching country
 `values_from`: the column whose values will be in the new columns.  
 
 ```{r, echo = FALSE }
-knitr::include_graphics("img/pivot_wider.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/pivot_wider.png")
 ```
 
 ```{r}
@@ -181,7 +183,7 @@ pivot_wider(table2, names_from = type, values_from = count)
 `sep`: the separator used to split values in the `col` column. Can be a character (`_`) or a integer to indicate the character position to split (2).  
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/separate.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/separate.png")
 ```
 
 ```{r}
@@ -190,13 +192,15 @@ separate(table3, col = rate, into = c("cases", "pop"))
 
 ## unite 
 
-`unite` is the inverse operation of `separate` and will join multiple columns together. 
+`unite` is the inverse operation of `separate` and will join multiple columns together. You can also use `str_c` from stringr or `paste()` from base R with mutate.
+
 ```{r, echo = FALSE}
-knitr::include_graphics("img/unite.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/unite.png")
 ```
 
 ```{r}
 unite(table5, "year", century:year, sep = "")
+#mutate(table5, year = str_c(century, year))
 ```
 
 ## Exercises
@@ -218,7 +222,7 @@ read_csv("data/income_per_person.csv")
 
 
 ```{r, echo = FALSE, fig.cap = "from the dplyr cheatsheet at https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf"}
-knitr::include_graphics("img/bind_cols.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/bind_cols.png")
 ```
 
 `bind_cols(tbl_1, tbl_2, ...)`
@@ -232,12 +236,12 @@ bind_cols(tibble(x = 1:3), tibble(y = 3:5))
 
 ### row binds
 
-`bind_rows` binds rows from multiple tables into one table. Unlike with `bind_cols` the number of columsn doesn't need to match when using `bind_rows`. 
+`bind_rows` binds rows from multiple tables into one table. Unlike with `bind_cols` the number of columns doesn't need to match when using `bind_rows`. 
 
 `bind_rows(tbl_1, tbl_2, ..., .id = NULL)`
 
-```{r}
-knitr::include_graphics("img/bind_rows.png")
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/bind_rows.png")
 ```
 
 ```{r}
@@ -276,7 +280,8 @@ right_join(): includes all rows in y.
 
 full_join(): includes all rows in x or y.
 
-If a row in x matches multiple rows in y, all the rows in y will be returned once for each matching row in x.
+If a row in x matches multiple rows in y, all the rows in y will 
+be returned once for each matching row in x.
 ```
 
 Consider the following simple tables:
@@ -288,13 +293,15 @@ band_members
 ```{r}
 band_instruments
 ```
+
+
 ```{r}
 inner_join(band_members, band_instruments)
 left_join(band_members, band_instruments)
 full_join(band_members, band_instruments)
 ```
 
-The `Joining, by = "name"` message indicates which columns were used to determine matching rows between the two tables. This is auto-detected based on shared column names. You can use the `by` argument to explictly specify the columns you'd like to join, which is useful if the columns of interest have different names in the two tables. 
+The `Joining, by = "name"` message indicates which columns were used to determine matching rows between the two tables. This is auto-detected based on shared column names. You can use the `by` argument to explicitly specify the columns you'd like to join, which is useful if the columns of interest have different names in the two tables. 
 
 ## Missing data
 
@@ -354,14 +361,14 @@ group_by(starwars, species) %>%
 ## Exercise
 
 For this exercise we will tidy a dataset derived from this publication:
->
-Casas-Vila N, Bluhm A, Sayols S, Dinges N, Dejung M, Altenhein T, Kappei D, Altenhein B, Roignant JY, Butter F. The developmental proteome of Drosophila melanogaster. Genome Res. 2017 Jul;27(7):1273-1285. doi: 10.1101/gr.213694.116. Epub 2017 Apr 5. PMID: 28381612; PMCID: PMC5495078.
+
+>Casas-Vila N, Bluhm A, Sayols S, Dinges N, Dejung M, Altenhein T, Kappei D, Altenhein B, Roignant JY, Butter F. The developmental proteome of Drosophila melanogaster. Genome Res. 2017 Jul;27(7):1273-1285. doi: 10.1101/gr.213694.116. Epub 2017 Apr 5. PMID: 28381612; PMCID: PMC5495078.
 >
 
 This is a proteomics dataset generated from Drosophila melanogaster. Samples were collected through the fly lifespan, with 4 samples taken per timepoint.
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/fly_proteome.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/fly_proteome.png")
 ```
 
 The dataset provided here contains > 100 columns and > 50k rows. The first column (`Sequence`) is the amino acid sequence of the peptide measured, the second column is the transcript id of the protein that the peptide matches (`Proteins`), and the remaining columns contain intensity values indicating the amount of each peptide in each sample (arbitrary units). 
@@ -380,15 +387,37 @@ The sample names are coded in each column as follows:
 
 ```r
 prot_dat <- read_csv("data/dmel_peptides_lifecycle.csv.gz")
+...
+...
 ```
 
 4) Next we are going to add some additional information to make these data more interpretable. The `dmel_tx_info.csv.gz` file contains information about each transcript. Use a `join` operation to join this information with the fly protein abundance dataset. Note that the `Proteins` column matches the information in the `flybase_transcript_id` column.  
 
 ```r
 dmel_tx_info <- read_csv("data/dmel_tx_info.csv.gz")
+...
+...
 
 ```
 
 5) What is the name and description of the most abundant protein found in the earliest embryonic stage (`e02`)?
 
 
+
+<details><summary>Show session info</summary>
+
+```{r code}
+sessionInfo()
+```
+</details>
+
+## Acknowledgements and additional references {.appendix}
+
+The content of this class borrows heavily from previous tutorials:
+
+Tutorial organization:
+https://github.com/sjaganna/molb7910-2019 
+
+R tutorials and documentation:
+https://github.com/tidyverse/dplyr 
+https://r4ds.had.co.nz/index.html 
