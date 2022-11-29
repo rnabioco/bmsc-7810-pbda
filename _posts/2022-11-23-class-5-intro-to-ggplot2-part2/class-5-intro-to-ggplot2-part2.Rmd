@@ -1,0 +1,189 @@
+---
+title: "Class 5: Introduction to ggplot2 (part2)"
+author:
+  - name: "Michael Kaufman"
+    url: https://github.com/mlkaufman
+    affiliation: "RNA Bioscience Initiative"
+    affiliation_url: https://medschool.cuanschutz.edu/rbi
+    orcid_id: 0000-0003-2441-5836
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true 
+---
+
+
+**The Rmarkdown for this document is **
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(ggplot2)
+```
+
+## Goals for today
+
+- New dataset: Iris
+- Basic manipulation / getting a data frame
+- box plots and violin plots
+- performing basic stats
+- ploting dataset and stats
+- additional annotations
+- scales and coordinate systems
+- labels and legends
+## Additional Helpful Resources
+
+## The Iris Dataset
+```{r, echo = FALSE}
+knitr::include_graphics("img/parts-of-a-flower.webp")
+# source: https://www.trees.com/gardening-and-landscaping/flowers
+```
+
+Classically used in machine learning and classification projects. Measurements were taken in 1936 by famous statistician RA Fisher known for the Student's t-test and F-distribution. 
+http://archive.ics.uci.edu/ml/datasets/Iris
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/iristypes.png")
+```
+
+```{r}
+head(iris)
+```
+
+To get a list of the species in this study we can look at all the `unique()` entries in the Species column.
+
+```{r}
+unique(iris$Species)
+```
+
+Each one of the species is represented and now we have the exact names as written by each measurement. To get the number of measurements for each species we can use the `summary()` function.
+
+```{r}
+summary(iris$Species)
+```
+
+We can begin by looking at the relationships between some of the measurements by looking at a scatter plot. Here we have Sepal.Length on the x-axis and Sepal.Width on the y-axis.
+
+```{r}
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point()
+```
+Q: Despite this showing all the data points. How is this not very informative? As a review of last class, what could you add to this plot to make it more informative?
+
+## Plotting the Categorical Data
+
+### Plotting the data points with geom_point
+
+Typically we can look at the distribution of a particular measurement value based on the category of the measurement, in this case the species. In this way we can make comparisons between the species. As before we can use a `geom_point_()` to plot the values for each species.
+
+```{r}
+ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+  geom_point()
+```
+While this does show a basic distribution of Sepal.Width for each Species, many of the points that have the same value are actually hidden! One way we can improve on this is by adding a bit of jitter or random horizontal position to each point.
+
+```{r}
+ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+  geom_jitter()
+```
+Notice that if you rerun the plot the points are in different locations. The space added by the jitter is randomly generated everytime. Don't expect them to look the same everytime!  
+  
+Side note: You can also use `geom_point()` with the `position = position_jitter()` setting after the `aes()` and it will generate the same plot as `geom_jitter()`  
+
+### The Boxplot
+
+A frequently used plot that is used to better descriptively show this type of data is a boxplot. We can generate a box plot of this data simply by adding a second geom layer called `geom_boxplot()`. This way we keep the point layer but also have the boxplot.
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/boxplot-1.jpg")
+#source: https://paulvanderlaken.com/2018/08/29/add-a-self-explantory-legend-to-your-ggplot2-boxplots/
+```
+
+```{r}
+ggplot(iris, (aes(x = Species, y = Sepal.Width))) +
+  geom_jitter() +
+  geom_boxplot()
+```
+Many of the points are hidden behind the boxplot. Try changing the order of the layers to see if it matters.  
+Q: What is another way you could fix this?
+
+### Violin Plot
+
+Another type of frequently used plot is the violin plot. This plot shows a continuous density distribution.
+
+```{r}
+ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+  geom_violin() +
+  geom_jitter()
+```
+
+## Stats Layers
+
+Stats layers are additional information that we calculate and add to the plot.
+
+```{r}
+ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+  geom_violin() +
+  geom_jitter() +
+  stat_summary(fun = "mean",
+               geom = "point",
+               color = "red")
+```
+```{r}
+ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+  geom_violin() +
+  geom_jitter() +
+  stat_summary(fun = "mean",
+               geom = "crossbar",
+               width = 0.5,
+               color = "red")
+```
+
+```{r}
+ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+  geom_violin() +
+  geom_jitter() +
+  stat_summary(fun = "mean",
+               geom = "crossbar",
+               width = 0.5,
+               color = "red") +
+  stat_summary(fun = "median",
+               geom = "crossbar",
+               width = 0.5,
+               color = "blue")
+```
+
+### List of funs and geoms
+geoms:
+point
+errorbar
+pointrange
+linerange
+crossbar
+
+funs:
+mean
+meadian
+max
+min
+
+
+
+```{r}
+ggplot(iris, aes(color = Species, x = Sepal.Width)) +
+  geom_density(, stat = "density")
+```
+
+## Descriptive Stats
+
+```{r}
+ggplot(iris) +
+geom_histogram(aes(x = Sepal.Length, fill=Species), binwidth=0.2, stat = "count")
+```
+
+## Annotations
+
+## SessionInfo
+```{r}
+sessionInfo()
+```
