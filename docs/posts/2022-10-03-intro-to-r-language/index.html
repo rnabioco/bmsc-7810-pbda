@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2022-11-28"/>
-<meta property="article:created" itemprop="dateCreated" content="2022-11-28"/>
+<meta property="article:published" itemprop="datePublished" content="2022-11-29"/>
+<meta property="article:created" itemprop="dateCreated" content="2022-11-29"/>
 <meta name="article:author" content="Kent Riemondy"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -111,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 1: Introduction to the R statistical programming language"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["11-28-2022"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 1: Introduction to the R statistical programming language"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["11-29-2022"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2100,7 +2100,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Class 1: Introduction to the R statistical programming language","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2022-11-28T00:00:00.000-07:00","citationText":"Riemondy, 2022"}
+{"title":"Class 1: Introduction to the R statistical programming language","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2022-11-29T00:00:00.000-07:00","citationText":"Riemondy, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2139,7 +2139,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="d-byline">
   Kent Riemondy <a href="https://github.com/kriemo" class="uri">https://github.com/kriemo</a> (RNA Bioscience Initiative)<a href="https://medschool.cuanschutz.edu/rbi" class="uri">https://medschool.cuanschutz.edu/rbi</a>
   
-<br/>11-28-2022
+<br/>11-29-2022
 </div>
 
 <div class="d-article">
@@ -2169,7 +2169,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><a href="#na-inf-and-nan-values" id="toc-na-inf-and-nan-values">NA, Inf, and NaN values</a></li>
 <li><a href="#making-vectors-from-scratch" id="toc-making-vectors-from-scratch">making vectors from scratch</a></li>
 <li><a href="#subsetting-vectors-in-r" id="toc-subsetting-vectors-in-r">Subsetting vectors in R</a></li>
+<li><a href="#named-vectors" id="toc-named-vectors">Named vectors</a></li>
 </ul></li>
+<li><a href="#r-operations-are-vectorized" id="toc-r-operations-are-vectorized">R operations are vectorized</a>
+<ul>
 <li><a href="#fundamental-data-structures" id="toc-fundamental-data-structures">Fundamental data structures</a>
 <ul>
 <li><a href="#matrix" id="toc-matrix">matrix</a></li>
@@ -2178,9 +2181,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul></li>
 <li><a href="#workspaces" id="toc-workspaces">Workspaces</a></li>
 <li><a href="#calling-functions-in-r" id="toc-calling-functions-in-r">Calling functions in R</a></li>
-<li><a href="#r-functions-are-vectorized" id="toc-r-functions-are-vectorized">R functions are vectorized</a></li>
 <li><a href="#review" id="toc-review">Review</a></li>
 <li><a href="#acknowledgements-and-additional-references" id="toc-acknowledgements-and-additional-references">Acknowledgements and additional references</a></li>
+</ul></li>
 </ul>
 </nav>
 </div>
@@ -2195,7 +2198,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <ul>
 <li>Basic R usage</li>
 <li>Data types</li>
+<li>Operators</li>
+<li>Vectorization</li>
 <li>Data structures</li>
+<li>Workspaces</li>
 <li>Functions</li>
 </ul></li>
 </ul>
@@ -2208,9 +2214,6 @@ a suite of operators for calculations on arrays, in particular matrices,
 a large, coherent, integrated collection of intermediate tools for data analysis,
 graphical facilities for data analysis and display either on-screen or on hardcopy, and
 a well-developed, simple and effective programming language which includes conditionals, loops, user-defined recursive functions and input and output facilities.</p>
-</blockquote>
-<blockquote>
-<p>The term “environment” is intended to characterize it as a fully planned and coherent system, rather than an incremental accretion of very specific and inflexible tools, as is frequently the case with other data analysis software.</p>
 </blockquote>
 <blockquote>
 <p>R, like S, is designed around a true computer language, and it allows users to add additional functionality by defining new functions. Much of the system is itself written in the R dialect of S, which makes it easy for users to follow the algorithmic choices made. For computationally-intensive tasks, C, C++ and Fortran code can be linked and called at run time. Advanced users can write C code to manipulate R objects directly.</p>
@@ -2239,7 +2242,7 @@ Figure 1: R facilitates the data analysis process. From <a href="https://r4ds.ha
 <p>R has a built in documentation system to make it easy to find help and examples of how to use R functionality.</p>
 <p>It’s free, <a href="https://github.com/wch/r-source">open-source</a>, and has been around in it’s first public release since 1993.</p>
 <h2 id="the-r-ecosystem">The R ecosystem</h2>
-<p>When you download R from CRAN, there are a number of packages included in the base installation (e.g. <code>base</code>, <code>stats</code>, and <code>datasets</code>). You can do effective data analysis with only the base installation (e.g. see <a href="%60https://github.com/matloff/fasteR%60">fasteR</a> tutorial). However a key strength of R is the 10,000+ user-developed packages which extend base R functionality.</p>
+<p>When you download R from CRAN, there are a number of packages included in the base installation (e.g. <code>base</code>, <code>stats</code>, and <code>datasets</code>). You can do effective data analysis with only the base installation (e.g. see <a href="https://github.com/matloff/fasteR">fasteR</a> tutorial). However a key strength of R is the 10,000+ user-developed packages which extend base R functionality.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
 <img src="https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-10-03-intro-to-r-language/img/r-ecosystem.jpg" alt="Major R package repositories and functions used to install packages."  />
@@ -2285,7 +2288,8 @@ Figure 2: Major R package repositories and functions used to install packages.
 <p>R code can also be executed using R scripts, which have the <code>.R</code> extension. R scripts can only contain R code, not plain text or markdown. R scripts are useful if you have code that you want to run but don’t need the functionality of an Rmarkdown. You can also put custom R functions into an .R script and then use them in another document. The <code>source()</code> function will execute the R code in a Rscript.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='st'>"https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-10-03-intro-to-r-language/custom-functions.R"</span><span class='op'>)</span> <span class='co'># can also be a file rather than a URL</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># can be a path to a .R file or a URL</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='st'>"https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-10-03-intro-to-r-language/custom-functions.R"</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='fu'>greeting</span><span class='op'>(</span><span class='st'>"class"</span><span class='op'>)</span></span></code></pre>
 </div>
@@ -2336,7 +2340,8 @@ Figure 2: Major R package repositories and functions used to install packages.
 <p>“Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread.”</p>
 <p>— Hadley Wickham</p>
 </blockquote>
-<p>Code is used to communicate with your computer, but it also is used to communicate with your future self and your colleagues. Don’t just write code for yourself right now, instead write your code with the expectation that your future self will need to reread, understand, and modify it in 6 months.</p>
+<p>Code is used to communicate with your computer, but it also is used to communicate with your future self and your colleagues.</p>
+<p><strong>Don’t just write code for yourself right now, instead write your code with the expectation that your future self will need to reread, understand, and modify it in 6 months.</strong></p>
 <ol type="1">
 <li>Use comments to remind yourself what the code does. The <code>#</code> character tells R to ignore a line of text.</li>
 </ol>
@@ -2362,7 +2367,7 @@ Figure 2: Major R package repositories and functions used to install packages.
 </ol>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># good</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> width <span class="sc">*</span> height</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span> width <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> height</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> width <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> height</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>measurement_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">area =</span> a, <span class="at">perimeter =</span> p)</span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bad</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x1 <span class="sc">*</span> x2</span>
@@ -2467,6 +2472,10 @@ Figure 2: Major R package repositories and functions used to install packages.
 </div>
 <pre><code>[1] &quot;logical&quot;</code></pre>
 <div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] &quot;logical&quot;</code></pre>
+<div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='st'>"hello world"</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>[1] &quot;character&quot;</code></pre>
@@ -2486,6 +2495,10 @@ Figure 2: Major R package repositories and functions used to install packages.
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='fl'>1.5</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>[1] &quot;1.5&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fl'>1.5</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 1</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span></span></code></pre>
 </div>
@@ -2509,9 +2522,13 @@ Figure 2: Major R package repositories and functions used to install packages.
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fl'>0</span> <span class='op'>/</span> <span class='fl'>0</span></span></code></pre>
 </div>
 <pre><code>[1] NaN</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='cn'>NA</span></span></code></pre>
 </div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;0&quot;</span> <span class="sc">/</span> <span class="dv">1</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Error in &quot;0&quot;/1 : non-numeric argument to binary operator</span></span></code></pre></div>
+<pre><code>[1] NA</code></pre>
+</div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;0&quot;</span> <span class="sc">/</span> <span class="dv">1</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Error in &quot;0&quot;/1 : non-numeric argument to binary operator</span></span></code></pre></div>
 <h3 id="making-vectors-from-scratch">making vectors from scratch</h3>
 <p>The <code>c</code> function concatenates values into a vector.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2550,12 +2567,31 @@ Figure 2: Major R package repositories and functions used to install packages.
 </div>
 <pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>10</span>, by <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, by <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>[1] 1 3 5 7 9</code></pre>
+<pre><code> [1] 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</code></pre>
+</div>
+<p>There are also functions for sampling from various distributions or vectors.</p>
+e.g.
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># get 5 values from a normal distribution with mean of 0 and sd of 1</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] -1.2633152 -0.2385732  1.3109761 -0.4006697 -0.8933422</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># get 5 values from uniform distribution from 0 to 1</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 0.9435736 0.6234581 0.9316560 0.5365836 0.2182703</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># sample 5 values from a vector</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='fl'>5</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 74 44 14 38 60</code></pre>
 </div>
 <h3 id="subsetting-vectors-in-r">Subsetting vectors in R</h3>
-<p>R uses 1-based indexing to select values from a vector. The first element of a vector is at index 1. The <code>[</code> operator can be used to extract (or assign) elements in a vector</p>
+<p>R uses 1-based indexing to select values from a vector. The first element of a vector is at index 1. The <code>[</code> operator can be used to extract (or assign) elements in a vector. Integer vectors or logical vectors can be used to extract values.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>30</span><span class='op'>:</span><span class='fl'>40</span></span>
@@ -2584,9 +2620,79 @@ Figure 2: Major R package repositories and functions used to install packages.
 </div>
 <pre><code> [1]    30 12345     3     4     5     6     7     8     9    10    40</code></pre>
 </div>
+<h3 id="named-vectors">Named vectors</h3>
+<p>Vectors in R can also have names. A named vector allows you to lookup values by name, rather than by position.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># alternatively</span></span>
+<span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span> <span class='op'>=</span> <span class='fl'>2</span>, <span class='st'>"b"</span> <span class='op'>=</span> <span class='fl'>3</span>, <span class='st'>"c"</span> <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>x</span></span></code></pre>
+</div>
+<pre><code>a b c 
+2 3 4 </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span><span class='op'>[</span><span class='st'>"c"</span><span class='op'>]</span></span></code></pre>
+</div>
+<pre><code>c 
+4 </code></pre>
+</div>
+<h1 id="r-operations-are-vectorized">R operations are vectorized</h1>
+<p>Most operations in R are vectorized, meaning that the operation will occur on all element of a vector.</p>
+<p>For example to take the natural log of an element we use the <code>log</code> function.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 0.0000000 0.6931472 1.0986123 1.3862944 1.6094379</code></pre>
+</div>
+<p>If you are used to programming in other languages (e.g <code>C</code> or <code>python</code>) you might have written a <code>for</code> loop to do the same, something like this.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> x){ </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(i)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>In R this is generally not necessary. The built in vectorization saves much typing and makes for very compact and efficient code in R. You can write <code>for</code> loops in R (more on this later in the course) however using the built in vectorization is generally a faster and easier to read solution.</p>
+<p>Arithmetic (e.g <code>+</code> <code>-</code>, <code>*</code>) and comparisons operators (<code>&gt;</code>, <code>&lt;</code>, <code>==</code>) are vectorized.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span></span>
+<span><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>2</span></span>
+<span></span>
+<span><span class='va'>x</span> <span class='op'>*</span> <span class='va'>y</span></span></code></pre>
+</div>
+<pre><code>[1]  2  4  6  8 10</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>+</span> <span class='va'>y</span></span></code></pre>
+</div>
+<pre><code>[1] 3 4 5 6 7</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>==</span> <span class='fl'>3</span></span></code></pre>
+</div>
+<pre><code>[1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>&gt;</span> <span class='fl'>5</span></span></code></pre>
+</div>
+<pre><code>[1] FALSE FALSE FALSE FALSE FALSE</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>&lt;</span> <span class='va'>y</span></span></code></pre>
+</div>
+<pre><code>[1]  TRUE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+Logical vectors can be used to select values from a vector. This makes it easy to use a comparison operator to filter for specific values.
+e.g:
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>30</span><span class='op'>:</span><span class='fl'>40</span></span>
+<span><span class='va'>x</span><span class='op'>[</span><span class='va'>x</span> <span class='op'>&gt;</span> <span class='fl'>35</span><span class='op'>]</span></span></code></pre>
+</div>
+<pre><code>[1] 36 37 38 39 40</code></pre>
+</div>
 <h2 id="fundamental-data-structures">Fundamental data structures</h2>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-17"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-22"></span>
 <img src="https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-10-03-intro-to-r-language/img/dataStructures.png" alt="Ceballos, Maite and Nicolás Cardiel. 2013. Data structure. First Steps in R. https://web.archive.org/web/20200621022950/http://venus.ifca.unican.es/Rintro/dataStruct.html"  />
 <p class="caption">
 Figure 3: Ceballos, Maite and Nicolás Cardiel. 2013. Data structure. First Steps in R. <a href="https://web.archive.org/web/20200621022950/http://venus.ifca.unican.es/Rintro/dataStruct.html" class="uri">https://web.archive.org/web/20200621022950/http://venus.ifca.unican.es/Rintro/dataStruct.html</a>
@@ -2681,31 +2787,17 @@ c 3  8 13 18 23
 d 4  9 14 19 24
 e 5 10 15 20 25</code></pre>
 </div>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>lst[<span class="dv">1</span>] <span class="co"># list of length 1</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>lst[[<span class="dv">1</span>]] <span class="co"># first element of list</span></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>lst[[<span class="dv">1</span>]][<span class="dv">1</span>] <span class="co"># first value in first element of list</span></span></code></pre></div>
-<p>A data.frame is a specialized form of a list, whereby each list entry is a vector, and all vectors have the same length. There are functions to convert between data structures (e.g. <code>as.list()</code>, <code>as.data.frame()</code>, <code>as.matrix()</code>)</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>lst[<span class="dv">1</span>] <span class="co"># list of length 1</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>lst[[<span class="dv">1</span>]] <span class="co"># first element of list</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>lst[[<span class="dv">1</span>]][<span class="dv">1</span>] <span class="co"># first value in first element of list</span></span></code></pre></div>
+<p>A data.frame is a specialized form of a list, whereby each list entry is a vector, and all vectors have the same length. There are functions to convert between data structures (e.g. <code>as.list()</code>, <code>as.data.frame()</code>, <code>as.matrix()</code>, <code>as.vector()</code>)</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>df_lst</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span></span>
-<span><span class='va'>df_lst</span></span></code></pre>
+<span><span class='va'>df_lst</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>df_lst</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>$vals
-[1] 1 2 3 4
-
-$ids
-[1] &quot;cat&quot;  &quot;fish&quot; &quot;bear&quot; &quot;dog&quot; 
-
-$is_mammal
-[1]  TRUE FALSE  TRUE  TRUE</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>df_lst</span><span class='op'>)</span></span></code></pre>
-</div>
-<pre><code>  vals  ids is_mammal
-1    1  cat      TRUE
-2    2 fish     FALSE
-3    3 bear      TRUE
-4    4  dog      TRUE</code></pre>
 </div>
 <h2 id="workspaces">Workspaces</h2>
 <p>Objects that we generate get stored in an environment known as the Global Environment. You can see the objects in the global environment using the <code>ls()</code> function, or by clicking on the environment tab in Rstudio.</p>
@@ -2713,7 +2805,7 @@ $is_mammal
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>[1] &quot;df&quot;     &quot;df_lst&quot; &quot;lst&quot;    &quot;m&quot;      &quot;x&quot;     </code></pre>
+<pre><code>[1] &quot;a&quot;   &quot;df&quot;  &quot;lst&quot; &quot;m&quot;   &quot;x&quot;   &quot;y&quot;  </code></pre>
 </div>
 <p>Objects can be removed from the environment, which can be helpful if you have a large memory object that is no longer needed.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2736,7 +2828,7 @@ $is_mammal
 <p><br/></p>
 <h2 id="calling-functions-in-r">Calling functions in R</h2>
 <p>We have already used some functions e.g. <code>seq</code>, <code>typeof</code>, <code>matrix</code>, <code>as.data.frame</code>. Functions in R have rules for how arguments are specified.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(x, <span class="at">digits =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(x, <span class="at">digits =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><code>round</code>: function name<br />
 <code>x</code>: required argument<br />
 <code>digits</code>: optional argument (Defaults to 0)</p>
@@ -2766,47 +2858,6 @@ $is_mammal
 </div>
 <pre><code>[1]  1.5  1.4 -1.6  0.0</code></pre>
 </div>
-<h2 id="r-functions-are-vectorized">R functions are vectorized</h2>
-<p>Most functions in R are vectorized, meaning that the functions will operate on each element of a vector.</p>
-<p>For example to take the natural log of an element we use the <code>log</code> function.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span></code></pre>
-</div>
-<pre><code>[1] 0.0000000 0.6931472 1.0986123 1.3862944 1.6094379</code></pre>
-</div>
-<p>If you are used to programming in other languages (e.g <code>C</code> or <code>python</code>) you might have written a <code>for</code> loop to do the same, something like this.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> x){ </span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(i)</span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>In R this is generally not necessary. The built in vectorization saves much typing and makes for very compact and efficient code in R. You can write <code>for</code> loops in R (more on this later in the course) however using the built in vectorization is generally a faster and easier to read solution.</p>
-<p>Arithmetic (e.g <code>+</code> <code>-</code>, <code>*</code>) and comparisons operators (<code>&gt;</code>, <code>&lt;</code>, <code>==</code>) are vectorized.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span></span>
-<span><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>2</span></span>
-<span></span>
-<span><span class='va'>x</span> <span class='op'>*</span> <span class='va'>y</span></span></code></pre>
-</div>
-<pre><code>[1]  2  4  6  8 10</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>+</span> <span class='va'>y</span></span></code></pre>
-</div>
-<pre><code>[1] 3 4 5 6 7</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>==</span> <span class='fl'>3</span></span></code></pre>
-</div>
-<pre><code>[1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>&gt;</span> <span class='fl'>5</span></span></code></pre>
-</div>
-<pre><code>[1] FALSE FALSE FALSE FALSE FALSE</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>&lt;</span> <span class='va'>y</span></span></code></pre>
-</div>
-<pre><code>[1]  TRUE FALSE FALSE FALSE FALSE</code></pre>
-</div>
 <p>You can write your own functions as well. Functions reduce copying and pasting code, which reduces errors and simplifies code by reducing objects in the global environment.</p>
 <p>We’ll learn more about functions later in the course.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2822,7 +2873,7 @@ $is_mammal
 <p>To review todays material, do the following:</p>
 <ol type="1">
 <li><p>For each section with code, add you own commands. You will learn faster if you try out the code yourself. If you get errors, try to find help, or ask questions in the class slack channel.</p></li>
-<li><p>Knit the rmarkdown after you make changes.</p></li>
+<li><p>Knit the rmarkdown after you make changes, you may need to install the <code>distill</code> package: (<code>install.packages("distill")</code>)</p></li>
 </ol>
 <h2 class="appendix" id="acknowledgements-and-additional-references">Acknowledgements and additional references</h2>
 <p>The content of this class borrows heavily from previous tutorials:</p>
@@ -2834,7 +2885,7 @@ $is_mammal
 <a href="https://github.com/matloff/fasteR" class="uri">https://github.com/matloff/fasteR</a>
 <a href="https://r4ds.had.co.nz/index.html" class="uri">https://r4ds.had.co.nz/index.html</a>
 <a href="https://bookdown.org/rdpeng/rprogdatascience/" class="uri">https://bookdown.org/rdpeng/rprogdatascience/</a></p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

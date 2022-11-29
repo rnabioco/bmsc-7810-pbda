@@ -23,7 +23,10 @@ output:
 * Review R basics
     * Basic R usage
     * Data types
+    * Operators
+    * Vectorization
     * Data structures
+    * Workspaces
     * Functions 
   
 
@@ -72,7 +75,7 @@ It's free, [open-source](https://github.com/wch/r-source), and has been around i
 
 ## The R ecosystem
 
-When you download R from CRAN, there are a number of packages included in the base installation (e.g. `base`, `stats`, and `datasets`). You can do effective data analysis with only the base installation (e.g. see [fasteR](`https://github.com/matloff/fasteR`) tutorial). However a key strength of R is the 10,000+ user-developed packages which extend base R functionality. 
+When you download R from CRAN, there are a number of packages included in the base installation (e.g. `base`, `stats`, and `datasets`). You can do effective data analysis with only the base installation (e.g. see [fasteR](https://github.com/matloff/fasteR) tutorial). However a key strength of R is the 10,000+ user-developed packages which extend base R functionality. 
 
 
 ```{r, echo = FALSE, fig.cap = "Major R package repositories and functions used to install packages."}
@@ -137,7 +140,8 @@ render("your-rmarkdown.Rmd")
 R code can also be executed using R scripts, which  have the `.R` extension. R scripts can only contain R code, not plain text or markdown. R scripts are useful if you have code that you want to run but don't need the functionality of an Rmarkdown. You can also put custom R functions into an .R script and then use them in another document. The `source()` function will execute the R code in a Rscript.
 
 ```{r, eval = FALSE}
-source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-10-03-intro-to-r-language/custom-functions.R") # can also be a file rather than a URL
+# can be a path to a .R file or a URL
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-10-03-intro-to-r-language/custom-functions.R")
 
 greeting("class")
 ```
@@ -206,7 +210,9 @@ plot-data.R
 >   
 >   --- Hadley Wickham
 
-Code is used to communicate with your computer, but it also is used to communicate with your future self and your colleagues. Don't just write code for yourself right now, instead write your code with the expectation that your future self will need to reread, understand, and modify it in 6 months. 
+Code is used to communicate with your computer, but it also is used to communicate with your future self and your colleagues. 
+
+**Don't just write code for yourself right now, instead write your code with the expectation that your future self will need to reread, understand, and modify it in 6 months.**
 
 1) Use comments to remind yourself what the code does. The `#` character tells R to ignore a line of text.
 
@@ -237,7 +243,7 @@ ggplot(dat, aes(sample, score)) +
 ```r
 # good
 a <- width * height
-p <- 2* width + 2 * height
+p <- 2 * width + 2 * height
 measurement_df <- data.frame(area = a, perimeter = p)
 ```
 
@@ -333,6 +339,7 @@ typeof("1.0")
 typeof(1)
 typeof(1L)
 typeof(TRUE)
+typeof(FALSE)
 typeof("hello world")
 ```
 
@@ -344,6 +351,7 @@ You can change the type of a vector, provided that there is a method to convert 
 as.numeric("1.0")
 as.numeric("hello world")
 as.character(1.5)
+as.integer(1.5)
 as.integer(TRUE)
 as.integer(FALSE)
 ```
@@ -354,6 +362,7 @@ as.integer(FALSE)
 1 / 0
 -( 1 / 0)
 0 / 0
+NA
 ```
 
 ```r
@@ -383,12 +392,26 @@ Numeric ranges can be generated using `:` or `seq`
 
 ```{r}
 1:10
-seq(1, 10, by = 2)
+seq(0, 1, by = 0.1)
+```
+
+There are also functions for sampling from various distributions or vectors.
+
+e.g.
+```{r}
+# get 5 values from a normal distribution with mean of 0 and sd of 1
+rnorm(5)
+
+# get 5 values from uniform distribution from 0 to 1
+runif(5)
+
+# sample 5 values from a vector
+sample(1:100, 5)
 ```
 
 ### Subsetting vectors in R
 
-R uses 1-based indexing to select values from a vector. The first element of a vector is at index 1. The `[` operator can be used to extract (or assign) elements in a vector
+R uses 1-based indexing to select values from a vector. The first element of a vector is at index 1. The `[` operator can be used to extract (or assign) elements in a vector. Integer vectors  or logical vectors can be used to extract values.
 
 ```{r}
 x <- 30:40
@@ -405,6 +428,64 @@ x
 x[3:10] <- 3:10
 x
 ```
+
+### Named vectors
+
+Vectors in R can also have names. A named vector allows you to lookup values by name, rather than by position.
+
+```{r}
+a <- 2:4
+names(x) <- c("a", "b", "c")
+
+# alternatively
+x <- c("a" = 2, "b" = 3, "c" = 4)
+
+x
+x["c"]
+```
+
+# R operations are vectorized
+
+Most operations in R are vectorized, meaning that the operation will occur on all element of a vector. 
+
+For example to take the natural log of an element we use the `log` function.
+
+```{r}
+x <- 1:5
+log(x)
+```
+
+If you are used to programming in other languages (e.g `C` or `python`) you might have written a `for` loop to do the same, something like this.
+
+```r
+for(i in x){ 
+  log(i)
+}
+```
+
+In R this is generally not necessary. The built in vectorization saves much typing and makes for very compact and efficient code in R. You can write `for` loops in R (more on this later in the course) however using the built in vectorization is generally a faster and easier to read solution.
+
+Arithmetic  (e.g `+` `-`, `*`) and comparisons operators (`>`, `<`, `==`) are vectorized. 
+
+```{r}
+x <- 1:5
+y <- 2
+
+x * y
+x + y
+
+x == 3
+x > 5
+x < y
+```
+
+Logical vectors can be used to select values from a vector. This makes it easy to use a comparison operator to filter for specific values. 
+e.g:
+```{r}
+x <- 30:40
+x[x > 35]
+```
+
 
 ## Fundamental data structures
 
@@ -468,13 +549,13 @@ lst[[1]] # first element of list
 lst[[1]][1] # first value in first element of list
 ```
 
-A data.frame is a specialized form of a list, whereby each list entry is a vector, and all vectors have the same length. There are functions to convert between data structures (e.g. `as.list()`, `as.data.frame()`, `as.matrix()`)
+A data.frame is a specialized form of a list, whereby each list entry is a vector, and all vectors have the same length. There are functions to convert between data structures (e.g. `as.list()`, `as.data.frame()`, `as.matrix()`, `as.vector()`)
 
-```{r}
+```{r, eval = FALSE}
 df_lst <- as.list(df)
 df_lst
 as.data.frame(df_lst)
-
+as.vector(m)
 ```
 
 ## Workspaces  
@@ -535,41 +616,6 @@ round(nums, 1)
 round(digits = 1, x = nums)
 ```
 
-## R functions are vectorized
-
-Most functions in R are vectorized, meaning that the functions will operate on each element of a vector. 
-
-For example to take the natural log of an element we use the `log` function.
-
-```{r}
-x <- 1:5
-log(x)
-```
-
-If you are used to programming in other languages (e.g `C` or `python`) you might have written a `for` loop to do the same, something like this.
-
-```r
-for(i in x){ 
-  log(i)
-}
-```
-
-In R this is generally not necessary. The built in vectorization saves much typing and makes for very compact and efficient code in R. You can write `for` loops in R (more on this later in the course) however using the built in vectorization is generally a faster and easier to read solution.
-
-Arithmetic  (e.g `+` `-`, `*`) and comparisons operators (`>`, `<`, `==`) are vectorized. 
-
-```{r}
-x <- 1:5
-y <- 2
-
-x * y
-x + y
-
-x == 3
-x > 5
-x < y
-```
-
 You can write your own functions as well. Functions reduce copying and pasting code, which reduces errors and simplifies code by reducing objects in the global environment.
 
 We'll learn more about functions later in the course. 
@@ -587,7 +633,7 @@ To review todays material, do the following:
 
 1) For each section with code, add you own commands. You will learn faster if you try out the code yourself. If you get errors, try to find help, or ask questions in the class slack channel.
 
-2) Knit the rmarkdown after you make changes. 
+2) Knit the rmarkdown after you make changes, you may need to install the `distill` package: (`install.packages("distill")`)
 
 
 ## Acknowledgements and additional references {.appendix}
