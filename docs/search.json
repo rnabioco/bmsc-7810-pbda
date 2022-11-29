@@ -5,21 +5,21 @@
       "title": "Practical Biological Data Analysis",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2022-11-29T13:48:03-07:00"
+      "last_modified": "2022-11-29T22:38:14+00:00"
     },
     {
       "path": "index.html",
       "title": "Practical Biological Data Analysis",
       "author": [],
       "contents": "\nPractical Biological Data Analysis with R and RStudio\nParticipation in this course requires completion of an assignment prior to the course start date (see the Prerequisites section).\nOverview\nIn this short course you will learn to analyze and visualize complex data sets using the R statistical programming language, the RStudio IDE and new tools available in the “tidyverse”. We will focus on key analysis skills and foundational programming concepts necessary for the efficient and reproducible analysis of biological data sets.\nOrganization and Contacts\nKent Riemondy (Director, Instructor): kent.riemondy@cuanschutz.edu\nMichael Kaufman (Instructor): michael.kaufman@cuanschutz.edu\nRyan Sheridan (Instructor): ryan.sheridan@cuanschutz.edu\nKristen Wells-Wrasman (Instructor): kristen.wells-wrasman@cuanschutz.edu\nThe course (2 credit hours) consists of 13 2 hour classes held Mon through Fri from Nov 30 through Dec 16 from 8:00 -10:00 am. The course will be held at the Strauss Health Science Library (V23) in the HS Library Teaching Lab 2. All classes will be recorded and made available through Canvas.\nVirtual office hours will also be provided outside of course hours.\nGoals\nBuild competence in R so that students use R for data analysis rather than using interactive applications such as Excel or Prism.\nDevelop reproducible and efficient data analysis habits.\nIntroduce data visualization techniques for complex datasets.\nPrerequisites\nA personal computer with a common operating system ( macOS, Linux, or Windows), and internet access is necessary to participate in this class. Tablets or iPads will not be supported. Please reach out to us ASAP if you do not have access to a computer, or if you have concerns about the suitability of your device. There will be a required prerequisite assignment to be completed prior to the start of the course. The assignment will involve installing necessary software, and completion of material providing basic familiarity with R and interacting with the Rstudio IDE. Office hours will be provided prior to the course to assist with any issues that arise with completing the prerequisite assignment.\nAssignments\nStudent’s grades will be determined by completion of the prerequisite assignment (10%), class participation (10%), and 4 homework assignments (80%), to be completed by the end of the course.\nCourse assistance\nWe will provide a Slack workspace for discussion during and after classes, to collaborate, and to get help. In addition the course instructors will hold virtual office hours to provide assistance outside of the course. Please email the course instructors via (rbi.fellows@cuanschutz.edu) to schedule a time.\n\n\n\n",
-      "last_modified": "2022-11-29T13:48:03-07:00"
+      "last_modified": "2022-11-29T22:38:15+00:00"
     },
     {
       "path": "schedule.html",
       "title": "Schedule",
       "author": [],
       "contents": "\nClass Schedule\nClass 1: Wednesday, Nov. 30th\nIntroduction to the R statistical programming language\n\nClass 2: Thursday, Dec. 1st\nData wrangling with the tidyverse\n\nClass 3: Friday, Dec. 2nd\nReshaping data into a tidy format\n\nClass 4: Monday, Dec. 5th\nIntroduction to ggplot2 (pt.1)\n\nClass 5: Tuesday, Dec. 6th\nIntroduction to ggplot2 (pt.2)\n\nClass 6: Wednesday, Dec. 7th\nIntroduction to ggplot2 (pt.3)\n\nClass 7: Thursday, Dec. 8th\nIntroduction to matrix operations\n\nClass 8: Friday, Dec. 9th\nIntroduction to clustering techniques\n\nClass 9: Monday, Dec. 12th\nIntroduction to Heatmaps\n\nClass 10: Tuesday, Dec. 13th\nIntroduction to programming in R\n\nClass 11: Wednesday, Dec. 14th\nIntroduction to programming in R\n\nClass 12: Thursday, Dec. 15th\nIntroduction to programming in R\n\nClass 13: Friday, Dec. 16th\nCourse wrap up\n\nProblem Sets\nProblem set 1: Due Monday Dec 5th (5p)\nProblem set 2: Due Friday Dec 9th (5p)\nProblem set 3: Due Thursday Dec. 15th (5p)\nProblem set 4: Due Monday Dec. 19th (5p)\n\n\n\n",
-      "last_modified": "2022-11-29T13:48:04-07:00"
+      "last_modified": "2022-11-29T22:38:16+00:00"
     }
   ],
   "collections": ["posts/posts.json"]
