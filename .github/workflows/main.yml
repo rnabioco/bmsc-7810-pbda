@@ -23,14 +23,14 @@ jobs:
         with:
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: |
-            any::distill
-            any::rmarkdown
-            any::tidyverse
-            any::ComplexHeatmap
-          needs: website
+      - name: Install dependencies
+        run: |
+          install.packages("rmarkdown")
+          install.packages("distill")
+          install.packages("tidyverse")
+          install.packages("BiocManager")
+          BiocManager::install("ComplexHeatmap")
+        shell: Rscript {0}
 
       - name: Build site
         run: rmarkdown::render_site(encoding = "UTF-8")
