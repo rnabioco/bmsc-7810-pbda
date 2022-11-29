@@ -30,6 +30,15 @@ library(factoextra)
 library(here)
 ```
 
+## Download files
+
+Before we get started, let's download all of the files you will need for the next three classes. This script can be found [here](). You should put this script in the same folder as your rmarkdown
+
+```{r}
+# conditionally download all of the files used in rmarkdown from github 
+source("download_files.R")
+```
+
 ## What is clustering
 
 Clustering is grouping together similar objects or elements. Clustering is a very important part of any type of data analysis.
@@ -353,7 +362,7 @@ plot(hc)
 
 Based on the above plot, it seems like 3 clusters might be a good starting point
 
-```{r}
+```{r, preview = TRUE}
 hc_clusters3 <- cutree(tree = hc, k =3)
 
 

@@ -14,7 +14,7 @@ draft: true
 
 ## Goals for this class
 * Learn how to make a heat map using `pheatmap`
-* Understand how data is generally processed before making a heat gimap, understand what interpretations can be made given the processing.
+* Understand how data is generally processed before making a heat map, understand what interpretations can be made given the processing.
 * Learn how to change the aesthetics of a heat map
 * Learn how to visualize and access clustering information from the heat map
 
@@ -25,6 +25,15 @@ library(pheatmap)
 library(viridis)
 library(MetBrewer)
 library(here)
+```
+
+## Download files
+
+Before we get started, let's download all of the files you will need for the next three classes. This script can be found [here](). You should put this script in the same folder as your rmarkdown
+
+```{r}
+# conditionally download all of the files used in rmarkdown from github 
+source("download_files.R")
 ```
 
 ## Making a heatmap
@@ -330,7 +339,7 @@ all_colors <- c(all_colors,
 
 And then add the `names_annotation` back into the argument for `annotation_row`
 
-```{r, fig.height = 10}
+```{r, fig.height = 10, preview = TRUE}
 pheatmap(scaled_mat,
          color = blueYellow,
          annotation_col = state_info,
@@ -498,24 +507,24 @@ pheatmap(scaled_mat_ord,
 ```
 
 **Exercise**
-Order the heat map by density, but cluster the names
+Order the heatmap by density, but cluster the names
 
 ```{r}
-# TODO order the heat map by density but cluster the names
+# TODO order the heatmap by density but cluster the names
 
 ```
 
 
 **Exercise**
-Order the heat map by location, but cluster the names
+Order the heatmap by location, but cluster the names
 
 ```{r, fig.height=10}
-# TODO order the heat map by location and cluster the names
+# TODO order the heatmap by location and cluster the names
 
 ```
 
 ### Remove column and row names
-One other helpful way to adjust your heat map is to remove the row and column names. You can control if the row and column names are seen using `show_rownames` and `show_colnames`
+One other helpful way to adjust your heatmap is to remove the row and column names. You can control if the row and column names are seen using `show_rownames` and `show_colnames`
 
 ```{r, fig.height = 10}
 pheatmap(scaled_mat,
@@ -534,11 +543,11 @@ There are many possible adjustments you can make, we've just gone through the ad
 
 The content of this class borrows heavily from previous tutorials:
 
-[making heat maps](https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/)
+[making heatmaps](https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/)
 
 ## I'm a biologist, why should I care?
 
-* Heat maps are common tools to visualize data
+* Heatmaps are common tools to visualize data
   * They are frequently used for sequencing data - RNA-seq, scRNA-seq, ATAC-seq
   * They are a good way of showing lots of data
   * Because of the scaling, they can be misleading so it's good to know how to interpret them

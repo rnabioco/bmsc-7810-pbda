@@ -1,0 +1,17 @@
+---
+title: "matrices, clustering, and heatmaps assignment"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**This assignment is due Thursday December 15 at 5pm**
+
+1 (2 pts). Find a few values from the female names file (number of name, state)
+2 (2 pts). Normalize the female names
+3 (2 pts). Cluster the female names with k means, report the cluster for each name (can just use print)
+4 (2 pts). Repeat with hclust, report cluster for each name
+5 (2 pts). Make a heatmap of the female names only, annotate the states using the same information we used in class. Use any coloring palettes you want (not the defaults). Cluster and separate to the number of clusters you feel best fits the data.

@@ -9,7 +9,8 @@ output:
   distill::distill_article:
     self_contained: false
     toc: true
-draft: true 
+draft: true
+preview: img/matrix_image.jpg
 ---
 
 ```{r setup, include=FALSE}
@@ -524,7 +525,7 @@ Next, we need to `pivot_longer` from `tidyr`. We want to take everything but the
 ```{r}
 pivot_columns <- colnames(names_dat)[colnames(names_dat) != "name"]
 
-names_dat <- pivot_longer(names_dat, cols = pivot_columns,
+names_dat <- pivot_longer(names_dat, cols = all_of(pivot_columns),
                           names_to = "state", values_to = "count")
 ```
 
@@ -537,7 +538,7 @@ pivot_columns <- colnames(names_mat)
 names_dat <- names_mat %>% 
   data.frame %>% 
   rownames_to_column("name") %>% 
-  pivot_longer(cols = pivot_columns, 
+  pivot_longer(cols = all_of(pivot_columns), 
                names_to = "state", values_to = "count")
 ```
 
@@ -580,6 +581,7 @@ Can you make the same plot as above but use our normalized values?
 
 The content of this class borrows heavily from previous tutorials:
 
-https://bookdown.org/manishpatwal/bookdown-demo/matrices-in-r.html
-https://monashbioinformaticsplatform.github.io/r-intro/matrices.html#:~:text=In%20a%20data%20frame%20the,lets%20these%20be%20used%20interchangably.
-https://monashbioinformaticsplatform.github.io/r-intro/matrices.html#:~:text=In%20a%20data%20frame%20the,lets%20these%20be%20used%20interchangably.
+* Matricies
+  * [R example](https://bookdown.org/manishpatwal/bookdown-demo/matrices-in-r.html)
+  * [Quick tips](https://monashbioinformaticsplatform.github.io/r-intro/matrices.html)
+
