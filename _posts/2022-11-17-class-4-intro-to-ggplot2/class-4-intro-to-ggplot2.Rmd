@@ -33,6 +33,7 @@ library(ggplot2)
 
 ## Additional Helpful Resources
 ggplot2 package homepage :: https://ggplot2.tidyverse.org/  
+ggplot2 reference :: https://ggplot2.tidyverse.org/reference
 R for Data Science :: https://r4ds.had.co.nz/  
 ggplot2 Book :: https://ggplot2-book.org/  
 Gallery of Plots and Examples :: https://r-graph-gallery.com/  
@@ -41,12 +42,12 @@ Data Visualization with ggplot2 :: Cheat sheet :: https://github.com/rstudio/che
 
 ## The ggplot2 Package
 ```{r, echo = FALSE}
-knitr::include_graphics("img/ggplot2.png")
+knitr::include_graphics(path='img/ggplot2.png')
 ```
 
 This package allows you to declaratively create graphics by giving a set of variables to map to aesthetics and then layer graphical directives to produce a plot.
 It's part of the tidyverse of R packages for data science and analysis, sharing in their design philosophy.
-Alternative to the built in R graphics and plotting functions.  
+It's an alternative to the built in R graphics and plotting functions.  
 **Written by Hadley Wickham**
 
 ## Grammar of Graphics
@@ -99,17 +100,17 @@ The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel
 
 A data frame with 32 observations on 11 (numeric) variables.  
 
-[, 1]	mpg	Miles/(US) gallon  
-[, 2]	cyl	Number of cylinders  
-[, 3]	disp	Displacement (cu.in.)  
-[, 4]	hp	Gross horsepower  
-[, 5]	drat	Rear axle ratio  
-[, 6]	wt	Weight (1000 lbs)  
-[, 7]	qsec	1/4 mile time  
-[, 8]	vs	Engine (0 = V-shaped, 1 = straight)  
-[, 9]	am	Transmission (0 = automatic, 1 = manual)  
-[,10]	gear	Number of forward gears  
-[,11]	carb	Number of carburetors  
+[, 1]	mpg = Miles/(US) gallon  
+[, 2]	cyl = Number of cylinders  
+[, 3]	disp = Displacement (cu.in.)  
+[, 4]	hp = Gross horsepower  
+[, 5]	dra = Rear axle ratio  
+[, 6]	wt = Weight (1000 lbs)  
+[, 7]	qsec = 1/4 mile time  
+[, 8]	vs = Engine (0 = V-shaped, 1 = straight)  
+[, 9]	am = Transmission (0 = automatic, 1 = manual)  
+[,10]	gear = Number of forward gears  
+[,11]	carb = Number of carburetors  
 **-R Documentation**
 
 ## Basic Plot
@@ -118,7 +119,13 @@ Using the basic ggplot grammar of graphics template we can produce a scatterplot
 
 ```{r}
 # ggplot(<DATA>, aes(<MAPPINGS>)) + <GEOM_function>()
+```
 
+```{r}
+ggplot(mtcars, aes(x=wt, y=mpg))
+```
+
+```{r}
 ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
 ```
 We can change the data being plotted by picking a different column from the dataframe. For instance here we are plotting the horsepower(hp) versus miles per gallon(mpg). Also note that we can make the code more readable by placing proceeding layers on a different line after the plus sign.
@@ -131,24 +138,36 @@ ggplot(mtcars, aes(x=hp, y=mpg)) +
 
 ### Title
 
-We can add a title to the plot simply by adding another layer and the **ggtitle()** function.  
+We can add a title to the plot simply by adding another layer and the `ggtitle()` function.  
 
 ```{r}
 ggplot(mtcars, aes(x=hp, y=mpg)) + 
   geom_point() +
-  ggtitle("Modern Cars: Horsepower vs Miles Per Gallon")
+  ggtitle("1974 Cars: Horsepower vs Miles Per Gallon")
 ```
 ### X and Y axis Labels 
 
-We can over write the default and add our own labels to the x and y axis by using the **xlab()** and **ylab()** functions respectively.  
+We can over write the default and add our own labels to the x and y axis by using the `xlab()` and `ylab()` functions respectively.  
 
 ```{r}
 ggplot(mtcars, aes(x=hp, y=mpg)) + 
   geom_point() +
-  ggtitle("Modern Cars: Horsepower vs Miles Per Gallon") +
+  ggtitle("1974 Cars: Horsepower vs Miles Per Gallon") +
   ylab("miles per gallon") + 
   xlab("horsepower")
 ```
+
+### Set title and axis labels in one layer
+```{r}
+ggplot(mtcars, aes(x=hp, y=mpg)) + 
+  geom_point() +
+  labs(x = "Horepower", 
+    y = "Miles Per Gallon", 
+    title = "Horsepower vs Miles Per Gallon Scatterplot",
+    subtitle = "Motor Trend Car Road Tests - 1974",
+    caption = "Smith et al. 1974")
+```
+
 ### Getting Geometry Specific Help
 
 We can easily add a third bit of information to the plot by using the color aesthetic. Each geometry has its own list of aesthetics that you can add and modify. Consult the help page for each one.  
@@ -158,6 +177,8 @@ We can easily add a third bit of information to the plot by using the color aest
 ```
 
 ### Adding the Color Aesthetic
+
+Here we are adding the color aesthetic.
 
 ```{r}
 ggplot(mtcars, aes(x=hp, y=mpg, color=cyl)) + 
@@ -185,7 +206,7 @@ ggplot(mtcars, aes(x=hp, y=mpg, color=cyl, size = wt)) +
   ggtitle("Modern Cars: Horsepower vs Miles Per Gallon") +
   ylab("miles per gallon") + 
   xlab("horsepower") +
-  labs(color="#cylinders", size="weight")
+  labs(color="#cylinders", size="weight (x1000lb)")
 ```
 
 Instead we can use a specific value instead of the **wt** variable to adjust the size of the dots.  
@@ -196,10 +217,11 @@ ggplot(mtcars, aes(x=hp, y=mpg, color=cyl, size = 3)) +
   ggtitle("Modern Cars: Horsepower vs Miles Per Gallon") +
   ylab("miles per gallon") + 
   xlab("horsepower") +
-  labs(color="#cylinders", size="weight")
+  labs(color="#cylinders")
 ```
 ## Other Geometries
-There are many other geometries that you can use in your plots. Here is a short list:  
+There are many other geometries that you can use in your plots. https://ggplot2.tidyverse.org/reference  
+Here is a short list:  
 
 geom_point(): scatterplot  
 geom_line(): lines connecting points by increasing value of x  
@@ -209,6 +231,15 @@ geom_bar(): bar charts for categorical x axis
 geom_histogram(): histogram for continuous x axis  
 geom_violin(): distribution kernel of data dispersion  
 geom_smooth(): function line based on data  
+geom_bin2d(): heatmap of 2d bin counts
+geom_contour(): 2d contours of a 3d surface
+geom_count(): count overlapping points
+geom_density(): smoothed density estimates
+geom_dotplot(): dot plot
+geom_hex(): hexagonal heatmap of 2d bin counts
+geom_freqpoly(): histogram and frequency polygons
+geom_jitter(): jittered point plot
+geom_polygon(): polygons
 
 ### geom_line()
 But utilizing the right plot to efficiently show your data is key. Here we swapped the geom_point for geom_line to see what would happen.  
@@ -238,14 +269,14 @@ rownames(mtcars)
 ```{r}
 ggplot(mtcars, aes(x=rownames(mtcars), y=mpg)) + 
   geom_col() +
-  ggtitle("Modern Cars: Horsepower vs Miles Per Gallon")
+  ggtitle("1974 Cars: Miles Per Gallon")
 ```
-You will learn other ways to make this more legable later. For a quick fix we can swap the x and y mappings.
+You will learn other ways to make this more legible later. For a quick fix we can swap the x and y mappings.
 
 ```{r}
 ggplot(mtcars, aes(y=rownames(mtcars), x=mpg)) + 
   geom_col() +
-  ggtitle("Modern Cars: Horsepower vs Miles Per Gallon")
+  ggtitle("1974 Cars: Miles Per Gallon")
 
 ```
 We can reorder the data to make it easier to visualize important information.
@@ -253,18 +284,32 @@ We can reorder the data to make it easier to visualize important information.
 ```{r}
 ggplot(mtcars, aes(y=reorder(rownames(mtcars), mpg), x=mpg)) + 
   geom_col() +
-  ggtitle("Modern Cars: Horsepower vs Miles Per Gallon")
+  ggtitle("1974 Cars: Ranked by Miles Per Gallon")
 
 ```
 
-Take some time to play around with this template. Try substituting different columns from the dataframe. What works or doesn't work and why?  
+Take some time to play around with this template. Try substituting different columns from the dataframe and applying additional aesthetics.  
+Q: What works or doesn't work?  
 
+```{r}
+
+```
 
 ## Multiple Geometries  
 
-You can also add another layer of geometry to the same ggplot. Notice that since we need two separate aesthetic declarations that they have moved from the ggplot function to their respective geom_ functions. 
+You can also add another layer of geometry to the same ggplot. Notice that since we need two separate aesthetic declarations that they have moved from the ggplot function to their respective `geom_ functions`. 
 
 ```{r}
+# ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) + 
+#   <GEOM_FUNCTION1>() + 
+#   <GEOM_FUNCTION2>() 
+
+# OR
+
+# ggplot(data = <DATA>) + 
+#   <GEOM_FUNCTION1>(mapping = aes(<MAPPINGS>)) + 
+#   <GEOM_FUNCTION2>(mapping = aes(<MAPPINGS>)) 
+
 ggplot(mtcars) +
   geom_point(aes(x=hp, y=mpg)) +
   geom_line(aes(x=hp, y=mpg, color=cyl)) +
@@ -274,6 +319,12 @@ ggplot(mtcars) +
   labs(color="#cylinders")
 ```
 This particular geometry addition isn't very useful. Try adding geom_smooth() instead of geom_line().
+
+## Other Aesthetics
+
+Try out these other aesthetic options: `shape` and `alpha`
+Q: How can they be used to enhance your plots?
+
 
 ## Saving Plots
 Saving these plots is easy! Simply call the `ggsave()` function to save the last plot that you created.
