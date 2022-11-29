@@ -34,7 +34,7 @@ library(here)
 
 Before we get started, let's download all of the files you will need for the next three classes. This script can be found [here](). You should put this script in the same folder as your rmarkdown
 
-```{r}
+```{r, eval = FALSE}
 # conditionally download all of the files used in rmarkdown from github 
 source("download_files.R")
 ```
@@ -254,9 +254,9 @@ In the example above, we only had two dimensions and could easily visualize them
 ### Visualizing the data with PCA
 There is an amazing tutorial on how PCA works [here](https://web.stanford.edu/class/bios221/book/Chap-Multivariate.html). We will talk a little today about how PCA works, but I highly recommend looking at this book for PCA and to learn many of the important statistical techniques used regularly in computational biology. One thing I like about the book is it includes a lot of R code that you can run yourself so you can really understand how these techniques work.
 
-Although it's good to know the inner workings of PCA, we can simply run this PCA analysis using `prcomp`.
+The overall goal of PCA is to find linear models that best fit the data. 
 
-Now that we have learned about some of the clustering techniques, we are going to continue working with the same data we used to talk about matrices, the top 100 boy and girl names by state for 2020. We will want to use the normalized data for these examples.
+Let's walk through PCA (following the tutorial in Modern Statistics for Modern Biology) with only Alabama and Colorado to see how it works.
 
 ```{r}
 names_mat <- read.csv(here("class_7-9_data", "boy_name_counts.csv"),
@@ -265,7 +265,103 @@ names_mat <- read.csv(here("class_7-9_data", "boy_name_counts.csv"),
 
 
 normalized_mat <- t(t(names_mat) / colSums(names_mat))
+
+# Selecting just Alabama and Colorado, making a data frame for plotting
+normalized_dat <- normalized_mat %>%
+  data.frame %>%
+  dplyr::select(Alabama, Colorado)
+
 ```
+
+The first way we can think about going from 2 dimensions to 1 dimension is to simply just use the values from one of the dimensions. For example, if we have Alabama and Colorado, we can simply describe the data using only the values for Alabama. This idea is shown as the red points below
+
+```{r}
+dim_plot <- ggplot(normalized_dat, aes(x = Alabama, y = Colorado)) +
+  geom_point(size = 2)
+dim_plot + geom_point(aes(y = 0), colour = "red") +
+  geom_segment(aes(xend = Alabama, yend = 0), linetype = "dashed")
+
+```
+
+Unfortunately, this loses all of the information from Colorado. Instead, we can also try to find a line of best fit using linear regression. Linear regression is done using a model with response and explanatory variables. A line is fit to the data that attempts to minimize the distance from the response variables to the line. Because there is always a response and explanatory variable, we can perform linear regression to minimize the distance for Colorado or Alabama.
+
+Let's first minimize the distance for Colorado. To perform linear regression, we will use the `lm` function. If we want to minimize the distance to Colorado, Colorado will be the response variable and our model will be `Colorado ~ Alabama`
+
+```{r}
+reg1 <- lm(Colorado ~ Alabama, data = normalized_dat)
+names(reg1)
+```
+
+After running `lm` the return value is a list. The `coefficients` will give us the slow and the intercept (think $y = ax + b$). We can also use the `fitted.values` which are the predicted values for Colorado based on the model.
+
+```{r}
+a1 <- reg1$coefficients[1] # intercept
+b1 <- reg1$coefficients[2] # slope
+pline1 <- dim_plot + geom_abline(intercept = a1, slope = b1,
+                                col = "blue")
+pline1 + geom_segment(aes(xend = Alabama, yend = reg1$fitted.values),
+                      colour = "red", arrow = arrow(length = unit(0.15, "cm")))
+
+```
+
+We can find the variance of the points on the blue line by using Pythagoras' theorem (because the values have x and y coordinates).
+
+```{r}
+var(normalized_dat$Alabama) + var(reg1$fitted.values)
+```
+
+We can now repeat linear regression and now minimize the disatnce for Alabama to the regression line (now Alabama is the response variable).
+
+```{r}
+reg2 <- lm(Alabama ~ Colorado, data = normalized_dat)
+a2 <- reg2$coefficients[1] # intercept
+b2 <- reg2$coefficients[2] # slope
+pline2 <- dim_plot + geom_abline(intercept = -a2/b2, slope = 1/b2,
+                              col = "darkgreen")
+pline2 + geom_segment(aes(xend=reg2$fitted.values, yend=Colorado),
+                      colour = "orange", arrow = arrow(length = unit(0.15, "cm")))
+
+```
+
+We can also find the variance of the points that are fit to this regression line
+
+```{r}
+var(normalized_dat$Colorado) + var(reg2$fitted.values)
+```
+
+So far we have attempted to minimize either the distance of Alabama or Colorado values from the regression line. Instead of minimizing just one distance, PCA tries to minimize the total distance from the line (in both the X and Y directions).
+
+Let's run PCA and use matrix multiplication to visualize the first PC in our x-y space
+
+```{r}
+svda <- svd(as.matrix(normalized_dat))
+pc <- as.matrix(normalized_dat) %*% svda$v[, 1] %*% t(svda$v[, 1]) # Matrix multiplication
+bp <- svda$v[2, 1] / svda$v[1, 1]
+ap <- mean(pc[, 2]) - bp * mean(pc[, 1])
+dim_plot + geom_segment(xend = pc[, 1], yend = pc[, 2]) +
+  geom_abline(intercept = ap, slope = bp, col = "purple", lwd = 1.5)
+```
+
+We can now find the variacne of the points in the PC space
+
+```{r}
+apply(pc, 2, var)
+sum(apply(pc, 2, var))
+```
+
+Notice that this variance is the largest of the three lines we have fit.
+
+From Modern Stats for Modern Biology
+
+> If we are minimizing in both horizontal and vertical directions we are in fact minimizing the orthogonal projections onto the line from each point.
+> 
+> The total variability of the points is measured by the sum of squares ofthe projection of the points onto the center of gravity, which is the origin (0,0) if the data are centered. This is called the total variance or the inertia of the point cloud. This inertia can be decomposed into the sum of the squares of the projections onto the line plus the variances along that line. For a fixed variance, minimizing the projection distances also maximizes the variance along that line. Often we define the first principal component as the line with maximum variance.
+
+
+Although it's good to know the inner workings of PCA, we can simply run this PCA analysis using `prcomp`.
+
+Now that we have learned about some of the clustering techniques, we are going to continue working with the same data we used to talk about matrices, the top 100 boy and girl names by state for 2020. We will want to use the normalized data for these examples.
+
 
 ```{r}
 names.pca <- prcomp(normalized_mat)
@@ -487,5 +583,3 @@ The content of this class borrows heavily from previous tutorials:
   * [R example](https://www.r-bloggers.com/2016/01/hierarchical-clustering-in-r-2/)
 * PCA
   * [Tutorial](https://web.stanford.edu/class/bios221/book/Chap-Multivariate.html)
-
-https://developers.google.com/machine-learning/clustering/clustering-algorithms

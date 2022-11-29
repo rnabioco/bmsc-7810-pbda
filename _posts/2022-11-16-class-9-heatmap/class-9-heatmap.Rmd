@@ -31,7 +31,7 @@ library(here)
 
 Before we get started, let's download all of the files you will need for the next three classes. This script can be found [here](). You should put this script in the same folder as your rmarkdown
 
-```{r}
+```{r, eval = FALSE}
 # conditionally download all of the files used in rmarkdown from github 
 source("download_files.R")
 ```
