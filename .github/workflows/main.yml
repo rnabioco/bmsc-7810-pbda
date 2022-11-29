@@ -29,7 +29,6 @@ jobs:
           install.packages("distill")
           install.packages("tidyverse")
           install.packages("BiocManager")
-          BiocManager::install("ComplexHeatmap")
         shell: Rscript {0}
 
       - name: Build site
