@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2022-11-28"/>
-<meta property="article:created" itemprop="dateCreated" content="2022-11-28"/>
+<meta property="article:published" itemprop="datePublished" content="2022-11-30"/>
+<meta property="article:created" itemprop="dateCreated" content="2022-11-30"/>
 <meta name="article:author" content="Kent Riemondy"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -111,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 3: Reshaping data into a tidy format"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["11-28-2022"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 3: Reshaping data into a tidy format"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["11-30-2022"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2100,7 +2100,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Class 3: Reshaping data into a tidy format","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2022-11-28T00:00:00.000+00:00","citationText":"Riemondy, 2022"}
+{"title":"Class 3: Reshaping data into a tidy format","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2022-11-30T00:00:00.000+00:00","citationText":"Riemondy, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2139,7 +2139,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="d-byline">
   Kent Riemondy <a href="https://github.com/kriemo" class="uri">https://github.com/kriemo</a> (RNA Bioscience Initiative)<a href="https://medschool.cuanschutz.edu/rbi" class="uri">https://medschool.cuanschutz.edu/rbi</a>
   
-<br/>11-28-2022
+<br/>11-30-2022
 </div>
 
 <div class="d-article">
@@ -2391,37 +2391,18 @@ Figure 1: Tables from tidyr cheatsheet from <a href="https://posit.co/wp-content
 </div>
 </div>
 <h2 id="exercises">Exercises</h2>
+<p>Use the <a href="https://www.gapminder.org/data/documentation/gd001/">gapminder GDP dataset</a> to perform the following tasks and answer the following quesitons:</p>
 <ol type="1">
-<li>Tidy the GDP data.</li>
-<li>Which country had the highest GDP per person in 1985?</li>
-<li>What was the mean worldwide GDP in the year 1999?</li>
-<li>Which country had the highest average GDP per person in the 19th century?</li>
+<li><p>Convert the GDP dataset into tidy format.</p></li>
+<li><p>Which country had the highest GDP per person in 1985?</p></li>
+<li><p>What was the mean worldwide GDP in the year 1999?</p></li>
+<li><p>Which country had the highest average GDP per person in the 19th century?</p></li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readr.tidyverse.org'>readr</a></span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/income_per_person.csv"</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>gdp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/income_per_person.csv"</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code># A tibble: 195 × 252
-   country `1799` `1800` `1801` `1802` `1803` `1804` `1805` `1806` `1807` `1808`
-   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
- 1 Afghan…    683    683    683    683    683    683    683    683    683    683
- 2 Angola     700    702    705    709    711    714    718    721    725    727
- 3 Albania    755    755    755    755    755    756    756    756    756    756
- 4 Andorra   1360   1360   1360   1360   1370   1370   1370   1370   1380   1380
- 5 United…   1130   1130   1140   1140   1150   1150   1160   1160   1160   1170
- 6 Argent…   1730   1730   1740   1740   1750   1760   1760   1770   1770   1780
- 7 Armenia    582    582    582    582    582    582    582    582    582    582
- 8 Antigu…    857    857    857    857    857    857    857    858    858    858
- 9 Austra…    925    930    936    941    947    952    956    962    968    973
-10 Austria   2090   2100   2110   2120   2130   2130   2140   2150   2160   2170
-# … with 185 more rows, and 241 more variables: `1809` &lt;dbl&gt;, `1810` &lt;dbl&gt;,
-#   `1811` &lt;dbl&gt;, `1812` &lt;dbl&gt;, `1813` &lt;dbl&gt;, `1814` &lt;dbl&gt;, `1815` &lt;dbl&gt;,
-#   `1816` &lt;dbl&gt;, `1817` &lt;dbl&gt;, `1818` &lt;dbl&gt;, `1819` &lt;dbl&gt;, `1820` &lt;dbl&gt;,
-#   `1821` &lt;dbl&gt;, `1822` &lt;dbl&gt;, `1823` &lt;dbl&gt;, `1824` &lt;dbl&gt;, `1825` &lt;dbl&gt;,
-#   `1826` &lt;dbl&gt;, `1827` &lt;dbl&gt;, `1828` &lt;dbl&gt;, `1829` &lt;dbl&gt;, `1830` &lt;dbl&gt;,
-#   `1831` &lt;dbl&gt;, `1832` &lt;dbl&gt;, `1833` &lt;dbl&gt;, `1834` &lt;dbl&gt;, `1835` &lt;dbl&gt;,
-#   `1836` &lt;dbl&gt;, `1837` &lt;dbl&gt;, `1838` &lt;dbl&gt;, `1839` &lt;dbl&gt;, `1840` &lt;dbl&gt;, …</code></pre>
 </div>
 <h2 id="bindsjoins">Binds/Joins</h2>
 <h3 id="column-binds">column binds</h3>
@@ -2544,34 +2525,16 @@ be returned once for each matching row in x.</code></pre>
 2 Paul  bass  
 3 Keith guitar</code></pre>
 </div>
+<p>Exercise:</p>
+<ul>
+<li>Perform an inner, left, and full join of the <code>band_members</code> and <code>band_instruments</code>:</li>
+</ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>band_members</span>, <span class='va'>band_instruments</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#inner_join()</span></span>
+<span><span class='co'>#left_join()</span></span>
+<span><span class='co'>#full_join()</span></span></code></pre>
 </div>
-<pre><code># A tibble: 2 × 3
-  name  band    plays 
-  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
-1 John  Beatles guitar
-2 Paul  Beatles bass  </code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>band_members</span>, <span class='va'>band_instruments</span><span class='op'>)</span></span></code></pre>
-</div>
-<pre><code># A tibble: 3 × 3
-  name  band    plays 
-  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
-1 Mick  Stones  &lt;NA&gt;  
-2 John  Beatles guitar
-3 Paul  Beatles bass  </code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>full_join</a></span><span class='op'>(</span><span class='va'>band_members</span>, <span class='va'>band_instruments</span><span class='op'>)</span></span></code></pre>
-</div>
-<pre><code># A tibble: 4 × 3
-  name  band    plays 
-  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
-1 Mick  Stones  &lt;NA&gt;  
-2 John  Beatles guitar
-3 Paul  Beatles bass  
-4 Keith &lt;NA&gt;    guitar</code></pre>
 </div>
 <p>The <code>Joining, by = "name"</code> message indicates which columns were used to determine matching rows between the two tables. This is auto-detected based on shared column names. You can use the <code>by</code> argument to explicitly specify the columns you’d like to join, which is useful if the columns of interest have different names in the two tables.</p>
 <h2 id="missing-data">Missing data</h2>
@@ -2639,40 +2602,6 @@ be returned once for each matching row in x.</code></pre>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>avg_mass <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>mass</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<h2 id="exercise">Exercise</h2>
-<p>For this exercise we will tidy a dataset derived from this publication:</p>
-<blockquote>
-<p>Casas-Vila N, Bluhm A, Sayols S, Dinges N, Dejung M, Altenhein T, Kappei D, Altenhein B, Roignant JY, Butter F. The developmental proteome of Drosophila melanogaster. Genome Res. 2017 Jul;27(7):1273-1285. doi: 10.1101/gr.213694.116. Epub 2017 Apr 5. PMID: 28381612; PMCID: PMC5495078.</p>
-</blockquote>
-<p>This is a proteomics dataset generated from Drosophila melanogaster. Samples were collected through the fly lifespan, with 4 samples taken per timepoint.</p>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/fly_proteome.png" /><!-- --></p>
-</div>
-<p>The dataset provided here contains &gt; 100 columns and &gt; 50k rows. The first column (<code>Sequence</code>) is the amino acid sequence of the peptide measured, the second column is the transcript id of the protein that the peptide matches (<code>Proteins</code>), and the remaining columns contain intensity values indicating the amount of each peptide in each sample (arbitrary units).</p>
-<p>The sample names are coded in each column as follows:
-<code>timepoint_replicate</code>
-<code>e02</code> - <code>e20</code>: embryonic stages
-<code>L1</code> - <code>L3l</code>: larval stages
-<code>p1</code> - <code>p5</code>: pupal stages
-<code>vm</code> and <code>vf</code>: virgin male and virgin female flies (“adult young”)
-<code>m</code> and <code>f</code>: adult flies</p>
-<ol type="1">
-<li>Tidy this data</li>
-<li>Average the intensity values per protein at each time point</li>
-<li>What is the most abundant protein in the adult female fly?</li>
-</ol>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>prot_dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/dmel_peptides_lifecycle.csv.gz&quot;</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>...</span></code></pre></div>
-<ol start="4" type="1">
-<li>Next we are going to add some additional information to make these data more interpretable. The <code>dmel_tx_info.csv.gz</code> file contains information about each transcript. Use a <code>join</code> operation to join this information with the fly protein abundance dataset. Note that the <code>Proteins</code> column matches the information in the <code>flybase_transcript_id</code> column.</li>
-</ol>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>dmel_tx_info <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/dmel_tx_info.csv.gz&quot;</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>...</span></code></pre></div>
-<ol start="5" type="1">
-<li>What is the name and description of the most abundant protein found in the earliest embryonic stage (<code>e02</code>)?</li>
-</ol>
 <details>
 <summary>
 Show session info
@@ -2721,7 +2650,7 @@ loaded via a namespace (and not attached):
 <p>R tutorials and documentation:
 <a href="https://github.com/tidyverse/dplyr" class="uri">https://github.com/tidyverse/dplyr</a>
 <a href="https://r4ds.had.co.nz/index.html" class="uri">https://r4ds.had.co.nz/index.html</a></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
