@@ -25,10 +25,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          install.packages(c("rmarkdown", "distill")
-          install.packages(c("tidyverse", "here")
-          install.packages(c("factoextra", "pheatmap", "viridis", "MetBrewer")
-          install.packages("BiocManager")
+          install.packages(c("rmarkdown", "distill"))
+          install.packages(c("tidyverse", "here", "BiocManager"))
+          install.packages(c("factoextra", "pheatmap", "viridis", "MetBrewer"))
         shell: Rscript {0}
 
       # based on https://github.com/r-lib/actions/blob/v2/examples/render-rmarkdown.yaml
