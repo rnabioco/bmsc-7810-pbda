@@ -26,15 +26,7 @@ jobs:
       - name: Install dependencies
         run: |
           install.packages(c("rmarkdown", "distill"))
-          install.packages(c("tidyverse", "here", "BiocManager"))
-          install.packages(c("factoextra", "pheatmap", "viridis", "MetBrewer"))
         shell: Rscript {0}
-
-      # based on https://github.com/r-lib/actions/blob/v2/examples/render-rmarkdown.yaml
-      - name: Render Rmarkdown files and Commit Results
-        run: |
-          RMD_PATH=$( find _posts -name "*.Rmd" -print)
-          Rscript -e 'for (f in commandArgs(TRUE)) if (file.exists(f)) rmarkdown::render(f)' ${RMD_PATH[*]}
 
       - name: Build site
         run: rmarkdown::render_site(encoding = "UTF-8")

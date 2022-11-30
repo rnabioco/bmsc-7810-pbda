@@ -1,6 +1,5 @@
 .DS_Store
 .Rproj.user
-_posts/*/*_files
 *.rds
 *.rda
 *.tsv
