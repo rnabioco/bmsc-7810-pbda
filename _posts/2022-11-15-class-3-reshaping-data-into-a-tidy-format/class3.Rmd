@@ -205,14 +205,19 @@ unite(table5, "year", century:year, sep = "")
 
 ## Exercises
 
-1) Tidy the GDP data. 
-2) Which country had the highest GDP per person in 1985?
-3) What was the mean worldwide GDP in the year 1999?
+Use the [gapminder GDP dataset](https://www.gapminder.org/data/documentation/gd001/) to perform the following tasks and answer the following quesitons:
+
+1) Convert the GDP dataset into tidy format. 
+
+2) Which country had the highest GDP per person in 1985?  
+
+3) What was the mean worldwide GDP in the year 1999?  
+
 4) Which country had the highest average GDP per person in the 19th century?
 
 ```{r}
 library(readr)
-read_csv("data/income_per_person.csv")
+gdp_data <- read_csv("data/income_per_person.csv")
 ```
 
 
@@ -294,11 +299,14 @@ band_members
 band_instruments
 ```
 
+Exercise:
+
+- Perform an inner, left, and full join of the `band_members` and `band_instruments`:
 
 ```{r}
-inner_join(band_members, band_instruments)
-left_join(band_members, band_instruments)
-full_join(band_members, band_instruments)
+#inner_join()
+#left_join()
+#full_join()
 ```
 
 The `Joining, by = "name"` message indicates which columns were used to determine matching rows between the two tables. This is auto-detected based on shared column names. You can use the `by` argument to explicitly specify the columns you'd like to join, which is useful if the columns of interest have different names in the two tables. 
@@ -357,51 +365,6 @@ sum(starwars$mass, na.rm = TRUE)
 group_by(starwars, species) %>% 
   summarize(avg_mass = mean(mass, na.rm = TRUE))
 ```
-
-## Exercise
-
-For this exercise we will tidy a dataset derived from this publication:
-
->Casas-Vila N, Bluhm A, Sayols S, Dinges N, Dejung M, Altenhein T, Kappei D, Altenhein B, Roignant JY, Butter F. The developmental proteome of Drosophila melanogaster. Genome Res. 2017 Jul;27(7):1273-1285. doi: 10.1101/gr.213694.116. Epub 2017 Apr 5. PMID: 28381612; PMCID: PMC5495078.
->
-
-This is a proteomics dataset generated from Drosophila melanogaster. Samples were collected through the fly lifespan, with 4 samples taken per timepoint.
-
-```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/fly_proteome.png")
-```
-
-The dataset provided here contains > 100 columns and > 50k rows. The first column (`Sequence`) is the amino acid sequence of the peptide measured, the second column is the transcript id of the protein that the peptide matches (`Proteins`), and the remaining columns contain intensity values indicating the amount of each peptide in each sample (arbitrary units). 
-
-The sample names are coded in each column as follows:
-`timepoint_replicate`
-`e02` - `e20`: embryonic stages
-`L1` - `L3l`: larval stages
-`p1` - `p5`: pupal stages
-`vm` and `vf`: virgin male and virgin female flies ("adult young")
-`m` and `f`: adult flies
-
-1) Tidy this data
-2) Average the intensity values per protein at each time point 
-3) What is the most abundant protein in the adult female fly?
-
-```r
-prot_dat <- read_csv("data/dmel_peptides_lifecycle.csv.gz")
-...
-...
-```
-
-4) Next we are going to add some additional information to make these data more interpretable. The `dmel_tx_info.csv.gz` file contains information about each transcript. Use a `join` operation to join this information with the fly protein abundance dataset. Note that the `Proteins` column matches the information in the `flybase_transcript_id` column.  
-
-```r
-dmel_tx_info <- read_csv("data/dmel_tx_info.csv.gz")
-...
-...
-
-```
-
-5) What is the name and description of the most abundant protein found in the earliest embryonic stage (`e02`)?
-
 
 
 <details><summary>Show session info</summary>

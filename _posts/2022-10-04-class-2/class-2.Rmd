@@ -12,7 +12,7 @@ output:
     toc: true
 ---
 
-```{r setup}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   R.options = list(width = 80)
 )
@@ -116,6 +116,8 @@ mtcars[["gear"]] # extract gear column data as a vector
 summary(mtcars$gear) # get summary stats on column
 
 unique(mtcars$cyl) # find unique values in column cyl
+length(mtcars$cyl) # length of values in a vector
+  
 table(mtcars$cyl) # get frequency of each value in column cyl
 table(mtcars$gear, mtcars$cyl) # get frequency of each combination of values
 ```
@@ -236,7 +238,7 @@ flights %>% colnames() %>% sort() # sort the column names
 
 # you still need to assign the output if you want to use it later
 number_of_rows <- flights %>% nrow() 
-number_of_rows + 10
+number_of_rows 
 ```
 
 ### Filter rows
@@ -268,12 +270,22 @@ We can select rows where the `dest` column is equal to `LAX` **or** the `origin`
 ```{r, eval = FALSE}
 filter(flights, dest == "LAX" | origin == "EWR")
 ```
-The `%in%` operator is useful for identifing rows with entries matching those in a vector of possibilities.
+
+The `%in%` operator is useful for identifying rows with entries matching those in a vector of possibilities.
 
 ```{r, eval = FALSE}
 filter(flights, dest %in% c("LAX", "SLC", "SFO"))
 filter(flights, !dest %in% c("LAX", "SLC", "SFO")) # ! will negate
 ```
+
+Try it out:
+
+- Use filter to select for flights to DEN with a delayed departure (`dep_delay`).
+
+```{r}
+
+```
+
 ### arrange rows 
 
 `arrange()` can be used to sort the data based on values in a single or multiple columns
@@ -293,6 +305,14 @@ arrange(flights, air_time, distance) # sort first on distance, then on air_time
 
  # to sort in decreasing order, wrap the column name in `desc()`.
 arrange(flights, desc(air_time), distance)
+```
+
+Try it out:
+
+- Use arrange to rank the data by flight distance (`distance`), rank in ascending order. What flight is the shortest distance?
+
+```{r}
+
 ```
 
 ## Column operations
@@ -356,6 +376,15 @@ mutate(flights,
   select(total_delay, rank_delay)
 ```
 
+Try it out:
+
+- Calculate the flight time (`air_time`) in hours rather than in minutes, add as a new column.
+
+```{r}
+
+```
+
+
 ## Summarizing columns
 
 `summarize()` is a function that will collapse the data from a column into a summary value based on a function that takes a vector and returns a single value (e.g. mean(), sum(), median()). It is not very useful yet, but will be very powerful when we discuss grouped operations. 
@@ -400,14 +429,14 @@ Here are some questions that we can answer using grouped operations in a few lin
 
 - What is the average flight `air_time` between each origin airport and destination airport?
 
-```{r, echo = FALSE}
+```{r}
 group_by(flights, origin, dest) %>% 
   summarize(avg_air_time = mean(air_time))
 ```
 
 - What are the fastest and longest cities to fly between on average?
 
-```{r, echo = FALSE}
+```{r}
 group_by(flights, origin, dest) %>% 
   summarize(avg_air_time = mean(air_time)) %>% 
   arrange(avg_air_time) %>% 
@@ -419,24 +448,18 @@ group_by(flights, origin, dest) %>%
   head(1)
 ```
 
+Try it out:
+
 - Which carrier has the fastest flight on average from JFK to LAX?
 
 ```{r, echo = FALSE}
-filter(flights, origin == "JFK", dest == "LAX") %>% 
-  group_by(carrier) %>% 
-  summarize(avg_air_time = mean(air_time)) %>% 
-  arrange(avg_air_time) %>% 
-  head(1)
+
 ```
 
 - Which month has the longest departure delays on average when flying from JFK to HNL?
 
 ```{r, echo = FALSE}
-filter(flights, origin == "JFK", dest == "HNL") %>% 
-  group_by(month) %>% 
-  summarize(avg_dep_delays = mean(dep_delay)) %>% 
-  arrange(desc(avg_dep_delays)) %>% 
-  head()
+
 ```
 
 
@@ -493,7 +516,7 @@ Let's use dplyr and stringr together.
 
 Which destinations contain an "LL" in their 3 letter code?
 
-```{r, echo = FALSE}
+```{r}
 library(stringr)
 filter(flights, str_detect(dest, "LL")) %>% 
   select(dest) %>% 
@@ -502,7 +525,7 @@ filter(flights, str_detect(dest, "LL")) %>%
 
 Which 3-letter destination codes start with H?
 
-```{r, echo = FALSE}
+```{r}
 filter(flights, str_detect(dest, "^H")) %>% 
   select(dest) %>% 
   unique()
@@ -510,7 +533,7 @@ filter(flights, str_detect(dest, "^H")) %>%
 
 Let's make a new column that combines the `origin` and `dest` columns. 
 
-```{r, echo = FALSE}
+```{r}
 mutate(flights, new_col = str_c(origin, ":", dest)) %>% 
   select(new_col, everything())
 ```
