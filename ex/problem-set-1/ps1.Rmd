@@ -1,0 +1,166 @@
+---
+title: "Problem Set 1"
+author: "Insert your name here"
+output: html_document
+---
+
+```{r, setup}
+library(tidyverse)
+```
+
+### Problem Set
+
+Each problem below is worth **2 points**.
+
+For this problem set, you are allowed to help each other. However, please list who you've worked with and do not post answers in slack. 
+
+**The problem set is due 9am on Dec 5th**
+
+### Grading rubric
+
+- Everything is good: 2 points.
+- Runs, but wrong answer: 1.5 points
+- Reasonable attempt: 1 points
+
+### Question 1: - Importing dataset
+
+For this exercise we will use a dataset derived from this publication:
+
+>Casas-Vila N, Bluhm A, Sayols S, Dinges N, Dejung M, Altenhein T, Kappei D, Altenhein B, Roignant JY, Butter F. The developmental proteome of Drosophila melanogaster. Genome Res. 2017 Jul;27(7):1273-1285. doi: 10.1101/gr.213694.116. Epub 2017 Apr 5. PMID: 28381612; PMCID: PMC5495078.
+>
+
+This is a proteomics dataset generated from Drosophila melanogaster across many stages of development. Samples were collected through the fly lifespan, with 4 samples taken per developmental stage. The dataset contains measurements of individual peptides detected in each sample.
+
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/fly_proteome.png")
+```
+
+The first column of this dataset (`Sequence`) is the amino acid sequence of the peptide measured, the second column is the transcript id of the protein that the peptide matches (`Proteins`), and the remaining columns contain intensity values indicating the amount of each peptide in each sample (arbitrary units). 
+
+The sample names and replicate are coded in each column name as follows:
+`stage_replicate`
+
+The `stage` value indicates:
+
+`e02` - `e20`: embryonic stages
+`L1` - `L3l`: larval stages
+`p1` - `p5`: pupal stages
+`vm` and `vf`: virgin male and virgin female flies ("adult young")
+`m` and `f`: adult flies
+
+The replicate value indicate the sample # (1-4):
+`e02_1` = embryonic stage 02, sample 1
+`e02_2` = embryonic stage 02, sample 2 
+`m_4` = male adult fly, sample 4
+
+
+Import the dataset `dmel_peptides_lifecycle.csv.gz` using the readr package. The dataset is located here: https://github.com/rnabioco/bmsc-7810-pbda/raw/main/data/class3/dmel_peptides_lifecycle.csv.gz . You can either directly load the dataset from the URL, or download the file (using R, e.g.` download.file()`) and load the local file. 
+
+
+```{r, q1}
+
+```
+
+### Question 2 - Explore the dataset
+
+Use R functions that we discussed in case to a) determine the number of rows and b) the number of columns present in the dataset.
+
+```{r, q2}
+
+```
+
+
+### Question 3 - Explore the dataset
+
+Use R functions to determine if there are any `NA` values in the dataset. How many are present?
+
+```{r, q3}
+
+```
+
+
+### Question 4 - Explore the dataset
+
+How many unique values are present in the `Protein` column? How many unique amino acid sequences are present in the `Sequence` column?   
+
+```{r, q4}
+
+```
+
+### Question 5 - Filter the data
+
+The authors noted that they detected a large number of yeast proteins which likely derived from the yeast that are a food source for drosophila. The drosophila proteins have transcript IDs (`Proteins` column) that start with `FBtr` and the yeast start with `Y`. 
+
+1) Filter the data to remove the entries from the yeast proteins
+2) Remove the Sequence column, as we do not need this information
+3) Assign the output to a new dataframe.
+
+
+```{r, q5}
+
+```
+
+### Question 6 
+
+This data is not in a tidy format. Why is it not tidy?
+
+...
+
+### Question 7
+
+Tidy the dataframe so that each row has only one experimental observation. Save the dataframe to a new object. Hint: Use _pivot_longer_ and _separate_. Also note that this may take a few moments (~ < 1 min) to run. It might be helpful to troubleshoot your code on a small data.frame first (e.g `tmp_df <- df[1:100, ]`).
+
+Your tidy data.frame should look like this (the column names may differ):
+
+```r
+# A tibble: 3,312,280 × 4
+   Proteins    stage    replicate intensity
+   <chr>       <chr>     <chr>         <dbl>
+ 1 FBtr0074299 e02       1                 0
+ 2 FBtr0074299 e02       2                 0
+ 3 FBtr0074299 e02       3                 0
+ 4 FBtr0074299 e02       4                 0
+ 5 FBtr0074299 e06       1                 0
+ 6 FBtr0074299 e06       2                 0
+ 7 FBtr0074299 e06       3                 0
+ 8 FBtr0074299 e06       4                 0
+ 9 FBtr0074299 e12       1                 0
+10 FBtr0074299 e12       2                 0
+# … with 3,312,270 more rows
+# ℹ Use `print(n = ...)` to see more rows
+```
+
+```{r, q7}
+
+```
+
+
+### Question 8
+
+There are 4 samples per developmental stage in this dataset. We'd like to summarize the protein intensity values into a single measurement for each timepoint. Using the dataframe generated in Q7, average the intensity values per protein at each time point. Hint: Use _group_by_
+
+```{r, q8}
+
+```
+
+
+### Question 9
+
+What is the most abundant protein in the adult female fly (encoded as `f`)? Hint: Use _filter_ and _arrange_
+
+```{r, q9}
+
+```
+
+
+### Question 10
+
+Lastly, we are going to add some additional information to make these data more interpretable. The `dmel_tx_info.csv.gz` file contains information about each transcript. This file is located here:
+https://github.com/rnabioco/bmsc-7810-pbda/raw/main/data/class3/dmel_tx_info.csv.gz
+Import this file into R, then use a `join` operation to join this information with the fly protein abundance dataset. Note that the `Proteins` column matches the information in the `flybase_transcript_id` column in the `dmel_tx_info.csv.gz` data.  
+
+What is the name and description of the most abundant protein found in the earliest embryonic stage (`e02`)?
+
+```{r, q10}
+
+```
