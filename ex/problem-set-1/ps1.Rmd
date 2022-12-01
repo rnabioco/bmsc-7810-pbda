@@ -4,7 +4,7 @@ author: "Insert your name here"
 output: html_document
 ---
 
-```{r, setup}
+```{r setup}
 library(tidyverse)
 ```
 
@@ -42,16 +42,16 @@ The sample names and replicate are coded in each column name as follows:
 
 The `stage` value indicates:
 
-`e02` - `e20`: embryonic stages
-`L1` - `L3l`: larval stages
-`p1` - `p5`: pupal stages
-`vm` and `vf`: virgin male and virgin female flies ("adult young")
-`m` and `f`: adult flies
+`e02` - `e20`: embryonic stages  
+`L1` - `L3l`: larval stages  
+`p1` - `p5`: pupal stages  
+`vm` and `vf`: virgin male and virgin female flies ("adult young")  
+`m` and `f`: adult flies  
 
-The replicate value indicate the sample # (1-4):
-`e02_1` = embryonic stage 02, sample 1
-`e02_2` = embryonic stage 02, sample 2 
-`m_4` = male adult fly, sample 4
+The replicate value indicate the sample # (1-4):  
+`e02_1` = embryonic stage 02, sample 1  
+`e02_2` = embryonic stage 02, sample 2  
+`m_4` = male adult fly, sample 4  
 
 
 Import the dataset `dmel_peptides_lifecycle.csv.gz` using the readr package. The dataset is located here: https://github.com/rnabioco/bmsc-7810-pbda/raw/main/data/class3/dmel_peptides_lifecycle.csv.gz . You can either directly load the dataset from the URL, or download the file (using R, e.g.` download.file()`) and load the local file. 
@@ -81,7 +81,7 @@ Use R functions to determine if there are any `NA` values in the dataset. How ma
 
 ### Question 4 - Explore the dataset
 
-How many unique values are present in the `Protein` column? How many unique amino acid sequences are present in the `Sequence` column?   
+How many unique values are present in the `Protein` column? How many unique peptide sequences are present in the `Sequence` column?   
 
 ```{r, q4}
 
@@ -108,7 +108,7 @@ This data is not in a tidy format. Why is it not tidy?
 
 ### Question 7
 
-Tidy the dataframe so that each row has only one experimental observation. Save the dataframe to a new object. Hint: Use _pivot_longer_ and _separate_. Also note that this may take a few moments (~ < 1 min) to run. It might be helpful to troubleshoot your code on a small data.frame first (e.g `tmp_df <- df[1:100, ]`).
+Tidy the dataframe so that each row has only one experimental observation. Save the dataframe to a new object. Hint: Use _pivot_longer_ and _separate_. Also note that this may take a few moments (~ 1 min) to run. It might be helpful to troubleshoot your code on a small data.frame first (e.g `tmp_df <- df[1:100, ]`).
 
 Your tidy data.frame should look like this (the column names may differ):
 
@@ -155,8 +155,9 @@ What is the most abundant protein in the adult female fly (encoded as `f`)? Hint
 
 ### Question 10
 
-Lastly, we are going to add some additional information to make these data more interpretable. The `dmel_tx_info.csv.gz` file contains information about each transcript. This file is located here:
-https://github.com/rnabioco/bmsc-7810-pbda/raw/main/data/class3/dmel_tx_info.csv.gz
+Lastly, we are going to add some additional information to make these data more interpretable. The `dmel_tx_info.csv.gz` file contains information about each transcript. This file is located here:  
+https://github.com/rnabioco/bmsc-7810-pbda/raw/main/data/class3/dmel_tx_info.csv.gz  
+
 Import this file into R, then use a `join` operation to join this information with the fly protein abundance dataset. Note that the `Proteins` column matches the information in the `flybase_transcript_id` column in the `dmel_tx_info.csv.gz` data.  
 
 What is the name and description of the most abundant protein found in the earliest embryonic stage (`e02`)?
