@@ -43,13 +43,12 @@ source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/20
 Data can be represented in multiple formats. Today we will discuss two common tabular formats for organizing data for analysis in R. Consider the following dataset, which contains GDP estimates per person for countries throughout history. This representation of the data is commonly referred to as 'wide' data format, which is a matrix-like format containing samples or features as rows or columns, with values associated with each sample and feature. 
 
 ```{r, echo = FALSE}
-library(here)
 library(readr)
 gdp_data <- read_csv("data/income_per_person.csv")
 gdp_data
 ```
 
-The wide matrix-like format is very useful and a common format used for statistics and machine learning. Matrices can take advantage of optimized numerical routines and are the data representation of mathematical matrices. We will work with matrices latter in class, particularly their use to generate heatmaps. 
+The wide matrix-like format is very useful and a common format used for statistics and machine learning. Matrices can take advantage of optimized numerical routines and are the data representation of mathematical matrices. We will work with matrices later in class, particularly with their use to generate heatmaps. 
 
 Representing data in a matrix has a few practical implications:  
 
@@ -57,9 +56,7 @@ Representing data in a matrix has a few practical implications:
 
 2) The format is not easily manipulated with dplyr/tidyverse.
 
-We will instead start by with working with data in a long (also known as tidy) format. 
-
-The same data could be instead formatted in a long (aka "tidy") format.
+Data in a matrix can be instead formatted in a long (aka "tidy") format.
 
 ```{r, echo = FALSE}
 tidyr::pivot_longer(gdp_data, cols = -country, names_to = "year", values_to = "gdp")
@@ -89,7 +86,7 @@ What is a variable, what is an observation, and what is a value?
 
 3) A variable contains all values that measure the same attribute (e.g. height, temperature, duration, magnitude) across units.  
 
-4) An observation contains all values measured on the same unit (e.g. biological sample, day, gene, country).  
+4) An observation contains all values measured on the same unit (e.g. the same individual,  day, country, gene).  
 
 
 ```{r, echo = FALSE}
@@ -129,7 +126,7 @@ Some disadvantages:
 
 1) Not space efficient   
 2) Not intuitive   
-3) Doesn't work with typical machine learning and statistical approaches.  
+3) Doesn't interface well with traditional machine learning and statistical approaches.  
 
 
 ## Converting between long and wide formats using tidyr 
@@ -209,16 +206,29 @@ Use the [gapminder GDP dataset](https://www.gapminder.org/data/documentation/gd0
 
 1) Convert the GDP dataset into tidy format. 
 
-2) Which country had the highest GDP per person in 1985?  
-
-3) What was the mean worldwide GDP in the year 1999?  
-
-4) Which country had the highest average GDP per person in the 19th century?
-
 ```{r}
 library(readr)
 gdp_data <- read_csv("data/income_per_person.csv")
 ```
+
+2) Which country had the highest GDP per person in 1985?  
+
+```{r}
+
+```
+
+3) What was the mean worldwide GDP in the year 1999?  
+
+```{r}
+
+```
+
+4) Which country had the highest average GDP per person in the 19th century?
+
+```{r}
+
+```
+
 
 
 ## Binds/Joins
@@ -232,11 +242,13 @@ knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_po
 
 `bind_cols(tbl_1, tbl_2, ...)`
 
-`bind_cols` will bind the columns from 2 or more tables into 1 table. Note that with binds you need to ensure that each table has the same number of rows.
+`bind_cols` will bind the columns from 2 or more tables into 1 table. Note that with column binds you need to ensure that each table has the same number of rows.
 
 ```{r}
 library(dplyr)
-bind_cols(tibble(x = 1:3), tibble(y = 3:5))
+tbl1 <- tibble(x = 1:3)
+tbl2 <- tibble(y = 3:5)
+bind_cols(tbl1, tbl2)
 ```
 
 ### row binds
@@ -304,14 +316,14 @@ Exercise:
 - Perform an inner, left, and full join of the `band_members` and `band_instruments`:
 
 ```{r}
-#inner_join()
-#left_join()
-#full_join()
+
 ```
 
 The `Joining, by = "name"` message indicates which columns were used to determine matching rows between the two tables. This is auto-detected based on shared column names. You can use the `by` argument to explicitly specify the columns you'd like to join, which is useful if the columns of interest have different names in the two tables. 
 
 ## Missing data
+
+Join operations will often generate missing data (e.g. NAs). 
 
 ### Zeroes, `NA`, `NaN` and `NULL`
 

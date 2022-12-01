@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-11-30"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-11-30"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-12-01"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-12-01"/>
   <meta name="article:author" content="Kent Riemondy"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -110,7 +110,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 3: Reshaping data into a tidy format"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["11-30-2022"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 3: Reshaping data into a tidy format"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["12-01-2022"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1493,7 +1493,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Class 3: Reshaping data into a tidy format","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2022-11-30T00:00:00.000-07:00","citationText":"Riemondy, 2022"}
+{"title":"Class 3: Reshaping data into a tidy format","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2022-12-01T00:00:00.000-07:00","citationText":"Riemondy, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1512,7 +1512,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-byline">
   Kent Riemondy <a href="https://github.com/kriemo" class="uri">https://github.com/kriemo</a> (RNA Bioscience Initiative)<a href="https://medschool.cuanschutz.edu/rbi" class="uri">https://medschool.cuanschutz.edu/rbi</a>
   
-<br/>11-30-2022
+<br/>12-01-2022
 </div>
 
 <div class="d-article">
@@ -1555,14 +1555,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 #   `1831` &lt;dbl&gt;, `1832` &lt;dbl&gt;, `1833` &lt;dbl&gt;, `1834` &lt;dbl&gt;, `1835` &lt;dbl&gt;,
 #   `1836` &lt;dbl&gt;, `1837` &lt;dbl&gt;, `1838` &lt;dbl&gt;, `1839` &lt;dbl&gt;, `1840` &lt;dbl&gt;, …</code></pre>
 </div>
-<p>The wide matrix-like format is very useful and a common format used for statistics and machine learning. Matrices can take advantage of optimized numerical routines and are the data representation of mathematical matrices. We will work with matrices latter in class, particularly their use to generate heatmaps.</p>
+<p>The wide matrix-like format is very useful and a common format used for statistics and machine learning. Matrices can take advantage of optimized numerical routines and are the data representation of mathematical matrices. We will work with matrices later in class, particularly with their use to generate heatmaps.</p>
 <p>Representing data in a matrix has a few practical implications:</p>
 <ol type="1">
 <li><p>There is only 1 type of data stored in matrix (e.g. each cell is the same unit of observation, the GDP per person). To store more values you need multiple matrices.</p></li>
 <li><p>The format is not easily manipulated with dplyr/tidyverse.</p></li>
 </ol>
-<p>We will instead start by with working with data in a long (also known as tidy) format.</p>
-<p>The same data could be instead formatted in a long (aka “tidy”) format.</p>
+<p>Data in a matrix can be instead formatted in a long (aka “tidy”) format.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre><code># A tibble: 48,945 × 3
    country     year    gdp
@@ -1599,7 +1598,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><p>A value is a number or word.</p></li>
 <li><p>Every value belongs to a variable and an observation</p></li>
 <li><p>A variable contains all values that measure the same attribute (e.g. height, temperature, duration, magnitude) across units.</p></li>
-<li><p>An observation contains all values measured on the same unit (e.g. biological sample, day, gene, country).</p></li>
+<li><p>An observation contains all values measured on the same unit (e.g. the same individual, day, country, gene).</p></li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/tidydata.png" /><!-- --></p>
@@ -1658,7 +1657,7 @@ e.g. via group_by() -&gt; summarize()</p></li>
 </li>
 <li>Not intuitive<br />
 </li>
-<li>Doesn’t work with typical machine learning and statistical approaches.</li>
+<li>Doesn’t interface well with traditional machine learning and statistical approaches.</li>
 </ol>
 <h2 id="converting-between-long-and-wide-formats-using-tidyr">Converting between long and wide formats using tidyr</h2>
 <p>The <a href="https://tidyr.tidyverse.org/"><code>tidyr</code></a> package provides functionality to convert datasets into tidy formats.</p>
@@ -1766,10 +1765,7 @@ Figure 1: Tables from tidyr cheatsheet from <a href="https://posit.co/wp-content
 <h2 id="exercises">Exercises</h2>
 <p>Use the <a href="https://www.gapminder.org/data/documentation/gd001/">gapminder GDP dataset</a> to perform the following tasks and answer the following quesitons:</p>
 <ol type="1">
-<li><p>Convert the GDP dataset into tidy format.</p></li>
-<li><p>Which country had the highest GDP per person in 1985?</p></li>
-<li><p>What was the mean worldwide GDP in the year 1999?</p></li>
-<li><p>Which country had the highest average GDP per person in the 19th century?</p></li>
+<li>Convert the GDP dataset into tidy format.</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1777,10 +1773,28 @@ Figure 1: Tables from tidyr cheatsheet from <a href="https://posit.co/wp-content
 <span><span class='va'>gdp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/income_per_person.csv"</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
+<ol start="2" type="1">
+<li>Which country had the highest GDP per person in 1985?</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<ol start="3" type="1">
+<li>What was the mean worldwide GDP in the year 1999?</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<ol start="4" type="1">
+<li>Which country had the highest average GDP per person in the 19th century?</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
 <h2 id="bindsjoins">Binds/Joins</h2>
 <h3 id="column-binds">column binds</h3>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-17"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-20"></span>
 <img src="https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/bind_cols.png" alt="from the dplyr cheatsheet at https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf"  />
 <p class="caption">
 Figure 2: from the dplyr cheatsheet at <a href="https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf" class="uri">https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf</a>
@@ -1788,11 +1802,13 @@ Figure 2: from the dplyr cheatsheet at <a href="https://posit.co/wp-content/uplo
 </div>
 </div>
 <p><code>bind_cols(tbl_1, tbl_2, ...)</code></p>
-<p><code>bind_cols</code> will bind the columns from 2 or more tables into 1 table. Note that with binds you need to ensure that each table has the same number of rows.</p>
+<p><code>bind_cols</code> will bind the columns from 2 or more tables into 1 table. Note that with column binds you need to ensure that each table has the same number of rows.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span><span class='op'>(</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='fl'>3</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>tbl1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span></span>
+<span><span class='va'>tbl2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='fl'>3</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span><span class='op'>(</span><span class='va'>tbl1</span>, <span class='va'>tbl2</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code># A tibble: 3 × 2
       x     y
@@ -1903,14 +1919,11 @@ be returned once for each matching row in x.</code></pre>
 <li>Perform an inner, left, and full join of the <code>band_members</code> and <code>band_instruments</code>:</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#inner_join()</span></span>
-<span><span class='co'>#left_join()</span></span>
-<span><span class='co'>#full_join()</span></span></code></pre>
-</div>
+
 </div>
 <p>The <code>Joining, by = "name"</code> message indicates which columns were used to determine matching rows between the two tables. This is auto-detected based on shared column names. You can use the <code>by</code> argument to explicitly specify the columns you’d like to join, which is useful if the columns of interest have different names in the two tables.</p>
 <h2 id="missing-data">Missing data</h2>
+<p>Join operations will often generate missing data (e.g. NAs).</p>
 <h3 id="zeroes-na-nan-and-null">Zeroes, <code>NA</code>, <code>NaN</code> and <code>NULL</code></h3>
 <ul>
 <li><p>Don’t use use zeroes to represent missing data. <code>0</code> is valid observed value.</p></li>
@@ -1998,22 +2011,21 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] dplyr_1.0.10 tidyr_1.2.0  readr_2.1.2  here_1.0.1  
+[1] dplyr_1.0.10 tidyr_1.2.0  readr_2.1.2 
 
 loaded via a namespace (and not attached):
  [1] highr_0.9        bslib_0.3.1      compiler_4.2.0   pillar_1.8.1    
- [5] jquerylib_0.1.4  tools_4.2.0      bit_4.0.4        digest_0.6.30   
- [9] downlit_0.4.2    jsonlite_1.8.3   evaluate_0.16    memoise_2.0.1   
+ [5] jquerylib_0.1.4  tools_4.2.0      digest_0.6.30    downlit_0.4.2   
+ [9] bit_4.0.4        jsonlite_1.8.3   evaluate_0.16    memoise_2.0.1   
 [13] lifecycle_1.0.3  tibble_3.1.8     pkgconfig_2.0.3  rlang_1.0.6     
 [17] DBI_1.1.3        cli_3.4.1        rstudioapi_0.13  parallel_4.2.0  
 [21] distill_1.5      yaml_2.3.6       xfun_0.32        fastmap_1.1.0   
 [25] withr_2.5.0      stringr_1.4.1    knitr_1.39       generics_0.1.3  
 [29] vctrs_0.4.1      sass_0.4.1       hms_1.1.2        tidyselect_1.2.0
-[33] rprojroot_2.0.3  bit64_4.0.5      glue_1.6.2       R6_2.5.1        
-[37] fansi_1.0.3      vroom_1.5.7      rmarkdown_2.14   purrr_0.3.5     
-[41] tzdb_0.3.0       magrittr_2.0.3   ellipsis_0.3.2   htmltools_0.5.2 
-[45] assertthat_0.2.1 utf8_1.2.2       stringi_1.7.8    cachem_1.0.6    
-[49] crayon_1.5.2    </code></pre>
+[33] bit64_4.0.5      glue_1.6.2       R6_2.5.1         fansi_1.0.3     
+[37] vroom_1.5.7      rmarkdown_2.14   purrr_0.3.5      tzdb_0.3.0      
+[41] magrittr_2.0.3   ellipsis_0.3.2   htmltools_0.5.2  assertthat_0.2.1
+[45] utf8_1.2.2       stringi_1.7.8    cachem_1.0.6     crayon_1.5.2    </code></pre>
 </div>
 </details>
 <h2 class="appendix" id="acknowledgements-and-additional-references">Acknowledgements and additional references</h2>
