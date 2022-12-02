@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-12-01"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-12-01"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-12-02"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-12-02"/>
   <meta name="article:author" content="Kent Riemondy"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -110,7 +110,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 3: Reshaping data into a tidy format"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["12-01-2022"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 3: Reshaping data into a tidy format"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["12-02-2022"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1493,7 +1493,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Class 3: Reshaping data into a tidy format","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2022-12-01T00:00:00.000-07:00","citationText":"Riemondy, 2022"}
+{"title":"Class 3: Reshaping data into a tidy format","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2022-12-02T00:00:00.000-07:00","citationText":"Riemondy, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1512,7 +1512,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-byline">
   Kent Riemondy <a href="https://github.com/kriemo" class="uri">https://github.com/kriemo</a> (RNA Bioscience Initiative)<a href="https://medschool.cuanschutz.edu/rbi" class="uri">https://medschool.cuanschutz.edu/rbi</a>
   
-<br/>12-01-2022
+<br/>12-02-2022
 </div>
 
 <div class="d-article">
@@ -1683,8 +1683,19 @@ Figure 1: Tables from tidyr cheatsheet from <a href="https://posit.co/wp-content
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#pivot_longer(table4a, cols = `1999`:`2000`) # pivot columns from 1999 -&gt; 2000</span></span>
-<span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='va'>table4a</span>, cols <span class='op'>=</span> <span class='op'>-</span><span class='va'>country</span><span class='op'>)</span> <span class='co'># pivot all columns not matching country</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='va'>table4a</span>, cols <span class='op'>=</span> <span class='va'>`1999`</span><span class='op'>:</span><span class='va'>`2000`</span><span class='op'>)</span> <span class='co'># pivot columns from 1999 -&gt; 2000</span></span></code></pre>
+</div>
+<pre><code># A tibble: 6 × 3
+  country     name   value
+  &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;
+1 Afghanistan 1999     745
+2 Afghanistan 2000    2666
+3 Brazil      1999   37737
+4 Brazil      2000   80488
+5 China       1999  212258
+6 China       2000  213766</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='va'>table4a</span>, cols <span class='op'>=</span> <span class='op'>-</span><span class='va'>country</span><span class='op'>)</span> <span class='co'># pivot all columns not matching country</span></span></code></pre>
 </div>
 <pre><code># A tibble: 6 × 3
   country     name   value
@@ -1728,7 +1739,7 @@ Figure 1: Tables from tidyr cheatsheet from <a href="https://posit.co/wp-content
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/separate.html'>separate</a></span><span class='op'>(</span><span class='va'>table3</span>, col <span class='op'>=</span> <span class='va'>rate</span>, into <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cases"</span>, <span class='st'>"pop"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/separate.html'>separate</a></span><span class='op'>(</span><span class='va'>table3</span>, col <span class='op'>=</span> <span class='va'>rate</span>, into <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cases"</span>, <span class='st'>"pop"</span><span class='op'>)</span>, sep <span class='op'>=</span> <span class='st'>"/"</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code># A tibble: 6 × 4
   country      year cases  pop       
@@ -1769,27 +1780,134 @@ Figure 1: Tables from tidyr cheatsheet from <a href="https://posit.co/wp-content
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readr.tidyverse.org'>readr</a></span><span class='op'>)</span></span>
-<span><span class='va'>gdp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/income_per_person.csv"</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='va'>gdp_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/income_per_person.csv"</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='va'>gdp_data</span>, cols <span class='op'>=</span> <span class='va'>`1799`</span><span class='op'>:</span><span class='va'>`2049`</span><span class='op'>)</span></span></code></pre>
 </div>
+<pre><code># A tibble: 48,945 × 3
+   country     name  value
+   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt;
+ 1 Afghanistan 1799    683
+ 2 Afghanistan 1800    683
+ 3 Afghanistan 1801    683
+ 4 Afghanistan 1802    683
+ 5 Afghanistan 1803    683
+ 6 Afghanistan 1804    683
+ 7 Afghanistan 1805    683
+ 8 Afghanistan 1806    683
+ 9 Afghanistan 1807    683
+10 Afghanistan 1808    683
+# … with 48,935 more rows</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>gdp_tidy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='va'>gdp_data</span>, </span>
+<span>                         cols <span class='op'>=</span> <span class='op'>-</span><span class='va'>country</span>, </span>
+<span>                         names_to <span class='op'>=</span> <span class='st'>"year"</span>, </span>
+<span>                         values_to <span class='op'>=</span> <span class='st'>"gdp"</span><span class='op'>)</span></span>
+<span><span class='va'>gdp_tidy</span></span></code></pre>
+</div>
+<pre><code># A tibble: 48,945 × 3
+   country     year    gdp
+   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt;
+ 1 Afghanistan 1799    683
+ 2 Afghanistan 1800    683
+ 3 Afghanistan 1801    683
+ 4 Afghanistan 1802    683
+ 5 Afghanistan 1803    683
+ 6 Afghanistan 1804    683
+ 7 Afghanistan 1805    683
+ 8 Afghanistan 1806    683
+ 9 Afghanistan 1807    683
+10 Afghanistan 1808    683
+# … with 48,935 more rows</code></pre>
 </div>
 <ol start="2" type="1">
 <li>Which country had the highest GDP per person in 1985?</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># using the wide data</span></span>
+<span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_max</a></span><span class='op'>(</span><span class='va'>gdp_data</span>, <span class='va'>`1985`</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 1 × 252
+  country `1799` `1800` `1801` `1802` `1803` `1804` `1805` `1806` `1807` `1808`
+  &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 Brunei    1710   1710   1710   1710   1710   1710   1710   1710   1710   1710
+# … with 241 more variables: `1809` &lt;dbl&gt;, `1810` &lt;dbl&gt;, `1811` &lt;dbl&gt;,
+#   `1812` &lt;dbl&gt;, `1813` &lt;dbl&gt;, `1814` &lt;dbl&gt;, `1815` &lt;dbl&gt;, `1816` &lt;dbl&gt;,
+#   `1817` &lt;dbl&gt;, `1818` &lt;dbl&gt;, `1819` &lt;dbl&gt;, `1820` &lt;dbl&gt;, `1821` &lt;dbl&gt;,
+#   `1822` &lt;dbl&gt;, `1823` &lt;dbl&gt;, `1824` &lt;dbl&gt;, `1825` &lt;dbl&gt;, `1826` &lt;dbl&gt;,
+#   `1827` &lt;dbl&gt;, `1828` &lt;dbl&gt;, `1829` &lt;dbl&gt;, `1830` &lt;dbl&gt;, `1831` &lt;dbl&gt;,
+#   `1832` &lt;dbl&gt;, `1833` &lt;dbl&gt;, `1834` &lt;dbl&gt;, `1835` &lt;dbl&gt;, `1836` &lt;dbl&gt;,
+#   `1837` &lt;dbl&gt;, `1838` &lt;dbl&gt;, `1839` &lt;dbl&gt;, `1840` &lt;dbl&gt;, `1841` &lt;dbl&gt;, …</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># using the long tidy data</span></span>
+<span><span class='va'>gdp_tidy</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='st'>"1985"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>gdp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 1 × 3
+  country year    gdp
+  &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;
+1 Brunei  1985  77900</code></pre>
 </div>
 <ol start="3" type="1">
 <li>What was the mean worldwide GDP in the year 1999?</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># using the tidy data</span></span>
+<span><span class='va'>gdp_tidy</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='st'>"1999"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_gdp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>gdp</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 1 × 1
+  mean_gdp
+     &lt;dbl&gt;
+1   15202.</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>gdp_tidy</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>==</span> <span class='st'>"1999"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>gdp</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 15201.59</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># using the wide data</span></span>
+<span><span class='va'>gdp_data</span><span class='op'>$</span><span class='va'>`1999`</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 15201.59</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>gdp_data</span><span class='op'>$</span><span class='va'>`1999`</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 15201.59</code></pre>
 </div>
 <ol start="4" type="1">
-<li>Which country had the highest average GDP per person in the 19th century?</li>
+<li>Which country had the highest average GDP in the 19th century?</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>gdp_tidy</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_detect.html'>str_detect</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='st'>"^18"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>avg_gdp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>gdp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>avg_gdp</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 195 × 2
+   country        avg_gdp
+   &lt;chr&gt;            &lt;dbl&gt;
+ 1 United Kingdom   5531.
+ 2 United States    4993.
+ 3 Netherlands      4604.
+ 4 Australia        4118.
+ 5 Belgium          4079.
+ 6 Switzerland      3667.
+ 7 New Zealand      3501.
+ 8 Monaco           3454.
+ 9 Uruguay          3255.
+10 Denmark          3253 
+# … with 185 more rows</code></pre>
 </div>
 <h2 id="bindsjoins">Binds/Joins</h2>
 <h3 id="column-binds">column binds</h3>
@@ -1919,7 +2037,33 @@ be returned once for each matching row in x.</code></pre>
 <li>Perform an inner, left, and full join of the <code>band_members</code> and <code>band_instruments</code>:</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>band_members</span>, <span class='va'>band_instruments</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 2 × 3
+  name  band    plays 
+  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+1 John  Beatles guitar
+2 Paul  Beatles bass  </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>band_members</span>, <span class='va'>band_instruments</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 3 × 3
+  name  band    plays 
+  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+1 Mick  Stones  &lt;NA&gt;  
+2 John  Beatles guitar
+3 Paul  Beatles bass  </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>full_join</a></span><span class='op'>(</span><span class='va'>band_members</span>, <span class='va'>band_instruments</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 4 × 3
+  name  band    plays 
+  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+1 Mick  Stones  &lt;NA&gt;  
+2 John  Beatles guitar
+3 Paul  Beatles bass  
+4 Keith &lt;NA&gt;    guitar</code></pre>
 </div>
 <p>The <code>Joining, by = "name"</code> message indicates which columns were used to determine matching rows between the two tables. This is auto-detected based on shared column names. You can use the <code>by</code> argument to explicitly specify the columns you’d like to join, which is useful if the columns of interest have different names in the two tables.</p>
 <h2 id="missing-data">Missing data</h2>
@@ -1988,6 +2132,136 @@ be returned once for each matching row in x.</code></pre>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>avg_mass <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>mass</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
+<p>Also you can remove <code>NaN</code> values by detecting for their presence using <code>is.nan()</code>. These values occur because a few species don’t have any characters with values for the mass column, and computing the mean of an empty vector is NaN.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>starwars</span>, <span class='va'>species</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>avg_mass <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>mass</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/is.finite.html'>is.nan</a></span><span class='op'>(</span><span class='va'>avg_mass</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 32 × 2
+   species   avg_mass
+   &lt;chr&gt;        &lt;dbl&gt;
+ 1 Aleena        15  
+ 2 Besalisk     102  
+ 3 Cerean        82  
+ 4 Clawdite      55  
+ 5 Droid         69.8
+ 6 Dug           40  
+ 7 Ewok          20  
+ 8 Geonosian     80  
+ 9 Gungan        74  
+10 Human         82.8
+# … with 22 more rows</code></pre>
+</div>
+<h3 id="replacing-na-values">Replacing <code>NA</code> values</h3>
+<p>Let’s replace the NA vaues in <code>hair_color</code> with a string <code>missing data</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>starwars</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>new_hair_color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>hair_color</span><span class='op'>)</span>, </span>
+<span>                                 <span class='st'>"missing data"</span>,</span>
+<span>                                 <span class='va'>hair_color</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>hair_color</span>, <span class='va'>new_hair_color</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 87 × 2
+   hair_color    new_hair_color
+   &lt;chr&gt;         &lt;chr&gt;         
+ 1 blond         blond         
+ 2 &lt;NA&gt;          missing data  
+ 3 &lt;NA&gt;          missing data  
+ 4 none          none          
+ 5 brown         brown         
+ 6 brown, grey   brown, grey   
+ 7 brown         brown         
+ 8 &lt;NA&gt;          missing data  
+ 9 black         black         
+10 auburn, white auburn, white 
+# … with 77 more rows</code></pre>
+</div>
+<p>We can also replace with values from another column, such as <code>species</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>starwars</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>new_hair_color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>hair_color</span><span class='op'>)</span>, </span>
+<span>                                 <span class='va'>species</span>,</span>
+<span>                                 <span class='va'>hair_color</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>hair_color</span>, <span class='va'>new_hair_color</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 87 × 2
+   hair_color    new_hair_color
+   &lt;chr&gt;         &lt;chr&gt;         
+ 1 blond         blond         
+ 2 &lt;NA&gt;          Droid         
+ 3 &lt;NA&gt;          Droid         
+ 4 none          none          
+ 5 brown         brown         
+ 6 brown, grey   brown, grey   
+ 7 brown         brown         
+ 8 &lt;NA&gt;          Droid         
+ 9 black         black         
+10 auburn, white auburn, white 
+# … with 77 more rows</code></pre>
+</div>
+<p><code>ifelse</code> is a base R function that operates on vectors and is useful when you want to replace single values.</p>
+<h3 id="case_when">case_when()</h3>
+<p>If you want to perform more complex operations use <code>case_when()</code> from dplyr. <code>case_when()</code> is equivalent to performing multiple nested ifelse() operations, whereby if the first operation is <strong>not</strong> TRUE, then check for the second condition, repeating for each condition until there are no more statements.</p>
+<p>the syntax for case when is :</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">case_when(conditional statement ~ &quot;value in result&quot;,</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="at">           conditional statement #2 ~ &quot;another value in result&quot;,</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="at">           TRUE ~ &quot;default if neither conditional statement 1 or 2 are TRUE&quot;)</span><span class="st">`</span></span></code></pre></div>
+<p>Here is an example from the documentation. Make a new column called <code>type</code>. Return “large” if the height or mass of a character is &gt; 200. If that is not true, then return “robot” if the species is “Droid”. If that is not TRUE, then default to returning “other”.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>starwars</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>name</span><span class='op'>:</span><span class='va'>mass</span>, <span class='va'>species</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>height</span> <span class='op'>&gt;</span> <span class='fl'>200</span> <span class='op'>|</span> <span class='va'>mass</span> <span class='op'>&gt;</span> <span class='fl'>200</span> <span class='op'>~</span> <span class='st'>"large"</span>,</span>
+<span>                          <span class='va'>species</span> <span class='op'>==</span> <span class='st'>"Droid"</span>        <span class='op'>~</span> <span class='st'>"robot"</span>,</span>
+<span>                          <span class='cn'>TRUE</span>                      <span class='op'>~</span> <span class='st'>"other"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 87 × 5
+   name               height  mass species type 
+   &lt;chr&gt;               &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;
+ 1 Luke Skywalker        172    77 Human   other
+ 2 C-3PO                 167    75 Droid   robot
+ 3 R2-D2                  96    32 Droid   robot
+ 4 Darth Vader           202   136 Human   large
+ 5 Leia Organa           150    49 Human   other
+ 6 Owen Lars             178   120 Human   other
+ 7 Beru Whitesun lars    165    75 Human   other
+ 8 R5-D4                  97    32 Droid   robot
+ 9 Biggs Darklighter     183    84 Human   other
+10 Obi-Wan Kenobi        182    77 Human   other
+# … with 77 more rows</code></pre>
+</div>
+<h3 id="using-group_by-to-replace-nas-with-summaries-from-the-data">Using group_by() to replace NAs with summaries from the data</h3>
+<p>Lastly, it may be beneficial to replace the NA values with a summary value representative of the data. This is an example of data “imputation”.</p>
+<p>For example we might decide that we want to replace NA values in the “mass” column with the average mass of the species of the character.</p>
+<p>Using group_by() + mutate() is a useful paradigm for performing this operation:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>starwars</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>mass</span>, <span class='va'>species</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>species</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>avg_mass <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>mass</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>imputed_mass <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mass</span><span class='op'>)</span>, <span class='va'>avg_mass</span>, <span class='va'>mass</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 87 × 5
+# Groups:   species [38]
+   name                mass species avg_mass imputed_mass
+   &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Luke Skywalker        77 Human       82.8           77
+ 2 C-3PO                 75 Droid       69.8           75
+ 3 R2-D2                 32 Droid       69.8           32
+ 4 Darth Vader          136 Human       82.8          136
+ 5 Leia Organa           49 Human       82.8           49
+ 6 Owen Lars            120 Human       82.8          120
+ 7 Beru Whitesun lars    75 Human       82.8           75
+ 8 R5-D4                 32 Droid       69.8           32
+ 9 Biggs Darklighter     84 Human       82.8           84
+10 Obi-Wan Kenobi        77 Human       82.8           77
+# … with 77 more rows</code></pre>
+</div>
 <details>
 <summary>
 Show session info
@@ -2011,21 +2285,27 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] dplyr_1.0.10 tidyr_1.2.0  readr_2.1.2 
+[1] forcats_0.5.1   stringr_1.4.1   dplyr_1.0.10    purrr_0.3.5    
+[5] tibble_3.1.8    ggplot2_3.3.6   tidyverse_1.3.1 tidyr_1.2.0    
+[9] readr_2.1.2    
 
 loaded via a namespace (and not attached):
- [1] highr_0.9        bslib_0.3.1      compiler_4.2.0   pillar_1.8.1    
- [5] jquerylib_0.1.4  tools_4.2.0      digest_0.6.30    downlit_0.4.2   
- [9] bit_4.0.4        jsonlite_1.8.3   evaluate_0.16    memoise_2.0.1   
-[13] lifecycle_1.0.3  tibble_3.1.8     pkgconfig_2.0.3  rlang_1.0.6     
-[17] DBI_1.1.3        cli_3.4.1        rstudioapi_0.13  parallel_4.2.0  
-[21] distill_1.5      yaml_2.3.6       xfun_0.32        fastmap_1.1.0   
-[25] withr_2.5.0      stringr_1.4.1    knitr_1.39       generics_0.1.3  
-[29] vctrs_0.4.1      sass_0.4.1       hms_1.1.2        tidyselect_1.2.0
-[33] bit64_4.0.5      glue_1.6.2       R6_2.5.1         fansi_1.0.3     
-[37] vroom_1.5.7      rmarkdown_2.14   purrr_0.3.5      tzdb_0.3.0      
-[41] magrittr_2.0.3   ellipsis_0.3.2   htmltools_0.5.2  assertthat_0.2.1
-[45] utf8_1.2.2       stringi_1.7.8    cachem_1.0.6     crayon_1.5.2    </code></pre>
+ [1] lubridate_1.8.0  assertthat_0.2.1 digest_0.6.30    utf8_1.2.2      
+ [5] R6_2.5.1         cellranger_1.1.0 backports_1.4.1  reprex_2.0.1    
+ [9] evaluate_0.16    httr_1.4.4       highr_0.9        pillar_1.8.1    
+[13] rlang_1.0.6      readxl_1.4.0     rstudioapi_0.13  jquerylib_0.1.4 
+[17] rmarkdown_2.14   bit_4.0.4        munsell_0.5.0    broom_0.8.0     
+[21] compiler_4.2.0   modelr_0.1.8     xfun_0.32        pkgconfig_2.0.3 
+[25] htmltools_0.5.2  downlit_0.4.2    tidyselect_1.2.0 fansi_1.0.3     
+[29] crayon_1.5.2     tzdb_0.3.0       dbplyr_2.2.1     withr_2.5.0     
+[33] grid_4.2.0       jsonlite_1.8.3   gtable_0.3.0     lifecycle_1.0.3 
+[37] DBI_1.1.3        magrittr_2.0.3   scales_1.2.0     cli_3.4.1       
+[41] stringi_1.7.8    vroom_1.5.7      cachem_1.0.6     fs_1.5.2        
+[45] xml2_1.3.3       bslib_0.3.1      ellipsis_0.3.2   generics_0.1.3  
+[49] vctrs_0.4.1      distill_1.5      tools_4.2.0      bit64_4.0.5     
+[53] glue_1.6.2       hms_1.1.2        parallel_4.2.0   fastmap_1.1.0   
+[57] yaml_2.3.6       colorspace_2.0-3 rvest_1.0.2      memoise_2.0.1   
+[61] knitr_1.39       haven_2.5.0      sass_0.4.1      </code></pre>
 </div>
 </details>
 <h2 class="appendix" id="acknowledgements-and-additional-references">Acknowledgements and additional references</h2>
@@ -2035,7 +2315,7 @@ loaded via a namespace (and not attached):
 <p>R tutorials and documentation:
 <a href="https://github.com/tidyverse/dplyr" class="uri">https://github.com/tidyverse/dplyr</a>
 <a href="https://r4ds.had.co.nz/index.html" class="uri">https://r4ds.had.co.nz/index.html</a></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

@@ -150,7 +150,7 @@ knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_po
 
 
 ```{r}
-#pivot_longer(table4a, cols = `1999`:`2000`) # pivot columns from 1999 -> 2000
+pivot_longer(table4a, cols = `1999`:`2000`) # pivot columns from 1999 -> 2000
 pivot_longer(table4a, cols = -country) # pivot all columns not matching country
 ```
 ## Reshaping long data to wide
@@ -184,7 +184,7 @@ knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_po
 ```
 
 ```{r}
-separate(table3, col = rate, into = c("cases", "pop"))
+separate(table3, col = rate, into = c("cases", "pop"), sep = "/")
 ```
 
 ## unite 
@@ -207,26 +207,57 @@ Use the [gapminder GDP dataset](https://www.gapminder.org/data/documentation/gd0
 1) Convert the GDP dataset into tidy format. 
 
 ```{r}
-library(readr)
+library(tidyverse)
 gdp_data <- read_csv("data/income_per_person.csv")
+pivot_longer(gdp_data, cols = `1799`:`2049`)
+gdp_tidy <- pivot_longer(gdp_data, 
+                         cols = -country, 
+                         names_to = "year", 
+                         values_to = "gdp")
+gdp_tidy
 ```
 
 2) Which country had the highest GDP per person in 1985?  
 
 ```{r}
+# using the wide data
+slice_max(gdp_data, `1985`)
 
+# using the long tidy data
+gdp_tidy %>% 
+  filter(year == "1985") %>% 
+  arrange(desc(gdp)) %>% 
+  slice(1)
 ```
 
 3) What was the mean worldwide GDP in the year 1999?  
 
 ```{r}
+# using the tidy data
+gdp_tidy %>% 
+  filter(year == "1999") %>% 
+  summarize(mean_gdp = mean(gdp))
 
+gdp_tidy %>% 
+  filter(year == "1999") %>% 
+  pull(gdp) %>% 
+  mean()
+
+# using the wide data
+gdp_data$`1999` %>% 
+  mean()
+
+mean(gdp_data$`1999`)
 ```
 
-4) Which country had the highest average GDP per person in the 19th century?
+4) Which country had the highest average GDP in the 19th century?
 
 ```{r}
-
+gdp_tidy %>% 
+  filter(str_detect(year, "^18")) %>% 
+  group_by(country) %>% 
+  summarize(avg_gdp = mean(gdp)) %>% 
+  arrange(desc(avg_gdp))
 ```
 
 
@@ -316,7 +347,9 @@ Exercise:
 - Perform an inner, left, and full join of the `band_members` and `band_instruments`:
 
 ```{r}
-
+inner_join(band_members, band_instruments)
+left_join(band_members, band_instruments)
+full_join(band_members, band_instruments)
 ```
 
 The `Joining, by = "name"` message indicates which columns were used to determine matching rows between the two tables. This is auto-detected based on shared column names. You can use the `by` argument to explicitly specify the columns you'd like to join, which is useful if the columns of interest have different names in the two tables. 
@@ -376,6 +409,76 @@ sum(starwars$mass, na.rm = TRUE)
 ```{r, eval = FALSE}
 group_by(starwars, species) %>% 
   summarize(avg_mass = mean(mass, na.rm = TRUE))
+```
+
+Also you can remove `NaN` values by detecting for their presence using `is.nan()`. These values occur because a few species don't have any characters with values for the mass column, and computing the mean of an empty vector is NaN.
+
+```{r}
+group_by(starwars, species) %>% 
+  summarize(avg_mass = mean(mass, na.rm = TRUE)) %>% 
+  filter(!is.nan(avg_mass))
+```
+
+### Replacing `NA` values
+
+Let's replace the NA vaues in `hair_color` with a string `missing data`.
+
+```{r}
+starwars %>% 
+  mutate(new_hair_color = ifelse(is.na(hair_color), 
+                                 "missing data",
+                                 hair_color)) %>% 
+  select(hair_color, new_hair_color)
+```
+
+We can also replace with values from another column, such as `species`.
+
+```{r}
+starwars %>% 
+  mutate(new_hair_color = ifelse(is.na(hair_color), 
+                                 species,
+                                 hair_color)) %>% 
+  select(hair_color, new_hair_color)
+```
+
+`ifelse` is a base R function that operates on vectors and is useful when you want to replace single values. 
+
+### case_when()
+
+If you want to perform more complex operations use `case_when()` from dplyr. `case_when()` is equivalent to performing multiple nested ifelse() operations, whereby if the first operation is **not** TRUE, then check for the second condition, repeating for each condition until there are no more statements.
+
+the syntax for case when is :
+
+```r
+`case_when(conditional statement ~ "value in result",
+           conditional statement #2 ~ "another value in result",
+           TRUE ~ "default if neither conditional statement 1 or 2 are TRUE")`
+```
+        
+Here is an example from the documentation. Make a new column called `type`. Return "large" if the height or mass of a character is > 200. If that is not true, then return "robot" if the species is "Droid". If that is not TRUE, then default to returning "other".
+
+```{r}
+starwars %>%
+  select(name:mass, species) %>%
+  mutate(type = case_when(height > 200 | mass > 200 ~ "large",
+                          species == "Droid"        ~ "robot",
+                          TRUE                      ~ "other"))
+```
+
+### Using group_by() to replace NAs with summaries from the data
+
+Lastly, it may be beneficial to replace the NA values with a summary value representative of the data. This is an example of data "imputation". 
+
+For example we might decide that we want to replace NA values in the "mass" column with the average mass of the species of the character.
+
+Using group_by() + mutate() is a useful paradigm for performing this operation:  
+
+```{r}
+starwars %>% 
+  select(name, mass, species) %>% 
+  group_by(species) %>% 
+  mutate(avg_mass = mean(mass, na.rm = TRUE)) %>% 
+  mutate(imputed_mass = ifelse(is.na(mass), avg_mass, mass))
 ```
 
 
