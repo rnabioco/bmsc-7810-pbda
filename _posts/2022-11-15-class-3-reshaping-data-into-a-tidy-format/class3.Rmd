@@ -43,13 +43,12 @@ source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/20
 Data can be represented in multiple formats. Today we will discuss two common tabular formats for organizing data for analysis in R. Consider the following dataset, which contains GDP estimates per person for countries throughout history. This representation of the data is commonly referred to as 'wide' data format, which is a matrix-like format containing samples or features as rows or columns, with values associated with each sample and feature. 
 
 ```{r, echo = FALSE}
-library(here)
 library(readr)
 gdp_data <- read_csv("data/income_per_person.csv")
 gdp_data
 ```
 
-The wide matrix-like format is very useful and a common format used for statistics and machine learning. Matrices can take advantage of optimized numerical routines and are the data representation of mathematical matrices. We will work with matrices latter in class, particularly their use to generate heatmaps. 
+The wide matrix-like format is very useful and a common format used for statistics and machine learning. Matrices can take advantage of optimized numerical routines and are the data representation of mathematical matrices. We will work with matrices later in class, particularly with their use to generate heatmaps. 
 
 Representing data in a matrix has a few practical implications:  
 
@@ -57,9 +56,7 @@ Representing data in a matrix has a few practical implications:
 
 2) The format is not easily manipulated with dplyr/tidyverse.
 
-We will instead start by with working with data in a long (also known as tidy) format. 
-
-The same data could be instead formatted in a long (aka "tidy") format.
+Data in a matrix can be instead formatted in a long (aka "tidy") format.
 
 ```{r, echo = FALSE}
 tidyr::pivot_longer(gdp_data, cols = -country, names_to = "year", values_to = "gdp")
@@ -89,7 +86,7 @@ What is a variable, what is an observation, and what is a value?
 
 3) A variable contains all values that measure the same attribute (e.g. height, temperature, duration, magnitude) across units.  
 
-4) An observation contains all values measured on the same unit (e.g. biological sample, day, gene, country).  
+4) An observation contains all values measured on the same unit (e.g. the same individual,  day, country, gene).  
 
 
 ```{r, echo = FALSE}
@@ -129,7 +126,7 @@ Some disadvantages:
 
 1) Not space efficient   
 2) Not intuitive   
-3) Doesn't work with typical machine learning and statistical approaches.  
+3) Doesn't interface well with traditional machine learning and statistical approaches.  
 
 
 ## Converting between long and wide formats using tidyr 
@@ -153,7 +150,7 @@ knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_po
 
 
 ```{r}
-#pivot_longer(table4a, cols = `1999`:`2000`) # pivot columns from 1999 -> 2000
+pivot_longer(table4a, cols = `1999`:`2000`) # pivot columns from 1999 -> 2000
 pivot_longer(table4a, cols = -country) # pivot all columns not matching country
 ```
 ## Reshaping long data to wide
@@ -187,7 +184,7 @@ knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_po
 ```
 
 ```{r}
-separate(table3, col = rate, into = c("cases", "pop"))
+separate(table3, col = rate, into = c("cases", "pop"), sep = "/")
 ```
 
 ## unite 
@@ -205,15 +202,64 @@ unite(table5, "year", century:year, sep = "")
 
 ## Exercises
 
-1) Tidy the GDP data. 
-2) Which country had the highest GDP per person in 1985?
-3) What was the mean worldwide GDP in the year 1999?
-4) Which country had the highest average GDP per person in the 19th century?
+Use the [gapminder GDP dataset](https://www.gapminder.org/data/documentation/gd001/) to perform the following tasks and answer the following quesitons:
+
+1) Convert the GDP dataset into tidy format. 
 
 ```{r}
-library(readr)
-read_csv("data/income_per_person.csv")
+library(tidyverse)
+gdp_data <- read_csv("data/income_per_person.csv")
+pivot_longer(gdp_data, cols = `1799`:`2049`)
+gdp_tidy <- pivot_longer(gdp_data, 
+                         cols = -country, 
+                         names_to = "year", 
+                         values_to = "gdp")
+gdp_tidy
 ```
+
+2) Which country had the highest GDP per person in 1985?  
+
+```{r}
+# using the wide data
+slice_max(gdp_data, `1985`)
+
+# using the long tidy data
+gdp_tidy %>% 
+  filter(year == "1985") %>% 
+  arrange(desc(gdp)) %>% 
+  slice(1)
+```
+
+3) What was the mean worldwide GDP in the year 1999?  
+
+```{r}
+# using the tidy data
+gdp_tidy %>% 
+  filter(year == "1999") %>% 
+  summarize(mean_gdp = mean(gdp))
+
+gdp_tidy %>% 
+  filter(year == "1999") %>% 
+  pull(gdp) %>% 
+  mean()
+
+# using the wide data
+gdp_data$`1999` %>% 
+  mean()
+
+mean(gdp_data$`1999`)
+```
+
+4) Which country had the highest average GDP in the 19th century?
+
+```{r}
+gdp_tidy %>% 
+  filter(str_detect(year, "^18")) %>% 
+  group_by(country) %>% 
+  summarize(avg_gdp = mean(gdp)) %>% 
+  arrange(desc(avg_gdp))
+```
+
 
 
 ## Binds/Joins
@@ -227,11 +273,13 @@ knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_po
 
 `bind_cols(tbl_1, tbl_2, ...)`
 
-`bind_cols` will bind the columns from 2 or more tables into 1 table. Note that with binds you need to ensure that each table has the same number of rows.
+`bind_cols` will bind the columns from 2 or more tables into 1 table. Note that with column binds you need to ensure that each table has the same number of rows.
 
 ```{r}
 library(dplyr)
-bind_cols(tibble(x = 1:3), tibble(y = 3:5))
+tbl1 <- tibble(x = 1:3)
+tbl2 <- tibble(y = 3:5)
+bind_cols(tbl1, tbl2)
 ```
 
 ### row binds
@@ -294,6 +342,9 @@ band_members
 band_instruments
 ```
 
+Exercise:
+
+- Perform an inner, left, and full join of the `band_members` and `band_instruments`:
 
 ```{r}
 inner_join(band_members, band_instruments)
@@ -304,6 +355,8 @@ full_join(band_members, band_instruments)
 The `Joining, by = "name"` message indicates which columns were used to determine matching rows between the two tables. This is auto-detected based on shared column names. You can use the `by` argument to explicitly specify the columns you'd like to join, which is useful if the columns of interest have different names in the two tables. 
 
 ## Missing data
+
+Join operations will often generate missing data (e.g. NAs). 
 
 ### Zeroes, `NA`, `NaN` and `NULL`
 
@@ -358,50 +411,75 @@ group_by(starwars, species) %>%
   summarize(avg_mass = mean(mass, na.rm = TRUE))
 ```
 
-## Exercise
+Also you can remove `NaN` values by detecting for their presence using `is.nan()`. These values occur because a few species don't have any characters with values for the mass column, and computing the mean of an empty vector is NaN.
 
-For this exercise we will tidy a dataset derived from this publication:
-
->Casas-Vila N, Bluhm A, Sayols S, Dinges N, Dejung M, Altenhein T, Kappei D, Altenhein B, Roignant JY, Butter F. The developmental proteome of Drosophila melanogaster. Genome Res. 2017 Jul;27(7):1273-1285. doi: 10.1101/gr.213694.116. Epub 2017 Apr 5. PMID: 28381612; PMCID: PMC5495078.
->
-
-This is a proteomics dataset generated from Drosophila melanogaster. Samples were collected through the fly lifespan, with 4 samples taken per timepoint.
-
-```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/fly_proteome.png")
+```{r}
+group_by(starwars, species) %>% 
+  summarize(avg_mass = mean(mass, na.rm = TRUE)) %>% 
+  filter(!is.nan(avg_mass))
 ```
 
-The dataset provided here contains > 100 columns and > 50k rows. The first column (`Sequence`) is the amino acid sequence of the peptide measured, the second column is the transcript id of the protein that the peptide matches (`Proteins`), and the remaining columns contain intensity values indicating the amount of each peptide in each sample (arbitrary units). 
+### Replacing `NA` values
 
-The sample names are coded in each column as follows:
-`timepoint_replicate`
-`e02` - `e20`: embryonic stages
-`L1` - `L3l`: larval stages
-`p1` - `p5`: pupal stages
-`vm` and `vf`: virgin male and virgin female flies ("adult young")
-`m` and `f`: adult flies
+Let's replace the NA vaues in `hair_color` with a string `missing data`.
 
-1) Tidy this data
-2) Average the intensity values per protein at each time point 
-3) What is the most abundant protein in the adult female fly?
+```{r}
+starwars %>% 
+  mutate(new_hair_color = ifelse(is.na(hair_color), 
+                                 "missing data",
+                                 hair_color)) %>% 
+  select(hair_color, new_hair_color)
+```
+
+We can also replace with values from another column, such as `species`.
+
+```{r}
+starwars %>% 
+  mutate(new_hair_color = ifelse(is.na(hair_color), 
+                                 species,
+                                 hair_color)) %>% 
+  select(hair_color, new_hair_color)
+```
+
+`ifelse` is a base R function that operates on vectors and is useful when you want to replace single values. 
+
+### case_when()
+
+If you want to perform more complex operations use `case_when()` from dplyr. `case_when()` is equivalent to performing multiple nested ifelse() operations, whereby if the first operation is **not** TRUE, then check for the second condition, repeating for each condition until there are no more statements.
+
+the syntax for case when is :
 
 ```r
-prot_dat <- read_csv("data/dmel_peptides_lifecycle.csv.gz")
-...
-...
+`case_when(conditional statement ~ "value in result",
+           conditional statement #2 ~ "another value in result",
+           TRUE ~ "default if neither conditional statement 1 or 2 are TRUE")`
+```
+        
+Here is an example from the documentation. Make a new column called `type`. Return "large" if the height or mass of a character is > 200. If that is not true, then return "robot" if the species is "Droid". If that is not TRUE, then default to returning "other".
+
+```{r}
+starwars %>%
+  select(name:mass, species) %>%
+  mutate(type = case_when(height > 200 | mass > 200 ~ "large",
+                          species == "Droid"        ~ "robot",
+                          TRUE                      ~ "other"))
 ```
 
-4) Next we are going to add some additional information to make these data more interpretable. The `dmel_tx_info.csv.gz` file contains information about each transcript. Use a `join` operation to join this information with the fly protein abundance dataset. Note that the `Proteins` column matches the information in the `flybase_transcript_id` column.  
+### Using group_by() to replace NAs with summaries from the data
 
-```r
-dmel_tx_info <- read_csv("data/dmel_tx_info.csv.gz")
-...
-...
+Lastly, it may be beneficial to replace the NA values with a summary value representative of the data. This is an example of data "imputation". 
 
+For example we might decide that we want to replace NA values in the "mass" column with the average mass of the species of the character.
+
+Using group_by() + mutate() is a useful paradigm for performing this operation:  
+
+```{r}
+starwars %>% 
+  select(name, mass, species) %>% 
+  group_by(species) %>% 
+  mutate(avg_mass = mean(mass, na.rm = TRUE)) %>% 
+  mutate(imputed_mass = ifelse(is.na(mass), avg_mass, mass))
 ```
-
-5) What is the name and description of the most abundant protein found in the earliest embryonic stage (`e02`)?
-
 
 
 <details><summary>Show session info</summary>

@@ -37,7 +37,7 @@ download.file("http://ftp.flybase.org/flybase/associated_files/DeJung.2018.2.9.p
               tf)
 
 # note use of read.table rather than read_tsv,
-# as read_tsv doesn't handle a default table produce by write.table ...
+# as read_tsv doesn't handle a default table produced by write.table ...
 prot_dat <- fread(tf, data.table = FALSE)
 prot_dat <- prot_dat[prot_dat$`Unique..Proteins.` == "yes", ]
 cols_to_keep <- c("Sequence",
