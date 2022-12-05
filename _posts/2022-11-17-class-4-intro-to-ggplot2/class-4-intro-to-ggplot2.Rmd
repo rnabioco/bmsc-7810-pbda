@@ -48,7 +48,7 @@ Data Visualization with ggplot2 :: Cheat sheet ::
 ## The ggplot2 Package
 
 ```{r, echo = FALSE}
-knitr::include_graphics(path='img/ggplot2.png')
+knitr::include_graphics(path="https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-17-class-4-intro-to-ggplot2/img/ggplot2.png?raw=true")
 ```
 
 This package allows you to declaratively create graphics by giving a set
@@ -61,7 +61,7 @@ alternative to the built in R graphics and plotting functions.\
 ## Grammar of Graphics
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/grammargraphics.jpg")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-17-class-4-intro-to-ggplot2/img/grammargraphics.jpg?raw=true")
 ```
 
 -   Grammar gives languages rules.
@@ -75,7 +75,7 @@ knitr::include_graphics("img/grammargraphics.jpg")
 ## Layers of ggplot2
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/gglayers-qcbscaworkshop.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-17-class-4-intro-to-ggplot2/img/gglayers-qcbscaworkshop.png?raw=true")
 # source: https://r.qcbs.ca/workshop03/book-en/grammar-of-graphics-gg-basics.html
 ```
 
@@ -100,7 +100,7 @@ knitr::include_graphics("img/gglayers-qcbscaworkshop.png")
 ## Consider the Type of Data you want to plot
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/whattoplot.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-17-class-4-intro-to-ggplot2/img/whattoplot.png?raw=true")
 # source https://image-store.slidesharecdn.com/4e19d6d6-fbc8-11e3-8b8c-123139077642-original.png
 ```
 
