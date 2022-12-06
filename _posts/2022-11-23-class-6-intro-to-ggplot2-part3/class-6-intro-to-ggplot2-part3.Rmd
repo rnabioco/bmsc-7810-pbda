@@ -1,0 +1,34 @@
+---
+title: "Class 6: Introduction to ggplot2 (part3)"
+author:
+  - name: "Michael Kaufman"
+    url: https://github.com/mlkaufman
+    affiliation: "RNA Bioscience Initiative"
+    affiliation_url: https://medschool.cuanschutz.edu/rbi
+    orcid_id: 0000-0003-2441-5836
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true 
+---
+
+
+**The Rmarkdown for this document is **
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(ggplot2)
+```
+
+## Goals for today
+
+- stats?
+- Learn about facets
+- patchwork?
+- color palellettes themes
+- saving plots as object variables
+- Learn about applying themes
+- rotating axis
+
+## Additional Helpful Resources

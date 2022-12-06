@@ -1,0 +1,458 @@
+---
+title: "Class 4: Introduction to ggplot2 (part1)"
+author:
+  - name: "Michael Kaufman"
+    url: https://github.com/mlkaufman
+    affiliation: "RNA Bioscience Initiative"
+    affiliation_url: https://medschool.cuanschutz.edu/rbi
+    orcid_id: 0000-0003-2441-5836
+output:
+  distill::distill_article:
+    self_contained: false
+draft: false 
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+**The Rmarkdown for this document is**
+<https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-17-class-4-intro-to-ggplot2/class-4-intro-to-ggplot2.Rmd>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+#library(ggplot2)
+```
+
+## Goals for today
+
+-   Introduction to plotting with the ggplot2 package
+-   The grammar of graphics concept
+-   Basic plotting
+-   Adding additional information
+-   Other geometries
+-   Multiple geometries
+-   Saving plots
+
+## Additional Helpful Resources
+
+ggplot2 package homepage :: <https://ggplot2.tidyverse.org/>\
+ggplot2 reference :: <https://ggplot2.tidyverse.org/reference> R for
+Data Science :: <https://r4ds.had.co.nz/>\
+ggplot2 Book :: <https://ggplot2-book.org/>\
+Gallery of Plots and Examples :: <https://r-graph-gallery.com/>
+
+Data Visualization with ggplot2 :: Cheat sheet ::
+<https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf>
+
+## The ggplot2 Package
+
+```{r, echo = FALSE}
+knitr::include_graphics(path="https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-17-class-4-intro-to-ggplot2/img/ggplot2.png?raw=true")
+```
+
+This package allows you to declaratively create graphics by giving a set
+of variables to map to aesthetics and then layer graphical directives to
+produce a plot. It's part of the tidyverse of R packages for data
+science and analysis, sharing in their design philosophy. It's an
+alternative to the built in R graphics and plotting functions.\
+**Written by Hadley Wickham**
+
+## Grammar of Graphics
+
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-17-class-4-intro-to-ggplot2/img/grammargraphics.jpg?raw=true")
+```
+
+-   Grammar gives languages rules.
+-   Grammar has a technical meaning.
+-   Grammar makes language expressive.
+
+**-Leland Wilkinson 1945-2021**
+
+**Layers of logical command flow and readability.**
+
+## Layers of ggplot2
+
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-17-class-4-intro-to-ggplot2/img/gglayers-qcbscaworkshop.png?raw=true")
+# source: https://r.qcbs.ca/workshop03/book-en/grammar-of-graphics-gg-basics.html
+```
+
+## Basic Grammar
+
+**Plot = data + aesthetics + geometry**
+
+**data** = the dataset, typically a dataframe\
+**aesthetics** = map variables x and y to axis\
+**geometry** = type of graphic or plot to be rendered
+
+**facets** = multiple plots\
+**statistics** = add calculations\
+**theme** = make the plot pretty or follow a particular style
+
+```{r}
+# ggplot(<DATA>, aes(<MAPPINGS>)) + <GEOM_function>()
+
+?ggplot # bring up the ggplot function help
+```
+
+## Consider the Type of Data you want to plot
+
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-17-class-4-intro-to-ggplot2/img/whattoplot.png?raw=true")
+# source https://image-store.slidesharecdn.com/4e19d6d6-fbc8-11e3-8b8c-123139077642-original.png
+```
+
+## Data to Plot
+
+To begin plotting we need to start with some data to visualize. Here we
+can use a built-in dataset regarding Motor Trend Car Road Tests called
+`mtcars`. This dataset is a dataframe which is a key format for using
+with ggplot. We can preview the data structure using the `head()`
+function.
+
+```{r}
+#some built in data.
+
+head(mtcars)
+```
+
+The data was extracted from the 1974 Motor Trend US magazine, and
+comprises fuel consumption and 10 aspects of automobile design and
+performance for 32 automobiles (1973--74 models).
+
+A data frame with 32 observations on 11 (numeric) variables.
+
+[, 1] mpg = Miles/(US) gallon\
+[, 2] cyl = Number of cylinders\
+[, 3] disp = Displacement (cu.in.)\
+[, 4] hp = Gross horsepower\
+[, 5] dra = Rear axle ratio\
+[, 6] wt = Weight (1000 lbs)\
+[, 7] qsec = 1/4 mile time\
+[, 8] vs = Engine (0 = V-shaped, 1 = straight)\
+[, 9] am = Transmission (0 = automatic, 1 = manual)\
+[,10] gear = Number of forward gears\
+[,11] carb = Number of carburetors\
+**-R Documentation**
+
+## Basic Plot
+
+Using the basic ggplot grammar of graphics template we can produce a
+scatterplot from the dataframe.
+
+```{r}
+# ggplot(<DATA>, aes(<MAPPINGS>)) + <GEOM_function>()
+```
+
+The first part of the expression calls the `ggplot` function and takes
+the `dataframe` and the `aes` function which are the aesthetics
+mappings. In this case we are mapping the x-axis to be the `wt` variable
+and the y-axis to be the `mpg` variable . If you only evaluate the first
+part this is what you get:
+
+```{r}
+ggplot(mtcars, aes(x=wt, y=mpg))
+```
+
+Next we have to add the geometry layer to be able to actually see the
+data. Here we are adding the `geom_point` geometry which allows you to
+visualize the data as points. You use a plus sign to add these
+additional layers.
+
+```{r}
+ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
+```
+
+We can change the data being plotted by picking a different column from
+the dataframe. For instance here we are plotting the horsepower(hp)
+versus miles per gallon(mpg). Also note that we can make the code more
+readable by placing proceeding layers on a different line after the plus
+sign. A common error is misplacing the plus sign. It must be trailing on
+the line before the next layer.
+
+```{r}
+ggplot(mtcars, aes(x=hp, y=mpg)) + 
+  geom_point()
+```
+
+Exercise: Try building a scatterplot on your own. This time plot the
+variables corresponding to the number of cylinders and the type of
+transmission.
+
+```{r}
+
+```
+
+Exercise: Modify the scatterplot to plot horsepower instead of the type
+of transmission. Can you start to see a relationship with the data?
+
+## Adding Additional Information to the Plot
+
+### Title
+
+We can add a title to the plot simply by adding another layer and the
+`ggtitle()` function.
+
+```{r}
+ggplot(mtcars, aes(x=hp, y=mpg)) + 
+  geom_point() +
+  ggtitle("1974 Cars: Horsepower vs Miles Per Gallon")
+```
+
+### X and Y axis Labels
+
+We can overwrite the default labels and add our own to the x and y axis
+by using the `xlab()` and `ylab()` functions respectively.
+
+```{r}
+ggplot(mtcars, aes(x=hp, y=mpg)) + 
+  geom_point() +
+  ggtitle("1974 Cars: Horsepower vs Miles Per Gallon") +
+  ylab("miles per gallon") + 
+  xlab("horsepower")
+```
+
+### Set title and axis labels in one layer
+
+```{r}
+ggplot(mtcars, aes(x=hp, y=mpg, alpha = 0.5)) + 
+  geom_point() +
+  labs(x = "Horepower", 
+    y = "Miles Per Gallon", 
+    title = "Horsepower vs Miles Per Gallon Scatterplot",
+    subtitle = "Motor Trend Car Road Tests - 1974",
+    caption = "Smith et al. 1974")
+```
+
+Notice that we also added an alpha aesthetic which helps us visualize
+overlapping points. We can add a `show.legend = FALSE` argument to the
+`geom_point` function to remove the alpha legend and clean up the plot
+figure. Let's try it. You can also specify a vector of aesthetics to
+display.
+
+Check the documentation `?geom_point`.
+
+### Getting Geometry Specific Help
+
+We can easily add a third bit of information to the plot by using the
+color aesthetic. Each geometry has its own list of aesthetics that you
+can add and modify. Consult the help page for each one.
+
+```{r}
+?geom_point() # bring up the help page for geom_point()
+```
+
+### Adding the Color Aesthetic
+
+Here we are adding the color aesthetic.
+
+```{r}
+ggplot(mtcars, aes(x=hp, y=mpg, color=cyl)) + 
+  geom_point() +
+  ggtitle("Modern Cars: Horsepower vs Miles Per Gallon") +
+  ylab("miles per gallon") + 
+  xlab("horsepower")
+```
+
+And we can relabel the legend title for the new color aesthetic to make
+it more readable.
+
+```{r}
+ggplot(mtcars, aes(x=hp, y=mpg, color=cyl)) + 
+  geom_point() +
+  ggtitle("Modern Cars: Horsepower vs Miles Per Gallon") +
+  ylab("miles per gallon") + 
+  xlab("horsepower") +
+  labs(color="#cylinders")
+```
+
+### A Fourth Aesthetic
+
+You can even continue to add even more information to the plot through
+additional aesthetics. Though this might be a bit much.
+
+```{r}
+ggplot(mtcars, aes(x=hp, y=mpg, color=cyl, size = wt)) + 
+  geom_point() +
+  ggtitle("Modern Cars: Horsepower vs Miles Per Gallon") +
+  ylab("miles per gallon") + 
+  xlab("horsepower") +
+  labs(color="#cylinders", size="weight (x1000lb)")
+```
+
+Instead we can use a specific value instead of the **wt** variable to
+adjust the size of the dots.
+
+```{r}
+ggplot(mtcars, aes(x=hp, y=mpg, color=cyl, size = 3)) + 
+  geom_point() +
+  ggtitle("Modern Cars: Horsepower vs Miles Per Gallon") +
+  ylab("miles per gallon") + 
+  xlab("horsepower") +
+  labs(color="#cylinders")
+```
+
+------------------------------------------------------------------------
+
+## Other Geometries
+
+There are many other geometries that you can use in your plots.
+<https://ggplot2.tidyverse.org/reference>\
+Here is a short list:
+
+geom_point(): scatterplot\
+geom_line(): lines connecting points by increasing value of x\
+geom_path(): lines connecting points in sequence of appearance\
+geom_boxplot(): box and whiskers plot for categorical variables\
+geom_bar(): bar charts for categorical x axis\
+geom_col(): bar chart where heights of the bars represent values in the
+data\
+geom_histogram(): histogram for continuous x axis\
+geom_violin(): distribution kernel of data dispersion\
+geom_smooth(): function line based on data\
+geom_bin2d(): heatmap of 2d bin counts\
+geom_contour(): 2d contours of a 3d surface\
+geom_count(): count overlapping points\
+geom_density(): smoothed density estimates\
+geom_dotplot(): dot plot\
+geom_hex(): hexagonal heatmap of 2d bin counts\
+geom_freqpoly(): histogram and frequency polygons\
+geom_jitter(): jittered point plot geom_polygon(): polygons
+
+### geom_line()
+
+But utilizing the right plot to efficiently show your data is key. Here
+we swapped the geom_point for geom_line to see what would happen. You
+could also try something like geom_bin2d()
+
+```{r}
+ggplot(mtcars, aes(x=hp, y=mpg, color=cyl)) + 
+  geom_line() +
+  ggtitle("Modern Cars: Horsepower vs Miles Per Gallon") +
+  ylab("miles per gallon") + 
+  xlab("horsepower") +
+  labs(color="#cylinders")
+```
+
+### Plotting the Categories as a Bar Chart with geom_col()
+
+The geom_col() geometry is a type of bar plot that uses the heights of
+the bars to represent values in the data. Let's look at plotting this
+type of data for the cars in this dataset.
+
+```{r}
+?geom_col()
+```
+
+```{r}
+head(mtcars)
+```
+
+Looking back at the data structure of mtcars, we see that the names of
+the cars are stored as the row names of the data frame. We can access
+this using the `rownames()`function and use it in subsequent plots.
+
+Q: What was another way to address this issue, discussed in the first
+block?
+
+```{r}
+rownames(mtcars)
+```
+
+```{r}
+ggplot(mtcars, aes(x=rownames(mtcars), y=mpg)) + 
+  geom_col() +
+  ggtitle("1974 Cars: Miles Per Gallon")
+```
+
+You will learn other ways to make this more legible later. For a quick
+fix we can swap the x and y mappings.
+
+```{r}
+ggplot(mtcars, aes(y=rownames(mtcars), x=mpg)) + 
+  geom_col() +
+  ggtitle("1974 Cars: Miles Per Gallon")
+
+```
+
+We can reorder the data to make it easier to visualize important
+information.
+
+```{r}
+ggplot(mtcars, aes(y=reorder(rownames(mtcars), mpg), x=mpg)) + 
+  geom_col() +
+  ggtitle("1974 Cars: Ranked by Miles Per Gallon")
+
+```
+
+Exercise: Plot a bar chart using geom_col() with the mtcar dataset. Plot
+the names of the cars ranked by the weight of each car. Try adding a
+third aesthetic `color` for horsepower.
+
+```{r}
+
+```
+
+## Multiple Geometries
+
+You can also add another layer of geometry to the same ggplot. Notice
+you can have two separate aesthetic declarations and they have moved
+from the ggplot function to their respective `geom_ functions`.
+
+```{r}
+# ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) + 
+#   <GEOM_FUNCTION1>() + 
+#   <GEOM_FUNCTION2>() 
+
+# OR
+
+# ggplot(data = <DATA>) + 
+#   <GEOM_FUNCTION1>(mapping = aes(<MAPPINGS>)) + 
+#   <GEOM_FUNCTION2>(mapping = aes(<MAPPINGS>)) 
+
+ggplot(mtcars) +
+  geom_point(aes(x=hp, y=mpg)) +
+  geom_line(aes(x=hp, y=mpg, color=cyl)) +
+  ggtitle("Modern Cars: Horsepower vs Miles Per Gallon") +
+  ylab("miles per gallon") + 
+  xlab("horsepower") +
+  labs(color="#cylinders")
+```
+
+This particular geometry addition isn't very useful.
+
+Exercise: Try adding geom_smooth() instead of geom_line().
+
+## Saving Plots
+
+Saving these plots is easy! Simply call the `ggsave()` function to save
+the last plot that you created. You can specify the file format by
+changing the extension after the filename.
+
+```{r}
+ggsave("plot.png") # saves the last plot to a PNG file in the current working directory
+```
+
+You can also specify the dots per inch and the width of height of the
+image to ensure publication quality figures upon saving.
+
+```{r}
+ggsave("plot-highres.png", dpi = 300, width = 8, height = 4) # you can specify the dots per inch (dpi) and the width and height parameters
+```
+
+Exercise: Try saving the last plot that we produced as a jpg. Can you
+navigate to where it saved and open it on your computer?
+
+## More Examples
+
+Lets take a look at gallery resource to preview different plot types and
+get ideas for our own plots.\
+<https://r-graph-gallery.com/>
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
