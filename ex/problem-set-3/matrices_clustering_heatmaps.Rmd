@@ -1,0 +1,80 @@
+---
+title: "matrices, clustering, and heatmaps assignment"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**This assignment is due Thursday December 15 at 5pm**
+
+```{r load-packages}
+library(tidyverse)
+library(pheatmap)
+library(viridis)
+library(MetBrewer)
+library(here)
+```
+
+We will be using all of the same files you already downloaded for class. In case you don't have them, you can run the script to download them(found [here]()). You should put this script in the same folder as your rmarkdown. If you already have these files, you don't need to run this script.
+
+```{r, eval = FALSE}
+# conditionally download all of the files used in rmarkdown from github 
+source("download_files.R")
+```
+
+Then load in packages
+
+
+1 (2 pts). Explore the female names matrix.
+
+A) How many girls named Olivia were born in Maryland?
+B) How many total girls were included in the data from Maine? *Hint use `colSums` followed by indexing*
+C ) How many girls name Isabella were included in the full dataset? *Hint use `rowSums` followed by indexing*
+D) What is the most popular girls name? *Hint use `rowSums` followed by `which.max`*
+
+Most popular girls name (most individuals total, regardless of state)
+
+```{r}
+# Load in data
+female_names_mat <- read.csv(here("class_7-9_data", "girl_name_counts.csv"),
+                             row.names = 1) %>%
+  as.matrix()
+```
+
+2 (2 pts). Normalize the female names *Hint divide each value by the total values for the state like we did in the matricies exercise for the male names. Remeber to transpose the matrix to divide by colSums*
+
+```{r}
+# TODO normalize the data
+
+```
+
+3 (2 pts). Cluster the female names with k means into 4 groups, report the cluster for each name. You can just report the clusters by printing the result in the `cluster` slot of the output from `kmeans`
+
+```{r}
+# TODO find 4 clusters using k means
+
+```
+
+4 (2 pts). Repeat with 4 clusters using `hclust`, report cluster for each name. You can just print the output of `cutree`. Were the clusters the same?
+
+```{r}
+# TODO find 4 clusters using hclust
+```
+
+
+5 (2 pts). Make a heatmap of the female names only. Remember to first scale the data. Annotate the states using the `state_info.csv` file. Use any coloring palettes you want (not the defaults). Cluster and separate to the number of clusters you feel best fits the data.
+```{r, fig.height = 4}
+# Load in states data
+state_info <- read.csv(here("class_7-9_data", "state_info.csv"), row.names = 1)
+
+# TODO Make a heatmap
+
+# Scale the data
+
+# Make a heatmap with a color palette of your choice, annotated with the state
+# info, split based on a number of clusters that makes sense
+
+```

@@ -6,3 +6,5 @@
 *.csv
 *.gz
 docs
+.Rhistory
+ex/problem-set-3/matrices_clustering_heatmaps_key.*
