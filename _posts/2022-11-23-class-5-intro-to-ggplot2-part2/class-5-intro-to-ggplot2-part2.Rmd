@@ -40,7 +40,7 @@ the width and length of two structures of the flower: the petal and the
 sepal. Here is an overview of flower structure.
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/parts-of-a-flower.webp")
+knitr::include_graphics("https://rnabioco.github.io/bmsc-7810-pbda/posts/2022-11-23-class-5-intro-to-ggplot2-part2/img/parts-of-a-flower.webp")
 # source: https://www.trees.com/gardening-and-landscaping/flowers
 ```
 
@@ -52,7 +52,7 @@ Student's t-test and F-distribution.
 <http://archive.ics.uci.edu/ml/datasets/Iris>
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/iristypes.png")
+knitr::include_graphics("https://rnabioco.github.io/bmsc-7810-pbda/posts/2022-11-23-class-5-intro-to-ggplot2-part2/img/iristypes.png")
 ```
 
 Let's look at the this new dataset with `head`. You can see that it is
@@ -150,7 +150,7 @@ simply by adding a second geom layer called `geom_boxplot()`. This way
 we keep the point layer but also have the boxplot.
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/boxplot-1.jpg")
+knitr::include_graphics("https://rnabioco.github.io/bmsc-7810-pbda/posts/2022-11-23-class-5-intro-to-ggplot2-part2/img/boxplot-1.jpg")
 #source: https://paulvanderlaken.com/2018/08/29/add-a-self-explantory-legend-to-your-ggplot2-boxplots/
 ```
 
