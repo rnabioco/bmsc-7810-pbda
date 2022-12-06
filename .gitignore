@@ -1,12 +1,10 @@
 .DS_Store
 .Rproj.user
-_posts/*/*.html
-_posts/*/*_files
 *.rds
 *.rda
 *.tsv
 *.csv
 *.gz
+docs
 .Rhistory
-class_7-9_data
-ex/matrices_clustering_heatmaps_key.*
+ex/problem-set-2/matrices_clustering_heatmaps_key.*
