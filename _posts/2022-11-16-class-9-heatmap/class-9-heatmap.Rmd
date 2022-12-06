@@ -74,14 +74,15 @@ pheatmap(normalized_mat)
 
 You can see that when we try to normalize the values by dividing each number by the total number for the state, the trends in the data are much more clear and we don't only see the data for California.
 
-### Cleaning up by normalizing values
+### Cleaning up by scaling values
 
 Another popular way to normalize the data for a heatmap is called a z-score. This is also know a mean-centered scaled data. The z-score is calculated as follows
 
-
+<div>
 $$
 zscore = \frac{x - \mu}{\sigma}
 $$
+<div>
 
 Where x is each value $\mu$ is the mean for the values and $\sigma$ is the standard deviation for the values. Here, $x - \mu$ is called "centering" and dividing by $\sigma$ is called "scaling"
 
@@ -92,12 +93,15 @@ In R, we can scale the data using the `scale` function. Scaling is done on the c
 ```
 x - a numeric matrix(like object).
 
-center - either a logical value or numeric-alike vector of length equal to the number of columns of x, where ‘numeric-alike’ means that as.numeric(.) will be applied successfully if is.numeric(.) is not true.
+center - either a logical value or numeric-alike vector of length equal to the
+number of columns of x, where ‘numeric-alike’ means that as.numeric(.) will be
+applied successfully if is.numeric(.) is not true.
 
-scale	- either a logical value or a numeric-alike vector of length equal to the number of columns of x.
+scale	- either a logical value or a numeric-alike vector of length equal to the
+number of columns of x.
 ```
 
-The `center` refers to $x - \mu$ from the equation above and scaling refers to dividing by $\sigma$. We will set both to be true to be a z-score.
+The `center` refers to $x - \mu$ from the equation above and `scale` refers to dividing by $\sigma$. We will set both to be true to be a z-score.
 
 
 ```{r}
@@ -245,6 +249,7 @@ pheatmap(scaled_mat,
 
 **Exercise**
 Add your own colors to the row annotations
+
 ```{r}
 # TODO Add your own row annotaiton colors
 
@@ -351,7 +356,8 @@ pheatmap(scaled_mat,
 What happens if `all_colors` only has some of the colors in the annotation data frames?
 
 ```{r}
-# TODO try making the heatmap with a list that only contains color arguments for some of the columns in the annotation data frames
+# TODO try making the heatmap with a list that only contains color arguments for
+# some of the columns in the annotation data frames
 
 ```
 

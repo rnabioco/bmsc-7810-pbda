@@ -288,8 +288,6 @@ M %*% M2
 ```
 
 
-*10 minute break*
-
 ## Performing functions on a matrix
 So far, a matrix has looked a lot like a dataframe with some limitations. One of the places where matrices become the most useful is performing statistical functions because all items in a matrix are of the same type.
 
@@ -430,14 +428,14 @@ str(df)
 str(t(df))
 ```
 
-Note how after the transformation, all items in the original df are now characters and we no longer have a dataframe.
+Note how after the transposition, all items in the original df are now characters and we no longer have a dataframe.
 
-Now let's try this transformation on the names matrix we've been working with
+Now let's try this transposition on the names matrix we've been working with
 
 ```{r}
-transformed_mat <- t(names_mat)
+transposed_mat <- t(names_mat)
 
-transformed_mat[1:3,1:3]
+transposed_mat[1:3,1:3]
 ```
 
 Note how the columns are now names and the rows are now states.
@@ -445,7 +443,7 @@ Note how the columns are now names and the rows are now states.
 Remember the note above where we could only divide by the `rowSums`? Now we can use this transposition to figure out the percent of children in each (divide the value by the column sum * 100)
 
 ```{r}
-state_percents <- transformed_mat / rowSums(transformed_mat) * 100
+state_percents <- transposed_mat / rowSums(transposed_mat) * 100
 
 state_percents <- t(state_percents)
 

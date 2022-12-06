@@ -292,7 +292,7 @@ reg1 <- lm(Colorado ~ Alabama, data = normalized_dat)
 names(reg1)
 ```
 
-After running `lm` the return value is a list. The `coefficients` will give us the slow and the intercept (think $y = ax + b$). We can also use the `fitted.values` which are the predicted values for Colorado based on the model.
+After running `lm` the return value is a list. The `coefficients` will give us the slope and the intercept (think $y = ax + b$ ). We can also use the `fitted.values` which are the predicted values for Colorado based on the model.
 
 ```{r}
 a1 <- reg1$coefficients[1] # intercept
@@ -394,8 +394,6 @@ ggplot(pca_vals, aes(x = PC1, y = PC2)) +
   ylab(paste0("PC2: ",round(percentVar[2] * 100),"% variance"))
 ```
 
-*10 minute break*
-
 ## Implementing clustering on our dataset
 Now that we've learned how to visualize our data, we will be able to more easily see the clustering reults. Let's put together everything we've learned so far and try out the different clustering methods on our names data.
 
@@ -474,7 +472,7 @@ ggplot(pca_cluster, aes(x = PC1, y = PC2, color = cluster)) +
 ```
 
 **Exercise**
-What two values are their own cluster? *Hint either remake the plot with the points labeled or look at the dendrogram above.
+What two values are their own cluster? *Hint either remake the plot with the points labeled or look at the dendrogram above.*
 
 ### Repeating by clustering states
 What if our question is what states have the most similar name usage? We will answer this by instead clustering on the states.
