@@ -34,7 +34,7 @@ library(ggplot2)
 ## Dataset: Diamonds
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/diamond.png")
+knitr::include_graphics("https://rnabioco.github.io/bmsc-7810-pbda/posts/2022-11-23-class-6-intro-to-ggplot2-part3/img/diamond.png")
 #source: 123dartist/stock.adobe.com
 ```
 
