@@ -9,12 +9,13 @@ author:
 output:
   distill::distill_article:
     self_contained: false
-draft: true 
+draft: false 
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
-
-**The Rmarkdown for this document is **
-
+**The Rmarkdown for this document is**
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
@@ -23,12 +24,321 @@ library(ggplot2)
 
 ## Goals for today
 
-- stats?
-- Learn about facets
-- patchwork?
-- color palellettes themes
-- saving plots as object variables
-- Learn about applying themes
-- rotating axis
+-   New dataset diamonds
+-   Faceting plots
+-   Storing plots as variables
+-   Color palettes
+-   Applying themes
+-   Combining plots with patchwork
 
-## Additional Helpful Resources
+## Dataset: Diamonds
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/diamond.png")
+#source: 123dartist/stock.adobe.com
+```
+
+A dataset containing the prices and other attributes of almost 54,000
+diamonds.
+
+```{r}
+head(diamonds)
+```
+
+A data frame with 53940 rows and 10 variables:
+
+price = price in US dollars (\$326--\$18,823)
+
+carat = weight of the diamond (0.2--5.01)
+
+cut = quality of the cut (Fair, Good, Very Good, Premium, Ideal)
+
+color = diamond color, from D (best) to J (worst)
+
+clarity = a measurement of how clear the diamond is (I1 (worst), SI2,
+SI1, VS2, VS1, VVS2, VVS1, IF (best))
+
+x = length in mm (0--10.74)
+
+y = width in mm (0--58.9)
+
+z = depth in mm (0--31.8)
+
+depth = total depth percentage = z / mean(x, y) = 2 \* z / (x + y)
+(43--79)
+
+table = width of top of diamond relative to widest point (43--95)
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + 
+  geom_point()
+```
+
+Exercise: Review the last class. Make a histogram showing the
+distribution of diamond prices. Color by the cut of the diamond. What
+statements can you make about the relationships shown.
+
+```{r}
+
+```
+
+Exercise: More review. Create a freqpoly plot showing the frequency
+count of the carat and the color as the cut of diamond. Does this help
+explain the ideal cut price?
+
+```{r}
+
+```
+
+There are so many data points in this dataset as seen by our original
+scatterplot. Before moving on we can subset this dataset by using sample
+to grab a random selection of 1000 rows for downstream analysis.
+
+```{r}
+set.seed(1337) # set the random seed so that we get the same random rows everytime
+
+subset_diamonds <- diamonds[sample(nrow(diamonds), 1000), ]
+
+ggplot(subset_diamonds, aes(x=carat, y=price)) + 
+  geom_point()
+
+```
+
+## Introducing the Facet
+
+One way that we can take an attribute from your data and expand it to
+plot it into multiple plots, one for each level, letting you view them
+separately. Just as a cut diamond has different flat edges called
+facets, in ggplot this type of breaking out the levels of the data into
+multiple plots is called "faceting". One of the easiest ways to do this
+is by using the `facet_wrap()` function.
+
+```{r}
+ggplot(subset_diamonds, aes(x=carat, y=price, color=cut)) +
+  geom_point() + 
+  facet_wrap(~cut, nrow = 1)
+```
+
+The second type of facet function is the `facet_grid()`
+
+```{r}
+ggplot(subset_diamonds, aes(x=carat, y=price, color=cut)) +
+  geom_point() + 
+  facet_grid(clarity ~ cut)
+```
+
+This is a good time to introduce a way to modify the size of the figure
+being displayed in RMarkdown. We can edit the curly braces to give
+special instructions for the cell. Kent has previous showed this to you
+as well. Here we can add `fig.width=20` to increase the width of the
+figure. You can also try `fig.height`. There are numerous ways you can
+influence the plot using this format and most of them start with the
+`fig.` prefix.
+
+```{r fig.width=20,}
+ggplot(diamonds, aes(x=carat, y=price, color=cut)) +
+  geom_point() + 
+  facet_grid(clarity ~ cut)
+```
+
+Exercise: Use the dataset from last class `iris`. Make a scatterplot of
+Sepal Width and Sepal Length and color by the Species. Use a
+`facet_wrap` to break out the Species.
+
+```{r}
+
+```
+
+------------------------------------------------------------------------
+
+## Saving Plot Objects
+
+One concept that can be useful is that you can assign ggplot plots to a
+variable just like any other object in R. This can allow you to reuse
+the plot over and over again simply by calling the variable name you
+saved the plot. You can also continue to add layers to these plots and
+can we a quick way to test and compare different versions of a plot.
+
+```{r}
+p1 <- ggplot(subset_diamonds, aes(x=carat, y=price, color=cut)) +
+  geom_point()
+```
+
+Notice that nothing was plotting when you run this code. Instead the
+plot is saved to the `p1` variable. We can visualize this plot anytime
+simply by calling the variable.
+
+```{r}
+p1
+```
+
+We can add any additional layers just as we would when building the
+plot. Let's look at a `facet_wrap` of the `clarity.`
+
+```{r}
+p1 + facet_wrap(~clarity)
+```
+
+We changed our mind and now we want to compare this to the same base
+plot but use a `facet_grid` breaking out the diamond color.
+
+```{r}
+p1 + facet_grid(clarity~color)
+```
+
+## Color Palettes
+
+You can easily change the types and ranges of colors being used in your
+plots. Here is the default color palette:
+
+```{r}
+ggplot(subset_diamonds, aes(carat, price, color = clarity)) +
+  geom_point()
+```
+
+We can use the `scale_color_brewer()` to set a different type of
+palette. There are many default options to choose from and maybe more
+custom ones you can install.
+
+<https://r-graph-gallery.com/38-rcolorbrewers-palettes.html>
+
+```{r}
+ggplot(subset_diamonds, aes(carat, price, color = clarity)) +
+  geom_point() +
+  scale_color_brewer(palette = "RdYlBu")
+```
+
+```{r}
+ggplot(subset_diamonds, aes(carat, price, color = clarity)) +
+  geom_point() +
+  scale_color_brewer(palette = "Accent")
+```
+
+```{r}
+ggplot(subset_diamonds, aes(carat, price, color = clarity)) +
+  geom_point() +
+  scale_color_manual(values = c("red", "blue", "green", "yellow", "purple", "white", "black", "gray"))
+```
+
+## Themes
+
+One of the most fun aspects of ggplot is the ability to quickly change
+the entire look of your plots with themes.
+
+```{r}
+ptest <- ggplot(iris, aes(x=Sepal.Width, y=Sepal.Length, color = Species)) +
+  geom_point() +
+  facet_wrap(~ Species)
+
+ptest
+```
+
+```{r}
+ptest + theme_dark()
+```
+
+```{r}
+ptest + theme_minimal()
+```
+
+```{r}
+ptest + theme_bw()
+```
+
+```{r}
+ptest + theme_classic()
+```
+
+```{r}
+ptest + theme_void()
+```
+
+You can install custom themes....
+
+<https://ryo-n7.github.io/2019-05-16-introducing-tvthemes-package/>
+
+<https://github.com/Mikata-Project/ggthemr>
+
+<http://xkcd.r-forge.r-project.org/>
+
+## Combining multiple plots
+
+One useful technique when assembling figures is to be able to stitch
+multiple plots together into a single image. There is a special add on
+package that allows us to do just that with simple syntax. This package
+is called `patchwork` and will need to be installed as it is not
+included in the `tidyverse`. It can be installed with
+`install.packages("patchwork")`. More info at
+<https://patchwork.data-imaginist.com/>
+
+```{r}
+library(patchwork)
+```
+
+Save the plots as object variables.
+
+```{r}
+p1 <- ggplot(mtcars) + 
+  geom_point(aes(mpg, disp))
+
+p2 <- ggplot(mtcars) + 
+  geom_boxplot(aes(gear, disp, group = gear))
+```
+
+To use patchwork simply place the plus operator to "add" two plots
+together:
+
+```{r}
+p1 + p2
+```
+
+Why stop at just two plots? We can keep adding more.
+
+```{r}
+p3 <- ggplot(mtcars) + 
+  geom_smooth(aes(disp, qsec))
+
+p4 <- ggplot(mtcars) + 
+  geom_bar(aes(carb))
+```
+
+And use more complex ways of displaying them.
+
+```{r}
+(p1 + p2 + p3) / p4
+```
+
+To annotate the whole group we need to use a special `plot_annotation()`
+function:
+
+```{r}
+(p1 | p2 | p3) / p4 + 
+  plot_annotation(
+  title = 'The surprising truth about mtcars',
+  subtitle = 'These 3 plots will reveal yet-untold secrets about our beloved data-set',
+  caption = 'Disclaimer: None of these plots are insightful')
+```
+
+You can even automatically add the subplot letter annotations. Publish
+time!
+
+```{r}
+(p1 | p2 | p3) / p4 + 
+  plot_annotation(tag_levels = 'A')
+```
+
+```{r}
+(p1 | p2 | p3) / p4 + 
+  plot_annotation(title = "Figure 1: Motor Trend 1974 Car Stats", tag_levels = 'A')
+```
+
+Exercise: Change the order of the plots combined with patchwork so that
+p4 is in the middle of the top row and p2 is now on the bottom row. See
+how the plot adapts.
+
+```{r}
+
+```
+
+Thanks for listening. Keep on plotting and exploring the world of
+ggplot2!
