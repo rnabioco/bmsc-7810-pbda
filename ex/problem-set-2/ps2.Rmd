@@ -33,29 +33,21 @@ Some questions may use arguments or functions we haven't introduced in class. Th
 Create a histogram chart using ggplot2 and the `mtcars` dataset showing the number of cars with different numbers of cylinders. Adjust the bin value to match the number of cylinder value choices in the dataset. Add a title and relabel the x axis with a more descriptive label.
 
 ```{r}
-ggplot(mtcars, aes(x = cyl)) +
-  geom_histogram(bins = 3) +
-  labs(title = "Number of cars with different numbers of cylinders",
-       x = "Number of cylinders")
+
 ```
 ### Question 2: - Not too Bad
 
 Use ggplot2 and the `mtcars` dataset to create a scatter plot showing the relationship between a car's weight and horsepower. Annotate the plot by labeling the data point with the car name that represents the car with the highest horsepower. Place a rectangle annotation around the data points that represent the cars with a weight higher than 5. Label this rectangle with text that says "extremely heavy". Add a title and relabel the x and y axis with more descriptive labels.
 
 ```{r}
-ggplot(mtcars, aes(x = wt, y = hp)) +
-  geom_point()
+
 ```
 
 ### Question 3: - The Mean One
 Using the `iris` dataset to plot the points of the the petal length for each species. Make sure to add some jitter as we have done in class. Now manually calculate the mean of the petal length column of each species independently using the `mean()` function. Use this value to manually annotate the y position to represent the mean using a red `point` for each species. Do not use `stat_summary` for this question.
 
 ```{r}
-ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
-  geom_jitter() +
-  annotate(geom = "point", color = "red", y = mean(filter(iris, Species == "setosa")$Petal.Length), x="setosa" ) +
-  annotate(geom = "point", color = "red", y = mean(filter(iris, Species == "versicolor")$Petal.Length), x="versicolor" ) +
-  annotate(geom = "point", color = "red", y = mean(filter(iris, Species == "virginica")$Petal.Length), x="virginica" )
+
 ```
 
 
@@ -63,9 +55,7 @@ ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
 As we mentioned in class there was an interesting relationship between the quality of cut and the price of the diamond. Let us revisit that observation in a different way. Plot the `diamond` dataset and use a `geom_histogram` to plot the price with a binwidth of 100. Use a facet_wrap to look at the relationship of the price to cut. 
 
 ```{r}
-ggplot(data=diamonds) + 
-  geom_histogram(binwidth=100, aes(x=price)) + 
-  facet_wrap(~cut)
+
 ```
 Are the counts of ideal cut diamonds price skewed towards high or low price?
 Answer:
@@ -75,9 +65,7 @@ Answer:
 The price of the diamonds compared to the cut was not enough to understand the its relationship given that ideal cut should represent the best diamonds. We suspected in class that the size of the diamond may be a confounding factor. We can normalize the price to the carat which represents the diamond size. Repeat the same plot from Question 4 with the following exceptions: Divide the price by the carat, set the binwidth to 0.01, and overwrite the default scale for the x axis to make it on log10 scale.
 
 ```{r}
-ggplot(data=diamonds) + 
-  geom_histogram(binwidth=0.01, aes(x=price/carat)) + 
- + facet_wrap(~cut) + scale_x_log10()
+
 ```
 How would you describe the distribution of the ideal cut data now, are they still skewed?
 Answer:
@@ -87,8 +75,7 @@ Answer:
 Here we will use a new dataset called `mpg`. This one is built in so you should be able to access it and find the help and description with `?mpg`. Using this dataset you will analyze fuel efficiency of several types of more modern cars than the `mtcars` dataset. Using a boxplot, plot the `mpg` dataset showing the type of drive train the car uses relative to the highway miles per gallon. Color the plot based upon the type of car.
 
 ```{r}
-ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
-  geom_boxplot()
+
 ```
 Which type of drive train would appear to be the most fuel efficient? 
 Answer:
@@ -100,18 +87,13 @@ Answer:
 For this question use the `mpg` dataset to plot a scatterplot of the engine displacement versus the highway miles per gallon fuel efficiency. Utilize the `shape` aesthetic to visualize the types of car on the scatterplot. Finally add a `geom_smooth()` layer to look at the general trend, but only create a single line for the entire set of points, not for each type of car. Set the `method` attribute of `geom_smooth()` to `lm` to use a linear model (straight line).
 
 ```{r}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy,)) +
-  geom_point(aes(shape = class)) +
-  geom_smooth(method = 'lm')
+
 ```
 ### Question 8: - Emissions Scandal
 Let us compare the `mpg` data for the two time points within the dataset. Plot a boxplot for the model of car and the highway miles per gallon. Add a `facet_wrap` layer for the year and set the number of rows to 2. Make sure the plot is legible. Modify the `r{}` code chunk header or swap the coordinates if needed.
 
-```{r fig.height = 10}
-ggplot(data = mpg) +
-  geom_boxplot(mapping = aes(x= model, y = hwy)) +
-  facet_wrap(~ year, nrow = 2) +
-  coord_flip()
+```{r}
+
 ```
 Which car had the best median highway fuel efficiency in 1999?
 Answer:
