@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
 
-*The Rmarkdown for this class is [on github](https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/class_7-9/_posts/2022-11-10-class-7-matricies/class7_matricies.Rmd)*
+*The Rmarkdown for this class is [on github](https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-10-class-7-matricies/class7_matricies.Rmd)*
 
 ## Goals for this class
 * Learn what is a matrix
@@ -38,7 +38,7 @@ Before we get started, let's download all of the files you will need for the nex
 
 ```{r}
 # conditionally download all of the files used in rmarkdown from github 
-source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/class_7-9/_posts/2022-11-10-class-7-matricies/download_files.R")
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-10-class-7-matricies/download_files.R")
 ```
 
 ## What is a matrix?

@@ -16,7 +16,7 @@ draft: true
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
-*The Rmarkdown for this class is [on github]()*
+*The Rmarkdown for this class is [on github](https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/class-8-clustering.Rmd)*
 
 ## Goals for this class
 * Learn about different types of clustering
@@ -36,7 +36,7 @@ Before we get started, let's download all of the files you will need for the nex
 
 ```{r}
 # conditionally download all of the files used in rmarkdown from github 
-source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/class_7-9/_posts/2022-11-10-class-7-matricies/download_files.R")
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-10-class-7-matricies/download_files.R")
 ```
 
 ## What is clustering
@@ -58,7 +58,7 @@ k-means clustering uses the distance between points as a measure of similarity. 
 Consider the dataset below
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/unclustered.jpg")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/img/unclustered.jpg")
 ```
 
 In the figure above you would probably say that there are 3 clear clusters. Let's start by giving a k of 3.
@@ -66,13 +66,13 @@ In the figure above you would probably say that there are 3 clear clusters. Let'
 First the centroids are placed randomly and the mean distance between the centroid and the closest points is calculated.
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/clustering1.jpg")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/img/clustering1.jpg")
 ```
 
 This is done until the distance between the centroid and the nearest points doesn't change. All points that are closest to the centroid are placed in that cluster
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/final_clustering.jpg")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/img/final_clustering.jpg")
 ```
 
 Let's try clustering on our own example:
@@ -172,13 +172,13 @@ Basically, hierarchical clustering starts by treating each sample as a "cluster"
 Steps 1 and two are repeated until only one large cluster remains
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/Hierarchical-clustering-3-1.jpg")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/img/Hierarchical-clustering-3-1.jpg")
 ```
 
 Each merging step is used to build a dendrogram
 
 ```{r, echo = FALSE}
-knitr::include_graphics("img/dendrogram.jpg")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/img/dendrogram.jpg")
 ```
 
 To get an idea of how this is working, we can use the same toy data we generated above
