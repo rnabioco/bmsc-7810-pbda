@@ -49,7 +49,7 @@ M <- matrix(c(10:21), nrow = 4, byrow = TRUE)
 M
 ```
 
-We can also use `as.matrix` on an exisiting dataframe
+We can also use `as.matrix` on an existing dataframe
 
 ```{r}
 df <- data.frame("A" = c(10:13), "B" = c(14:17), "C" = (18:21))
@@ -128,7 +128,7 @@ What value is in row 2 and column 3 of `new_mat`?
 ```
 
 **If we can make a matrix from a data frame, what's the difference?**
-Matricies can only have values of one type --> integer, boolean, character, while a dataframe can be a mix of types:
+Matrices can only have values of one type --> integer, boolean, character, while a dataframe can be a mix of types:
 
 ```{r}
 df <- data.frame("A" = c(10:12),
@@ -150,7 +150,7 @@ typeof(df[,1])
 typeof(M[,1])
 ```
 
-But Matricies can take any type of input
+But Matrices can take any type of input
 
 ```{r}
 M <- matrix(rep(c(TRUE, FALSE), 4), nrow = 4, byrow = TRUE)
@@ -220,7 +220,7 @@ M + vector
 
 Note how the vector just gets reused, no error is thrown.
 
-We can also perform these operations on two matricies
+We can also perform these operations on two matrices
 
 ```{r}
 M1 <- matrix(c(10:21), nrow = 4, byrow = TRUE)
@@ -257,10 +257,11 @@ v1 + v4
 
 
 **Exercise**
-Multiply, subtract, and divide the two matricies `M1` and `M2`
+Multiply, subtract, and divide the two matrices `M1` and `M2`
 
 ```{r}
 # TODO multiply, subtract and divide M1 and M2
+
 ```
 
 ### Matrix multiplication
@@ -438,7 +439,7 @@ transposed_mat[1:3,1:3]
 
 Note how the columns are now names and the rows are now states.
 
-Remember the note above where we could only divide by the `rowSums`? Now we can use this transposition to figure out the percent of children in each (divide the value by the column sum * 100)
+Remember the note above where we could only divide by the `rowSums`? Now we can use this transposition to figure out the percent of children in each state with a given name (divide the value by the column sum * 100)
 
 ```{r}
 state_percents <- transposed_mat / rowSums(transposed_mat) * 100
@@ -577,7 +578,7 @@ Can you make the same plot as above but use our normalized values?
 
 The content of this class borrows heavily from previous tutorials:
 
-* Matricies
+* Matrices
   * [R example](https://bookdown.org/manishpatwal/bookdown-demo/matrices-in-r.html)
   * [Quick tips](https://monashbioinformaticsplatform.github.io/r-intro/matrices.html)
 
