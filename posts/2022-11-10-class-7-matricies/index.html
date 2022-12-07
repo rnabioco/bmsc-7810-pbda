@@ -2205,7 +2205,7 @@ document.addEventListener('DOMContentLoaded', function() {
 [3,]   16   17   18
 [4,]   19   20   21</code></pre>
 </div>
-<p>We can also use <code>as.matrix</code> on an exisiting dataframe</p>
+<p>We can also use <code>as.matrix</code> on an existing dataframe</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='st'>"A"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>13</span><span class='op'>)</span>, <span class='st'>"B"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>14</span><span class='op'>:</span><span class='fl'>17</span><span class='op'>)</span>, <span class='st'>"C"</span> <span class='op'>=</span> <span class='op'>(</span><span class='fl'>18</span><span class='op'>:</span><span class='fl'>21</span><span class='op'>)</span><span class='op'>)</span></span>
@@ -2315,7 +2315,7 @@ forth  13 17 21</code></pre>
 </div>
 </div>
 <p><strong>If we can make a matrix from a data frame, what’s the difference?</strong>
-Matricies can only have values of one type –&gt; integer, boolean, character, while a dataframe can be a mix of types:</p>
+Matrices can only have values of one type –&gt; integer, boolean, character, while a dataframe can be a mix of types:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='st'>"A"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>12</span><span class='op'>)</span>,</span>
@@ -2350,7 +2350,7 @@ Matricies can only have values of one type –&gt; integer, boolean, character, 
 </div>
 <pre><code>[1] &quot;character&quot;</code></pre>
 </div>
-<p>But Matricies can take any type of input</p>
+<p>But Matrices can take any type of input</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>M</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span>, <span class='fl'>4</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>4</span>, byrow <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
@@ -2489,7 +2489,7 @@ Matricies can only have values of one type –&gt; integer, boolean, character, 
 [4,]   21   23   25</code></pre>
 </div>
 <p>Note how the vector just gets reused, no error is thrown.</p>
-<p>We can also perform these operations on two matricies</p>
+<p>We can also perform these operations on two matrices</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>M1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>21</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>4</span>, byrow <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
@@ -2546,7 +2546,7 @@ Matricies can only have values of one type –&gt; integer, boolean, character, 
 <pre><code>[1] 11 13 15 14 16 18</code></pre>
 </div>
 <p><strong>Exercise</strong>
-Multiply, subtract, and divide the two matricies <code>M1</code> and <code>M2</code></p>
+Multiply, subtract, and divide the two matrices <code>M1</code> and <code>M2</code></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># TODO multiply, subtract and divide M1 and M2</span></span></code></pre>
@@ -2810,7 +2810,7 @@ Alaska       36    34   20
 Arizona     174   215   97</code></pre>
 </div>
 <p>Note how the columns are now names and the rows are now states.</p>
-<p>Remember the note above where we could only divide by the <code>rowSums</code>? Now we can use this transposition to figure out the percent of children in each (divide the value by the column sum * 100)</p>
+<p>Remember the note above where we could only divide by the <code>rowSums</code>? Now we can use this transposition to figure out the percent of children in each state with a given name (divide the value by the column sum * 100)</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>state_percents</span> <span class='op'>&lt;-</span> <span class='va'>transposed_mat</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>transposed_mat</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>100</span></span>
@@ -3005,7 +3005,7 @@ Can you make the same plot as above but use our normalized values?</p>
 <h2 id="acknowldgements-and-additional-references">Acknowldgements and additional references</h2>
 <p>The content of this class borrows heavily from previous tutorials:</p>
 <ul>
-<li>Matricies
+<li>Matrices
 <ul>
 <li><a href="https://bookdown.org/manishpatwal/bookdown-demo/matrices-in-r.html">R example</a></li>
 <li><a href="https://monashbioinformaticsplatform.github.io/r-intro/matrices.html">Quick tips</a></li>
