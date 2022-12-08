@@ -9,7 +9,7 @@ output:
   distill::distill_article:
     self_contained: false
     toc: true
-draft: true 
+draft: false 
 ---
 
 ```{r setup, include=FALSE}
@@ -26,13 +26,15 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ## Load packages
 ```{r load-packages}
 library(tidyverse)
+# install factoextra if needed
+# install.packages("factoextra")
 library(factoextra)
 library(here)
 ```
 
 ## Download files
 
-Before we get started, let's download all of the files you will need for the next three classes. This script can be found [here](). You should put this script in the same folder as your rmarkdown
+Before we get started, let's download all of the files you will need for the next three classes.
 
 ```{r}
 # conditionally download all of the files used in rmarkdown from github 
@@ -63,11 +65,16 @@ knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pb
 
 In the figure above you would probably say that there are 3 clear clusters. Let's start by giving a k of 3.
 
-First the centroids are placed randomly and the mean distance between the centroid and the closest points is calculated.
+First the centroids are placed randomly and the distance from each point to each centroid is calculated. Points are then assigned to the cluster that corresponds to the nearest centroid: if a point is closest to centroid 1, it is placed into cluster 1.
+
 
 ```{r, echo = FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/img/clustering1.jpg")
 ```
+
+Next, the mean distance from all points belonging to a cluster to that cluser's centroid is calculated.
+
+Then, the "centroids" are moved to that mean value that was calculated and the process of assigning points and finding the mean value is repeated.
 
 This is done until the distance between the centroid and the nearest points doesn't change. All points that are closest to the centroid are placed in that cluster
 
@@ -158,6 +165,40 @@ Repeat the process above, but compute for 4 clusters
 
 ```
 
+
+Note, the `nstart` value and the set seed is very important. If we don't set a seed and only do one start, we end up with very different results when running several times:
+
+```{r}
+km.res <- kmeans(test_data, centers = 3, nstart = 1)
+cluster_k3 <- cbind(test_data, "cluster" = km.res$cluster)
+cluster_k3$cluster <- factor(cluster_k3$cluster)
+ggplot(cluster_k3, aes(x = x_val, y = y_val, color = cluster)) +
+  ggplot2::geom_point(size = 2)
+```
+
+```{r}
+km.res <- kmeans(test_data, centers = 3, nstart = 1)
+cluster_k3 <- cbind(test_data, "cluster" = km.res$cluster)
+cluster_k3$cluster <- factor(cluster_k3$cluster)
+ggplot(cluster_k3, aes(x = x_val, y = y_val, color = cluster)) +
+  ggplot2::geom_point(size = 2)
+```
+
+```{r}
+km.res <- kmeans(test_data, centers = 3, nstart = 1)
+cluster_k3 <- cbind(test_data, "cluster" = km.res$cluster)
+cluster_k3$cluster <- factor(cluster_k3$cluster)
+ggplot(cluster_k3, aes(x = x_val, y = y_val, color = cluster)) +
+  ggplot2::geom_point(size = 2)
+```
+
+```{r}
+km.res <- kmeans(test_data, centers = 3, nstart = 1)
+cluster_k3 <- cbind(test_data, "cluster" = km.res$cluster)
+cluster_k3$cluster <- factor(cluster_k3$cluster)
+ggplot(cluster_k3, aes(x = x_val, y = y_val, color = cluster)) +
+  ggplot2::geom_point(size = 2)
+```
 
 ### Hierarchical clustering
 Another option for clustering is using hierarchical clustering. This is another popular method and results in a dendrogram which you've likely seen before.
@@ -252,7 +293,7 @@ Are the clusters always the same as the k-means clusters? Do they ever differ?
 In the example above, we only had two dimensions and could easily visualize them. What about our example dataset with 50 names and 20 states? How do we visualize that type of data? Even more daunting,what if we have 20,000 genes and 18 samples as part of a RNA-seq experiment, or even worse, 20,000 genes and 30,000 cells as part of a single cell RNA-seq experiment? To visualize this data, we have to use something called dimensionality reduction. PCA is a common dimensionality reduction to use and will work well for lots of data type (like bulk RNA-seq). Other dimensionality reduction tools will need to be used (like UMAP) to visualize single cell RNA-seq and CYTOF datasets (and other single cell approaches).
 
 ### Visualizing the data with PCA
-There is an amazing tutorial on how PCA works [here](https://web.stanford.edu/class/bios221/book/Chap-Multivariate.html). We will talk a little today about how PCA works, but I highly recommend looking at this book for PCA and to learn many of the important statistical techniques used regularly in computational biology. One thing I like about the book is it includes a lot of R code that you can run yourself so you can really understand how these techniques work.
+There is an amazing tutorial on how PCA works [here](https://web.stanford.edu/class/bios221/book/07-chap.html). We will talk a little today about how PCA works, but I highly recommend looking at this book for PCA and to learn many of the important statistical techniques used regularly in computational biology. One thing I like about the book is it includes a lot of R code that you can run yourself so you can really understand how these techniques work.
 
 The overall goal of PCA is to find linear models that best fit the data. 
 
@@ -310,7 +351,7 @@ We can find the variance of the points on the blue line by using Pythagoras' the
 var(normalized_dat$Alabama) + var(reg1$fitted.values)
 ```
 
-We can now repeat linear regression and now minimize the disatnce for Alabama to the regression line (now Alabama is the response variable).
+We can now repeat linear regression and now minimize the distance for Alabama to the regression line (now Alabama is the response variable).
 
 ```{r}
 reg2 <- lm(Alabama ~ Colorado, data = normalized_dat)
@@ -362,6 +403,15 @@ Although it's good to know the inner workings of PCA, we can simply run this PCA
 
 Now that we have learned about some of the clustering techniques, we are going to continue working with the same data we used to talk about matrices, the top 100 boy and girl names by state for 2020. We will want to use the normalized data for these examples.
 
+```{r}
+names_mat <- read.csv(here("class_7-9_data", "boy_name_counts.csv"),
+                      row.names = 1) %>%
+  as.matrix()
+
+
+normalized_mat <- t(t(names_mat) / colSums(names_mat))
+```
+
 
 ```{r}
 names.pca <- prcomp(normalized_mat)
@@ -373,7 +423,7 @@ The values for the dimensionality reduction are found in the `x` slot.
 pca_vals <- names.pca$x %>%
   data.frame()
 
-pca_vals[1:5, 15]
+pca_vals[1:4, 1:4]
 ```
 
 We can also find the percent of variance explained by each component using the `sdev` slot
@@ -395,7 +445,7 @@ ggplot(pca_vals, aes(x = PC1, y = PC2)) +
 ```
 
 ## Implementing clustering on our dataset
-Now that we've learned how to visualize our data, we will be able to more easily see the clustering reults. Let's put together everything we've learned so far and try out the different clustering methods on our names data.
+Now that we've learned how to visualize our data, we will be able to more easily see the clustering results. Let's put together everything we've learned so far and try out the different clustering methods on our names data.
 
 ### K means clustering of names
 The first thing we need to do is decide if we want to cluster the states or the names. Our first question is what names have the most similar usage? To answer this question, we will need to cluster the names.
@@ -439,7 +489,7 @@ ggplot(pca_cluster, aes(x = PC1, y = PC2, color = cluster)) +
 Try with 4 clusters, what names cluster together?
 
 ```{r}
-# TODO Repeat with 3 clusters and repeat what names cluster together
+# TODO Repeat with 4 clusters and repeat what names cluster together
 
 ```
 
@@ -464,8 +514,7 @@ hc_clusters3 <- cbind(pca_vals, "cluster" = hc_clusters3)
 
 hc_clusters3$cluster <- factor(hc_clusters3$cluster)
 
-pca_cluster$cluster <- factor(pca_cluster$cluster)
-ggplot(pca_cluster, aes(x = PC1, y = PC2, color = cluster)) +
+ggplot(hc_clusters3, aes(x = PC1, y = PC2, color = cluster)) +
   geom_point(size = 2) +
   xlab(paste0("PC1: ",round(percentVar[1] * 100),"% variance")) +
   ylab(paste0("PC2: ",round(percentVar[2] * 100),"% variance"))
@@ -544,8 +593,7 @@ hc_clusters3 <- cbind(pca_vals, "cluster" = hc_clusters3)
 
 hc_clusters3$cluster <- factor(hc_clusters3$cluster)
 
-pca_cluster$cluster <- factor(pca_cluster$cluster)
-ggplot(pca_cluster, aes(x = PC1, y = PC2, color = cluster)) +
+ggplot(hc_clusters3, aes(x = PC1, y = PC2, color = cluster)) +
   geom_point(size = 2) +
   xlab(paste0("PC1: ",round(percentVar[1] * 100),"% variance")) +
   ylab(paste0("PC2: ",round(percentVar[2] * 100),"% variance"))
@@ -553,7 +601,7 @@ ggplot(pca_cluster, aes(x = PC1, y = PC2, color = cluster)) +
 
 **Exercise**
 
-Try out several different cluster numbers for both the kmeans clustering and the hierarchical clustering. Do you ever find cases where they differ?
+Try out several different cluster numbers for both the kmeans clustering and the hierarchical clustering. Do you ever find cases where they differ? What if you try different numbers of starts for kmeans?
 
 ```{r}
 # TODO test out several hierarchical and k means clustering cluster numbers
@@ -575,9 +623,10 @@ The content of this class borrows heavily from previous tutorials:
 
 * K- means clustering
   * [Background](https://towardsdatascience.com/how-does-k-means-clustering-in-machine-learning-work-fdaaaf5acfa0)
+  * [Video](https://analyticslog.com/blog/2021/3/7/nstart-value-k-means-clustering-in-r-programmin)
   * [R example](https://www.datanovia.com/en/lessons/k-means-clustering-in-r-algorith-and-practical-examples/)
 * Hierarchical clustering
   * [Background](https://www.displayr.com/what-is-hierarchical-clustering/)
   * [R example](https://www.r-bloggers.com/2016/01/hierarchical-clustering-in-r-2/)
-* PCA
-  * [Tutorial](https://web.stanford.edu/class/bios221/book/Chap-Multivariate.html)
+* PCAs
+  * [Tutorial](https://web.stanford.edu/class/bios221/book/07-chap.html)
