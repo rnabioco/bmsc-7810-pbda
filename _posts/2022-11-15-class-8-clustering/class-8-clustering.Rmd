@@ -152,7 +152,7 @@ cluster_k2 <- cbind(test_data, "cluster" = km.res2$cluster)
 
 cluster_k2$cluster <- factor(cluster_k2$cluster)
 ggplot(cluster_k2, aes(x = x_val, y = y_val, color = cluster)) +
-  ggplot2::geom_point(size = 2)
+  geom_point(size = 2)
 ```
 
 Now two populations that appear visually different have been clumped together because we allowed for only 2 centroids.
@@ -162,7 +162,17 @@ Repeat the process above, but compute for 4 clusters
 
 ```{r}
 # TODO find k = 4 clusters
+set.seed(123)
+kres <- kmeans(test_data, centers = 4, nstart = 25)
 
+plot_df <- cbind(test_data, "cluster" = kres$cluster)
+
+
+plot_df$cluster <- factor(plot_df$cluster)
+plot_df$cluster
+
+ggplot(plot_df, aes(x = x_val, y = y_val, color = cluster)) +
+  geom_point()
 ```
 
 
@@ -282,7 +292,13 @@ Repeat finding clusters using different points on the tree. For example, what if
 
 ```{r}
 # TODO repeat finding clusters with different numbers of clusters
+new_clusters <- cutree(hc, k = 4)
 
+plot_df <- cbind(test_data, "cluster" = new_clusters)
+
+plot_df$cluster <- factor(plot_df$cluster)
+ggplot2::ggplot(plot_df, aes(x = x_val, y = y_val, color = cluster)) +
+  geom_point(size = 2)
 ```
 
 **Question**
@@ -454,7 +470,7 @@ From the PCA plot above, it doesn't look like there are strong clusters. Let's s
 
 ```{r}
 set.seed(123)
-km.res2 <- kmeans(normalized_mat, centers = 2, nstart = 25)
+km.res2 <- kmeans(normalized_mat, centers = 3, nstart = 25)
 km.res2$cluster
 ```
 
@@ -474,7 +490,7 @@ Let's try again with 3 clusters
 
 ```{r}
 set.seed(123)
-km.res3 <- kmeans(normalized_mat, centers = 3, nstart = 25)
+km.res3 <- kmeans(normalized_mat, centers = 2, nstart = 25)
 
 pca_cluster <- cbind(pca_vals, "cluster" = km.res3$cluster)
 
@@ -490,6 +506,20 @@ Try with 4 clusters, what names cluster together?
 
 ```{r}
 # TODO Repeat with 4 clusters and repeat what names cluster together
+set.seed(123)
+four_clusters <- kmeans(normalized_mat, centers = 4, nstart = 25)
+
+four_clusters$cluster
+
+plot_data <- cbind(pca_vals, "cluster" = four_clusters$cluster)
+
+plot_data$cluster <- factor(plot_data$cluster)
+
+plot_data %>%
+  tibble::rownames_to_column("name") %>%
+  ggplot(aes(x = PC1, y = PC2, color = cluster, label = name)) +
+  geom_point(size = 2) +
+  geom_text(hjust=1, vjust=0)
 
 ```
 
@@ -586,17 +616,17 @@ plot(hc)
 In the plot above we see 3 clear clusters
 
 ```{r}
-hc_clusters3 <- cutree(tree = hc, k =3)
+hc_clusters3 <- cutree(tree = hc, k =4)
 
 
 hc_clusters3 <- cbind(pca_vals, "cluster" = hc_clusters3)
 
 hc_clusters3$cluster <- factor(hc_clusters3$cluster)
 
-ggplot(hc_clusters3, aes(x = PC1, y = PC2, color = cluster)) +
+ggplot(hc_clusters3, aes(x = PC1, y = PC3, color = cluster)) +
   geom_point(size = 2) +
   xlab(paste0("PC1: ",round(percentVar[1] * 100),"% variance")) +
-  ylab(paste0("PC2: ",round(percentVar[2] * 100),"% variance"))
+  ylab(paste0("PC3: ",round(percentVar[3] * 100),"% variance"))
 ```
 
 **Exercise**

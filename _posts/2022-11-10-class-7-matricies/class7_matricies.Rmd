@@ -124,7 +124,7 @@ What value is in row 2 and column 3 of `new_mat`?
 
 ```{r}
 # TODO find the value in the matrix at row 2 and column 3
-
+new_mat[2,3]
 ```
 
 **If we can make a matrix from a data frame, what's the difference?**
@@ -261,7 +261,7 @@ Multiply, subtract, and divide the two matrices `M1` and `M2`
 
 ```{r}
 # TODO multiply, subtract and divide M1 and M2
-
+M1 * M2
 ```
 
 ### Matrix multiplication
@@ -367,8 +367,8 @@ min(names_mat)
 Find the maximum value in the for "Noah"
 
 ```{r}
-# TODO Find the maximum value in the second row and the whole matrix
-
+# TODO Find the maximum value for Noah and the whole matrix
+max(names_mat["Noah",])
 ```
 
 We can also find the mean, median, and standard deviation of any part of the matrix
@@ -561,7 +561,18 @@ Can you make the same plot as above but use our normalized values?
 ```{r}
 # TODO make plot above with normalized values
 # Hint start with normalized_dat
+pivot_columns <- colnames(normalized_dat)
 
+normalized_mat <- normalized_dat %>%
+  data.frame %>%
+  rownames_to_column("name") %>%
+  pivot_longer(cols = all_of(pivot_columns),
+               values_to = "count", names_to = "state")
+
+ggplot(normalized_mat, aes(x = name, y = count, fill = name)) +
+  geom_violin() + 
+  theme(axis.text.x = element_text(angle = 90,
+                                   vjust = 0.5, hjust=1))
 ```
 
 ## I'm a biologist, why should I care?
