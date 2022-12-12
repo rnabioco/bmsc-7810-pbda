@@ -32,15 +32,15 @@ title: "Schedule"
   + Introduction to Heatmaps 
   
 - Class 10: Tuesday, Dec. 13th
-  + Introduction to programming in R
+  + Introduction to programming in R (pt. 1)
 
-- Class 11: Wednesday, Dec. 14th
-  + Introduction to programming in R
+- Wednesday, Dec. 14th
+  + **No Class**  
 
-- Class 12: Thursday, Dec. 15th
-  + Introduction to programming in R
+- Class 11: Thursday, Dec. 15th
+  + Introduction to programming in R (pt. 2)
   
-- Class 13: Friday, Dec. 16th
+- Class 12: Friday, Dec. 16th
   + Course wrap up
   
 # Problem Sets

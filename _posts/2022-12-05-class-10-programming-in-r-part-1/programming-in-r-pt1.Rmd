@@ -1,12 +1,11 @@
 ---
-title: "Programming in R (part 1)"
+title: "Class 10: Programming in R (part 1)"
 author:
   - name: Ryan Sheridan and Kent Riemondy
 date: 2022-12-05
 output:
   distill::distill_article:
     self_contained: false
-draft: true
 ---
 
 ```{r setup, include = FALSE}
@@ -16,12 +15,15 @@ knitr::opts_chunk$set(
   fig.align = "left"
 )
 library(tidyverse)
-library(cowplot)
 ```
 
-```{r, echo = FALSE}
+
+*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/class3.Rmd)*
+
+
+```{r}
 # conditionally download all of the files used in rmarkdown from github 
-source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-12-05-programming-in-r-pt1/download_files.R")
+source("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-12-05-class-10-programming-in-r-part-1/download-files.R")
 ```
 
 <br>
@@ -74,7 +76,8 @@ There are three general steps for writing functions:
 
 1. Pick a name
 2. Identify the inputs
-3. Add code to the body
+3. Add code to the body  
+
 ```{r, eval = F}
 # Lets write a function to rescale a numeric vector
 rescale_vec <- function(x) {
@@ -88,7 +91,9 @@ rescale_vec(c)
 
 <br>
 
-*Write functions for the following bits of code*
+*Write functions for the following bits of code* 
+
+
 ```{r, eval = F}
 # function 1
 x / sum(x)
@@ -115,7 +120,7 @@ calc_sd <- function(x) {
 
 <br>
 
-<br>
+
 
 ## The function execution environment
 - When running a function an execution environment is created, which is separate from the global environment
@@ -125,7 +130,8 @@ calc_sd <- function(x) {
 
 <br>
 
-*Can objects present in the global environment be referenced from within a function?*
+*Can objects present in the global environment be referenced from within a function?*  
+
 ```{r}
 # Earlier we saved a numeric vector "a"
 a
@@ -160,7 +166,7 @@ The `brauer_gene_exp` data contains a data set from a [manuscript](https://www.n
 *Using the Brauer data lets create a scatter plot comparing growth rate vs expression for the gene YDL104C. Use `facet_wrap()` to create a separate plot for each nutrient.*
 
 ```{r}
-gene_exp <- read_csv("data/brauer_gene_expression.csv")
+brauer_gene_exp <- read_csv("data/brauer_gene_exp.csv.gz")
 ```
 
 
@@ -171,13 +177,15 @@ gg_data %>%
   ggplot(aes(rate, expression, color = nutrient)) +  # Create scatter plot
   geom_point(size = 2) +
   facet_wrap(~ nutrient) +                           # Create separate plot for each nutrient
-  theme_cowplot() +
   theme(legend.position = "none")
 ```
 
 <br>
 
-What if you want to create this plot for other genes? *Write a function the takes a data.frame and systematic_name as inputs and creates scatter plots for each nutrient*
+
+What if you want to create this plot for other genes? *Write a function the takes a data.frame and systematic_name as inputs and creates scatter plots for each nutrient*  
+
+
 ```{r, eval = F}
 # Fill in the function body
 # You can include default values for your arguments
@@ -197,7 +205,6 @@ plot_expr <- function(input, sys_name = "YNL049C") {
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(size = 2) +
     facet_wrap(~ nutrient) +
-    theme_cowplot() +
     theme(legend.position = "none")
 }
 ```
@@ -215,7 +222,8 @@ p
 
 <br>
 
-*Modify our plotting function to add the gene name as the plot title and the molecular function (MF) as a subtitle*
+*Modify our plotting function to add the gene name as the plot title and the molecular function (MF) as a subtitle*  
+
 ```{r, echo = F}
 plot_expr <- function(input, sys_name) {
   gg_data <- input %>%
@@ -230,7 +238,6 @@ plot_expr <- function(input, sys_name) {
     labs(title = plot_title, subtitle = plot_sub) +
     ggtitle(plot_title) +
     facet_wrap(~ nutrient) +
-    theme_cowplot() +
     theme(legend.position = "none")
 }
 ```
@@ -274,7 +281,8 @@ mat2 <- as.data.frame(mat)
 
 ## Conditional statements
 
-`if` statements allow you to execute code depending on defined conditions.
+`if` statements allow you to execute code depending on defined conditions.  
+
 ```{r, eval = F}
 if (condition) {
   code executed when condition is TRUE
@@ -303,7 +311,8 @@ x %in% y | x is present in y
 
 <br>
 
-*Add an `if` statement to our plotting function to account for a missing gene name*
+*Add an `if` statement to our plotting function to account for a missing gene name*  
+
 ```{r, eval = F}
 plot_expr <- function(input, sys_name) {
   gg_data <- input %>%
@@ -319,7 +328,6 @@ plot_expr <- function(input, sys_name) {
     geom_point(size = 2) +
     labs(title = plot_title, subtitle = plot_sub) +
     facet_wrap(~ nutrient) +
-    theme_cowplot() +
     theme(legend.position = "none")
 }
 ```
@@ -332,7 +340,7 @@ plot_expr <- function(input, sys_name) {
   plot_title <- gg_data$name[1]
   plot_sub <- gg_data$MF[1]
   
-  if (plot_title == "") {
+  if (is.na(plot_title)) {
     plot_title <- sys_name
   }
   
@@ -341,7 +349,6 @@ plot_expr <- function(input, sys_name) {
     geom_point(size = 2) +
     labs(title = plot_title, subtitle = plot_sub) +
     facet_wrap(~ nutrient) +
-    theme_cowplot() +
     theme(legend.position = "none")
 }
 ```
@@ -433,7 +440,6 @@ plot_expr <- function(input, sys_name) {
     geom_point(size = 2) +
     labs(title = plot_title, subtitle = plot_sub) +
     facet_wrap(~ nutrient) +
-    theme_cowplot() +
     theme(legend.position = "none")
 }
 brauer_gene_exp %>%
@@ -442,7 +448,8 @@ brauer_gene_exp %>%
 
 <br>
 
-*Modify our plotting function to check that `sys_name` is present in the input. Hint: try the `%in%` operator*
+*Modify our plotting function to check that `sys_name` is present in the input. Hint: try the `%in%` operator*  
+
 ```{r, eval = F}
 plot_expr <- function(input, sys_name) {
   
@@ -469,7 +476,6 @@ plot_expr <- function(input, sys_name) {
     geom_point(size = 2) +
     labs(title = plot_title, subtitle = plot_sub) +
     facet_wrap(~ nutrient) +
-    theme_cowplot() +
     theme(legend.position = "none")
 }
 ```
@@ -500,7 +506,6 @@ plot_expr <- function(input, sys_name) {
     geom_point(size = 2) +
     labs(title = plot_title, subtitle = plot_sub) +
     facet_wrap(~ nutrient) +
-    theme_cowplot() +
     theme(legend.position = "none")
 }
 ```
@@ -525,7 +530,9 @@ rescale_vec(a, na.rm = T)
 
 <br>
 
-*Modify our plotting function so the user can change the point size, shape, and alpha*
+*Modify our plotting function so the user can change the point size, shape, and alpha*  
+
+
 ```{r, fig.width = 6, fig.height = 4.5}
 # A cumbersome way
 plot_expr <- function(input, sys_name, pt_size = 2, pt_shape = 1, pt_alpha = 1) {
@@ -534,7 +541,6 @@ plot_expr <- function(input, sys_name, pt_size = 2, pt_shape = 1, pt_alpha = 1) 
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(size = pt_size, shape = pt_shape, alpha = pt_alpha) +
     facet_wrap(~ nutrient) +
-    theme_cowplot() +
     theme(legend.position = "none")
 }
 # With the ellipsis
@@ -544,7 +550,6 @@ plot_expr <- function(input, sys_name, ...) {
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(...) +
     facet_wrap(~ nutrient) +
-    theme_cowplot() +
     theme(legend.position = "none")
 }
 # Now we can easily change the point size and shape
@@ -560,9 +565,19 @@ plot_expr(
 <br>
 
 <br>
+</br>
 
 ## Saving your functions for later
-A good way to save commonly used functions is to keep them in a separate R script. You can load your functions using the `source()` command.
+A good way to save commonly used functions is to keep them in a separate R script. You can load your functions using the `source()` command.  
+
 ```{r, eval = F}
 source("path/to/my_functions.R")
 ```
+
+
+<details><summary>Show session info</summary>
+
+```{r code}
+sessionInfo()
+```
+</details>
