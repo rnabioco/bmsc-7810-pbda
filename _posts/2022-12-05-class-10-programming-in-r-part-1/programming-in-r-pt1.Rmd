@@ -18,7 +18,7 @@ library(tidyverse)
 ```
 
 
-*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/class3.Rmd)*
+*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-12-05-class-10-programming-in-r-part-1/programming-in-r-pt1.Rmd)*
 
 
 ```{r}

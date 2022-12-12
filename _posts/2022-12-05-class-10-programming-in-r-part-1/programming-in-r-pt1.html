@@ -1516,7 +1516,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<p><em>The Rmarkdown for this class is <a href="https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/class3.Rmd">on github</a></em></p>
+<p><em>The Rmarkdown for this class is <a href="https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-12-05-class-10-programming-in-r-part-1/programming-in-r-pt1.Rmd">on github</a></em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># conditionally download all of the files used in rmarkdown from github </span></span>
@@ -1553,14 +1553,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
 <span><span class='va'>a</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] -1.44641822 -1.11499382  0.08005923 -0.15686553 -0.95843892
-#&gt;  [6] -1.80037337 -1.44370150  0.61009917 -0.35588509 -1.37464148</code></pre>
+<pre><code>#&gt;  [1] -1.3971822 -0.1145581 -0.3707288 -1.0925292 -1.6353263 -0.8814671
+#&gt;  [7] -1.2067820  0.8072124  0.5301985 -2.0342041</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>rng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span>
 <span><span class='op'>(</span><span class='va'>a</span> <span class='op'>-</span> <span class='va'>rng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>/</span> <span class='op'>(</span><span class='va'>rng</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>rng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] 0.1468406 0.2843341 0.7801095 0.6818198 0.3492819 0.0000000
-#&gt;  [7] 0.1479676 1.0000000 0.5992552 0.1766176</code></pre>
+<pre><code>#&gt;  [1] 0.2241917 0.6755947 0.5854387 0.3314104 0.1403799 0.4056910
+#&gt;  [7] 0.2912006 1.0000000 0.9025085 0.0000000</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># What if we want to repeat this on other vectors?</span></span>
 <span><span class='co'># One way is to copy and paste</span></span>
@@ -1626,8 +1626,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Earlier we saved a numeric vector "a"</span></span>
 <span><span class='va'>a</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] -1.44641822 -1.11499382  0.08005923 -0.15686553 -0.95843892
-#&gt;  [6] -1.80037337 -1.44370150  0.61009917 -0.35588509 -1.37464148</code></pre>
+<pre><code>#&gt;  [1] -1.3971822 -0.1145581 -0.3707288 -1.0925292 -1.6353263 -0.8814671
+#&gt;  [7] -1.2067820  0.8072124  0.5301985 -2.0342041</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sum_nums</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  <span class='va'>x</span> <span class='op'>+</span> <span class='va'>a</span></span>
@@ -1635,8 +1635,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span><span class='co'># Yes!</span></span>
 <span><span class='fu'>sum_nums</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1]  8.553582  8.885006 10.080059  9.843134  9.041561  8.199627
-#&gt;  [7]  8.556299 10.610099  9.644115  8.625359</code></pre>
+<pre><code>#&gt;  [1]  8.602818  9.885442  9.629271  8.907471  8.364674  9.118533
+#&gt;  [7]  8.793218 10.807212 10.530199  7.965796</code></pre>
 </div>
 <p><br></p>
 <em>Can code executed within a function modify an object present in the global environment?</em>
@@ -1650,8 +1650,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span><span class='co'># No! (not when using the '&lt;-' assignment operator)</span></span>
 <span><span class='va'>a</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] -1.44641822 -1.11499382  0.08005923 -0.15686553 -0.95843892
-#&gt;  [6] -1.80037337 -1.44370150  0.61009917 -0.35588509 -1.37464148</code></pre>
+<pre><code>#&gt;  [1] -1.3971822 -0.1145581 -0.3707288 -1.0925292 -1.6353263 -0.8814671
+#&gt;  [7] -1.2067820  0.8072124  0.5301985 -2.0342041</code></pre>
 </div>
 <p><br></p>
 <p><br></p>
@@ -1959,14 +1959,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span><span class='op'>}</span></span>
 <span><span class='fu'>rescale_vec</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] 0.1468406 0.2843341 0.7801095 0.6818198 0.3492819 0.0000000
-#&gt;  [7] 0.1479676 1.0000000 0.5992552 0.1766176</code></pre>
+<pre><code>#&gt;  [1] 0.2241917 0.6755947 0.5854387 0.3314104 0.1403799 0.4056910
+#&gt;  [7] 0.2912006 1.0000000 0.9025085 0.0000000</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>a</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>NA</span></span>
 <span><span class='fu'>rescale_vec</span><span class='op'>(</span><span class='va'>a</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1]        NA 0.2843341 0.7801095 0.6818198 0.3492819 0.0000000
-#&gt;  [7] 0.1479676 1.0000000 0.5992552 0.1766176</code></pre>
+<pre><code>#&gt;  [1]        NA 0.6755947 0.5854387 0.3314104 0.1403799 0.4056910
+#&gt;  [7] 0.2912006 1.0000000 0.9025085 0.0000000</code></pre>
 </div>
 <p><br></p>
 <p><em>Modify our plotting function so the user can change the point size, shape, and alpha</em></p>
