@@ -2170,8 +2170,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://wilkelab.org/cowplot/'>cowplot</a></span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2180,21 +2179,24 @@ document.addEventListener('DOMContentLoaded', function() {
 <span><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
 <span><span class='va'>a</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] -1.3971822 -0.1145581 -0.3707288 -1.0925292 -1.6353263 -0.8814671
-#&gt;  [7] -1.2067820  0.8072124  0.5301985 -2.0342041</code></pre>
+<pre><code>#&gt;  [1]  0.19012100  0.10835684  0.83925551  0.04308585 -0.18100253
+#&gt;  [6] -0.49837938  0.45826460  0.14422815  0.57147929 -1.42467599</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>rng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span>
 <span><span class='op'>(</span><span class='va'>a</span> <span class='op'>-</span> <span class='va'>rng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>/</span> <span class='op'>(</span><span class='va'>rng</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>rng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] 0.2241917 0.6755947 0.5854387 0.3314104 0.1403799 0.4056910
-#&gt;  [7] 0.2912006 1.0000000 0.9025085 0.0000000</code></pre>
+<pre><code>#&gt;  [1] 0.7132711 0.6771551 1.0000000 0.6483243 0.5493424 0.4091540
+#&gt;  [7] 0.8317127 0.6929998 0.8817207 0.0000000</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># What if we want to repeat this on other vectors?</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span></span>
+<span></span>
+<span><span class='co'># What if we want to repeat this on other vectors?</span></span>
 <span><span class='co'># One way is to copy and paste</span></span>
 <span><span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
 <span><span class='va'>c</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
 <span><span class='va'>rng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>b</span><span class='op'>)</span></span>
 <span><span class='va'>new_b</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>b</span> <span class='op'>-</span> <span class='va'>rng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>/</span> <span class='op'>(</span><span class='va'>rng</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>rng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span>
+<span></span>
 <span><span class='va'>rng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>c</span><span class='op'>)</span></span>
 <span><span class='va'>new_c</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>c</span> <span class='op'>-</span> <span class='va'>rng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>/</span> <span class='op'>(</span><span class='va'>rng</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>rng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span>
 <span><span class='co'># A better way is to write a function...</span></span></code></pre>
@@ -2253,8 +2255,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Earlier we saved a numeric vector "a"</span></span>
 <span><span class='va'>a</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] -1.3971822 -0.1145581 -0.3707288 -1.0925292 -1.6353263 -0.8814671
-#&gt;  [7] -1.2067820  0.8072124  0.5301985 -2.0342041</code></pre>
+<pre><code>#&gt;  [1]  0.19012100  0.10835684  0.83925551  0.04308585 -0.18100253
+#&gt;  [6] -0.49837938  0.45826460  0.14422815  0.57147929 -1.42467599</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sum_nums</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  <span class='va'>x</span> <span class='op'>+</span> <span class='va'>a</span></span>
@@ -2262,8 +2264,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <span><span class='co'># Yes!</span></span>
 <span><span class='fu'>sum_nums</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1]  8.602818  9.885442  9.629271  8.907471  8.364674  9.118533
-#&gt;  [7]  8.793218 10.807212 10.530199  7.965796</code></pre>
+<pre><code>#&gt;  [1] 10.190121 10.108357 10.839256 10.043086  9.818997  9.501621
+#&gt;  [7] 10.458265 10.144228 10.571479  8.575324</code></pre>
 </div>
 <p><br></p>
 <em>Can code executed within a function modify an object present in the global environment?</em>
@@ -2277,8 +2279,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <span><span class='co'># No! (not when using the '&lt;-' assignment operator)</span></span>
 <span><span class='va'>a</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] -1.3971822 -0.1145581 -0.3707288 -1.0925292 -1.6353263 -0.8814671
-#&gt;  [7] -1.2067820  0.8072124  0.5301985 -2.0342041</code></pre>
+<pre><code>#&gt;  [1]  0.19012100  0.10835684  0.83925551  0.04308585 -0.18100253
+#&gt;  [6] -0.49837938  0.45826460  0.14422815  0.57147929 -1.42467599</code></pre>
 </div>
 <p><br></p>
 <p><br></p>
@@ -2318,7 +2320,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <span>  <span class='fu'>plot_expr</span><span class='op'>(</span>sys_name <span class='op'>=</span> <span class='st'>"YDL104C"</span><span class='op'>)</span></span>
 <span><span class='va'>p</span></span></code></pre>
 </div>
-<p><img src="programming-in-r-pt1_files/figure-html5/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
 </div>
 <p><br></p>
 <p><em>Modify our plotting function to add the gene name as the plot title and the molecular function (MF) as a subtitle</em></p>
@@ -2330,7 +2331,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>brauer_gene_exp</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
 <span>  <span class='fu'>plot_expr</span><span class='op'>(</span><span class='st'>"YDL104C"</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="programming-in-r-pt1_files/figure-html5/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
 </div>
 <p><br></p>
 <p><br></p>
@@ -2459,7 +2459,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>brauer_gene_exp</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
 <span>  <span class='fu'>plot_expr</span><span class='op'>(</span><span class='st'>"YNL095C"</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="programming-in-r-pt1_files/figure-html5/unnamed-chunk-20-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
 </div>
 <p><br></p>
 <p>Conditional statements can be linked together</p>
@@ -2524,7 +2523,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span>  <span class='va'>plot_title</span> <span class='op'>&lt;-</span> <span class='va'>gg_data</span><span class='op'>$</span><span class='va'>name</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
 <span>  <span class='va'>plot_sub</span> <span class='op'>&lt;-</span> <span class='va'>gg_data</span><span class='op'>$</span><span class='va'>MF</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
 <span>  </span>
-<span>  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>plot_title</span> <span class='op'>==</span> <span class='st'>""</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>plot_title</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>    <span class='va'>plot_title</span> <span class='op'>&lt;-</span> <span class='va'>sys_name</span></span>
 <span>  <span class='op'>}</span></span>
 <span>  </span>
@@ -2586,14 +2585,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <span><span class='op'>}</span></span>
 <span><span class='fu'>rescale_vec</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] 0.2241917 0.6755947 0.5854387 0.3314104 0.1403799 0.4056910
-#&gt;  [7] 0.2912006 1.0000000 0.9025085 0.0000000</code></pre>
+<pre><code>#&gt;  [1] 0.7132711 0.6771551 1.0000000 0.6483243 0.5493424 0.4091540
+#&gt;  [7] 0.8317127 0.6929998 0.8817207 0.0000000</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>a</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>NA</span></span>
 <span><span class='fu'>rescale_vec</span><span class='op'>(</span><span class='va'>a</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1]        NA 0.6755947 0.5854387 0.3314104 0.1403799 0.4056910
-#&gt;  [7] 0.2912006 1.0000000 0.9025085 0.0000000</code></pre>
+<pre><code>#&gt;  [1]        NA 0.6771551 1.0000000 0.6483243 0.5493424 0.4091540
+#&gt;  [7] 0.8317127 0.6929998 0.8817207 0.0000000</code></pre>
 </div>
 <p><br></p>
 <p><em>Modify our plotting function so the user can change the point size, shape, and alpha</em></p>
@@ -2684,11 +2683,11 @@ Show session info
 #&gt; [43] vroom_1.5.7      cachem_1.0.6     farver_2.1.0    
 #&gt; [46] fs_1.5.2         xml2_1.3.3       bslib_0.3.1     
 #&gt; [49] ellipsis_0.3.2   generics_0.1.3   vctrs_0.4.1     
-#&gt; [52] cowplot_1.1.1    distill_1.5      tools_4.2.0     
-#&gt; [55] bit64_4.0.5      glue_1.6.2       hms_1.1.2       
-#&gt; [58] parallel_4.2.0   fastmap_1.1.0    yaml_2.3.6      
-#&gt; [61] colorspace_2.0-3 rvest_1.0.2      memoise_2.0.1   
-#&gt; [64] knitr_1.39       haven_2.5.0      sass_0.4.1</code></pre>
+#&gt; [52] distill_1.5      tools_4.2.0      bit64_4.0.5     
+#&gt; [55] glue_1.6.2       hms_1.1.2        parallel_4.2.0  
+#&gt; [58] fastmap_1.1.0    yaml_2.3.6       colorspace_2.0-3
+#&gt; [61] rvest_1.0.2      memoise_2.0.1    knitr_1.39      
+#&gt; [64] haven_2.5.0      sass_0.4.1</code></pre>
 </div>
 </details>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
