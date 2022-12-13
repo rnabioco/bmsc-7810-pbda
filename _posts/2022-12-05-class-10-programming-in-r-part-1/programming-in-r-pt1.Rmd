@@ -47,7 +47,6 @@ Further reading
 
 ```{r, eval = F}
 library(tidyverse)
-library(cowplot)
 ```
 
 ```{r}
@@ -56,12 +55,15 @@ a <- rnorm(n = 10)
 a
 rng <- range(a)
 (a - rng[1]) / (rng[2] - rng[1])
+
+
 # What if we want to repeat this on other vectors?
 # One way is to copy and paste
 b <- rnorm(n = 10)
 c <- rnorm(n = 10)
 rng <- range(b)
 new_b <- (b - rng[1]) / (rng[2] - rng[1])
+
 rng <- range(c)
 new_c <- (c - rng[1]) / (rng[2] - rng[1])
 # A better way is to write a function...
@@ -196,20 +198,12 @@ plot_expr <- function(input, sys_name = "YNL049C") {
 }
 ```
 
-```{r, echo = F}
-plot_expr <- function(input, sys_name = "YNL049C") {
-  gg_data <- input %>%
-    filter(systematic_name == sys_name)
-  
-  gg_data %>%
-    ggplot(aes(rate, expression, color = nutrient)) +
-    geom_point(size = 2) +
-    facet_wrap(~ nutrient) +
-    theme(legend.position = "none")
-}
+
+```{r}
+
 ```
 
-```{r, fig.width = 6, fig.height = 4.5}
+```{r, fig.width = 6, fig.height = 4.5, eval = FALSE}
 p <- plot_expr(
   input = brauer_gene_exp, 
   sys_name = "YDL104C"
@@ -225,24 +219,12 @@ p
 *Modify our plotting function to add the gene name as the plot title and the molecular function (MF) as a subtitle*  
 
 ```{r, echo = F}
-plot_expr <- function(input, sys_name) {
-  gg_data <- input %>%
-    filter(systematic_name == sys_name)
-  
-  plot_title <- gg_data$name[1]
-  plot_sub <- gg_data$MF[1]
-  
-  gg_data %>%
-    ggplot(aes(rate, expression, color = nutrient)) +
-    geom_point(size = 2) +
-    labs(title = plot_title, subtitle = plot_sub) +
-    ggtitle(plot_title) +
-    facet_wrap(~ nutrient) +
-    theme(legend.position = "none")
-}
+
+
+
 ```
 
-```{r, fig.width = 6, fig.height = 4.5}
+```{r, fig.width = 6, fig.height = 4.5, eval = FALSE}
 brauer_gene_exp %>%
   plot_expr("YDL104C")
 ```
@@ -333,27 +315,10 @@ plot_expr <- function(input, sys_name) {
 ```
 
 ```{r, echo = F}
-plot_expr <- function(input, sys_name) {
-  gg_data <- input %>%
-    filter(systematic_name == sys_name)
-  
-  plot_title <- gg_data$name[1]
-  plot_sub <- gg_data$MF[1]
-  
-  if (is.na(plot_title)) {
-    plot_title <- sys_name
-  }
-  
-  gg_data %>%
-    ggplot(aes(rate, expression, color = nutrient)) +
-    geom_point(size = 2) +
-    labs(title = plot_title, subtitle = plot_sub) +
-    facet_wrap(~ nutrient) +
-    theme(legend.position = "none")
-}
+
 ```
 
-```{r, fig.width = 6, fig.height = 4.5}
+```{r, fig.width = 6, fig.height = 4.5, eval = FALSE}
 brauer_gene_exp %>%
   plot_expr("YNL095C")
 ```
@@ -431,7 +396,7 @@ plot_expr <- function(input, sys_name) {
   plot_title <- gg_data$name[1]
   plot_sub <- gg_data$MF[1]
   
-  if (plot_title == "") {
+  if (is.na(plot_title)) {
     plot_title <- sys_name
   }
   
@@ -481,33 +446,10 @@ plot_expr <- function(input, sys_name) {
 ```
 
 ```{r, echo = F}
-plot_expr <- function(input, sys_name) {
-  
-  if (!is.character(sys_name)) {
-    stop("sys_name must be a string!")
-  }
-  
-  if (!sys_name %in% input$systematic_name) {
-    stop("sys_name not found in input data!")
-  }
-  
-  gg_data <- input %>%
-    filter(systematic_name == sys_name)
-  
-  plot_title <- gg_data$name[1]
-  plot_sub <- gg_data$MF[1]
-  
-  if (plot_title == "") {
-    plot_title <- sys_name
-  }
-  
-  gg_data %>%
-    ggplot(aes(rate, expression, color = nutrient)) +
-    geom_point(size = 2) +
-    labs(title = plot_title, subtitle = plot_sub) +
-    facet_wrap(~ nutrient) +
-    theme(legend.position = "none")
-}
+
+
+
+
 ```
 
 <br>
