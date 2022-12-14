@@ -1,0 +1,192 @@
+---
+title: "Problem Set 4"
+author: "YOUR NAME HERE"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center"
+)
+```
+
+### Problem Set
+
+For this problem set, you are allowed to help each other. However, please list who you've worked with and do not post answers in slack. 
+
+**The problem set is Due Monday Dec. 19th (midnight)**
+
+### Grading rubric (2p questions)
+
+- Everything is good: 2 points.
+- Runs, but wrong answer: 1.5 points
+- Reasonable attempt: 1 points
+
+### Grading rubric (4p questions)
+
+- Everything is good: 4 points
+- Runs, but wrong answer: 3 points
+- Reasonable attempt: 2 points
+
+
+We will be using all of the same files you already downloaded for class. If you already have these files, you don't need to run this script.
+
+```{r, eval = FALSE}
+# conditionally download all of the files used in rmarkdown from github 
+source("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-12-05-class-10-programming-in-r-part-1/download-files.R")
+```
+
+
+**Note that many code chunks have the option `eval = FALSE` set. you'll need to remove or change this to `eval = TRUE` before knitting, otherwise the code won't be executed**
+
+# Question 1 (2 pts)
+
+Load the `brauer_gene_exp.csv.gz` table into R and assign the table to a variable named `brauer_gene_exp`.
+
+```{r q1}
+
+```
+
+# Question 2 (2 pts)
+
+Write a function that plots rate vs expression when provided a data.frame, a systematic_name, and a nutrient. Add the common gene name as a title and the nutrient as a subtitle. Include an argument that lets the user select whether a regression line is shown.  
+
+```{r q2, eval = FALSE, fig.width = 6, fig.height = 3.5}
+plot_expr <- function(input, sys_name, nutri, add_lm = FALSE) {
+  # Finish writing the function
+  
+}
+
+plot_expr(
+  input = brauer_gene_exp, 
+  sys_name = "YDL104C",
+  nutri = "Ammonia",
+  add_lm = T
+)
+```
+
+# Question 3 (2 pts)
+
+Add an `if` statement to check whether the systematic_name and nutrient provided by the user are present in the input data.
+
+```{r q3, eval = FALSE, fig.width = 6, fig.height = 3.5}
+plot_expr <- function(input, sys_name, nutri, add_lm = FALSE) {
+  # Finish writing the function
+  
+}
+
+plot_expr(
+  input = brauer_gene_exp, 
+  sys_name = "YDL104C",
+  nutri = "Ammonia",
+  add_lm = TRUE
+)
+```
+
+# Question 4 (2 pts)
+
+Add the ellipsis so the user can pass arguments directly to `theme()`. 
+
+```{r q4, eval = FALSE, fig.width = 6, fig.height = 3.5}
+plot_expr <- function(input, sys_name, nutri, add_lm = FALSE) {
+  # Finish writing the function
+  
+}
+plot_expr(
+  input = brauer_gene_exp, 
+  sys_name = "YDL104C",
+  nutri = "Ammonia",
+  add_lm = TRUE,
+  axis.title = element_text(size = 20),
+  axis.text = element_text(face = "italic")
+)
+```
+
+
+# Question 5 (2 pts)
+
+Use `lapply()` to create plots for four genes using the function you've written in Q4. Combine the plots into a single figure using `wrap_plots()` from the `patchwork` package. 
+
+```{r q5, eval = FALSE, fig.width = 10, fig.height = 6.5}
+
+sys_names <- c("YNL049C", "YML017W", "YDL104C", "YLR115W")
+
+expr_plots <- lapply(
+  # Add the arguments for lapply()
+  
+)
+
+wrap_plots() 
+```
+
+# Question 6 (4pts)
+
+Let's review concepts from previous classes using the brauer_gene_exp data. A common transformation that you'll perform is converting a tidy data.frame back to a matrix for performing clustering, statistics, and making heatmaps. 
+
+Using the `brauer_gene_exp` data.frame convert this to a matrix. Use the `systematic_name` as the row names, a combination of the `nutrient` and `rate` columns as the column names, and the the `expression` column as the values of the matrix. Ignore other columns. The first 10 rows and columns of your matrix will look similar to the matrix below and contain ~5,000 rows and 36 columns. Save the matrix to a new variable named `mat`.
+
+hints: Recall how to use __pivot_wider__ and __unite__ and a function for moving a column to rownames. Make sure to convert this to a matrix type (e.g `as.matrix()`)
+
+```r
+   Glucose_0.05 Glucose_0.1 Glucose_0.15 Glucose_0.2 Glucose_0.25 Glucose_0.3
+YNL049C        -0.24       -0.13        -0.21       -0.15        -0.05       -0.05
+YNL095C         0.28        0.13        -0.40       -0.48        -0.11        0.17
+YDL104C        -0.02       -0.27        -0.27       -0.02         0.24        0.25
+YLR115W        -0.33       -0.41        -0.24       -0.03        -0.03        0.00
+YMR183C         0.05        0.02         0.40        0.34        -0.13       -0.14
+YML017W        -0.69       -0.03         0.23        0.20         0.00       -0.27
+YOL066C        -0.55       -0.30        -0.12       -0.03        -0.16       -0.11
+YPR036W        -0.75       -0.12        -0.07        0.02        -0.32       -0.41
+YEL015W        -0.24       -0.22         0.14        0.06         0.00       -0.13
+YOR069W        -0.16       -0.38         0.05        0.14        -0.04       -0.01
+        Ammonia_0.05 Ammonia_0.1 Ammonia_0.15 Ammonia_0.2
+YNL049C         0.20        0.24        -0.20       -0.42
+YNL095C         0.31        0.00        -0.63       -0.44
+YDL104C         0.23        0.06        -0.66       -0.40
+YLR115W         0.20       -0.25        -0.49       -0.49
+YMR183C        -0.35       -0.09        -0.08       -0.58
+YML017W         0.17       -0.40        -0.54       -1.19
+YOL066C         0.04        0.00        -0.63       -0.51
+YPR036W         0.11       -0.16        -0.26       -0.42
+YEL015W         0.30        0.07        -0.30       -0.01
+YOR069W         0.39        0.20         0.27        0.19
+```
+
+```{r q6}
+
+```
+
+
+# Question 7 (2pt)
+
+Are there NA values present in the output from Q6? If so remove the rows that contain any `NA` values and assign the output to a variable.
+
+```{r q7}
+
+```
+
+# Question 8 (4pts)
+
+Write a function to plot this matrix as a heatmap using `pheatmap()`. The function should have 3 arguments,
+an argument for the input matrix, and argument for the subset of genes to plot in the heatmap, 
+and an `...` argument that will pass arguments to pheatmap(). The function should check that the genes requested to be plotted are present in the rownames of the matrix. If the genes supplied are not in the matrix you can either remove the genes that are not in matrix or throw an error.  
+
+Demonstrate that your function works by plotting a heatmap, with a selection of genes (your choice on the genes), and passing an additional argument(s) to pheatmap to customize the output. 
+
+
+```{r q8.1, eval = FALSE}
+library(pheatmap)
+plot_heatmap <- function(x, genes_to_plot, ...) {
+  
+  ???
+    
+}
+```
+
+```{r q8.2, eval = FALSE}
+# feel free to customize which genes to plot and arguments to pheatmap
+plot_heatmap(mat, ???, ???)
+```
+
