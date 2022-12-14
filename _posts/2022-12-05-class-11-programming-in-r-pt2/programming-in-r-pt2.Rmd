@@ -6,7 +6,7 @@ date: 2022-12-05
 output:
   distill::distill_article:
     self_contained: false
-draft: true
+    toc: true
 ---
 
 ```{r setup, include = F}
@@ -36,11 +36,6 @@ As discussed in the previous class, you should try to limit duplication in your 
 * You reduce the chance of mistakes from repeated copying and pasting
 * It is easier to adapt your code for different requirements
 
-Further reading
-
-* [R for Data Science](https://r4ds.had.co.nz) by Garrett Grolemund and Hadley Wickham
-* [Advanced R](https://adv-r.hadley.nz) by Hadley Wickham  
-
 ```{r}
 library(tidyverse)
 library(patchwork)
@@ -54,26 +49,64 @@ library(patchwork)
 ## `for` loops
 `for` loops allow you to run the same code block repeatedly without copying and pasting. 
 
-```{r}
-# When writing a for loop, think about the output, sequence, and body
-out <- vector("numeric", 5)  # output
 
-for (i in 1:length(out)) {   # sequence
-  
-  out[i] <- i * 5            # body
-  
+```{r}
+for(i in 1:4){
+  message("printing ", i, " is fun")
 }
 
-# It's helpful to think about what happens during each cycle of the loop
-out[1] <- 1 * 5  # i = 1
-out[2] <- 2 * 5  # i = 2
-out[3] <- 3 * 5  # i = 3
-out[4] <- 4 * 5  # i = 4
-out[5] <- 5 * 5  # i = 5
+values <- c("A", "B", "C", "D")
+for(val in values){
+  message(val)
+}
+```
+
+
+When iterating over a vector, usually it is most useful to iterate over the index of each element (aka the position in the vector), rather than the values themselves. 
+
+```{r}
+for(i in 1:length(values)){
+  val <- values[i]
+  message("index = ", i, " value = ", val)
+}
+```
+
+We will generally want to store the output generated in the `for` loop. A common paradigm is
+to preallocate a place to store the output. This is a faster approach than growing the output at each iteration (for more detail see [this R-bloggers post](https://www.r-bloggers.com/2018/08/growing-objects-and-loop-memory-pre-allocation/)). 
+
+We can generate vectors (and lists) of a given type and length using the `vector()` function. 
+
+```{r}
+n <- length(values)
+
+# make an empty vector of same length as values (4)
+output <- vector(mode = "character", length = n)
+output
+
+for(i in 1:n){ 
+  # get value at position i
+  val <- values[i]
+  # assign value to output character vector at position i
+  output[i] <- tolower(val)
+}
+output
 ```
 
 ```{r}
-# Lets use rnorm() to create 5 vectors with different values for 'mean'
+# It's helpful to think about what happens during each cycle of the loop
+output[1] <- tolower("A") # i = 1
+output[2] <- tolower("B") # i = 2
+output[3] <- tolower("C") # i = 3
+output[4] <- tolower("D") # i = 4
+```
+
+<br> 
+
+<br> 
+
+Lets use `rnorm()` to create a list of 5 vectors with different values for 'mean'
+
+```{r}
 # One way to do this is by copying and pasting
 vec_in <- c(1, 50, 20, 5, 70)                # input
 
@@ -84,7 +117,10 @@ out[[2]] <- rnorm(n = 10, mean = vec_in[2])
 out[[3]] <- rnorm(n = 10, mean = vec_in[3])
 out[[4]] <- rnorm(n = 10, mean = vec_in[4])
 out[[5]] <- rnorm(n = 10, mean = vec_in[5])
+out
+```
 
+```{r}
 # Use a for loop to reduce code duplication
 vec_in <- c(1, 50, 20, 5, 70)                  # input
 
@@ -99,16 +135,16 @@ for (i in 1:length(vec_in)) {                  # sequence
 
 <br>
 
-*Write a `for` loop to create 3 vectors of different lengths*  
+*Write a `for` loop that uses `rnorm()` to create 3 vectors of different lengths. Store the vectors in a list. Use mean = 0 and sd = 1 (the default). *  
 
-```{r, echo = F}
+```{r, eval = FALSE}
 vec_in <- c(5, 10, 2)                  # input
 
-out <- vector("list", length(vec_in))  # output
+out <- vector("list", ???)  # output
 
-for (i in 1:length(vec_in)) {          # sequence
+for (i in ???) {          # sequence
   
-  out[[i]] <- rnorm(n = vec_in[i])     # body
+  ???   # body
   
 }
 
@@ -117,7 +153,7 @@ out
 
 <br>
 
-Using `seq_along(x)` instead of `1:length(x)`  
+So far we have used `1:length(x)` to specify the sequence to iterate over. A better alternative is using`seq_along(x)` instead of `1:length(x)` . This guards against errors when an empty vector is passed to `1:length(x)`.
 
 ```{r}
 # seq_along() mimics 1:length() for non-empty vectors
@@ -147,7 +183,7 @@ Using the Brauer gene expression data lets create a figure showing the growth ra
 brauer_gene_exp <- read_csv("data/brauer_gene_exp.csv.gz")
 ```
 
-```{r, fig.width = 10, fig.height = 8}
+```{r}
 # This is the function we wrote in class-6
 plot_expr <- function(input, sys_name, ...) {
   
@@ -165,7 +201,11 @@ plot_expr <- function(input, sys_name, ...) {
     theme(legend.position = "none")
 }
 
-# Lets try this with the copy-and-paste method
+```
+
+Lets try this with the copy-and-paste method, storing the plots in a list.
+
+```{r, fig.width = 10, fig.height = 8}
 vec_in <- c("YDL104C", "YLR115W", "YMR183C", "YML017W")       # input
 
 out <- vector("list", length(vec_in))                         # output 
@@ -205,9 +245,9 @@ wrap_plots(out)
 *In general you should try to use a vectorized function/approach before using iteration.* Vectorized approaches will be faster and require less code to run. If you are working with a vector or matrix, then there is likely a vectorized operation that can be used. 
 
 There are however a few common places that iteration is used:  
-  - To process multiple datasets/data.frames. (e.g. apply a function to a list of data.frames)  
-  - plotting (e.g. make multiple plots with a varying parameter or aesthetic)  
-  - perform a custom operation that does not have a vectorized approach  
+  - To process multiple datasets/data.frames. (e.g. apply a function to a list of data.frames)    
+  - plotting (e.g. make many plots with a varying input parameter or aesthetic)  
+  - perform a custom operation that does not have a vectorized approach   
 
 
 ## Introduction to the `apply` familar of functions.
@@ -216,12 +256,12 @@ There are however a few common places that iteration is used:
 
 There is a function for each type of output:
 
-- `lapply()` iterate over a vector, applying a function, returning a list
-- `sapply()`  iterate over a vector, applying a function, coercing the output to a vector
-- `apply()` iterate over a row, column, or all elements of a matrix
-- `mapply()` iterate over each element of multiple supplied vectors 
+- `lapply()`  iterate over a vector, applying a function, returning a list  
+- `sapply()`  iterate over a vector, applying a function, coercing the output to a vector  
+- `apply()`  iterate over a row, column, or all elements of a matrix  
+- `mapply()` iterate over each element of multiple supplied vectors   
 
-The lapply function requires two inputs: `lapply(X, FUN, ...)`
+The `lapply` function requires two inputs: `lapply(X, FUN, ...)`
 
 - `X` is a list or atomic vector
 - `FUN` is a function
@@ -245,7 +285,7 @@ for (i in seq_along(vals)) {                 # sequence
 # this is an example of an anonymous function
 out <- lapply(vals, function(x) rnorm(n = 10, mean = x))
 
-# similarly we can define the function first
+# we can also define the function first
 rnorm_custom <- function(x){
   rnorm(n = 10, mean = x)
 }
@@ -267,18 +307,16 @@ out <- lapply(vals, rnorm, n = 10)
 
 *Use `rnorm()` and `lapply()` to create 3 vectors of different lengths*
 
-```{r, echo = F}
-lens <- c(5, 10, 2)
+```{r, eval = F}
 
-out <- lapply(lens, rnorm)
-
+out <- lapply( ???)
 out
 ```
 
 <br>
 
 *Re-write the code from above using `lapply()` to generate our growth rate figure*
-```{r, eval = F}
+```{r, eval = F, fig.width = 10, fig.height = 8}
 genes <- c("YDL104C", "YOR069W", "YLR115W", "YPR036W")
 
 expr_plots <- lapply(
@@ -290,13 +328,6 @@ expr_plots <- lapply(
 wrap_plots(expr_plots)
 ```
 
-```{r, fig.width = 10, fig.height = 8, echo = F}
-genes <- c("YDL104C", "YOR069W", "YLR115W", "YPR036W")
-
-expr_plots <- lapply(genes, plot_expr, input = brauer_gene_exp)
-
-wrap_plots(expr_plots)
-```
 
 <br>
 
@@ -305,7 +336,7 @@ wrap_plots(expr_plots)
 Note that we can iterate over lists in addition to vectors. A common operation might be to read in multiple files and perform some operation
 
 ```{r, eval = FALSE}
-# get paths to files in "data" directory
+# get paths to files in "data" directory (dir() is an alias for list.files())
 file_names <- dir("data", full.names = TRUE)
 
 # read each file into R and store in a list
@@ -323,7 +354,7 @@ lapply(lst_of_dfs, function(x){
 })
 ```
 
-Note that a `data.frame` is a  list of columns in R (e.g. see output of `typeof(mtcars)`). So if we use `lapply()` on a data.frame it will iterate over each column.
+Note that a `data.frame` is a list in R, such that each column is one element of a list (e.g. see output of `typeof(mtcars)`). So if we use `lapply()` on a data.frame it will iterate over each column.
 
 ```{r}
 lapply(mtcars, mean)
@@ -367,11 +398,46 @@ apply(mat, 2, max)
 apply(mat, c(1, 2), function(x) x * 1e6)
 ```
 
-**Note that many operations on matrices are vectorized already and you often don't need to use 
-apply**
+Alternatively you can use for loops to iterate over matrices by using indexing to select/replace elements
 
 ```{r, eval = FALSE}
-# e.g.compare to above, multiply each value by 1e6
+nr <- nrow(mat)
+nc <- ncol(mat)
+
+# iterate by column, seq_len makes range 1:nc
+output <- vector("numeric", nc)
+for(i in seq_len(nc)){
+  col <- mat[, i]
+  output[i] <- col + 5
+}
+```
+
+```{r, eval = FALSE}
+# iterate by row, seq_len makes range 1:nr 
+output <- vector("numeric", nr)
+for(i in seq_len(nr)){
+  col <- mat[i, ]
+  output[i] <- col + 5
+}
+```
+
+```{r, eval = FALSE}
+# iterate by row, and column using nested for loops
+
+# make an output matrix, filled with 0s, with same names as mat
+output <- matrix(0, nrow = nr, ncol = nc, dimnames = dimnames(mat))
+
+for(i in seq_len(nr)){
+  for(j in seq_len(nc)){
+    val <- mat[i, j]
+    output[i, j] <- val * 1e6
+  }
+}
+```
+
+**Note that many operations on matrices are vectorized already and you often don't need to use apply or for loops**
+
+```{r, eval = FALSE}
 mat * 1e6
 ```
 
@@ -390,7 +456,7 @@ colMedians(mat)
 
 ## Iterating over multiple vectors
 
-If you have two vectors containing values that you want to pass to a function this can be accomplished with `mapply()`.
+If you have two or more vectors containing values that you want to iterate over element-wise and process with  function this can be accomplished with `mapply()`.
 
 ```r
 mapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE)
@@ -406,10 +472,10 @@ genes <- c("YDL104C", "YOR069W", "YLR115W", "YPR036W")
 shapes <- c(1, 2, 3, 4)
 
 expr_plots <- mapply(plot_expr, # function
-                     sys_name = genes, 
-                     shape = shapes,
-                     MoreArgs = list(input = brauer_gene_exp),
-                     SIMPLIFY = FALSE)
+                     sys_name = genes, # vector 1 
+                     shape = shapes, # vector 2
+                     MoreArgs = list(input = brauer_gene_exp), # fixed arguments
+                     SIMPLIFY = FALSE) # return a list, rather than coerce to simpler type
 wrap_plots(expr_plots)
 ```
 
@@ -417,19 +483,7 @@ wrap_plots(expr_plots)
 
 *Use `mapply()` to create plots for 4 different genes, each with a different point size*  
 
-```{r, eval = F}
-genes <- c("YDL104C", "YOR069W", "YLR115W", "YPR036W")
-
-expr_plots <- mapply(
-  
-  ????
-  
-)
-
-wrap_plots(expr_plots)
-```
-
-```{r, fig.width = 10, fig.height = 8, echo = F}
+```{r, fig.width = 10, fig.height = 8}
 genes <- c("YDL104C", "YOR069W", "YLR115W", "YPR036W")
 sizes <- c(1, 2, 4, 6)
 
@@ -477,22 +531,22 @@ The `purrr` package from the tidyverse provides functions similar to `lapply`, w
 
 There is a function for each type of output:
 
-- `map()` makes a list (similar to `lapply()`)
-- `map2()` iterate over two vector/lists by element (similar to `mapply() with 2 vectors`)
-- `pmap()` iterate over each element of a list element-wise (similar to `mapply()`)
+- `map()` makes a list (similar to `lapply()`)  
+- `map2()` iterate over two vector/lists by element (similar to `mapply() with 2 vectors`)  
+- `pmap()` iterate over each element of a list element-wise (similar to `mapply()`)  
 
-- `map_dfr()` iterate over a vector/list, then combine output into a data.frame using `bind_rows()`
-- `map_cfr()` iterate over a vector/list, then combine output into a data.frame using `bind_cols()`
+- `map_dfr()` iterate over a vector/list, then combine output into a data.frame using `bind_rows()`  
+- `map_cfr()` iterate over a vector/list, then combine output into a data.frame using `bind_cols()`  
 
-- `map_lgl()` iterate over a vector/list, return a logical vector (similar to vapply)
-- `map_int()` iterate over a vector/list, return an integer vector
-- `map_dbl()` iterate over a vector/list, return a double vector
-- `map_chr()` iterate over a vector/list, return a character vector
+- `map_lgl()` iterate over a vector/list, return a logical vector (similar to vapply)  
+- `map_int()` iterate over a vector/list, return an integer vector  
+- `map_dbl()` iterate over a vector/list, return a double vector  
+- `map_chr()` iterate over a vector/list, return a character vector  
 
-Each `map()` function requires two inputs: `map(.x, .f, ...)`
+Each `map()` function requires two inputs: `map(.x, .f, ...)`  
 
-- `.x` is a list or atomic vector
-- `.f` is a function or formula
+- `.x` is a list or atomic vector  
+- `.f` is a function or formula  
 
 ```{r, eval = FALSE}
 # We previously lapply to create vectors with different values for mean
@@ -519,3 +573,17 @@ out <- map(vals, rnorm, n = 10)
 ```
 
 
+## Additional resources related to Programming in R
+
+[Control Structures, from R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/control-structures.html )
+
+[Programming Basics: Introduction to Data Science](http://rafalab.dfci.harvard.edu/dsbook/programming-basics.html#programming-basics)
+
+[Control Flow: Advanced R](https://adv-r.hadley.nz/control-flow.html#control-flow)
+
+<details><summary>Show session info</summary>
+
+```{r code}
+sessionInfo()
+```
+</details>
