@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-12-05-class-11-programming-in-r-part-2/programming-in-r-pt2.Rmd)*
+*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-12-05-class-11-programming-in-r-pt2/programming-in-r-pt2.Rmd)*
 
 
 ```{r}
