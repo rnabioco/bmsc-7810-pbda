@@ -3,7 +3,7 @@ title: "Practical Biological Data Analysis"
 site: distill::distill_website
 listing:
   posts:
-    - 2022-12-05-class-11-programming-in-r-pt-2
+    - 2022-12-05-class-11-programming-in-r-pt2
     - 2022-12-05-class-10-programming-in-r-part-1
     - 2022-11-16-class-9-heatmap
     - 2022-11-15-class-8-clustering
