@@ -107,7 +107,9 @@ x / sum(x)
 sqrt(sum((x - mean(x))^2) / (length(x) - 1))
 ```
 
-```{r, echo = F}
+<details>
+  <summary>Show answer</summary>
+```{r}
 calc_sd <- function(x) {
   sqrt(sum((x - mean(x))^2) / (length(x) - 1))
 }
@@ -119,6 +121,8 @@ calc_sd <- function(x) {
   sqrt(v)
 }
 ```
+
+</details>
 
 <br>
 
@@ -199,11 +203,25 @@ plot_expr <- function(input, sys_name = "YNL049C") {
 ```
 
 
+<details>
+<summary>Show answer</summary>
 ```{r}
-
+plot_expr <- function(input, sys_name = "YNL049C") {
+  gg_data <- input %>%
+    filter(systematic_name == sys_name)
+  
+  gg_data %>%
+    ggplot(aes(rate, expression, color = nutrient)) +
+    geom_point(size = 2) +
+    facet_wrap(~ nutrient) +
+    theme(legend.position = "none")
+}
 ```
+</details>
 
-```{r, fig.width = 6, fig.height = 4.5, eval = FALSE}
+
+
+```{r, fig.width = 6, fig.height = 4.5}
 p <- plot_expr(
   input = brauer_gene_exp, 
   sys_name = "YDL104C"
@@ -218,13 +236,29 @@ p
 
 *Modify our plotting function to add the gene name as the plot title and the molecular function (MF) as a subtitle*  
 
-```{r, echo = F}
-
-
-
+<details>
+<summary>Show answer</summary>
+```{r}
+plot_expr <- function(input, sys_name) {
+  gg_data <- input %>%
+    filter(systematic_name == sys_name)
+  
+  plot_title <- gg_data$name[1]
+  plot_sub <- gg_data$MF[1]
+  
+  gg_data %>%
+    ggplot(aes(rate, expression, color = nutrient)) +
+    geom_point(size = 2) +
+    labs(title = plot_title, subtitle = plot_sub) +
+    ggtitle(plot_title) +
+    facet_wrap(~ nutrient) +
+    theme(legend.position = "none")
+}
 ```
+</details>
 
-```{r, fig.width = 6, fig.height = 4.5, eval = FALSE}
+
+```{r, fig.width = 6, fig.height = 4.5}
 brauer_gene_exp %>%
   plot_expr("YDL104C")
 ```
@@ -295,6 +329,7 @@ x %in% y | x is present in y
 
 *Add an `if` statement to our plotting function to account for a missing gene name*  
 
+
 ```{r, eval = F}
 plot_expr <- function(input, sys_name) {
   gg_data <- input %>%
@@ -314,11 +349,32 @@ plot_expr <- function(input, sys_name) {
 }
 ```
 
-```{r, echo = F}
-
+<details>
+<summary>Show answer</summary>
+```{r}
+plot_expr <- function(input, sys_name) {
+  gg_data <- input %>%
+    filter(systematic_name == sys_name)
+  
+  plot_title <- gg_data$name[1]
+  plot_sub <- gg_data$MF[1]
+  
+  if (is.na(plot_title)) {
+    plot_title <- sys_name
+  }
+  
+  gg_data %>%
+    ggplot(aes(rate, expression, color = nutrient)) +
+    geom_point(size = 2) +
+    labs(title = plot_title, subtitle = plot_sub) +
+    facet_wrap(~ nutrient) +
+    theme(legend.position = "none")
+}
 ```
+</details>
 
-```{r, fig.width = 6, fig.height = 4.5, eval = FALSE}
+
+```{r, fig.width = 6, fig.height = 4.5}
 brauer_gene_exp %>%
   plot_expr("YNL095C")
 ```
@@ -432,7 +488,7 @@ plot_expr <- function(input, sys_name) {
   plot_title <- gg_data$name[1]
   plot_sub <- gg_data$MF[1]
   
-  if (plot_title == "") {
+  if (is.na(plot_title) ){
     plot_title <- sys_name
   }
   
@@ -445,12 +501,38 @@ plot_expr <- function(input, sys_name) {
 }
 ```
 
+<details>
+<summary>Show answer</summary>  
 ```{r, echo = F}
-
-
-
-
+plot_expr <- function(input, sys_name) {
+  
+  if (!is.character(sys_name)) {
+    stop("sys_name must be a string!")
+  }
+  
+  if (!sys_name %in% input$systematic_name) {
+    stop("sys_name not found in input data!")
+  }
+  
+  gg_data <- input %>%
+    filter(systematic_name == sys_name)
+  
+  plot_title <- gg_data$name[1]
+  plot_sub <- gg_data$MF[1]
+  
+  if (plot_title == "") {
+    plot_title <- sys_name
+  }
+  
+  gg_data %>%
+    ggplot(aes(rate, expression, color = nutrient)) +
+    geom_point(size = 2) +
+    labs(title = plot_title, subtitle = plot_sub) +
+    facet_wrap(~ nutrient) +
+    theme(legend.position = "none")
+}
 ```
+</details>
 
 <br>
 
