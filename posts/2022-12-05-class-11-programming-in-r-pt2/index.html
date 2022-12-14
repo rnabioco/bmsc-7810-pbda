@@ -2159,7 +2159,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </nav>
 </div>
-<p><em>The Rmarkdown for this class is <a href="https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-12-05-class-11-programming-in-r-part-2/programming-in-r-pt2.Rmd">on github</a></em></p>
+<p><em>The Rmarkdown for this class is <a href="https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-12-05-class-11-programming-in-r-pt2/programming-in-r-pt2.Rmd">on github</a></em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># conditionally download all of the files used in rmarkdown from github </span></span>
@@ -2256,24 +2256,24 @@ to preallocate a place to store the output. This is a faster approach than growi
 <span><span class='va'>out</span></span></code></pre>
 </div>
 <pre><code>#&gt; [[1]]
-#&gt;  [1]  3.5913549  1.8340890 -0.7889661  1.9082110 -0.1497324  1.1488104
-#&gt;  [7]  1.9401307  0.3162172  1.5737649  1.2085159
+#&gt;  [1]  0.18945960  0.07976148 -0.66152860  1.08597327  2.74095930
+#&gt;  [6]  2.14929350  1.77756695  0.97761521  1.01819100  1.03410369
 #&gt; 
 #&gt; [[2]]
-#&gt;  [1] 48.38933 50.55039 50.03170 49.11209 49.61926 51.76141 49.76171
-#&gt;  [8] 48.32629 49.64353 49.79534
+#&gt;  [1] 48.80252 48.08573 51.18084 48.33651 49.01716 50.02282 49.87493
+#&gt;  [8] 51.09322 49.89430 49.43299
 #&gt; 
 #&gt; [[3]]
-#&gt;  [1] 18.53100 19.22863 20.04411 20.53754 18.88863 21.50435 21.04538
-#&gt;  [8] 18.85684 20.32217 21.91618
+#&gt;  [1] 20.39684 19.58153 19.26795 19.71354 18.75567 21.07297 17.38206
+#&gt;  [8] 19.21338 19.99111 20.06398
 #&gt; 
 #&gt; [[4]]
-#&gt;  [1] 4.012299 4.979078 4.326385 3.698792 5.000586 5.650838 5.202855
-#&gt;  [8] 4.930908 5.698622 3.871143
+#&gt;  [1] 3.204531 6.454851 3.254614 4.803166 4.566492 4.229460 5.280165
+#&gt;  [8] 4.055101 5.301964 5.933437
 #&gt; 
 #&gt; [[5]]
-#&gt;  [1] 69.23056 68.92921 69.55208 69.66450 70.06718 70.45532 69.59658
-#&gt;  [8] 71.21905 69.56476 69.51142</code></pre>
+#&gt;  [1] 68.14067 69.76622 68.82573 70.03124 69.57742 70.30478 71.21968
+#&gt;  [8] 69.53221 69.08581 70.59885</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2591,28 +2591,28 @@ to preallocate a place to store the output. This is a faster approach than growi
 <span>                              <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"column_"</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
 <span><span class='va'>mat</span></span></code></pre>
 </div>
-<pre><code>#&gt;          column_k    column_l   column_m   column_n    column_o
-#&gt; row_a  0.98588154  0.17986402  0.8782321 -0.3197453 -0.19607985
-#&gt; row_b  1.60286681  1.33682281  0.7030675  0.5574282  1.29800036
-#&gt; row_c -0.03335279  0.03406379 -0.9557466  0.3616159 -0.51378000
-#&gt; row_d  1.00330510  1.03099231  0.2297673  0.1830542  0.06850838
-#&gt; row_e -0.86768826 -1.21164204 -0.7623035  0.3524732 -0.87078712
-#&gt; row_f  0.48767173 -1.30254979 -0.6607877  2.1896964  0.08748180
-#&gt; row_g -0.44703811 -0.54214849 -1.2138610  1.2917623  1.61174048
-#&gt; row_h -0.76052724  0.30345597  2.4315877  2.6637962  0.45203511
-#&gt; row_i -0.61395386 -3.24787881 -0.8692908 -0.8348106  0.63569660
-#&gt; row_j  2.21292264  0.81424882 -1.4602160 -1.5987837  0.90549231
-#&gt;          column_p   column_q    column_r   column_s   column_t
-#&gt; row_a -1.07831662  1.1597986  0.10751126  1.2585520 -1.0558901
-#&gt; row_b  0.72474252 -1.9832921  0.74818230  0.3851958 -1.3666461
-#&gt; row_c  1.19234654 -1.3855583  0.09708507 -2.0338914 -0.9170206
-#&gt; row_d  0.24255454  0.8646676  0.05264965  0.3057289  0.1927647
-#&gt; row_e  0.68008006  0.8361785  1.58712155 -1.8739297  1.8252621
-#&gt; row_f -0.04239721 -0.3117891 -0.41057661  0.5404438  0.5201511
-#&gt; row_g -2.21197608 -3.4194882 -0.06614892 -0.3139633 -1.7528013
-#&gt; row_h -0.52526585 -0.1720597 -0.18533350  1.2768700 -0.4023814
-#&gt; row_i  0.04899771 -0.1097765 -1.12529175 -0.1511120 -0.3327507
-#&gt; row_j  2.07524719  1.0901230 -1.10115013 -0.2632451 -0.6139464</code></pre>
+<pre><code>#&gt;          column_k    column_l   column_m    column_n   column_o
+#&gt; row_a  0.60428857 -0.33545129  2.0244551  0.27044730  0.4708459
+#&gt; row_b  0.25510454 -0.01240178  0.3407988  0.99572960  0.7932737
+#&gt; row_c  1.97969751 -1.20098100  1.3401902 -1.22066742  1.1366637
+#&gt; row_d  0.94403870  0.92375437  0.2609668 -0.98644352  0.2464215
+#&gt; row_e  0.63548738 -0.59025342 -0.3399292 -1.24929235  0.2738451
+#&gt; row_f -0.48873448 -0.38638467  1.1196714 -0.27745595 -2.2820504
+#&gt; row_g -0.03729535  0.28713681 -0.7588024 -0.06576505  1.1099419
+#&gt; row_h -0.93289953 -0.01593586 -0.5634982 -1.20582409  2.1429264
+#&gt; row_i  1.34647187 -1.18386107  0.1745698  0.19859969 -1.3450179
+#&gt; row_j -1.39017152  0.31831864  1.2485434  2.68743428  1.7531137
+#&gt;         column_p    column_q    column_r    column_s     column_t
+#&gt; row_a -0.2561574 -0.34050465  0.19531386 -0.92220290  0.575892062
+#&gt; row_b -0.7742090  0.89008444 -1.47254105  1.16377774 -0.002069396
+#&gt; row_c  0.6122050 -1.11569153 -0.44380728 -0.57643108 -0.618390225
+#&gt; row_d -1.5914896  0.36722417 -0.34765151 -0.65914184  0.650389678
+#&gt; row_e  0.4084228  0.35563881 -0.46801513  0.22958562 -1.160630307
+#&gt; row_f  0.3257129 -0.63232975  0.37089777  0.14234505 -0.172546002
+#&gt; row_g  0.5211325 -0.48490851 -0.91008007 -0.09046817 -0.768578705
+#&gt; row_h -1.1429264  1.12443366 -0.31637858  0.37642386 -0.965986056
+#&gt; row_i -0.8379143 -1.04145895 -0.00645476 -0.40543798  0.468373533
+#&gt; row_j -0.6390221  0.04076404  1.06632651 -1.26797772 -0.811513115</code></pre>
 </div>
 <p>The arguments are:<br />
 <code>apply(X, MARGIN, FUN, ...)</code></p>
@@ -2683,29 +2683,29 @@ FUN = function to apply</p>
 <span><span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowMeans</a></span><span class='op'>(</span><span class='va'>mat</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>#&gt;       row_a       row_b       row_c       row_d       row_e 
-#&gt;  0.19198078  0.40063680 -0.41542384  0.41739927 -0.03052353 
+#&gt;  0.22869266  0.21775476 -0.01072121 -0.01919313 -0.19051407 
 #&gt;       row_f       row_g       row_h       row_i       row_j 
-#&gt;  0.10973443 -0.70639225  0.50821773 -0.66001707  0.20606926</code></pre>
+#&gt; -0.22808741 -0.11976871 -0.14996649 -0.26321301  0.30058160</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span></span>
 <span><span class='co'># other functions in matrixStates</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/HenrikBengtsson/matrixStats'>matrixStats</a></span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/pkg/matrixStats/man/rowRanges.html'>rowMaxs</a></span><span class='op'>(</span><span class='va'>mat</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] 1.2585520 1.6028668 1.1923465 1.0309923 1.8252621 2.1896964
-#&gt;  [7] 1.6117405 2.6637962 0.6356966 2.2129226</code></pre>
+<pre><code>#&gt;  [1] 2.0244551 1.1637777 1.9796975 0.9440387 0.6354874 1.1196714
+#&gt;  [7] 1.1099419 2.1429264 1.3464719 2.6874343</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/matrixStats/man/rowRanges.html'>rowMaxs</a></span><span class='op'>(</span><span class='va'>mat</span>, useNames <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>#&gt;     row_a     row_b     row_c     row_d     row_e     row_f     row_g 
-#&gt; 1.2585520 1.6028668 1.1923465 1.0309923 1.8252621 2.1896964 1.6117405 
+#&gt; 2.0244551 1.1637777 1.9796975 0.9440387 0.6354874 1.1196714 1.1099419 
 #&gt;     row_h     row_i     row_j 
-#&gt; 2.6637962 0.6356966 2.2129226</code></pre>
+#&gt; 2.1429264 1.3464719 2.6874343</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/matrixStats/man/rowMedians.html'>colMedians</a></span><span class='op'>(</span><span class='va'>mat</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1]  0.227159472  0.106963905 -0.711545617  0.357044541  0.269758457
-#&gt;  [6]  0.145776127 -0.140918079 -0.006749634  0.077308435 -0.508163897</code></pre>
+<pre><code>#&gt;  [1]  0.4296966 -0.1756936  0.3008828 -0.1716105  0.6320598 -0.4475898
+#&gt;  [7] -0.1498703 -0.3320150 -0.2479531 -0.3954681</code></pre>
 </div>
 <h2 id="iterating-over-multiple-vectors">Iterating over multiple vectors</h2>
 <p>If you have two or more vectors containing values that you want to iterate over element-wise and process with function this can be accomplished with <code>mapply()</code>.</p>
