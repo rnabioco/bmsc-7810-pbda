@@ -2151,7 +2151,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><a href="#for-loops" id="toc-for-loops"><code>for</code> loops</a></li>
 <li><a href="#using-the-brauer-data" id="toc-using-the-brauer-data">Using the Brauer data</a></li>
 <li><a href="#a-note-on-vectorization" id="toc-a-note-on-vectorization">A note on vectorization</a></li>
-<li><a href="#introduction-to-the-apply-familar-of-functions." id="toc-introduction-to-the-apply-familar-of-functions.">Introduction to the <code>apply</code> familar of functions.</a></li>
+<li><a href="#introduction-to-the-apply-family-of-functions." id="toc-introduction-to-the-apply-family-of-functions.">Introduction to the <code>apply</code> family of functions.</a></li>
 <li><a href="#iterating-over-matrices" id="toc-iterating-over-matrices">iterating over matrices</a></li>
 <li><a href="#iterating-over-multiple-vectors" id="toc-iterating-over-multiple-vectors">Iterating over multiple vectors</a></li>
 <li><a href="#using-the-map-family-of-functions-from-the-purrr-package" id="toc-using-the-map-family-of-functions-from-the-purrr-package">Using the <code>map()</code> family of functions from the <code>purrr</code> package</a></li>
@@ -2256,24 +2256,24 @@ to preallocate a place to store the output. This is a faster approach than growi
 <span><span class='va'>out</span></span></code></pre>
 </div>
 <pre><code>#&gt; [[1]]
-#&gt;  [1]  0.18945960  0.07976148 -0.66152860  1.08597327  2.74095930
-#&gt;  [6]  2.14929350  1.77756695  0.97761521  1.01819100  1.03410369
+#&gt;  [1] -0.78152016  2.10160745 -0.11415327  1.62145591  1.47734308
+#&gt;  [6]  0.04282456  0.43233384 -0.36207649  1.34259857  1.33220909
 #&gt; 
 #&gt; [[2]]
-#&gt;  [1] 48.80252 48.08573 51.18084 48.33651 49.01716 50.02282 49.87493
-#&gt;  [8] 51.09322 49.89430 49.43299
+#&gt;  [1] 49.79548 50.69003 48.40643 49.79333 50.25014 50.27296 48.15528
+#&gt;  [8] 49.82848 50.95952 48.85871
 #&gt; 
 #&gt; [[3]]
-#&gt;  [1] 20.39684 19.58153 19.26795 19.71354 18.75567 21.07297 17.38206
-#&gt;  [8] 19.21338 19.99111 20.06398
+#&gt;  [1] 19.50403 20.24307 22.10350 19.79465 20.07914 17.35373 21.81705
+#&gt;  [8] 20.52651 20.08495 19.96808
 #&gt; 
 #&gt; [[4]]
-#&gt;  [1] 3.204531 6.454851 3.254614 4.803166 4.566492 4.229460 5.280165
-#&gt;  [8] 4.055101 5.301964 5.933437
+#&gt;  [1] 4.731921 5.349496 4.359502 6.216023 4.028793 5.085959 5.026359
+#&gt;  [8] 6.584741 4.507993 6.139226
 #&gt; 
 #&gt; [[5]]
-#&gt;  [1] 68.14067 69.76622 68.82573 70.03124 69.57742 70.30478 71.21968
-#&gt;  [8] 69.53221 69.08581 70.59885</code></pre>
+#&gt;  [1] 70.35925 69.22108 69.32543 69.93716 69.45157 68.92867 70.90439
+#&gt;  [8] 71.56308 71.55584 67.76194</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2291,21 +2291,35 @@ to preallocate a place to store the output. This is a faster approach than growi
 </div>
 <p><br></p>
 <p><em>Write a <code>for</code> loop that uses <code>rnorm()</code> to create 3 vectors of different lengths. Store the vectors in a list. Use mean = 0 and sd = 1 (the default). </em></p>
+<details>
+<summary>
+Show answer
+</summary>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>vec_in <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">2</span>)                  <span class="co"># input</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, ???)  <span class="co"># output</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> ???) {          <span class="co"># sequence</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  ???   <span class="co"># body</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>out</span></code></pre></div>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>vec_in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span>                  <span class='co'># input</span></span>
+<span><span class='va'>n</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>vec_in</span><span class='op'>)</span></span>
+<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span><span class='op'>(</span><span class='st'>"list"</span>, <span class='va'>n</span><span class='op'>)</span>  <span class='co'># output</span></span>
+<span></span>
+<span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>vec_in</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>          <span class='co'># sequence</span></span>
+<span>  <span class='va'>out</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='va'>vec_in</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>out</span></span></code></pre>
 </div>
+<pre><code>#&gt; [[1]]
+#&gt; [1] -0.70441511 -1.29016176 -0.73045302 -0.38346352  0.02470951
+#&gt; 
+#&gt; [[2]]
+#&gt;  [1] -0.2454521 -1.6694252  0.3136690 -0.1473203  1.6922765  0.4013761
+#&gt;  [7]  1.5953518 -0.3535064  1.0189067  1.8831290
+#&gt; 
+#&gt; [[3]]
+#&gt; [1]  0.8518765 -0.6266713</code></pre>
+</div>
+</details>
 <p><br></p>
-<p>So far we have used <code>1:length(x)</code> to specify the sequence to iterate over. A better alternative is using<code>seq_along(x)</code> instead of <code>1:length(x)</code> . This guards against errors when an empty vector is passed to <code>1:length(x)</code>.</p>
+<p>So far we have used <code>1:length(x)</code> to specify the sequence to iterate over. A better alternative is using <code>seq_along(x)</code> instead of <code>1:length(x)</code> . This guards against errors when an empty vector is passed to <code>1:length(x)</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># seq_along() mimics 1:length() for non-empty vectors</span></span>
@@ -2344,7 +2358,7 @@ to preallocate a place to store the output. This is a faster approach than growi
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># This is the function we wrote in class-6</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># This is the function we wrote in class-10</span></span>
 <span><span class='va'>plot_expr</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>sys_name</span>, <span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  </span>
 <span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
@@ -2380,19 +2394,24 @@ to preallocate a place to store the output. This is a faster approach than growi
 </div>
 <p><br></p>
 <p><em>Re-write the code from above using a <code>for</code> loop to generate our figure</em></p>
+<details>
+<summary>
+Show answer
+</summary>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>vec_in <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;YDL104C&quot;</span>, <span class="st">&quot;YLR115W&quot;</span>, <span class="st">&quot;YMR183C&quot;</span>, <span class="st">&quot;YML017W&quot;</span>)  <span class="co"># input</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="fu">length</span>(vec_in))                    <span class="co"># output</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( ???? ) {                                           <span class="co"># sequence</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                                                         <span class="co"># body</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(out)</span></code></pre></div>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>vec_in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"YDL104C"</span>, <span class='st'>"YLR115W"</span>, <span class='st'>"YMR183C"</span>, <span class='st'>"YML017W"</span><span class='op'>)</span>  <span class='co'># input</span></span>
+<span></span>
+<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span><span class='op'>(</span><span class='st'>"list"</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>vec_in</span><span class='op'>)</span><span class='op'>)</span>                    <span class='co'># output</span></span>
+<span></span>
+<span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>vec_in</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>                                      </span>
+<span>  <span class='va'>out</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'>plot_expr</span><span class='op'>(</span><span class='va'>brauer_gene_exp</span>, sys_name <span class='op'>=</span> <span class='va'>vec_in</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>      </span>
+<span><span class='op'>}</span></span>
+<span><span class='va'>out</span></span>
+<span><span class='fu'><a href='https://patchwork.data-imaginist.com/reference/wrap_plots.html'>wrap_plots</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span></span></code></pre>
 </div>
+</div>
+</details>
 <p><br></p>
 <p><br></p>
 <h2 id="a-note-on-vectorization">A note on vectorization</h2>
@@ -2401,7 +2420,7 @@ to preallocate a place to store the output. This is a faster approach than growi
 - To process multiple datasets/data.frames. (e.g. apply a function to a list of data.frames)<br />
 - plotting (e.g. make many plots with a varying input parameter or aesthetic)<br />
 - perform a custom operation that does not have a vectorized approach</p>
-<h2 id="introduction-to-the-apply-familar-of-functions.">Introduction to the <code>apply</code> familar of functions.</h2>
+<h2 id="introduction-to-the-apply-family-of-functions.">Introduction to the <code>apply</code> family of functions.</h2>
 <p><code>for</code> loops are a powerful tool to reduce code duplication, however your code can be simplified using the <code>lapply</code> function and related apply functions in base R. These functions essentially run <code>for (i in seq_along(x))</code> behind the scenes so you don’t have to explicitly type this.</p>
 <p>There is a function for each type of output:</p>
 <ul>
@@ -2445,36 +2464,69 @@ to preallocate a place to store the output. This is a faster approach than growi
 <span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>vals</span>, <span class='va'>rnorm_custom</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='co'># You can use brackets to include a multi-line code block</span></span>
-<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='va'>vals</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>vals</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  </span>
 <span>  <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span>, mean <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span></span>
 <span>  </span>
 <span><span class='op'>}</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='co'># Each element of the vector is passed to the first available argument</span></span>
-<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>vals</span>, <span class='va'>rnorm</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>vals</span>, <span class='va'>rnorm</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
+<span><span class='co'>#out &lt;- lapply(vals, rnorm)</span></span></code></pre>
 </div>
 </div>
 <p><br></p>
 <p><em>Use <code>rnorm()</code> and <code>lapply()</code> to create 3 vectors of different lengths</em></p>
+<details>
+<summary>
+Show answer
+</summary>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">lapply</span>( ???)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>out</span></code></pre></div>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span></span>
+<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='va'>rnorm</span><span class='op'>)</span></span>
+<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>rnorm2</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>{</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='va'>x</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span>
+<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'>rnorm2</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='va'>rnorm2</span><span class='op'>)</span></span>
+<span><span class='va'>out</span></span></code></pre>
 </div>
+<pre><code>#&gt; [[1]]
+#&gt;  [1]  0.09307276 -0.95825854  0.25879688  0.42386975 -1.03153289
+#&gt;  [6] -0.42439767 -1.09057098  2.72994732 -0.97469569 -0.35996991
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 1.160781
+#&gt; 
+#&gt; [[3]]
+#&gt; [1]  1.90688834 -0.28012929 -0.01025581  0.28326510</code></pre>
+</div>
+</details>
 <p><br></p>
-<em>Re-write the code from above using <code>lapply()</code> to generate our growth rate figure</em>
+<p><em>Re-write the code from above using <code>lapply()</code> to generate our growth rate figure</em></p>
+<details>
+<summary>
+Show answer
+</summary>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>genes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;YDL104C&quot;</span>, <span class="st">&quot;YOR069W&quot;</span>, <span class="st">&quot;YLR115W&quot;</span>, <span class="st">&quot;YPR036W&quot;</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>expr_plots <span class="ot">&lt;-</span> <span class="fu">lapply</span>(</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  ????</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(expr_plots)</span></code></pre></div>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>genes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"YDL104C"</span>, <span class='st'>"YOR069W"</span>, <span class='st'>"YLR115W"</span>, <span class='st'>"YPR036W"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'>plot_expr</span><span class='op'>(</span><span class='va'>brauer_gene_exp</span>, sys_name <span class='op'>=</span> <span class='va'>vec_in</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>   </span>
+<span></span>
+<span><span class='va'>expr_plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>genes</span>, <span class='va'>plot_expr</span>, input <span class='op'>=</span> <span class='va'>brauer_gene_exp</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>expr_plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>genes</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>gene</span><span class='op'>)</span><span class='op'>{</span></span>
+<span>  <span class='fu'>plot_expr</span><span class='op'>(</span><span class='va'>brauer_gene_exp</span>, sys_name <span class='op'>=</span> <span class='va'>gene</span><span class='op'>)</span></span>
+<span><span class='op'>}</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>expr_plots</span></span>
+<span><span class='fu'><a href='https://patchwork.data-imaginist.com/reference/wrap_plots.html'>wrap_plots</a></span><span class='op'>(</span><span class='va'>expr_plots</span><span class='op'>)</span></span></code></pre>
 </div>
+</div>
+</details>
 <p><br></p>
 <p><br></p>
 <p>Note that we can iterate over lists in addition to vectors. A common operation might be to read in multiple files and perform some operation</p>
@@ -2492,7 +2544,7 @@ to preallocate a place to store the output. This is a faster approach than growi
 <span><span class='co'># select 5 random rows</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>lst_of_dfs</span>, <span class='va'>slice_sample</span>, n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'># check is any NAs are present</span></span>
+<span><span class='co'># check if any NAs are present</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>lst_of_dfs</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>{</span></span>
 <span>  <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fl'>0</span></span>
 <span><span class='op'>}</span><span class='op'>)</span></span></code></pre>
@@ -2580,6 +2632,13 @@ to preallocate a place to store the output. This is a faster approach than growi
 #&gt;  20.090625   6.187500 230.721875 146.687500   3.596563   3.217250 
 #&gt;       qsec         vs         am       gear       carb 
 #&gt;  17.848750   0.437500   0.406250   3.687500   2.812500</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='va'>mean</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>#&gt;        mpg        cyl       disp         hp       drat         wt 
+#&gt;  20.090625   6.187500 230.721875 146.687500   3.596563   3.217250 
+#&gt;       qsec         vs         am       gear       carb 
+#&gt;  17.848750   0.437500   0.406250   3.687500   2.812500</code></pre>
 </div>
 <h2 id="iterating-over-matrices">iterating over matrices</h2>
 <p>The <code>apply()</code> function allows you to iterates over a row, column, or all elements of a matrix.</p>
@@ -2591,28 +2650,28 @@ to preallocate a place to store the output. This is a faster approach than growi
 <span>                              <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"column_"</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
 <span><span class='va'>mat</span></span></code></pre>
 </div>
-<pre><code>#&gt;          column_k    column_l   column_m    column_n   column_o
-#&gt; row_a  0.60428857 -0.33545129  2.0244551  0.27044730  0.4708459
-#&gt; row_b  0.25510454 -0.01240178  0.3407988  0.99572960  0.7932737
-#&gt; row_c  1.97969751 -1.20098100  1.3401902 -1.22066742  1.1366637
-#&gt; row_d  0.94403870  0.92375437  0.2609668 -0.98644352  0.2464215
-#&gt; row_e  0.63548738 -0.59025342 -0.3399292 -1.24929235  0.2738451
-#&gt; row_f -0.48873448 -0.38638467  1.1196714 -0.27745595 -2.2820504
-#&gt; row_g -0.03729535  0.28713681 -0.7588024 -0.06576505  1.1099419
-#&gt; row_h -0.93289953 -0.01593586 -0.5634982 -1.20582409  2.1429264
-#&gt; row_i  1.34647187 -1.18386107  0.1745698  0.19859969 -1.3450179
-#&gt; row_j -1.39017152  0.31831864  1.2485434  2.68743428  1.7531137
-#&gt;         column_p    column_q    column_r    column_s     column_t
-#&gt; row_a -0.2561574 -0.34050465  0.19531386 -0.92220290  0.575892062
-#&gt; row_b -0.7742090  0.89008444 -1.47254105  1.16377774 -0.002069396
-#&gt; row_c  0.6122050 -1.11569153 -0.44380728 -0.57643108 -0.618390225
-#&gt; row_d -1.5914896  0.36722417 -0.34765151 -0.65914184  0.650389678
-#&gt; row_e  0.4084228  0.35563881 -0.46801513  0.22958562 -1.160630307
-#&gt; row_f  0.3257129 -0.63232975  0.37089777  0.14234505 -0.172546002
-#&gt; row_g  0.5211325 -0.48490851 -0.91008007 -0.09046817 -0.768578705
-#&gt; row_h -1.1429264  1.12443366 -0.31637858  0.37642386 -0.965986056
-#&gt; row_i -0.8379143 -1.04145895 -0.00645476 -0.40543798  0.468373533
-#&gt; row_j -0.6390221  0.04076404  1.06632651 -1.26797772 -0.811513115</code></pre>
+<pre><code>#&gt;           column_k    column_l   column_m   column_n   column_o
+#&gt; row_a -0.203086633  0.07864718 -1.3457612  0.8138788 -0.6534113
+#&gt; row_b  0.113780860 -0.53261140  0.8611586  1.1080451  0.6905031
+#&gt; row_c  0.083889011  1.35808026 -1.3323075 -1.0897243  0.6264521
+#&gt; row_d  0.388760687 -1.96261669  1.6803024 -0.2616634 -1.8375725
+#&gt; row_e -0.706199080 -1.69440925  0.4724637  1.3689316  1.2821530
+#&gt; row_f  1.184512726  0.62947036 -1.1436721  0.4094435  0.9236262
+#&gt; row_g -0.137533890 -0.23739221 -0.9420202 -0.7022158 -0.7195549
+#&gt; row_h -0.954653848 -0.70387061 -0.7237769  0.3988952  0.6243948
+#&gt; row_i -0.632167830  0.67052978  0.6324444  1.3874809 -0.4839324
+#&gt; row_j -0.008142204  0.89070963  0.8311431 -0.9941451  1.0325004
+#&gt;         column_p   column_q      column_r   column_s   column_t
+#&gt; row_a  1.0179468  0.4954533  1.1057192531  3.5326247 -0.8933596
+#&gt; row_b -0.8065804  0.9631998  0.8824393747  1.7087607  0.1790658
+#&gt; row_c  0.1663159  0.8422092 -0.0004235358 -1.6059234  0.4284422
+#&gt; row_d  1.6646793 -0.7724212 -1.3779874423 -0.3355617  1.0587549
+#&gt; row_e -0.8703873  2.6248080 -0.2949655063 -0.8288719  0.9975842
+#&gt; row_f -0.2040175  0.3038377 -1.5465034162 -2.1691018  0.7270989
+#&gt; row_g  2.2610814 -0.2749178  0.4854347770 -0.5420193 -0.2447763
+#&gt; row_h -0.2587964  1.7100910  1.6116602055 -0.1071203 -0.1193766
+#&gt; row_i  1.3675458 -0.1130078 -1.3900392612  0.1564137  1.2553816
+#&gt; row_j -0.5836963  0.8724003  0.1998572485 -1.0915885  2.7918135</code></pre>
 </div>
 <p>The arguments are:<br />
 <code>apply(X, MARGIN, FUN, ...)</code></p>
@@ -2627,7 +2686,7 @@ FUN = function to apply</p>
 <span><span class='co'># get max value in each column</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>mat</span>, <span class='fl'>2</span>, <span class='va'>max</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'># multiply each value by 1e6</span></span>
+<span><span class='co'># multiply each value by 1e6  </span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>mat</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>*</span> <span class='fl'>1e6</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
@@ -2641,7 +2700,7 @@ FUN = function to apply</p>
 <span><span class='va'>output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span><span class='op'>(</span><span class='st'>"numeric"</span>, <span class='va'>nc</span><span class='op'>)</span></span>
 <span><span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='va'>nc</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span></span>
 <span>  <span class='va'>col</span> <span class='op'>&lt;-</span> <span class='va'>mat</span><span class='op'>[</span>, <span class='va'>i</span><span class='op'>]</span></span>
-<span>  <span class='va'>output</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>col</span> <span class='op'>+</span> <span class='fl'>5</span></span>
+<span>  <span class='va'>output</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>col</span> <span class='op'>+</span> <span class='fl'>5</span><span class='op'>)</span></span>
 <span><span class='op'>}</span></span></code></pre>
 </div>
 </div>
@@ -2650,8 +2709,8 @@ FUN = function to apply</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># iterate by row, seq_len makes range 1:nr </span></span>
 <span><span class='va'>output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span><span class='op'>(</span><span class='st'>"numeric"</span>, <span class='va'>nr</span><span class='op'>)</span></span>
 <span><span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='va'>nr</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span></span>
-<span>  <span class='va'>col</span> <span class='op'>&lt;-</span> <span class='va'>mat</span><span class='op'>[</span><span class='va'>i</span>, <span class='op'>]</span></span>
-<span>  <span class='va'>output</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>col</span> <span class='op'>+</span> <span class='fl'>5</span></span>
+<span>  <span class='va'>row</span> <span class='op'>&lt;-</span> <span class='va'>mat</span><span class='op'>[</span><span class='va'>i</span>, <span class='op'>]</span></span>
+<span>  <span class='va'>output</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>row</span> <span class='op'>+</span> <span class='fl'>5</span><span class='op'>)</span></span>
 <span><span class='op'>}</span></span></code></pre>
 </div>
 </div>
@@ -2683,33 +2742,33 @@ FUN = function to apply</p>
 <span><span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowMeans</a></span><span class='op'>(</span><span class='va'>mat</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>#&gt;       row_a       row_b       row_c       row_d       row_e 
-#&gt;  0.22869266  0.21775476 -0.01072121 -0.01919313 -0.19051407 
+#&gt;  0.39486512  0.51677615 -0.05229900 -0.17553255  0.23511075 
 #&gt;       row_f       row_g       row_h       row_i       row_j 
-#&gt; -0.22808741 -0.11976871 -0.14996649 -0.26321301  0.30058160</code></pre>
+#&gt; -0.08853054 -0.10539142  0.14774466  0.28506489  0.39408521</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span></span>
-<span><span class='co'># other functions in matrixStates</span></span>
+<span><span class='co'># other functions in matrixStats</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/HenrikBengtsson/matrixStats'>matrixStats</a></span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/pkg/matrixStats/man/rowRanges.html'>rowMaxs</a></span><span class='op'>(</span><span class='va'>mat</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] 2.0244551 1.1637777 1.9796975 0.9440387 0.6354874 1.1196714
-#&gt;  [7] 1.1099419 2.1429264 1.3464719 2.6874343</code></pre>
+<pre><code>#&gt;  [1] 3.532625 1.708761 1.358080 1.680302 2.624808 1.184513 2.261081
+#&gt;  [8] 1.710091 1.387481 2.791813</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/matrixStats/man/rowRanges.html'>rowMaxs</a></span><span class='op'>(</span><span class='va'>mat</span>, useNames <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;     row_a     row_b     row_c     row_d     row_e     row_f     row_g 
-#&gt; 2.0244551 1.1637777 1.9796975 0.9440387 0.6354874 1.1196714 1.1099419 
-#&gt;     row_h     row_i     row_j 
-#&gt; 2.1429264 1.3464719 2.6874343</code></pre>
+<pre><code>#&gt;    row_a    row_b    row_c    row_d    row_e    row_f    row_g 
+#&gt; 3.532625 1.708761 1.358080 1.680302 2.624808 1.184513 2.261081 
+#&gt;    row_h    row_i    row_j 
+#&gt; 1.710091 1.387481 2.791813</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/matrixStats/man/rowMedians.html'>colMedians</a></span><span class='op'>(</span><span class='va'>mat</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1]  0.4296966 -0.1756936  0.3008828 -0.1716105  0.6320598 -0.4475898
-#&gt;  [7] -0.1498703 -0.3320150 -0.2479531 -0.3954681</code></pre>
+<pre><code>#&gt;  [1] -0.07283805 -0.07937251 -0.12565659  0.40416938  0.62542345
+#&gt;  [6] -0.01885079  0.66883127  0.09971686 -0.43879048  0.57777055</code></pre>
 </div>
 <h2 id="iterating-over-multiple-vectors">Iterating over multiple vectors</h2>
-<p>If you have two or more vectors containing values that you want to iterate over element-wise and process with function this can be accomplished with <code>mapply()</code>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapply</span>(FUN, ..., <span class="at">MoreArgs =</span> <span class="cn">NULL</span>, <span class="at">SIMPLIFY =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>If you have two or more vectors containing values that you want to iterate over element-wise and process with a function this can be accomplished with <code>mapply()</code>.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapply</span>(FUN, ..., <span class="at">MoreArgs =</span> <span class="cn">NULL</span>, <span class="at">SIMPLIFY =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>FUN = function<br />
 … = vectors to iterate over, supplied as named arguments<br />
 MoreArgs = additional arguments with are not vectors supplied as a list<br />
@@ -2730,6 +2789,10 @@ SIMPLIFY = whether to simplify the result</p>
 </div>
 <p><br></p>
 <p><em>Use <code>mapply()</code> to create plots for 4 different genes, each with a different point size</em></p>
+<details>
+<summary>
+Show answer
+</summary>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>genes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"YDL104C"</span>, <span class='st'>"YOR069W"</span>, <span class='st'>"YLR115W"</span>, <span class='st'>"YPR036W"</span><span class='op'>)</span></span>
@@ -2745,6 +2808,7 @@ SIMPLIFY = whether to simplify the result</p>
 </div>
 <p><img src="programming-in-r-pt2_files/figure-html5/unnamed-chunk-29-1.png" width="960" style="display: block; margin: auto auto auto 0;" /></p>
 </div>
+</details>
 <p><br></p>
 <p>Alternatively you may find it more readable to use a for loop and a list to store all of the arguments.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2801,7 +2865,7 @@ SIMPLIFY = whether to simplify the result</p>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># We previously lapply to create vectors with different values for mean</span></span>
 <span><span class='va'>vals</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>50</span>, <span class='fl'>20</span>, <span class='fl'>5</span>, <span class='fl'>70</span><span class='op'>)</span>                  <span class='co'># input</span></span>
-<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>vals</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span>, <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>vals</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>10</span>, <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='co'># Using map() we can further simplify this code</span></span>
 <span><span class='co'># .x indicates where each element of the vector should be inserted</span></span>
@@ -2819,7 +2883,8 @@ SIMPLIFY = whether to simplify the result</p>
 <span></span>
 <span><span class='co'># map() allows for very readable code</span></span>
 <span><span class='co'># Each element of the vector is passed to the first available argument</span></span>
-<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='va'>vals</span>, <span class='va'>rnorm</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='va'>vals</span>, <span class='va'>rnorm</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
+<span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>vals</span>, <span class='va'>rnorm</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h2 id="additional-resources-related-to-programming-in-r">Additional resources related to Programming in R</h2>
@@ -2880,7 +2945,7 @@ Show session info
 #&gt; [64] haven_2.5.0      sass_0.4.1</code></pre>
 </div>
 </details>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
