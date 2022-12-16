@@ -28,6 +28,8 @@ library(here)
 
 Read the [Guide to RMarkdown](https://bookdown.org/yihui/rmarkdown/) for an exhaustive description of the various formats and options for using RMarkdown documents. Note that HTML for this class were all made from Rmd, using the [distill blog format](https://rstudio.github.io/distill/) 
 
+*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-12-05-a-collection-of-r-resources/resources.Rmd)*
+
 ### Caching
 
 You can speed up knitting of your Rmds by using caching to store the results from each chunk, instead of rerunning them each time. Note that if you modify the code chunk, previous caching is ignored.
