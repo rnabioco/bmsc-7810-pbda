@@ -6,6 +6,7 @@ date: 2022-12-05
 output:
   distill::distill_article:
     self_contained: false
+    toc: true
 ---
 
 ```{r setup, include = FALSE}
@@ -84,6 +85,36 @@ z) {
 # styler::style_dir    # directory 
 ```
 
+## Reproducibility  
+
+### Print environment information with sessionInfo()  
+
+It's very helpful to have a record of which packages were used in an analysis. One approach is to print the `sessionInfo()`. 
+
+<details><summary>Show session info</summary>
+
+```{r code}
+sessionInfo()
+```
+
+See also the `sessioninfo` package, which provide more details:
+
+```{r}
+sessioninfo::session_info()
+```
+
+</details>
+
+
+### Use renv to manage package dependencies  
+
+The [`renv`](https://rstudio.github.io/renv/articles/renv.html) package allows you to have a separate set of R packages for each project. It also can record and restore the set of R pacakges used in a project. This is very helpful when you need to return to a project months (or years) later and want to have the same set of packages. It also makes it easier to share your packages with collaborators.
+
+See also:  
+
+- [conda](https://docs.conda.io/en/latest/) for managing various command line programs (python, R, c, etc.)  
+
+- [docker](https://www.docker.com/) for generating a fully reproducible operating system environment. 
 
 ## Benchmarking, with `microbenchmark` and `profvis`
 
@@ -150,9 +181,9 @@ cool_function(1)
 traceback()
 ```
 
-```{r, echo = FALSE}
-knitr::include_graphics("img/traceback.png")
-```
+![](https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-12-05-a-collection-of-r-resources/img/traceback.png)  
+
+
 ## Building your own R package
 
 It's surprisingly easy, particularly with Rstudio, to write your own R package to store your code. Putting your code in a package makes it much easier to debug, document, add tests, and distribute your code.
@@ -245,9 +276,9 @@ path/to/cool_function.R argument1 argument2 ...
 ## Git and Github
 
 
-```{r, echo =FALSE, fig.cap="From https://jmcglone.com/guides/github-pages/"}
-knitr::include_graphics("img/git-basics.png")
-```
+![From https://jmcglone.com/guides/github-pages/](https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-12-05-a-collection-of-r-resources/img/git-basics.png)
+
+
 
 Git is a command line tool for version control, which allows us to:
 
@@ -257,9 +288,10 @@ Git is a command line tool for version control, which allows us to:
 
 3. collaboration 
 
-```{r, echo =FALSE, fig.cap="From https://blog.programster.org/git-workflows"}
-knitr::include_graphics("img/github-flow.png")
-```
+
+![From https://blog.programster.org/git-workflows](https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-12-05-a-collection-of-r-resources/img/github-flow.png)  
+
+
 
 Git was first created by Linus Torvalds for coordinating development of Linux. Read this guide for [Getting started](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control)
 , checkout this [interactive guide](https://learngitbranching.js.org/) and check out this [Tutorial](https://happygitwithr.com) written from an R data analyst perspective.
@@ -322,9 +354,8 @@ emo::ji("smile")
 
 ## Bioconductor
 
-```{r, echo = FALSE}
-knitr::include_graphics("https://bioconductor.org/images/logo_bioconductor.gif")
-```
+![](https://bioconductor.org/images/logo_bioconductor.gif)  
+
 
 2,000+ R packages dedicated to bioinformatics. Included a coherent framework of data structures (e.g. SummarizedExperiment) built by dedicated Core members. Also includs many annotation and experimental datasets built into R packages and objects (See AnnotationHub and ExperimentHub) 
 
