@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-10-14"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-10-14"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-11-06"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-11-06"/>
   <meta name="article:author" content="Kent Riemondy"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -110,12 +110,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","draft","date"]}},"value":[{"type":"character","attributes":{},"value":["Prerequisite: R installation and Rmarkdown/Rstudio overview"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["10-14-2022"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","draft","date"]}},"value":[{"type":"character","attributes":{},"value":["Prerequisite: R installation and Rmarkdown/Rstudio overview"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["11-06-2023"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["img/install-packages.png","img/tidy-load.png","img/tily-load.png","install-r_files/anchor-4.2.2/anchor.min.js","install-r_files/bowser-1.9.3/bowser.min.js","install-r_files/distill-2.2.21/template.v2.js","install-r_files/header-attrs-2.14/header-attrs.js","install-r_files/jquery-3.6.0/jquery-3.6.0.js","install-r_files/jquery-3.6.0/jquery-3.6.0.min.js","install-r_files/jquery-3.6.0/jquery-3.6.0.min.map","install-r_files/popper-2.6.0/popper.min.js","install-r_files/tippy-6.2.7/tippy-bundle.umd.min.js","install-r_files/tippy-6.2.7/tippy-light-border.css","install-r_files/tippy-6.2.7/tippy.css","install-r_files/tippy-6.2.7/tippy.umd.min.js","install-r_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["img/install-packages.png","img/tidy-load.png","img/tily-load.png","install-r_files/anchor-4.2.2/anchor.min.js","install-r_files/bowser-1.9.3/bowser.min.js","install-r_files/distill-2.2.21/template.v2.js","install-r_files/header-attrs-2.14/header-attrs.js","install-r_files/header-attrs-2.25/header-attrs.js","install-r_files/jquery-3.6.0/jquery-3.6.0.js","install-r_files/jquery-3.6.0/jquery-3.6.0.min.js","install-r_files/jquery-3.6.0/jquery-3.6.0.min.map","install-r_files/popper-2.6.0/popper.min.js","install-r_files/tippy-6.2.7/tippy-bundle.umd.min.js","install-r_files/tippy-6.2.7/tippy-light-border.css","install-r_files/tippy-6.2.7/tippy.css","install-r_files/tippy-6.2.7/tippy.umd.min.js","install-r_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -227,9 +227,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     display: none !important;
   }
 
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
   d-article {
     padding-top: 2.5rem;
     padding-bottom: 30px;
+    border-top: none;
   }
 
   d-appendix {
@@ -324,6 +336,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article div.sourceCode pre {
     padding-left: 18px;
     font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
   }
 
   d-article pre {
@@ -1085,6 +1102,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // create d-title
     $('.d-title').changeElementType('d-title');
 
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
     // create d-byline
     var byline = $('<d-byline></d-byline>');
     $('.d-byline').replaceWith(byline);
@@ -1162,8 +1185,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     $('.distill-force-highlighting-css').parent().remove();
 
     // remove empty line numbers inserted by pandoc when using a
-    // custom syntax highlighting theme
-    $('code.sourceCode a:empty').remove();
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
 
     // load distill framework
     load_distill_framework();
@@ -1189,12 +1213,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // add orcid ids
       $('.authors-affiliations').find('.author').each(function(i, el) {
         var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
         if (orcid_id) {
           var a = $('<a></a>');
           a.attr('href', 'https://orcid.org/' + orcid_id);
           var img = $('<img></img>');
           img.addClass('orcid-id');
-          img.attr('alt', 'ORCID ID');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
           img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
           a.append(img);
           $(this).append(a);
@@ -1472,7 +1497,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="install-r_files/header-attrs-2.14/header-attrs.js"></script>
+  <script src="install-r_files/header-attrs-2.25/header-attrs.js"></script>
   <script src="install-r_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="install-r_files/popper-2.6.0/popper.min.js"></script>
   <link href="install-r_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1493,7 +1518,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Prerequisite: R installation and Rmarkdown/Rstudio overview","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2022-10-14T00:00:00.000-06:00","citationText":"Riemondy, 2022"}
+{"title":"Prerequisite: R installation and Rmarkdown/Rstudio overview","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2023-11-06T00:00:00.000-07:00","citationText":"Riemondy, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1504,6 +1529,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-title">
 <h1>Prerequisite: R installation and Rmarkdown/Rstudio overview</h1>
+
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -1512,7 +1538,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-byline">
   Kent Riemondy <a href="https://github.com/kriemo" class="uri">https://github.com/kriemo</a> (RNA Bioscience Initiative)<a href="https://medschool.cuanschutz.edu/rbi" class="uri">https://medschool.cuanschutz.edu/rbi</a>
   
-<br/>10-14-2022
+<br/>11-06-2023
 </div>
 
 <div class="d-article">
@@ -1520,75 +1546,87 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#download-r" id="toc-download-r">Download R</a>
+<li><a href="#installing-r" id="toc-installing-r">Installing R</a>
 <ul>
-<li><a href="#macos" id="toc-macos">MacOS</a></li>
 <li><a href="#windows" id="toc-windows">Windows</a></li>
+<li><a href="#macos" id="toc-macos">MacOS</a></li>
 <li><a href="#linux" id="toc-linux">Linux</a></li>
 </ul></li>
-<li><a href="#download-rstudio" id="toc-download-rstudio">Download Rstudio</a></li>
-<li><a href="#download-compiler-tools" id="toc-download-compiler-tools">Download compiler tools</a>
+<li><a href="#install-rstudio" id="toc-install-rstudio">Install Rstudio</a></li>
+<li><a href="#install-compiler-tools" id="toc-install-compiler-tools">Install compiler tools</a>
 <ul>
-<li><a href="#macos-1" id="toc-macos-1">MacOS</a></li>
 <li><a href="#windows-1" id="toc-windows-1">Windows</a></li>
+<li><a href="#macos-1" id="toc-macos-1">MacOS</a></li>
 <li><a href="#linux-1" id="toc-linux-1">Linux</a></li>
 </ul></li>
 <li><a href="#installing-the-tidyverse-and-rmarkdown-packages" id="toc-installing-the-tidyverse-and-rmarkdown-packages">Installing the tidyverse and Rmarkdown packages</a></li>
-<li><a href="#introduction-to-using-rstudio-and-rmarkdown" id="toc-introduction-to-using-rstudio-and-rmarkdown">Introduction to using Rstudio and Rmarkdown</a></li>
+<li><a href="#rmd_movie" id="toc-rmd_movie">Introduction to using Rstudio and Rmarkdown</a></li>
 <li><a href="#appendix-installing-packages-from-other-sources" id="toc-appendix-installing-packages-from-other-sources">(Appendix) Installing packages from other sources</a></li>
 </ul>
 </nav>
 </div>
 <p>This article will explain how to install R, Rstudio, and R packages.</p>
-<p><strong>Please watch the video at the end of the article that gives an overview of using Rstudio and the Rmarkdown format.</strong></p>
-<h2 id="download-r">Download R</h2>
+<p><strong>Please <a href="#rmd_movie">watch the video</a> that gives an overview of using Rstudio, installing packages, and the Rmarkdown format.</strong></p>
+<h2 id="installing-r">Installing R</h2>
 <p>Download R from CRAN. Go to the CRAN homepage <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>. Select the link to download R for your operating system.</p>
-<h3 id="macos">MacOS</h3>
-<p>Install the newest R version (<code>4.2.1</code>). We recommend installing the version for Intel Macs. If you have a Mac with an M1 processor (click the Apple -&gt; About this Mac, see information under <code>chip</code>), we still recommend using the Intel version of R as it is much easier to install packages built for the intel version at this time. Download the <code>.pkg</code> file, open and follow the prompts to install.</p>
+<p><em>If you already have R installed, we recommend upgrading to the latest version of R by following the directions below</em></p>
 <h3 id="windows">Windows</h3>
-<p>Select the <code>base</code> link, then click <code>Download R-4.2.1 for Windows</code> to download the <code>.exe</code> file. Open this file to install R.</p>
+<p>Go to <a href="https://cran.r-project.org/">CRAN</a>, and click <code>Download R for Windows</code>. Next click the <code>base</code> link and select <code>Download R-4.3.2 for Windows</code> to download the <code>.exe</code> file. Open this file to install R.</p>
+<h3 id="macos">MacOS</h3>
+<p>Go to <a href="https://cran.r-project.org/">CRAN</a>, and click <code>Download R for macOS</code>. Under <code>Latest Release</code> there are two options available depending on which CPU is used in your laptop. Mac uses either Intel (x86) or arm64 (i.e. M1 or M2) processors. You can determine which type you have by clicking on the Apple menu and selecting “About this Mac”. Next to <code>Chip</code> or <code>Processor</code>, it will say either M1 or M2, if you have an arm64 CPU, or it will say Intel Core or similar, indicating you have an Intel x86 CPU.</p>
+<p>Download the <code>R-4.3.2-arm64.pkg</code> for arm64 or <code>R-4.3.2-x86_64.pkg</code> for Intel x86. Open and follow the prompts to install.</p>
 <h3 id="linux">Linux</h3>
 <p>If you are on linux, then follow the documentation for your linux OS.</p>
-<h2 id="download-rstudio">Download Rstudio</h2>
-<p>Go to the <a href="https://rstudio.com/products/rstudio/download/#download">Rstudio website</a> and download Rstudio Desktop for your OS.</p>
+<h2 id="install-rstudio">Install Rstudio</h2>
+<p>Go to the <a href="https://posit.co/download/rstudio-desktop/#download">Rstudio website</a> and download Rstudio Desktop for your operating system</p>
 <p>Once downloaded and installed, open up <code>Rstudio</code> to complete the rest of the tutorial.</p>
-<h2 id="download-compiler-tools">Download compiler tools</h2>
+<h2 id="install-compiler-tools">Install compiler tools</h2>
+<p>Some R package installations may require a compiler, which is usually not available by default on Windows or macOS.</p>
+<h3 id="windows-1">Windows</h3>
+<p>You need to install <code>Rtools</code> from CRAN. Follow this link to download RTools 4.3 using the <code>Rtools43 installer</code> <a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">https://cran.r-project.org/bin/windows/Rtools/</a> .</p>
 <h3 id="macos-1">MacOS</h3>
 <p>To install the necessary compilers, we will follow the recommend steps outlined by CRAN: <a href="https://mac.r-project.org/tools/" class="uri">https://mac.r-project.org/tools/</a></p>
-<p>You will need to install the xcode command line tools if a package requires compilation. Open Rstudio and click on the “Terminal” pane. Alternatively you can open the Terminal app from <code>/Applications/Utilities/</code> (or use the search tool to search for terminal)</p>
-<p>Type the following into terminal:</p>
+<h4 id="xcode">Xcode</h4>
+<p>First you will need to install the <code>Xcode</code> command line tools. To do so open Rstudio and click on the “Terminal” tab, which is to the right of the “Console” Tab. Alternatively you can open the Terminal app directly from <code>/Applications/Utilities/</code> or use the spotlight search tool, search for “terminal”, and open the Terminal App.</p>
+<p>Type the following into the terminal and hit <code>Enter</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> xcode-select <span class="at">--install</span></span></code></pre></div>
-<p>Type in your macOS password, press enter and then click “Install”. This download will require ~9Gb. Verify the installation by typing into terminal:</p>
+<p>When prompted for <code>Password:</code>, type in your macOS user password (you wont see any characters printed as you type), and press enter. Click “Install” in the pop up and agree to the license agreement (if you agree of course). This download will require ~9Gb of space so it will take some time to download and install. Verify the installation by typing into terminal:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">--version</span></span></code></pre></div>
-<p>Which should print something similar to this:</p>
+<p>Which should print something similar to either this:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; gcc (GCC) 4.8.5</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Copyright (C) 2015 Free Software Foundation, Inc.</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; This is free software; see the source for copying conditions.  There is NO</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span></span></code></pre></div>
-<p>Here’s a <a href="https://www.youtube.com/watch?v=Z01lzHNrSdU&amp;feature=emb_title">youtube video explainer</a></p>
-<p>Next you need to install <code>gfortran</code>, which can be obtained from the CRAN instruction site above. We recommend using the intel version of R, so please follow the instructions for Intel Macs and install gfortran using the <code>gfortran-8.2-Mojave.dmg</code> installer.</p>
-<p>Once you’ve run the <code>gfortran</code> installer the last step is to make sure that this program is in your <a href="https://en.wikipedia.org/wiki/PATH_(variable)"><code>PATH</code></a>. This step will make the gfortran program visible to R, and other programs.</p>
+<p>or this:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/4.2.1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Apple clang version 13.0.0 (clang-1300.0.29.30)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Target: arm64-apple-darwin21.3.0</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Thread model: posix</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; InstalledDir: /Library/Developer/CommandLineTools/usr/bin</span></span></code></pre></div>
+<p>Here’s a <a href="https://www.youtube.com/watch?v=Z01lzHNrSdU&amp;feature=emb_title">youtube video explainer</a> that also shows the process.</p>
+<h4 id="gfortran">gfortran</h4>
+<p>Next you need to install <code>gfortran</code>. If you’ve installed the most recent version of R (or at least 4.3.0), then you can install using the <a href="https://mac.r-project.org/tools/gfortran-12.2-universal.pkg">gfortran-12.2-universal.pkg</a>.</p>
+<p>Once you’ve run the <code>gfortran</code> installer the last step is to make sure that this program is in your <a href="https://en.wikipedia.org/wiki/PATH_(variable)"><code>PATH</code></a>. This step will make the <code>gfortran</code> program visible to R, and other programs.</p>
 <p>First determine which type of shell you have (typically bash or zsh). Execute the following in a terminal (click either on the terminal pane in Rstudio, or open the terminal app in macOS).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$SHELL</span></span></code></pre></div>
-<p>If you see <code>/bin/zsh</code> then make a plain text file called <code>.zshrc</code> in your home directory (e.g. <code>/Users/Your-macOS-username/</code>), if it doesn’t already exist. If instead you see <code>/bin/bash</code> then make a file called <code>.bashrc</code> in your home directory, if it doesn’t already exist. You can use Rstudio to make a new plain-text file (File-&gt;New file-&gt;Text) or by opening up the Textedit app, then click Format-&gt;Make Plain Text.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$SHELL</span></span></code></pre></div>
+<p>If you see <code>/bin/zsh</code> then make a plain text file called <code>.zshrc</code> in your home directory (e.g. <code>/Users/Your-macOS-username/.zshrc</code>), if it doesn’t already exist. If instead you see <code>/bin/bash</code> then make a file called <code>.bashrc</code> in your home directory, if it doesn’t already exist. You can use Rstudio to make a new plain-text file (File-&gt;New file-&gt;Text) or by opening up the Textedit app, then click Format-&gt;Make Plain Text.</p>
 <p>Add the following line of text to the file (and keep any other text if already present).</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="va">$PATH</span>:/usr/local/gfortran/bin</span></code></pre></div>
-<p>Save the text file to your home directory. You may need to rename the file after saving to ensure that it doesn’t end with <code>.txt.</code> (e.g. rename <code>.zshrc.txt</code> -&gt; <code>.zshrc</code>). This file will be a hidden file. Hidden files can be seen in the Finder app by pressing <code>Command</code> + <code>Shift</code> + <code>.</code> (period) to toggle on/off visulizaing hidden files.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="va">$PATH</span>:/opt/gfortran/bin</span></code></pre></div>
+<p>Save the text file to your home directory. You may need to rename the file after saving to ensure that it doesn’t end with <code>.txt.</code> (e.g. rename <code>.zshrc.txt</code> -&gt; <code>.zshrc</code>). This file will be a hidden file. Hidden files can be seen in the Finder app by pressing <code>Command</code> + <code>Shift</code> + <code>.</code> (period) to toggle on/off visualizing hidden files.</p>
 <p>Close and reopen Rstudio.</p>
-<h3 id="windows-1">Windows</h3>
-<p>You need to install <code>Rtools</code> from CRAN. Go to this link and download the exe installer for your OS: <a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">https://cran.r-project.org/bin/windows/Rtools/</a></p>
 <h3 id="linux-1">Linux</h3>
 <p>You should have a compiler available already.</p>
 <h2 id="installing-the-tidyverse-and-rmarkdown-packages">Installing the tidyverse and Rmarkdown packages</h2>
-<p>Once you have R and Rstudio set up, open up Rstudio, then we will install packages. Packages are extensions to the base R installation that provide additionally functionality to the language. In this course we will use packages from the <a href="https://www.tidyverse.org/">tidyverse</a>, which is a collection of packages commonly used for data science and interactive data analysis. Installing the <code>tidyverse</code> package will install the <a href="https://www.tidyverse.org/packages/">entire collection</a> of tidyverse packages.</p>
-<p><a href="https://cran.r-project.org/">CRAN</a> is the official R package repository. CRAN has 18,000+ packages, including the tidyverse packages. Packages from CRAN are installed using the <code>install.packages()</code> function. A successful install will only need to be done once for the course.</p>
+<p>Now that you have R and Rstudio set up we will install packages.</p>
+<p>Packages are extensions to the base R installation that provide additionally functionality to the language. In this course we will use packages from the <a href="https://www.tidyverse.org/">tidyverse</a>, which is a collection of packages commonly used for data science and interactive data analysis. Installing the <code>tidyverse</code> package will install an <a href="https://www.tidyverse.org/packages/">entire collection</a> of tidyverse packages.</p>
+<p><a href="https://cran.r-project.org/">CRAN</a> is the official R package repository. CRAN has 18,000+ packages, including the tidyverse packages. Packages from CRAN are installed using the <code>install.packages()</code> R function. A successful install of a package will only need to be done once, until you update R to a new version.</p>
 <p>Open Rstudio to launch R. Then in the console pane, execute the following command to install the <a href="https://www.tidyverse.org/">tidyverse</a>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="img/install-packages.png" width="587" /></p>
 </div>
 <p>This command will take a few minutes to run while all of the packages are installed. Package installation will be completed once the <code>&gt;</code> prompt reappears. Once complete, test package installation by loading the package(s)</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>If successful you will see something like this:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="img/tidy-load.png" width="588" /></p>
@@ -1599,34 +1637,36 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <p>If loading tidyverse completes without errors then the packages have been installed. You’ll also now see additional packages (<code>ggplot2</code>, <code>dplyr</code>, <code>tidyr</code>) listed under the “Packages” pane.</p>
 <p>If there is an error installing tidyverse, you’ll likely see the following at the end of the command:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Warning in install.packages :</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;  installation of package ‘tidyverse’ had non-zero exit status</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; Warning in install.packages :</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;  installation of package ‘tidyverse’ had non-zero exit status</span></span></code></pre></div>
 <p>If this happens, contact the course instructors to help troubleshoot the installation issue.</p>
 <p>Another package that we will use in the course is rmarkdown, to install run:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span></code></pre></div>
 <p>and verify installation by running <code>library(rmarkdown)</code></p>
-<h2 id="introduction-to-using-rstudio-and-rmarkdown">Introduction to using Rstudio and Rmarkdown</h2>
+<h2 id="rmd_movie">Introduction to using Rstudio and Rmarkdown</h2>
 <p>Now that you have installed R and Rstudio, please watch this video (~20 minutes) that provides an overview of how to use Rstudio <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a> and an introduction to the <a href="https://rmarkdown.rstudio.com/lesson-1.html">Rmarkdown format</a>.</p>
 <p><a href="https://www.dropbox.com/s/zuh153mlp7w2fio/intro-to-rstudio.mp4?dl=0">intro-to-rstudio.mp4</a></p>
 <p><a href="https://www.dropbox.com/s/alrmoszei1ou6vr/intro-to-rstudio.mov?dl=0">intro-to-rstudio.mov</a></p>
 <h2 id="appendix-installing-packages-from-other-sources">(Appendix) Installing packages from other sources</h2>
-<p><strong>At this point you will only need to install the tidyverse and rmarkdown packages </strong></p>
-<p>There are 2 additional commonly used repositories for R packages that you should know about:</p>
+<p>There are 2 additional commonly used repositories for R packages. These are not needed to complete the prerequisite but are useful resources that you will use as you perform more coding in R.</p>
 <ol type="1">
 <li><a href="https://bioconductor.org/">Bioconductor</a> is a repository that hosts 2,000+ bioinformatics related packages.</li>
 </ol>
 <p>To install bioconductor packages you should use the CRAN package <code>BiocManager</code>. BiocManager has a function called <code>install()</code> to install bioconductor packages. For example to install <a href="https://jokergoo.github.io/ComplexHeatmap-reference/book/index.html"><code>ComplexHeatmap</code></a></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocManager)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span>(<span class="st">&quot;ComplexHeatmap&quot;</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or equivalently you could run BiocManager::install(&quot;ComplexHeatmap&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocManager)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span>(<span class="st">&quot;ComplexHeatmap&quot;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or equivalently you could run BiocManager::install(&quot;ComplexHeatmap&quot;)</span></span></code></pre></div>
 <ol start="2" type="1">
 <li><a href="https://github.com/">Github</a> hosts open-source code from millions of software projects. R packages hosted on github can be installed using the <code>remotes</code> package. Packages on github are generally the development version of a package, or a package that has not been contributed to either CRAN or Bioconductor. To install you’ll need to find the organization name and the repository name on github to install.</li>
 </ol>
 <p>For example to install the <a href="https://github.com/johannesbjork/LaCroixColoR">LaCroixColorR package</a>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;johannesbjork/LaCroixColoR&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;johannesbjork/LaCroixColoR&#39;</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># or equivalently you could use BiocManager, which uses remotes internally</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">`</span><span class="at">johannesbjork/LaCroixColoR</span><span class="st">`</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

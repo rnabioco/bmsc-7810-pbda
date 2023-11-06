@@ -4,50 +4,51 @@ title: "Schedule"
 
 # Class Schedule
 
-- Class 1: Wednesday, Nov. 30th  
+
+- Class 1: Wednesday, Nov. 29
   + Introduction to the R statistical programming language 
 
-- Class 2: Thursday, Dec. 1st
+- Class 2: Thursday, Nov. 30
+  + R fundamentals
+  
+- Class 3: Friday, Dec. 1
   + Data wrangling with the tidyverse  
 
-- Class 3: Friday, Dec. 2nd 
+- Class 4: Monday, Dec. 4 
   + Reshaping data into a tidy format
 
-- Class 4: Monday, Dec. 5th 
+- Class 5: Tuesday, Dec. 5
   + Introduction to ggplot2 (pt.1)
   
-- Class 5: Tuesday, Dec. 6th 
+- Class 6: Wednesday, Dec. 6
   + Introduction to ggplot2 (pt.2)
   
-- Class 6: Wednesday, Dec. 7th 
-  + Introduction to ggplot2 (pt.3)
+- Class 7: Thursday, Dec. 7 
+  + Data analysis vignette
 
-- Class 7: Thursday, Dec. 8th
+- Class 8: Friday, Dec. 8
   + Introduction to matrix operations 
 
-- Class 8: Friday, Dec. 9th
+- Class 9: Monday, Dec. 11
   + Introduction to clustering techniques
   
-- Class 9: Monday, Dec. 12th
-  + Introduction to Heatmaps 
+- Class 10: Tuesday, Dec. 12
+  + Introduction to visualizing data with heatmaps
   
-- Class 10: Tuesday, Dec. 13th
-  + Introduction to programming in R (pt. 1)
+- Class 11: Wednesday, Dec. 13
+  + Programming fundamentals in R (pt. 1)
 
-- Wednesday, Dec. 14th
-  + **No Class**  
+- Class 12: Thursday, Dec. 14
+  + Programming fundamentals in R (pt. 2)
 
-- Class 11: Thursday, Dec. 15th
-  + Introduction to programming in R (pt. 2)
-  
-- Class 12: Friday, Dec. 16th
+- Class 13: Friday, Dec. 15
   + Course wrap up
   
 # Problem Sets
 
-- Problem set 1: Due Tues Dec 6th (9a)
-- Problem set 2: Due Friday Dec 9th (5p)
-- Problem set 3: Due Thursday Dec. 15th (5p)
-- Problem set 4: Due Monday Dec. 19th (5p)
+- Problem set 1: Due Friday Dec 1 (5p)
+- Problem set 2: Due Tuesday Dec 5 (5p)
+- Problem set 3: Due Friday Dec. 8 (5p)
+- Problem set 4: Due Wednesday Dec. 13 (5p)
 
 

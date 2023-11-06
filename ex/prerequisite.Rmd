@@ -8,22 +8,24 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-**This assignment is due prior to the start of class, Nov 29th before midnight**  
+**This assignment is due Nov 29th before midnight**  
 
-If you run into issues, please follow the instructions provided in the [R package installation and Rstudio overview](https://rnabioco.github.io/bmsc-7810-pbda/posts/2022-10-03-install-r/), or contact the instructors via email (rbi.fellows@cuanschutz.edu). 
+Please read the instructions and watch the video (~20 min) provided in the [R package installation and Rstudio overview](https://rnabioco.github.io/bmsc-7810-pbda/posts/2023-11-06-install-r).
 
-This assignment is a simple test to ensure that your R and Rstudio installation is set up. 
+This assignment is designed to check that your R and Rstudio installation is set up correctly. If this assignment is taking more than 1 hour of your time please contact the instructors for assistance (rbi.fellows@cuanschutz.edu).
+
+Please perform the following:
 
 1) Change the title of this Rmarkdown to include your name e.g. (`Kent Riemondy Prerequisite assignment`)
 
-2) Add a R code chunk to the document that loads the `tidyverse` package, using the `library` function.
+2) Add a R code chunk to the document and load the `tidyverse` package, using the `library()` function.
 
-3) Knit this RMarkdown document to html output.
+3) Knit this R Markdown document to generate HTML output (click the `Knit` needle and yarn icon).
 
-4) Submit the html document to canvas. 
+4) Submit the html document to Canvas. 
 
 
-Keep the following code chunk in your rmarkdown, as it will demonstrate which packages you've installed. 
+Keep the following code chunk in your R Markdown, as it will demonstrate which packages you've installed. 
 
 ```{r}
 sessionInfo()

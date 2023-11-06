@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Overview
 
-In this short course you will learn to analyze and visualize complex data sets using the R statistical programming language, the RStudio IDE and new tools available in the "tidyverse”. We will focus on key analysis skills and foundational programming concepts necessary for the efficient and reproducible analysis of biological data sets.
+In this short course you will learn to analyze and visualize complex data sets using the R statistical programming language and the RStudio IDE. We will focus on key analysis skills and foundational programming concepts necessary for the efficient and reproducible analysis of biological data sets.
 
 ## Organization and Contacts 
 
@@ -27,7 +27,7 @@ Ryan Sheridan (Instructor): ryan.sheridan@cuanschutz.edu
 
 Kristen Wells-Wrasman (Instructor): kristen.wells-wrasman@cuanschutz.edu
 
-The course (2 credit hours) consists of 13 2 hour classes held Mon through Fri from Nov 30 through Dec 16 from 8:00 -10:00 am. The course will be held at the Strauss Health Science Library  (V23) in the HS Library Teaching Lab 2. All classes will be recorded and made available through Canvas.
+The course (2 credit hours) consists of 13 two hour classes held Mon through Fri from Nov 29 through Dec 15 from 8:00 -10:00 am. The course will be held in Research 1 North (P18) in the P18-CTL-1309 Computer lab. All classes will be recorded and made available through Canvas.
 
 Virtual office hours will also be provided outside of course hours.   
 
@@ -43,7 +43,7 @@ A personal computer with a common operating system ( macOS, Linux, or Windows), 
 
 ## Assignments 
 
-Student's grades will be determined by completion of the prerequisite assignment (10%), class participation (10%), and 4 homework assignments (80%), to be completed by the end of the course.
+Student's grades will be determined by completion of the prerequisite assignment (5%), class participation (10%), and 4 homework assignments (80%), to be completed by the end of the course.
 
 # Course assistance
  We will provide a Slack workspace for discussion during and after classes, to collaborate, and to get help. In addition the course instructors will hold virtual office hours to provide assistance outside of the course. Please email the course instructors via (`rbi.fellows@cuanschutz.edu`) to schedule a time.
