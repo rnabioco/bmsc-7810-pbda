@@ -1,0 +1,502 @@
+---
+title: "Class 1: Introduction to the R statistical programming language"
+author:
+  - name: "Kent Riemondy"
+    url: https://github.com/kriemo
+    affiliation: "RNA Bioscience Initiative"
+    affiliation_url: https://medschool.cuanschutz.edu/rbi
+    orcid_id: 0000-0003-0750-1273
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2023-11-27-class-1-introduction-to-the-r-statistical-programming-language/intro-to-r-language.Rmd)*
+
+## Goals for this class
+
+* R language history and ecosystem
+* Finding help and reading R documentation
+* R fundamentals
+    * Using the R console
+    * Variables 
+    * Vectors
+    * Vector types
+    * Operators
+    * Vectorization
+  
+
+## What is R
+
+From the R core developers:
+
+>
+R is an integrated suite of software facilities for data manipulation, calculation and graphical display. It includes
+an effective data handling and storage facility,
+a suite of operators for calculations on arrays, in particular matrices,
+a large, coherent, integrated collection of intermediate tools for data analysis,
+graphical facilities for data analysis and display either on-screen or on hardcopy, and
+a well-developed, simple and effective programming language which includes conditionals, loops, user-defined recursive functions and input and output facilities.  
+
+>R, like S, is designed around a true computer language, and it allows users to add additional functionality by defining new functions. Much of the system is itself written in the R dialect of S, which makes it easy for users to follow the algorithmic choices made. For computationally-intensive tasks, C, C++ and Fortran code can be linked and called at run time. Advanced users can write C code to manipulate R objects directly.
+
+>Many users think of R as a statistics system. We prefer to think of it as an environment within which statistical techniques are implemented. R can be extended (easily) via packages. There are about eight packages supplied with the R distribution and many more are available through the CRAN family of Internet sites covering a very wide range of modern statistics.
+>
+
+## Why is R a popular language?
+
+```{r, echo = FALSE, fig.cap = "R facilitates the data analysis process. From https://r4ds.had.co.nz/explore-intro.html."}
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2023-11-27-class-1-introduction-to-the-r-statistical-programming-language/img/tidy-data-model.png")
+```
+
+R is a [programming language](https://en.wikipedia.org/wiki/R_(programming_language)) built by statisticians to facilitate interactive exploratory data analysis.
+
+R comes with (almost) everything you need built in to rapidly conduct data analysis and visualization. 
+
+R has a [large following](https://pypl.github.io/PYPL.html), which makes it easy to find help and examples of analyses.   
+- [Rstudio/Posit Community](https://community.rstudio.com/)  
+- [Bioconductor Support](https://support.bioconductor.org/)  
+- [R stackoverflow](https://stackoverflow.com/questions/tagged/r)  
+
+R works out of the box on major operating systems.
+
+R has a robust package system of packages from [CRAN](https://cran.r-project.org/) and bioinformatics focused packages from [Bioconductor](https://www.bioconductor.org/)
+
+Publication quality plots can be produced with ease using functionality in the base R installation or provided by additional packages.
+
+R has a built in documentation system to make it easy to find help and examples of how to use R functionality. 
+
+It's free, [open-source](https://github.com/wch/r-source), and has been around in it's first public release since 1993. 
+
+
+## The R ecosystem
+
+When you download R from CRAN, there are a number of packages included in the base installation (e.g. `base`, `stats`, and `datasets`). You can do effective data analysis with only the base installation (e.g. see [fasteR](https://github.com/matloff/fasteR) tutorial). However a key strength of R is the 10,000+ user-developed packages which extend base R functionality. 
+
+
+```{r, echo = FALSE, fig.cap = "Major R package repositories and functions used to install packages."}
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-11-27-class-1-introduction-to-the-r-statistical-programming-language/img/r-ecosystem.png")
+```
+
+CRAN is the official R package repository and source for R. The tidyverse (which we will use in subsequent classes) is a set of packages with consistent design principles meant to extend functionality in base R. 
+
+Bioconductor hosts and maintains bioinformatics focused packages, built around a set of core data structures and functionality focused on genomics and bioinformatics.
+
+Github hosts software for any software project. It is often used to host R packages in development stages and the actively developed source code for R packages. 
+
+## Getting help 
+
+### Built-in documentation
+
+The `?` operator can be used to pull up documentation about a function. The `??` operator uses a fuzzy search which can pull up help if you don't remember the exact function name. 
+
+```r
+?install.packages
+``` 
+
+```r
+??install.package
+``` 
+
+Alternatively you can click on the help pane and search for help in Rstudio. 
+
+### Vignettes
+
+Every R package includes a vignette to describe the functionality of the package which can be a great resource to learn about new packages.
+
+These can be accessed via the `vignette()` function, or via the help menu in Rstudio. 
+
+```r
+vignette("dplyr")
+```
+
+### Rstudio Cheatsheets
+
+See `Help > Cheatsheets` for very helpful graphical references.The `base R`, `dplyr`, and `ggplot2` cheatsheets are especially useful.
+
+
+## The more you try the more you will learn.
+
+Learning a foreign language requires continual practice speaking and writing the language. To learn you need to try new phrases and expressions. To learn you have to make mistakes. The more you try and experiment the quicker you will learn.
+
+Learning a programming language is very similar. We communicate by organizing a series of steps in the right order to instruct the computer to accomplish a task. 
+
+Type and execute commands, rather than copy and pasting, you will learn faster. Fiddle around with the code, see what works and what doesn't.
+
+Probably everything we do in the class can be done by a LLM such as ChatGPT. These tools can help you, but you will be more effective at using them if you understand the fundamentals. You will also be more productive in the long term if you understand the basics.
+
+
+## Using R interactively with the `Console`
+
+R commands can be executed in the "Console", which is an interactive shell that waits for you to run commands.
+
+The `>` character is a prompt that indicates the beginning of a line. The prompt goes away when a command is being executed, and returns upon completion, or an error. 
+
+You can interrupt a command with `Esc`, `Ctrl + c`, clicking the STOP sign in the upper right corner, or Session -> Interrupt R or Terminate R.
+
+Before running another command ensure that the `>` prompt is present.
+
+R can be used as a simple calculator:
+
+```{r}
+1 + 1
+3-7           # value of 7 subtracted from 3
+3/2           # Division
+5^2           # 5 raised to the second power
+2 + 3 * 5     # R respects the order of math operations.
+```
+## Example datasets in R
+
+ R and R packages include small datasets to demonstrate how to use a package or functionality. `data()` will show you many of the datasets included with a base R installation. We will use the state datasets, which contain data on the 50 US states.
+
+```{r}
+state.abb
+state.area 
+```
+These are R objects, specifically vectors. A vector is collection of values of all the same data type. Note that each position in the vector has a number, called an index. We will talk more about the vectors shortly.
+
+Let's start using some simple R functions to characterize the size of the US states. Type the following in the console and hit return to execute or call the mean function.
+
+```{r}
+mean(state.area)
+```
+
+`mean` is a function. A function takes an input (as an argument) and returns a value. 
+
+```{r}
+# simple summary functions
+sum(state.area)
+min(state.area)
+max(state.area)
+median(state.area)
+length(state.area)
+
+# sort the values in ascending order
+sort(state.area)
+
+```
+
+Here each of these functions returned a value, which was printed upon completion with the `print()` function, and is equivalent to e.g.  `print(mean(state.area))`.
+
+## Assigning values to variables
+
+In R you can use either the `<-` or the `=` operators to assign objects to variables. The `<-` is the preferred style. If we don't assign an operation to a variable, then it will be printed only and disappear from our environment. 
+
+
+```{r}
+x <- length(state.area)
+x # x now stores the length of the state.area vector, which is 50
+```
+
+```{r}
+x <- x + 10 # overwrites x with new value
+
+x + 20 
+```
+
+Now, what is the value of x?
+
+```{r, eval = FALSE}
+x = ... ?
+```
+
+
+## Vectors and atomic types in R
+
+There are fundamental data types in R which represent integer, `characters,  numeric, and logical values, as well as a few other specialized types.
+
+Each of these types are represented in vectors, which are a collection of values of the same type. In R there are no scalar types, for example there is no `integer` type, rather single integer values are stored in an integer vector with length of 1. This is why you see the `[1]` next to for example `42` when you print it. The `[1]` indicates the position in the vector.
+
+```{r}
+42
+```
+
+
+
+### Vector types
+
+R has `character`, `integer`, `double`(aka `numeric`) and `logical` vector types, as well as more specialized `factor`, `raw`, and `complex` types. We can determine the vector type using the `typeof` function.
+
+```{r}
+typeof(1.0)
+typeof("1.0")
+typeof(1)
+typeof(1L)
+typeof(TRUE)
+typeof(FALSE)
+typeof("hello world")
+```
+
+You can change the type of a vector, provided that there is a method to convert between types.
+
+```{r}
+as.numeric("1.0")
+as.numeric("hello world")
+as.character(1.5)
+as.integer(1.5)
+as.integer(TRUE)
+as.character(state.area)
+```
+
+### NA, Inf, and NaN values
+
+Often you will find data that contains missing, non-number, or infinite values. There are represented in R as `NA`, `NaN` or `Inf` values. 
+
+```{r}
+1 / 0    
+-( 1 / 0)
+0 / 0
+NA
+```
+
+```r
+"0" / 1
+#' Error in "0"/1 : non-numeric argument to binary operator
+```
+
+### making vectors from scratch
+
+The `c` function concatenates values into a vector.
+
+```{r}
+c(2, 5, 4)
+c(TRUE, FALSE, TRUE)
+c("dog", "cat", "bird")
+```
+
+Vectors can only have 1 type, so if you supply multiple types `c` will silently coerce the result to a single type. 
+
+```{r}
+c(TRUE, 1.9)
+c(FALSE, "TRUE")
+c(1L, 2.0, TRUE, "Hello")
+```
+
+Numeric ranges can be generated using `:` or `seq`
+
+```{r}
+1:10
+seq(0, 1, by = 0.1)
+```
+
+There are also functions for sampling from various distributions or vectors.
+
+e.g.
+```{r}
+# get 5 values from a normal distribution with mean of 0 and sd of 1
+rnorm(5)
+
+# get 5 values from uniform distribution from 0 to 1
+runif(5)
+
+# sample 5 area values 
+sample(state.area, 5)
+```
+
+### Subsetting vectors in R
+
+R uses 1-based indexing to select values from a vector. The first element of a vector is at index 1. The `[` operator can be used to extract (or assign) elements in a vector. Integer vectors or logical vectors can be used to extract values.
+
+```{r}
+# extract the second value from the state area and name vectors
+state.area[2]
+state.name[2]
+```
+
+
+```{r}
+# extract the 1st, 3rd, and 5th name
+state.name[c(1, 3, 5)]
+
+# extract a range of names from 2 -> 7
+state.name[2:7]
+```
+
+
+
+Extracting a value that does not (yet) exist will yield an `NA`  
+
+
+```{r}
+state.name[51]
+```
+
+### Exercise:
+
+*What is the total area occupied by the 10 smallest states? What is the total area occupied by the 10 largest states?*
+
+```{r}
+# hint use the `sort()` function 
+
+```
+
+
+### Using vectors and subsetting to perform more complex operations
+
+*What if we wanted to know which states have an area greater than 100,000 (square miles)?* 
+
+We can do this in a few steps, which will showcase how simple vector operations, when combined become powerful.
+
+First we can use relational operators to compare values:
+
+```{r}
+# are the values of x equal to 10?
+x <- 6:10
+x == 10
+```
+
+
+`x > 10` : are the values of `x` greater than 10
+`x >= 10`: are the values of `x` greater than or equal to 10
+
+`x < 10` : are the values of `x` less than 10
+`x <= 10`: are the values of `x` less than or equal 10
+
+These operators fundamentally compare two vectors
+
+```{r}
+# which values of x are equal to the values in y
+y <- c(6, 6, 7, 7, 10)
+x == y
+```
+
+Here, when we ask `x < 10` R internally recycles `10` to a vector the same length as `x`, then evaluates if each element of x is less than 10.
+
+See `?Comparison` or `?`>`` for help menu on relational operators.
+
+With this we can now ask, are the state.area values greater than 100000?
+
+```{r}
+state.area > 100000
+```
+
+The returned logical vector can be used to subset a vector of the same length.
+
+```{r}
+# return the area values > 100000
+state.area[state.area > 100000]
+
+# alternatively find the index of the TRUE values using which()
+
+which(state.area > 100000)
+```
+
+
+But how do we find the state names with areas over 100,000? 
+
+For this dataset the names of the states are in the same order as the state areas. 
+
+Therefore:  
+
+```{r}
+state.name[state.area > 100000]
+```
+
+
+### Exercise:
+
+Let's answer a related question, how **many** states are larger than 100,000 square miles?
+
+```{r}
+# multiple approaches will work
+is_greater <- state.area > 100000
+length(which(is_greater))
+sum(is_greater)
+```
+
+Using the sum() function works because TRUE is stored as 1 and FALSE is stored as 0. 
+
+```{r}
+x <- c(TRUE, FALSE, TRUE)
+as.integer(x)
+sum(x)
+```
+
+
+### Replacing or adding values at position
+
+Values in a vector can be also replaced or added by assignment at specific indexes.
+
+```{r}
+# What if Colorado was named to Colorodo?
+state.name[6] <- "Colorodo"
+
+# what if we wanted to add a 51st state to our vector?
+state.name[51] <- "Puero Rico"
+```
+
+This is a very useful syntax to modify a subset of a vector:
+
+```{r}
+x <- c(1, NA, 2, 3)
+
+# replace all values > 1 with 100
+x[x > 1] <- 100 
+x
+```
+
+`is.na()` returns TRUE if a value is NA, FALSE otherwise:
+
+```{r}
+# replace NA values with -100
+x[is.na(x)] <- -100
+x
+```
+
+
+
+# R operations are vectorized
+
+Most operations in R are vectorized, meaning that the operation will occur on all element of a vector. 
+
+For example to take the natural log of an element we use the `log` function.
+
+```{r}
+x <- 1:5
+log(x)
+```
+
+If you are used to programming in other languages (e.g `C` or `python`) you might have written a `for` loop to do the same, something like this.
+
+```r
+for (i in x) { 
+  log(i)
+}
+```
+
+In R this is generally not necessary. The built in vectorization saves much typing and makes for very compact and efficient code in R. You can write `for` loops in R (more on this later in the course) however using the built in vectorization is generally a faster and easier to read solution.
+
+Arithmetic  (e.g `+` `-`, `*`) and comparisons operators (`>`, `<`, `==`) are also vectorized. 
+
+```{r}
+x <- 1:5
+y <- 2
+
+x * y
+x + y
+
+x < y
+```
+
+
+
+## Review
+
+To review today's material, do the following:  
+
+1) For each section with code, add you own commands. You will learn faster if you try out the code yourself. If you get errors, try to find help, or ask questions in the class slack channel.
+
+2) Knit the Rmarkdown after you make changes, you may need to install the `distill` package: (`install.packages("distill")`), which is used for formatting the rmarkdown. 
+
+
+## Acknowledgements and additional references {.appendix}
+
+The content of this lecture was inspired by and borrows concepts from the following excellent tutorials:
+
+https://github.com/sjaganna/molb7910-2019 
+https://github.com/matloff/fasteR 
+https://r4ds.had.co.nz/index.html 
+https://bookdown.org/rdpeng/rprogdatascience/
+http://adv-r.had.co.nz/Style.html 
+

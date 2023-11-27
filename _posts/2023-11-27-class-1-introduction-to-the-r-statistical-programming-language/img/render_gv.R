@@ -3,7 +3,8 @@ library(DiagrammeRsvg)
 library(rsvg)
 library(here)
 library(tiff)
-gv_fn <- here("_posts/2022-10-03-intro-to-r-language/img/reco.gv")
+wd <- "_posts/2023-11-27-class-1-introduction-to-the-r-statistical-programming-language/img"
+gv_fn <- here(file.path(wd, "reco.gv"))
 
 inch_to_px <- function(x, dpi = 300) { x * dpi}
 h_inch <- 5
@@ -13,4 +14,4 @@ w <- inch_to_px(h_inch * asp_ratio)
 grViz(gv_fn, width = w, height = h) %>%
   export_svg %>%
   charToRaw %>%
-  rsvg_pdf("r-ecosystem.pdf")
+  rsvg_pdf(file.path(wd, "r-ecosystem.pdf"))

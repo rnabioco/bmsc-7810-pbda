@@ -17,9 +17,9 @@ digraph workflow {
         fontsize = 8,
         fontname = "Helvetica",
         fillcolor = "#56B4E9"];
-  cran [label = "CRAN\n18,713 packages\n(Anything)\n+\nTidyverse\n(30 packages"];
+  cran [label = "CRAN\n20,110 packages\n(Anything)\n+\nTidyverse\n(~30 packages)"];
 
-  bioc [label = "Bioconductor\n2,140 packages\n(Bioinformatics)" ];
+  bioc [label = "Bioconductor\n2,266 packages\n(Bioinformatics)" ];
   gh [label = "Github\n Unknown #\n(Anything)"];
 
 
