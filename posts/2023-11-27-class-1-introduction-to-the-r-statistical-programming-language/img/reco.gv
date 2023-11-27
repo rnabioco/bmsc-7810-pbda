@@ -1,0 +1,33 @@
+digraph workflow {
+  graph [layout = dot,
+         rankdir = TB]
+
+  node [shape = doublecircle,
+        style = filled,
+        fontcolor = black,
+        fontsize = 8,
+        fontname = "Helvetica",
+        fillcolor = "#E69F00"];
+
+  baser [label = "base R"];
+
+  node [shape = cylinder,
+        style = filled,
+        fontcolor = black,
+        fontsize = 8,
+        fontname = "Helvetica",
+        fillcolor = "#56B4E9"];
+  cran [label = "CRAN\n20,110 packages\n(Anything)\n+\nTidyverse\n(~30 packages)"];
+
+  bioc [label = "Bioconductor\n2,266 packages\n(Bioinformatics)" ];
+  gh [label = "Github\n Unknown #\n(Anything)"];
+
+
+  edge [fontcolor = black,
+        fontname = "Helvetica",
+        fontsize = 8];
+
+  baser -> cran [label = "install.packages()"]
+  baser -> bioc [label = "BiocManager::install()"]
+  baser -> gh [label = "devtools::install_github()"];
+}
