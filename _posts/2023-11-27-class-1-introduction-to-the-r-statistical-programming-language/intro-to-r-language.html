@@ -1546,7 +1546,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#goals-for-this-class" id="toc-goals-for-this-class">Goals for this class</a></li>
+<li><a href="#outline" id="toc-outline">Outline</a></li>
 <li><a href="#what-is-r" id="toc-what-is-r">What is R</a></li>
 <li><a href="#why-is-r-a-popular-language" id="toc-why-is-r-a-popular-language">Why is R a popular language?</a></li>
 <li><a href="#the-r-ecosystem" id="toc-the-r-ecosystem">The R ecosystem</a></li>
@@ -1580,7 +1580,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </nav>
 </div>
 <p><em>The Rmarkdown for this class is <a href="https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2023-11-27-class-1-introduction-to-the-r-statistical-programming-language/intro-to-r-language.Rmd">on github</a></em></p>
-<h2 id="goals-for-this-class">Goals for this class</h2>
+<h2 id="outline">Outline</h2>
 <ul>
 <li>R language history and ecosystem</li>
 <li>Finding help and reading R documentation</li>
@@ -1924,17 +1924,17 @@ e.g.
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># get 5 values from a normal distribution with mean of 0 and sd of 1</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>[1]  0.3405840  0.4120265 -0.8394667 -0.7171595  0.2066042</code></pre>
+<pre><code>[1]  0.10347970 -0.32270985  0.88511658 -1.25701091  0.01266694</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># get 5 values from uniform distribution from 0 to 1</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>[1] 0.67792797 0.21478744 0.69192964 0.65537528 0.00215418</code></pre>
+<pre><code>[1] 0.1643224 0.2905542 0.8360480 0.2602267 0.2875998</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># sample 5 area values </span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>state.area</span>, <span class='fl'>5</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>[1] 53104 56154  2057 83557  6450</code></pre>
+<pre><code>[1] 24181 82264 68192 96981 58560</code></pre>
 </div>
 <h3 id="subsetting-vectors-in-r">Subsetting vectors in R</h3>
 <p>R uses 1-based indexing to select values from a vector. The first element of a vector is at index 1. The <code>[</code> operator can be used to extract (or assign) elements in a vector. Integer vectors or logical vectors can be used to extract values.</p>
@@ -2041,27 +2041,12 @@ e.g.
 <p>Let’s answer a related question, how <strong>many</strong> states are larger than 100,000 square miles?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># multiple approaches will work</span></span>
-<span><span class='va'>is_greater</span> <span class='op'>&lt;-</span> <span class='va'>state.area</span> <span class='op'>&gt;</span> <span class='fl'>100000</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>is_greater</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># multiple approaches will work</span></span></code></pre>
 </div>
-<pre><code>[1] 8</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>is_greater</span><span class='op'>)</span></span></code></pre>
-</div>
-<pre><code>[1] 8</code></pre>
 </div>
 <p>Using the sum() function works because TRUE is stored as 1 and FALSE is stored as 0.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span></code></pre>
-</div>
-<pre><code>[1] 1 0 1</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span></code></pre>
-</div>
-<pre><code>[1] 2</code></pre>
+
 </div>
 <h3 id="replacing-or-adding-values-at-position">Replacing or adding values at position</h3>
 <p>Values in a vector can be also replaced or added by assignment at specific indexes. In this case the bracket <code>[</code> notation is left of the assignment operator <code>&lt;-</code>. You can read this as assign value on right to positions in the object on the left.</p>
@@ -2105,9 +2090,9 @@ e.g.
 <pre><code>[1] 0.0000000 0.6931472 1.0986123 1.3862944 1.6094379</code></pre>
 </div>
 <p>If you are used to programming in other languages (e.g <code>C</code> or <code>python</code>) you might have written a <code>for</code> loop to do the same, something like this.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> x) { </span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(i)</span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> x) { </span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(i)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>In R this is generally not necessary. The built in vectorization saves typing and makes for very compact and efficient code in R. You can write <code>for</code> loops in R (more on this later in the course) however using the built in vectorization is generally a faster and easier to read solution.</p>
 <h2 id="review">Review</h2>
 <p>To review today’s material, do the following:</p>
@@ -2119,7 +2104,7 @@ e.g.
 <a href="https://r4ds.had.co.nz/index.html" class="uri">https://r4ds.had.co.nz/index.html</a>
 <a href="https://bookdown.org/rdpeng/rprogdatascience/" class="uri">https://bookdown.org/rdpeng/rprogdatascience/</a>
 <a href="http://adv-r.had.co.nz/Style.html" class="uri">http://adv-r.had.co.nz/Style.html</a></p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
