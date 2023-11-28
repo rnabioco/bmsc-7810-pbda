@@ -14,7 +14,7 @@ output:
 
 *The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2023-11-27-class-1-introduction-to-the-r-statistical-programming-language/intro-to-r-language.Rmd)*
 
-## Goals for this class
+## Outline 
 
 * R language history and ecosystem
 * Finding help and reading R documentation
@@ -403,17 +403,13 @@ Let's answer a related question, how **many** states are larger than 100,000 squ
 
 ```{r}
 # multiple approaches will work
-is_greater <- state.area > 100000
-length(which(is_greater))
-sum(is_greater)
+
 ```
 
 Using the sum() function works because TRUE is stored as 1 and FALSE is stored as 0. 
 
 ```{r}
-x <- c(TRUE, FALSE, TRUE)
-as.integer(x)
-sum(x)
+
 ```
 
 

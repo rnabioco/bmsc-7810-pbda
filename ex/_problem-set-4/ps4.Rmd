@@ -1,6 +1,6 @@
 ---
-title: "Problem Set 4"
-author: "YOUR NAME HERE"
+title: "Problem Set 4 Key"
+author: "KR"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -33,7 +33,7 @@ For this problem set, you are allowed to help each other. However, please list w
 
 We will be using all of the same files you already downloaded for class. If you already have these files, you don't need to run this script.
 
-```{r, eval = FALSE}
+```{r, }
 # conditionally download all of the files used in rmarkdown from github 
 source("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-12-05-class-10-programming-in-r-part-1/download-files.R")
 ```
@@ -46,17 +46,32 @@ source("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-12-05-cl
 Load the `brauer_gene_exp.csv.gz` table into R and assign the table to a variable named `brauer_gene_exp`.
 
 ```{r q1}
-
+library(tidyverse)
+brauer_gene_exp <- read_csv("data/brauer_gene_exp.csv.gz")
 ```
 
 # Question 2 (2 pts)
 
 Write a function that plots rate vs expression when provided a data.frame, a systematic_name, and a nutrient. Add the common gene name as a title and the nutrient as a subtitle. Include an argument that lets the user select whether a regression line is shown.  
 
-```{r q2, eval = FALSE, fig.width = 6, fig.height = 3.5}
+```{r q2, fig.width = 6, fig.height = 3.5}
 plot_expr <- function(input, sys_name, nutri, add_lm = FALSE) {
-  # Finish writing the function
+ 
+  plot_df <- input %>% 
+    filter(systematic_name == sys_name,
+           nutrient == nutri)
   
+  p <- ggplot(plot_df, aes(rate, expression)) +
+    geom_point() +
+    labs(title = unique(plot_df$name)[1],
+         subtitle = nutri)
+  
+  if(add_lm) {
+    # add a regression line (could use any method you want,or the default)
+    p <- p + geom_smooth(method = "lm") 
+  }
+  
+  p 
 }
 
 plot_expr(
@@ -71,10 +86,31 @@ plot_expr(
 
 Add an `if` statement to check whether the systematic_name and nutrient provided by the user are present in the input data.
 
-```{r q3, eval = FALSE, fig.width = 6, fig.height = 3.5}
+```{r q3, fig.width = 6, fig.height = 3.5}
 plot_expr <- function(input, sys_name, nutri, add_lm = FALSE) {
-  # Finish writing the function
   
+  valid_input <- all(c(sys_name %in% input$systematic_name, 
+                       nutri %in% input$nutrient))
+  
+  if(!valid_input){
+    stop(sys_name, " or ", nutri, " not in input")
+  }
+  
+  plot_df <- input %>% 
+    filter(systematic_name == sys_name,
+           nutrient == nutri)
+  
+  p <- ggplot(plot_df, aes(rate, expression)) +
+    geom_point() +
+    labs(title = unique(plot_df$name)[1],
+         subtitle = nutri)
+  
+  if(add_lm) {
+    # add a regression line (could use any method you want,or the default)
+    p <- p + geom_smooth(method = "lm") 
+  }
+  
+  p 
 }
 
 plot_expr(
@@ -89,18 +125,40 @@ plot_expr(
 
 Add the ellipsis so the user can pass arguments directly to `theme()`. 
 
-```{r q4, eval = FALSE, fig.width = 6, fig.height = 3.5}
-plot_expr <- function(input, sys_name, nutri, add_lm = FALSE) {
-  # Finish writing the function
+```{r q4, fig.width = 6, fig.height = 3.5}
+plot_expr <- function(input, sys_name, nutri, add_lm = FALSE, ...) {
   
+  valid_input <- all(sys_name %in% input$systematic_name, 
+                     nutri %in% input$nutrient)
+  
+  if(!valid_input){
+    stop(sys_name, " or ", nutri, " not in input")
+  }
+  
+  plot_df <- input %>% 
+    filter(systematic_name == sys_name,
+           nutrient == nutri)
+  
+  p <- ggplot(plot_df, aes(rate, expression)) +
+    geom_point() +
+    labs(title = unique(plot_df$name)[1],
+         subtitle = nutri)
+  
+  if(add_lm) {
+    # add a regression line (could use any method you want,or the default)
+    p <- p + geom_smooth(method = "lm") 
+  }
+  
+  p <- p + theme(...)
+  p
 }
 plot_expr(
   input = brauer_gene_exp, 
   sys_name = "YDL104C",
   nutri = "Ammonia",
   add_lm = TRUE,
-  axis.title = element_text(size = 20),
-  axis.text = element_text(face = "italic")
+  axis.title = element_text(size = 30),
+  axis.text = element_text(face = "italic", angle = 90)
 )
 ```
 
@@ -109,16 +167,13 @@ plot_expr(
 
 Use `lapply()` to create plots for four genes using the function you've written in Q4. Combine the plots into a single figure using `wrap_plots()` from the `patchwork` package. 
 
-```{r q5, eval = FALSE, fig.width = 10, fig.height = 6.5}
-
+```{r q5, fig.width = 10, fig.height = 6.5}
+library(patchwork)
 sys_names <- c("YNL049C", "YML017W", "YDL104C", "YLR115W")
 
-expr_plots <- lapply(
-  # Add the arguments for lapply()
-  
-)
+expr_plots <- lapply(sys_names, plot_expr, input = brauer_gene_exp,  nutri = "Ammonia")
 
-wrap_plots() 
+wrap_plots(expr_plots) 
 ```
 
 # Question 6 (4pts)
@@ -155,7 +210,14 @@ YOR069W         0.39        0.20         0.27        0.19
 ```
 
 ```{r q6}
+mat <- brauer_gene_exp %>% 
+  unite("id", nutrient, rate) %>% 
+  select(id, systematic_name, expression) %>% 
+  pivot_wider(names_from = id, values_from = expression) %>% 
+  column_to_rownames("systematic_name") %>% 
+  as.matrix()
 
+head(mat)
 ```
 
 
@@ -164,7 +226,14 @@ YOR069W         0.39        0.20         0.27        0.19
 Are there NA values present in the output from Q6? If so remove the rows that contain any `NA` values and assign the output to a variable.
 
 ```{r q7}
+na_present <- sum(is.na(mat)) > 0
+if(na_present) {
+  print("there are NA values")
+} else {
+  print("there a no NA values")
+}
 
+mat <- na.omit(mat)
 ```
 
 # Question 8 (4pts)
@@ -176,17 +245,27 @@ and an `...` argument that will pass arguments to pheatmap(). The function shoul
 Demonstrate that your function works by plotting a heatmap, with a selection of genes (your choice on the genes), and passing an additional argument(s) to pheatmap to customize the output. 
 
 
-```{r q8.1, eval = FALSE}
+```{r q8.1, }
 library(pheatmap)
 plot_heatmap <- function(x, genes_to_plot, ...) {
   
-  ???
-    
+  # check if all genes_to_plot in rownames of x
+  genes_are_present <- all(genes_to_plot %in% rownames(x))
+  
+  if(!genes_are_present){
+    stop("genes aren't in the matrix")
+  }
+  
+  mat_to_plot <- x[genes_to_plot, ]
+  
+  pheatmap(mat_to_plot, ...)
 }
 ```
 
-```{r q8.2, eval = FALSE}
+```{r q8.2, }
 # feel free to customize which genes to plot and arguments to pheatmap
-plot_heatmap(mat, ???, ???)
+library(viridis)
+library(pheatmap)
+plot_heatmap(mat, c("YNL049C", "YNL095C", "YDL104C"), color = magma(100))
 ```
 

@@ -1,0 +1,123 @@
+---
+title: "Problem Set 1"
+author: "Insert your name here"
+output: html_document
+---
+
+
+### Problem Set
+
+Each problem below is worth **2 points**.
+
+For this problem set, you are allowed to help each other. However, please list who you've worked with and do not post answers in slack. 
+
+Please answer the following questions. Once complete, knit the Rmarkdown to .html and submit your .html document to canvas. 
+
+**The problem set is due 5pm on Dec 1th**
+
+### Grading rubric
+
+- Everything is good: 2 points.
+- Runs, but wrong answer: 1.5 points
+- Reasonable attempt: 1 points
+
+### q1: 
+
+Using the `state.area` vector, print the 1st, 10th and 50th value of the vector
+
+```{r}
+```
+
+### q2 
+
+What is the total area of the states in the 1st, 10ths and 50th positions in the `state.area` vector ?
+
+```{r}
+
+```
+
+### q3
+ 
+What is the area of the largest state?
+
+```{r}
+
+```
+
+### q4
+
+What is the median size of the 10 largest states by area?
+
+```{r}
+
+```
+
+
+### q4
+
+What is size of the 3rd smallest state?
+
+```{r}
+
+```
+
+### q5
+
+What is the name of the 3rd smallest state by area?
+
+```{r}
+
+```
+
+### q6
+
+How many states have an area greater than 10,000 and less than 500,000?
+
+```{r}
+
+```
+
+### q7
+
+Read the documentation for the `startsWith` function. Using this function, answer the following:
+
+How many state abbreviations (`state.abb` vector) start with `N`?
+
+```{r}
+
+```
+
+
+### q8
+
+What is the total area of states whose abbreviation starts with `C`?
+
+```{r}
+
+```
+
+### q9
+
+The state.x77 dataset containing various statistics on each state. Answer the following in 
+text or code. Consider reading the documentation for assistance (`?state.x77`).
+
+What data structure (e.g. vector, data.frame, matrix, array, list, etc.) and what data type(s) (e.g. logical, numeric/double, character) are in the `state.x77` object ? (1 point)
+
+Convert the state.x77 to a data.frame and answer the following:
+
+How many states have more than 120 days of frost on average (see the `Frost` column)?
+
+```{r}
+
+```
+
+### q10
+
+What is the average population of Western states? (consider using the state.region vector to assist)
+
+```{r}
+
+```
+
+
+

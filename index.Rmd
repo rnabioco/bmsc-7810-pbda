@@ -43,7 +43,7 @@ A personal computer with a common operating system ( macOS, Linux, or Windows), 
 
 ## Assignments 
 
-Student's grades will be determined by completion of the prerequisite assignment (5%), class participation (10%), and 4 homework assignments (80%), to be completed by the end of the course.
+Student's grades will be determined by completion of the prerequisite assignment (10%), class participation (10%), and 4 homework assignments (80%), to be completed by the end of the course.
 
 # Course assistance
  We will provide a Slack workspace for discussion during and after classes, to collaborate, and to get help. In addition the course instructors will hold virtual office hours to provide assistance outside of the course. Please email the course instructors via (`rbi.fellows@cuanschutz.edu`) to schedule a time.
