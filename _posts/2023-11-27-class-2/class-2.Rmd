@@ -1,0 +1,672 @@
+---
+title: "Class 2: the R ecosystem"
+author:
+  - name: "Kent Riemondy"
+    url: https://github.com/kriemo
+    affiliation: "RNA Bioscience Initiative"
+    affiliation_url: https://medschool.cuanschutz.edu/rbi
+    orcid_id: 0000-0003-0750-1273
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-10-03-intro-to-r-language/intro-to-r-language.Rmd)*
+
+
+## More on vectors
+
+We have spent a large amount of time focused on vectors because these are the fundamental building blocks of more complex data structures. 
+
+### Logical operations
+
+As we have seen we can use relational operators (e.g. `==`, `>`, `<=`) to compare values in a vector. 
+
+Returning to our state data, say we wanted to find states from two different geographic regions, such as the south and west. How might we approach this?
+
+There are a few approaches:
+
+We can combine relational operators with logical operators, such as the `or` operator `|`, similarly we can use the `and` operator `&`. 
+
+```{r}
+state.region == "South" | state.region == "West"
+# states can't be in two regions, so these are all FALSE
+state.region == "South" & state.region == "West"
+```
+
+What if we wanted to ask if the state is in the South, West, or Northeast?
+
+We could add another `or` statement with `|`
+
+```{r}
+state.region == "South" | state.region == "West" | state.region == "Northeast"
+```
+
+A more efficient approach when testing for the presence of multiple values is to use the `%in%` operator. This operator tests if an element in a vector on the left is present in the vector on the right. 
+
+```{r}
+state.region %in% c("South", "West", "Northeast")
+```
+This is a very common operation used to select particular subsets of a vector.
+
+### Negation
+
+What we want to find states not in the west or the south?
+
+Again there are multiple approaches. We could use the `!=` operator to ask if 
+a vector does not equal a value. We then combine this with the `&` operator to find values that do not satisfy either condition.
+
+```{r}
+state.region != "South" & state.region != "West"
+```
+
+Alternatively we can use the `!` operator, which inverts TRUE to FALSE and vice versa. 
+
+```{r}
+!(state.region == "South" | state.region == "West")
+```
+
+Alternatively we can use the `!` operator with `%in%`:
+
+```{r}
+!(state.region %in% c("South", "West"))
+```
+
+### any and all
+
+What if we want to test if all values are TRUE?
+
+```{r}
+is_in_regions <- state.region %in% c("South", "West", "Northeast", "North Central")
+is_in_regions
+all(is_in_regions)
+```
+
+What if we want to test if any values are TRUE?
+
+```{r}
+any(state.region %in% c("Mountain", "Alpine"))
+
+any(state.region  == "West")
+
+# useful to quickly check for problematic data points
+any(is.na(state.region))
+
+```
+
+
+
+
+### Factors
+
+Whebn printing the `state.name` object you may have noticed the `Levels: Northeast South North Central West`. What is this?
+
+`state.name` is a special type of integer vector called a `factor`. These are commonly used to represent categorical data, and allow one to define a custom order for a category. In various statistical models factors are treated differently from numeric data. In our class you will use them mostly when you are plotting. 
+
+Internally they are represented as integers, which levels (names) associated with each integer value.
+
+```{r}
+typeof(state.region)
+class(state.region)
+levels(state.region)
+```
+
+You can convert a vector into a factor using `factor()`. 
+
+```{r}
+animals <- c("cat", "fish", "fish", "bear", "bear")
+animals <- factor(animals)
+animals
+```
+
+Note that the levels are sorted lexicographically by default 
+
+```{r}
+levels(animals)
+```
+
+We can add custom ordering by setting the levels
+
+```{r}
+animals <- factor(animals, levels =  c("cat", "bear", "fish"))
+animals
+```
+
+```{r}
+# sorting will reorder based on the levels
+sort(animals)
+```
+
+
+## Names 
+
+Vectors in R can also have `names`, which provide additional information about elements in an object and provide a convenient method to identify elements by name, rather than by position. 
+
+For example, what if we wanted to determine a state name corresponding to a 
+state abbreviation?
+
+We can set the `names()` of the state.name vector to be the abbreviations.
+
+```{r}
+names(state.name) <- state.abb
+state.name[1:5]
+```
+
+Now the names are displayed above each element of the vector. 
+
+
+With names, now we query the vector by abbreviations, which will then return the state names. 
+
+```{r}
+state.name[c("UT", "CO")]
+```
+
+Names will become more important next when we start to discuss data.frames and matrices, which can have names corresponding to rows and columns.
+
+
+## Additional data structures in R
+
+
+```{r, echo = FALSE, fig.cap = "Ceballos, Maite and Nicolás Cardiel. 2013. Data structure. First Steps in R. https://web.archive.org/web/20200621022950/http://venus.ifca.unican.es/Rintro/dataStruct.html"}
+ 
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2023-11-27-class-1-introduction-to-the-r-statistical-programming-language/img/dataStructures.png")
+```
+
+### matrix
+
+A matrix is a 2 dimensional rectangular data structure, where all values have the same type. It is at is core just a vector, but with a special attribute called `dim` which specifies the number of rows and columns. 
+
+A matrix is used to store a collection of vectors of the same type and same length. 
+
+
+
+```{r}
+m <- matrix(1:25, nrow = 5, ncol = 5)
+typeof(m)
+m
+```
+
+We can subset or assign values to specific rows or columns using bracket notation, with values denoting rows and/or columns to keep. 
+
+`matrix[rows to keep, columns to keep]`.  
+
+```{r}
+# keep first two rows
+m[1:2, ] 
+
+# keep first two columns
+m[, 1:2]
+
+# keep first two rows and first 3 columns
+m[1:2, 1:3]
+
+# replace values
+m[1, 1] <- 1000
+```
+
+
+Matrices can have column names and row names that identify the columns. These names can also be used to subset the matrix by row name or column name.
+
+```{r}
+colnames(m) <- LETTERS[1:5]
+rownames(m) <- letters[1:5]
+m
+```
+
+```{r}
+m[c("a", "b", "c"), c("C", "D")]
+```
+
+Many functions that operate on vectors also operate on matrices:
+
+```{r, eval = FALSE}
+# total values in m
+sum(m)
+mean(m)
+max(m)
+
+# add 100 to every value
+m + 100
+# element-wise addition or division
+m + m
+m / m
+
+# replace specific values
+m[m > 10] <- 123455
+m
+```
+
+Matrices are a very commonly used data structure, used in many statistics and genomic packages. We will use matrices later in the course as part of a discussion of clustering and heatmaps.
+
+### list 
+
+A `list` is similar to a vector however it can contain elements from different classes or types. Each element can have a different length or type and can even be a list to generate a nested list of lists. 
+
+```{r}
+lst <- list(vals = 1:4, 
+            ids = c("bear", "dog"),
+            is_valid = TRUE,
+            aux = m)
+lst
+```
+
+We can subset a list using `[]` and select elements with `[[`.
+```r
+lst[1] # list of length 1
+
+lst[[1]] # first element of list
+
+lst[[1]][1] # first value in first element of list
+```
+
+If the list has names we can also use the `$` operator or `[[` to extract an element by name or subset the list to contain only certain elements based on position.
+
+A single `[` operator when used on a list, returns a list, whereas `[[` operators returns the entry in the list. The `[[` operator only returns 1 element, whereas `[` can return multiple elements.
+
+```{r}
+# extract ids element, these are all equivalent
+lst$ids         # by name
+lst[[2]]        # by position
+lst[["ids"]]    # by name, with double bracket notation
+```
+
+```{r}
+# subset to first two list elements, returns a list of length 2
+# these are equivalent
+lst[1:2]               
+lst[c("vals", "ids")]                   # using names to subset list
+lst[c(TRUE, TRUE, FALSE, FALSE)] # using a logical vector
+```
+
+Similar to vectors, we can also add or replace elements in lists. In this case using the `$` operator adds an entry to the list with a name (e.g. `new_entry`). Using the `[` approach (with two `[[`)
+
+```{r}
+lst$new_entry <- c("hello", "world!")
+lst[[6]] <- c("hello", "again!")
+```
+
+
+Lists are a very useful data structure that is commonly used as a foundation for storing many different data types in a single object.
+
+For example many statistical tests return lists that store various information about the test results.
+
+```{r}
+res <- t.test(x = 1:100, y = 100:200)
+typeof(res)
+names(res)
+res$p.value
+```
+
+### data.frame
+
+A `data.frame` is similar to a matrix, but each column can have a different type. This property makes the data.frame a very useful data structure to store multiple types of related information about an observation. 
+
+A data.frame can be generated using `data.frame()` or by coercing a matrix or other data structure (`as.data.frame()`).
+
+```{r}
+df <- data.frame(vals = 1:4, 
+                 animal = c("cat", "fish", "bear", "dog"),
+                 is_mammal = c(TRUE, FALSE, TRUE, TRUE))
+df
+```
+
+Individual columns can be accessed using the `$` symbol and treated like regular vectors.
+
+```{r}
+df$animal
+sum(df$is_mammal)
+```
+
+
+
+
+ A data.frame is actually a specialized form of a list, whereby each list entry is a vector, and all the vectors have the same length. This is why the syntax is somewhat similar to a list.
+
+```{r, eval = FALSE}
+# convert df to a list, then back to a data.frame
+df_lst <- as.list(df)
+df_lst
+as.data.frame(df_lst)
+```
+
+## More operations on data.frames
+
+Just like with vectors, we can also subset data.frames using logical vectors, positions, and names if they're are column and rownames. 
+
+For the next exercises we will use the `mtcars` dataset built into R. It is data.frame with information about various vehicles from the 1970s. see `?mtcars` for a description.
+
+```{r}
+mtcars
+```
+We can subset or select data in the data.frame using the `[` notation, similar to matrices.
+
+`df[rows to keep, columns to keep]`
+
+```{r}
+# first row, columns 2 and 3
+df[1, 2:3]
+
+# all data from rows 2 and 4
+df[c(2, 4), ]
+
+# all data from columns 1 and 3
+df[, c(1, 3)]
+```
+
+This data.frame has row names, which are names that denote individual rows and column names that indicate columns. We can subset columns and rows using these names.
+
+```{r}
+rownames(mtcars)[1:5]
+colnames(mtcars)[1:5]
+
+mtcars["Duster 360", c("cyl", "hp")]
+```
+
+
+### Exercises:
+
+For cars with miles per gallon (`mpg`) of at least 30, how many cylinders (`cyl`) do they have?
+
+```{r}
+mtcars[mtcars$mpg >= 30, "cyl"]
+
+```
+
+Which car has the highest horsepower (`hp`)?
+
+```{r}
+mtcars[mtcars$hp == max(mtcars$hp), ]
+```
+
+
+The `data.frame` and related variants (e.g. tibble or data.table) are a workhorse data structure that we will return to again and again in the next classes.
+
+## Functions in R
+
+We have already used many functions e.g. `seq`, `typeof`, `matrix`, `as.data.frame`. Functions have rules for how arguments are specified.
+
+```r
+round(x, digits = 0)
+```
+
+`round`: function name  
+`x`: required argument  
+`digits`: optional argument (Defaults to 0)  
+
+```{r}
+nums <- c(1.5, 1.4, -1.6, 0.0099)
+round(nums)
+round(nums, digits = 1)
+```
+
+The positional order of the arguments specifies that `nums` will be assigned to `x`. Alternatively you can explicitly provide the argument `x = nums`.
+
+```{r}
+round(x = nums, digits = 1)
+round(nums, 1)
+round(digits = 1, x = nums)
+```
+
+You can write your own functions as well. Functions reduce copying and pasting code, which reduces errors and simplifies code by reducing objects in the global environment.
+
+We'll learn more about functions later in the course. 
+
+```{r}
+add_stuff <- function(x, y, z = 10) {
+  x + y + z
+}
+add_stuff(2, 2)
+```
+
+## Errors, warnings, and messages
+
+R expression can fail due to invalid syntax or other problems. If an expression fails, it generally will not return the expected value and an "error" will be issued.
+
+Errors stop execution, and will cause your scripts to stop. If we include the below chunk in a R script or Rmarkdown it will fail. 
+
+```{r, eval = FALSE}
+w <- "0" / 1
+w # w does not exist
+```
+
+In contrast, a R command may return a message or warning, both of which will not end the execution, but are providing some information about the command being run. Warnings generally should not be ignored as they often are pointing to issues you need to address.
+
+```{r}
+ww <- c(1, 2, 3) + c(1, 2)
+ww
+```
+
+Messages usually indicate something about the command being run, but are not indicative of an issue. For example, reporting to the user the number of lines processed by a function.
+
+```{r}
+message("we have processed X number of lines")
+```
+
+Often in your analysis code it is useful to throw an error if something strange happens. `stopifnot()` is a useful command to do this. 
+
+```{r, eval = FALSE}
+stopifnot(1 + 1 == 2)
+stopifnot(2 + 2 == 5)
+```
+
+## Workspaces  
+
+Objects that we assign to variables get stored in an environment known as the Global Environment. You can see the objects in the global environment using the `ls()` function, or by clicking on the environment tab in Rstudio.
+
+```{r}
+ls()
+```
+
+Objects can be removed from the environment, which can be helpful if you have a large memory object that is no longer needed.
+
+```{r, eval = FALSE}
+big_matrix <- matrix(1:1e6, nrow = 1e5, ncol = 100)
+# show # of rows and columns
+dim(big_matrix)
+#' [1] 100000    100
+
+# remove matrix from environment
+rm(big_matrix)
+big_matrix
+# 'Error: object 'big_matrix' not found
+```
+
+<br/>
+
+**When you close Rstudio, by default your global R environment is saved to a hidden file called .Rdata in the project directory. When you relaunch rstudio, R objects from your previous environment will be reloaded. This behavior can lead to many problems and we recommend disabling this option **
+
+To disable this option, go to Rstudio preferences and uncheck the "Restore .RData into workspace at startup" option and select the "Never" option for the "Save workspace to .RData on exit". 
+
+We will discuss in later classes how you can save and reload specific R objects and discuss methods to import/export specific data types. 
+
+<br/>
+
+## Using R scripts
+
+R code can also be executed using R scripts, which  have the `.R` extension. R scripts can only contain R code, not plain text or markdown. R scripts are useful if you have code that you want to run but don't need the functionality of an Rmarkdown. You can also put custom R functions into an .R script and then use them in another document. The `source()` function will execute the R code in a Rscript.
+
+```{r, eval = FALSE}
+# can be a path to a .R file or a URL
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-10-03-intro-to-r-language/custom-functions.R")
+
+greeting("class")
+```
+
+
+## Using Rmarkdown to conduct data analysis
+
+* Rmarkdown is a reproducible framework to create, collaborate, and communicate your work. 
+* Rmarkdown supports a number of output formats including pdfs, word documents, slide shows, html, etc. 
+* An Rmarkdown document is a plain text file with the extension `.Rmd` and contains the following basic components: 
+    - An (optional) YAML header surrounded by ---s.
+    - Chunks of R code surrounded by ```.
+    - Text mixed with simple text formatting like # heading and _italics_.  
+    
+* Rmarkdown documents are executable documents. You can execute the code and render the markdown into html using the `render()` function, or alternatively by clicking the knit button in Rstudio.
+
+```{r, eval = FALSE}
+library(rmarkdown)
+render("your-rmarkdown.Rmd")
+```
+
+## Organizing analyses 
+
+A little bit of time spent upfront organizing your projects will make analyses easier to manage and reproduce. 
+
+- Use Rstudio projects. For the course I recommend making a new project for each class.
+
+- Use multiple directories to separate raw data files from the analysis of the data. Organize the analyses with directories names with chronological dates
+
+Here's an example organization strategy.
+
+```
+.
+├── data
+│   ├── 2022-09-flow
+│   ├── 2022-09-rnaseq-1
+│   └── 2022-09-rnaseq-2
+├── docs
+│   └── project-goals.txt
+├── results
+│   ├── 2022-09-01-rnaseq-expt1
+│   │   └── gene-expression-analysis.Rmd
+│   ├── 2022-09-28-rnaseq-expt2
+│   │   └── splicing-analysis.Rmd
+│   └── 2022-10-01-flow-expt1
+│       └── flow-plots.R
+└── src
+    └── rnaseq_pipeline.sh
+```
+
+Some very good ideas and examples are discussed here:
+
+>Noble WS. A quick guide to organizing computational biology projects. PLoS Comput Biol. 2009 Jul;5(7):e1000424. doi: 10.1371/journal.pcbi.1000424.
+
+Provide meaningful names for your files. Consider including ordinal values (e.g. 01, 02, 03) if analyses depend on previous results to indicate ordering of execution.
+
+
+```r
+# bad
+models.R
+analysis.R
+explore.R
+analysis-redo-final-v2.R
+```
+
+```r
+# good
+clean-data.R
+fit-model.R
+plot-data.R
+```
+
+```r
+# better
+01_clean-data.R
+02_fit-model.R
+03_plot-data.R
+```
+
+## Organizing your code
+
+>   "Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread."
+>   
+>   --- Hadley Wickham
+
+Code is used to communicate with your computer, but it also is used to communicate with your future self and your colleagues. 
+
+**Don't just write code for yourself right now, instead write your code with the expectation that your future self will need to reread, understand, and modify it in 6 months.**
+
+1) Use comments to remind yourself what the code does. The `#` character tells R to ignore a line of text.
+
+```r
+# convert x to zscores
+zs <- (x - mean(x)) / sd(x)
+```
+
+2) Use comments to break up long scripts into logical blocks
+
+```r
+# Load data ---------------------------
+dat <- read_csv("awesome-data.csv)
+colnames(dat) <- c("sample", "color", "score", "prediction")
+...
+...
+# modify data -------------------------
+dat <- mutate(dat, result = score + prediction)
+...
+...
+# Plot data ---------------------------
+ggplot(dat, aes(sample, score)) + 
+  geom_point()
+```
+
+3) Use sensible names for variables. Keep them short, but meaningful. Separate words with snake_case (e.g `plot_df`) or camelCase (`plotDf`) approach.  
+
+```r
+# good
+a <- width * height
+p <- 2 * width + 2 * height
+measurement_df <- data.frame(area = a, perimeter = p)
+```
+
+```r
+# bad
+y <- x1 * x2
+yy <- 2*x1 + 2*x2
+tmp <- data.frame(a = y, b = yy)
+```
+
+4) Space is free in code, use it liberally. Add spaces around operators. 
+
+```r
+# Good
+average <- mean(feet / 12 + inches, na.rm = TRUE)
+
+# Bad
+average<-mean(feet/12+inches,na.rm=TRUE)
+```
+
+5) Split up complicated operations or long function calls into multiple lines. In general you can add a newline after a comma or a pipe operation (`%>%`). Indenting the code can also help with readability.
+
+```r
+# good
+data <- complicated_function(x,
+                             minimizer = 1.4, 
+                             sigma = 100,
+                             scale_values = FALSE, 
+                             verbose = TRUE, 
+                             additional_args = list(x = 100,
+                                                    fun = rnorm))
+# bad
+data <- complicated_function(x, minimizer = 1.4, sigma = 100, scale_values = FALSE, verbose = TRUE, additional_args = list(x = 100, fun = rnorm))
+```
+
+```r
+#good
+plot_df <- read_csv("awesome_data.csv") %>% 
+  select(sample, scores, condition) %>%
+  mutate(norm_scores = scores / sum(scores))
+  
+#bad
+plot_df <- read_csv("awesome_data.csv") %>% select(sample, scores, condition) %>% mutate(norm_scores = scores / sum(scores)) 
+```
+
+Rstudio has a shortcuts to help format code  
+
+Code -> Reformat code
+
+Code -> Reindent lines
+
+
+
+## Acknowledgements and additional references {.appendix}
+
+The content of this lecture was inspired by and borrows concepts from the following excellent tutorials:
+
+https://github.com/sjaganna/molb7910-2019 
+https://github.com/matloff/fasteR 
+https://r4ds.had.co.nz/index.html 
+https://bookdown.org/rdpeng/rprogdatascience/
+http://adv-r.had.co.nz/Style.html 

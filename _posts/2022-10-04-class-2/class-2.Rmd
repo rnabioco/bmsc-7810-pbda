@@ -122,6 +122,7 @@ length(mtcars$cyl) # length of values in a vector
 table(mtcars$cyl) # get frequency of each value in column cyl
 table(mtcars$gear, mtcars$cyl) # get frequency of each combination of values
 ```
+
 ## Data import using readr
 
 The [`readr`](https://readr.tidyverse.org/) package provides a series of functions for importing or writing data in common text formats.

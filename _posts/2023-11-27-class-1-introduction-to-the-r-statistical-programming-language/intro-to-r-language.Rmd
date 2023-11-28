@@ -250,10 +250,14 @@ Often you will find data that contains missing, non-number, or infinite values. 
 NA
 ```
 
-```r
-"0" / 1
-#' Error in "0"/1 : non-numeric argument to binary operator
+And these can be detected in a vector using various `is.*` functions.
+
+```{r, eval = FALSE}
+is.na()
+is.nan()
+is.infinite()
 ```
+
 
 ### making vectors from scratch
 
@@ -353,7 +357,7 @@ x == 10
 `x < 10` : are the values of `x` less than 10
 `x <= 10`: are the values of `x` less than or equal 10
 
-These operators fundamentally compare two vectors
+These operators fundamentally compare two vectors.
 
 ```{r}
 # which values of x are equal to the values in y
@@ -371,14 +375,13 @@ With this we can now ask, are the state.area values greater than 100000?
 state.area > 100000
 ```
 
-The returned logical vector can be used to subset a vector of the same length.
+The returned logical vector can be used to subset a vector of the same length. The positions that are TRUE will be retained, whereas the FALSE positions will be dropped.
 
 ```{r}
 # return the area values > 100000
 state.area[state.area > 100000]
 
-# alternatively find the index of the TRUE values using which()
-
+# alternatively find the position of the TRUE values using which()
 which(state.area > 100000)
 ```
 
@@ -416,14 +419,14 @@ sum(x)
 
 ### Replacing or adding values at position
 
-Values in a vector can be also replaced or added by assignment at specific indexes.
+Values in a vector can be also replaced or added by assignment at specific indexes. In this case the bracket `[` notation is left of the assignment operator `<-`. You can read this as assign value on right to positions in the object on the left.
 
 ```{r}
 # What if Colorado was named to Colorodo?
 state.name[6] <- "Colorodo"
 
-# what if we wanted to add a 51st state to our vector?
-state.name[51] <- "Puero Rico"
+# what if there were more states added to the US?
+state.name[c(51, 52)] <- c("Puerto Rico", "Guam")
 ```
 
 This is a very useful syntax to modify a subset of a vector:
@@ -448,9 +451,9 @@ x
 
 # R operations are vectorized
 
-Most operations in R are vectorized, meaning that the operation will occur on all element of a vector. 
+As you've seen, operations in R tend to execute on all element in a vector. This is called vectorization, and is a key benefit of working in R.
 
-For example to take the natural log of an element we use the `log` function.
+For example, say we wanted to take the natural log of some numbers. For this we use the `log` function.
 
 ```{r}
 x <- 1:5
@@ -465,30 +468,14 @@ for (i in x) {
 }
 ```
 
-In R this is generally not necessary. The built in vectorization saves much typing and makes for very compact and efficient code in R. You can write `for` loops in R (more on this later in the course) however using the built in vectorization is generally a faster and easier to read solution.
-
-Arithmetic  (e.g `+` `-`, `*`) and comparisons operators (`>`, `<`, `==`) are also vectorized. 
-
-```{r}
-x <- 1:5
-y <- 2
-
-x * y
-x + y
-
-x < y
-```
-
+In R this is generally not necessary. The built in vectorization saves typing and makes for very compact and efficient code in R. You can write `for` loops in R (more on this later in the course) however using the built in vectorization is generally a faster and easier to read solution.
 
 
 ## Review
 
 To review today's material, do the following:  
 
-1) For each section with code, add you own commands. You will learn faster if you try out the code yourself. If you get errors, try to find help, or ask questions in the class slack channel.
-
-2) Knit the Rmarkdown after you make changes, you may need to install the `distill` package: (`install.packages("distill")`), which is used for formatting the rmarkdown. 
-
+For each section with code, try out your own commands. You will learn faster if you type the code yourself and experiment with different commands. If you get errors, try to find help, or ask questions in the class slack channel.
 
 ## Acknowledgements and additional references {.appendix}
 

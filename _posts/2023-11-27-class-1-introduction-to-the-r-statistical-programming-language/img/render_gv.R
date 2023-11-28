@@ -15,3 +15,9 @@ grViz(gv_fn, width = w, height = h) %>%
   export_svg %>%
   charToRaw %>%
   rsvg_pdf(file.path(wd, "r-ecosystem.pdf"))
+
+grViz(gv_fn, width = w, height = h) %>%
+  export_svg %>%
+  charToRaw %>%
+  rsvg_png(file.path(wd, "r-ecosystem.png"),
+           width = w, height = h)
