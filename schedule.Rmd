@@ -46,9 +46,9 @@ title: "Schedule"
   
 # Problem Sets
 
-- Problem set 1: Due Friday Dec 1 (5p)
-- Problem set 2: Due Tuesday Dec 5 (5p)
-- Problem set 3: Due Friday Dec. 8 (5p)
-- Problem set 4: Due Wednesday Dec. 13 (5p)
+- Problem set 1: Due Friday Dec 1 (midnight)
+- Problem set 2: Due Tuesday Dec 5 (midnight)
+- Problem set 3: Due Friday Dec. 8 (midnight)
+- Problem set 4: Due Wednesday Dec. 13 (midnight)
 
 
