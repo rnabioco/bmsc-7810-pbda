@@ -118,11 +118,11 @@ See `Help > Cheatsheets` for very helpful graphical references.The `base R`, `dp
 
 ## The more you try the more you will learn.
 
-Learning a foreign language requires continual practice speaking and writing the language. To learn you need to try new phrases and expressions. To learn you have to make mistakes. The more you try and experiment the quicker you will learn.
+Learning a foreign language requires continual practice speaking and writing the language. To learn you need to try new phrases and expressions. To learn you have to make mistakes. The more you try and experiment the quicker you will learn.  
 
-Learning a programming language is very similar. We communicate by organizing a series of steps in the right order to instruct the computer to accomplish a task. 
+Learning a programming language is very similar. We communicate by organizing a series of steps in the right order to instruct the computer to accomplish a task.   
 
-Type and execute commands, rather than copy and pasting, you will learn faster. Fiddle around with the code, see what works and what doesn't.
+Type and execute commands, rather than copy and pasting, you will learn faster. Fiddle around with the code, see what works and what doesn't.  
 
 Probably everything we do in the class can be done by a LLM such as ChatGPT. These tools can help you, but you will be more effective at using them if you understand the fundamentals. You will also be more productive in the long term if you understand the basics.
 
@@ -146,6 +146,7 @@ R can be used as a simple calculator:
 5^2           # 5 raised to the second power
 2 + 3 * 5     # R respects the order of math operations.
 ```
+
 ## Example datasets in R
 
  R and R packages include small datasets to demonstrate how to use a package or functionality. `data()` will show you many of the datasets included with a base R installation. We will use the state datasets, which contain data on the 50 US states.
@@ -199,6 +200,9 @@ Now, what is the value of x?
 
 ```{r, eval = FALSE}
 x = ... ?
+...
+
+#[1] 60
 ```
 
 
@@ -332,7 +336,10 @@ state.name[51]
 
 ```{r}
 # hint use the `sort()` function 
+sum(sort(state.area)[1:10])
 
+sum(sort(state.area)[41:50])
+sum(sort(state.area, decreasing = TRUE)[1:10])
 ```
 
 
@@ -403,13 +410,15 @@ Let's answer a related question, how **many** states are larger than 100,000 squ
 
 ```{r}
 # multiple approaches will work
-
+length(which(state.area > 100000))
+sum(state.area > 100000)
 ```
 
 Using the sum() function works because TRUE is stored as 1 and FALSE is stored as 0. 
 
 ```{r}
-
+as.integer(c(TRUE, FALSE, TRUE))
+sum(c(TRUE, FALSE, TRUE))
 ```
 
 

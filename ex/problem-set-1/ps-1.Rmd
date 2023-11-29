@@ -101,9 +101,9 @@ What is the total area of states whose abbreviation starts with `C`?
 The state.x77 dataset containing various statistics on each state. Answer the following in 
 text or code. Consider reading the documentation for assistance (`?state.x77`).
 
-What data structure (e.g. vector, data.frame, matrix, array, list, etc.) and what data type(s) (e.g. logical, numeric/double, character) are in the `state.x77` object ? (1 point)
+What data structure (e.g. vector, matrix, array, list, etc.) and what data type(s) (e.g. logical, numeric/double, character) are in the `state.x77` object ? (1 point)
 
-Convert the state.x77 to a data.frame and answer the following:
+Convert the state.x77 to a data.frame, if needed, and answer the following:
 
 How many states have more than 120 days of frost on average (see the `Frost` column)?
 
@@ -113,7 +113,7 @@ How many states have more than 120 days of frost on average (see the `Frost` col
 
 ### q10
 
-What is the average population of Western states? (consider using the state.region vector to assist)
+What is the average population of the Western states? (consider using the state.region vector to assist)
 
 ```{r}
 

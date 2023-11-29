@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2023-11-28"/>
-  <meta property="article:created" itemprop="dateCreated" content="2023-11-28"/>
+  <meta property="article:published" itemprop="datePublished" content="2023-11-29"/>
+  <meta property="article:created" itemprop="dateCreated" content="2023-11-29"/>
   <meta name="article:author" content="Kent Riemondy"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -110,7 +110,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 1: Introduction to the R statistical programming language"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["11-28-2023"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 1: Introduction to the R statistical programming language"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["11-29-2023"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1518,7 +1518,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Class 1: Introduction to the R statistical programming language","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2023-11-28T00:00:00.000-07:00","citationText":"Riemondy, 2023"}
+{"title":"Class 1: Introduction to the R statistical programming language","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2023-11-29T00:00:00.000-07:00","citationText":"Riemondy, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1538,7 +1538,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-byline">
   Kent Riemondy <a href="https://github.com/kriemo" class="uri">https://github.com/kriemo</a> (RNA Bioscience Initiative)<a href="https://medschool.cuanschutz.edu/rbi" class="uri">https://medschool.cuanschutz.edu/rbi</a>
   
-<br/>11-28-2023
+<br/>11-29-2023
 </div>
 
 <div class="d-article">
@@ -1770,7 +1770,12 @@ Figure 2: Major R package repositories and functions used to install packages.
 </div>
 <p>Now, what is the value of x?</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> ... ?</span></code></pre></div>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>x</span> <span class='op'>=</span> <span class='va'>...</span> <span class='op'>?</span></span>
+<span><span class='va'>...</span></span>
+<span></span>
+<span><span class='co'>#[1] 60</span></span></code></pre>
+</div>
 </div>
 <h2 id="vectors-and-atomic-types-in-r">Vectors and atomic types in R</h2>
 <p>There are fundamental data types in R which represent integer, `characters, numeric, and logical values, as well as a few other specialized types.</p>
@@ -1924,17 +1929,17 @@ e.g.
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># get 5 values from a normal distribution with mean of 0 and sd of 1</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>[1]  0.10347970 -0.32270985  0.88511658 -1.25701091  0.01266694</code></pre>
+<pre><code>[1]  0.46625168 -1.08376829 -0.39536586 -0.08183084  0.33499270</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># get 5 values from uniform distribution from 0 to 1</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>[1] 0.1643224 0.2905542 0.8360480 0.2602267 0.2875998</code></pre>
+<pre><code>[1] 0.5951937 0.3089459 0.8601477 0.1417087 0.3356661</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># sample 5 area values </span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>state.area</span>, <span class='fl'>5</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>[1] 24181 82264 68192 96981 58560</code></pre>
+<pre><code>[1] 121666   9304   2057 589757  24181</code></pre>
 </div>
 <h3 id="subsetting-vectors-in-r">Subsetting vectors in R</h3>
 <p>R uses 1-based indexing to select values from a vector. The first element of a vector is at index 1. The <code>[</code> operator can be used to extract (or assign) elements in a vector. Integer vectors or logical vectors can be used to extract values.</p>
@@ -1973,8 +1978,18 @@ e.g.
 <p><em>What is the total area occupied by the 10 smallest states? What is the total area occupied by the 10 largest states?</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># hint use the `sort()` function </span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># hint use the `sort()` function </span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='va'>state.area</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span><span class='op'>)</span></span></code></pre>
 </div>
+<pre><code>[1] 84494</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='va'>state.area</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>41</span><span class='op'>:</span><span class='fl'>50</span><span class='op'>]</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 1808184</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='va'>state.area</span>, decreasing <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 1808184</code></pre>
 </div>
 <h3 id="using-vectors-and-subsetting-to-perform-more-complex-operations">Using vectors and subsetting to perform more complex operations</h3>
 <p><em>What if we wanted to know which states have an area greater than 100,000 (square miles)?</em></p>
@@ -2041,12 +2056,25 @@ e.g.
 <p>Let’s answer a related question, how <strong>many</strong> states are larger than 100,000 square miles?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># multiple approaches will work</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># multiple approaches will work</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>state.area</span> <span class='op'>&gt;</span> <span class='fl'>100000</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
+<pre><code>[1] 8</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>state.area</span> <span class='op'>&gt;</span> <span class='fl'>100000</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 8</code></pre>
 </div>
 <p>Using the sum() function works because TRUE is stored as 1 and FALSE is stored as 0.</p>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 1 0 1</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 2</code></pre>
 </div>
 <h3 id="replacing-or-adding-values-at-position">Replacing or adding values at position</h3>
 <p>Values in a vector can be also replaced or added by assignment at specific indexes. In this case the bracket <code>[</code> notation is left of the assignment operator <code>&lt;-</code>. You can read this as assign value on right to positions in the object on the left.</p>
@@ -2090,9 +2118,9 @@ e.g.
 <pre><code>[1] 0.0000000 0.6931472 1.0986123 1.3862944 1.6094379</code></pre>
 </div>
 <p>If you are used to programming in other languages (e.g <code>C</code> or <code>python</code>) you might have written a <code>for</code> loop to do the same, something like this.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> x) { </span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(i)</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> x) { </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(i)</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>In R this is generally not necessary. The built in vectorization saves typing and makes for very compact and efficient code in R. You can write <code>for</code> loops in R (more on this later in the course) however using the built in vectorization is generally a faster and easier to read solution.</p>
 <h2 id="review">Review</h2>
 <p>To review today’s material, do the following:</p>
@@ -2104,7 +2132,7 @@ e.g.
 <a href="https://r4ds.had.co.nz/index.html" class="uri">https://r4ds.had.co.nz/index.html</a>
 <a href="https://bookdown.org/rdpeng/rprogdatascience/" class="uri">https://bookdown.org/rdpeng/rprogdatascience/</a>
 <a href="http://adv-r.had.co.nz/Style.html" class="uri">http://adv-r.had.co.nz/Style.html</a></p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
