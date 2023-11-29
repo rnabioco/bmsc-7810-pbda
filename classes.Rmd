@@ -5,4 +5,5 @@ listing:
   posts:
     - 2023-11-06-install-r
     - 2023-11-27-class-1-introduction-to-the-r-statistical-programming-language
+    - 2023-11-27-class-2
 ---

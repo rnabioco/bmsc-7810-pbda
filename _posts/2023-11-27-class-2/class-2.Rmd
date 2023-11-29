@@ -1,5 +1,5 @@
 ---
-title: "Class 2: the R ecosystem"
+title: "Class 2: R fundamentals part 2"
 author:
   - name: "Kent Riemondy"
     url: https://github.com/kriemo
@@ -12,7 +12,51 @@ output:
     toc: true
 ---
 
-*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-10-03-intro-to-r-language/intro-to-r-language.Rmd)*
+*The Rmarkdown for this class is [on github](https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2023-11-27-class-2/class-2.Rmd)*
+
+## Using R scripts
+
+R code can be executed using R scripts, which  have the `.R` extension. R scripts can only contain R code, not plain text or markdown. Scripts are executed line by line starting at the top of the document.
+
+R scripts are useful if you have code that you want to run but don't need the additional functionality of an Rmarkdown. You can also put custom R functions or R expression into an .R script and then use them in another document. The `source()` function will execute the R code in a Rscript.
+
+```{r, eval = FALSE}
+# can be a path to a .R file or a URL
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-11-27-class-2/custom-functions.R")
+
+# defined in script at URL
+greeting("class")
+
+important_list
+```
+
+As an aside, on the command line (e.g. terminal) you can run a R script (or expression):
+
+```{bash, eval = FALSE}
+R -e 'print("Hello World")'
+```
+
+```{bash, eval = FALSE}
+Rscript your_awesome_code.R 
+```
+
+## Using Rmarkdown to conduct data analysis
+
+* Rmarkdown is a reproducible framework to create, collaborate, and communicate your work. 
+
+* Rmarkdown supports a number of output formats including pdfs, word documents, slide shows, html, etc. 
+
+* An Rmarkdown document is a plain text file with the extension `.Rmd` and contains the following basic components: 
+    - An (optional) YAML header surrounded by ---s.
+    - Chunks of R code surrounded by ```.
+    - Text mixed with simple text formatting like # heading and _italics_.  
+    
+* Rmarkdown documents are executable documents. You can execute the code and render the markdown into html using the `render()` function, or alternatively by clicking the knit button in Rstudio.
+
+```{r, eval = FALSE}
+library(rmarkdown)
+render("your-rmarkdown.Rmd")
+```
 
 
 ## More on vectors
@@ -23,14 +67,16 @@ We have spent a large amount of time focused on vectors because these are the fu
 
 As we have seen we can use relational operators (e.g. `==`, `>`, `<=`) to compare values in a vector. 
 
-Returning to our state data, say we wanted to find states from two different geographic regions, such as the south and west. How might we approach this?
+Returning to our state data, say we wanted to identify states that are located in the south **or** in the west. How might we approach this?
 
 There are a few approaches:
 
 We can combine relational operators with logical operators, such as the `or` operator `|`, similarly we can use the `and` operator `&`. 
 
 ```{r}
+# return TRUE if state is in the South or the West
 state.region == "South" | state.region == "West"
+
 # states can't be in two regions, so these are all FALSE
 state.region == "South" & state.region == "West"
 ```
@@ -58,16 +104,23 @@ Again there are multiple approaches. We could use the `!=` operator to ask if
 a vector does not equal a value. We then combine this with the `&` operator to find values that do not satisfy either condition.
 
 ```{r}
+# TRUE if state is not in the south AND the state is not in the WEST
 state.region != "South" & state.region != "West"
 ```
 
 Alternatively we can use the `!` operator, which inverts TRUE to FALSE and vice versa. 
 
+e.g.:
+```{r}
+x <- c(TRUE, FALSE, TRUE)
+!x
+```
+
 ```{r}
 !(state.region == "South" | state.region == "West")
 ```
 
-Alternatively we can use the `!` operator with `%in%`:
+Also we can use the `!` operator with `%in%`:
 
 ```{r}
 !(state.region %in% c("South", "West"))
@@ -100,11 +153,11 @@ any(is.na(state.region))
 
 ### Factors
 
-Whebn printing the `state.name` object you may have noticed the `Levels: Northeast South North Central West`. What is this?
+When printing the `state.name` object you may have noticed the `Levels: Northeast South North Central West`. What is this?
 
 `state.name` is a special type of integer vector called a `factor`. These are commonly used to represent categorical data, and allow one to define a custom order for a category. In various statistical models factors are treated differently from numeric data. In our class you will use them mostly when you are plotting. 
 
-Internally they are represented as integers, which levels (names) associated with each integer value.
+Internally they are represented as integers, with levels that map a value to each integer value.
 
 ```{r}
 typeof(state.region)
@@ -143,7 +196,7 @@ sort(animals)
 
 Vectors in R can also have `names`, which provide additional information about elements in an object and provide a convenient method to identify elements by name, rather than by position. 
 
-For example, what if we wanted to determine a state name corresponding to a 
+A use case: what if we wanted to determine a state name corresponding to a 
 state abbreviation?
 
 We can set the `names()` of the state.name vector to be the abbreviations.
@@ -155,8 +208,7 @@ state.name[1:5]
 
 Now the names are displayed above each element of the vector. 
 
-
-With names, now we query the vector by abbreviations, which will then return the state names. 
+With names, now we query the vector by the abbreviations, which will then return the state names. 
 
 ```{r}
 state.name[c("UT", "CO")]
@@ -241,7 +293,7 @@ Matrices are a very commonly used data structure, used in many statistics and ge
 
 ### list 
 
-A `list` is similar to a vector however it can contain elements from different classes or types. Each element can have a different length or type and can even be a list to generate a nested list of lists. 
+A `list` is similar to a vector, in that it is a container for multiple elements, however it can contain elements from different classes or types. Each element can have a different length or type and can even be a list to generate a nested list of lists. 
 
 ```{r}
 lst <- list(vals = 1:4, 
@@ -311,13 +363,12 @@ df <- data.frame(vals = 1:4,
 df
 ```
 
-Individual columns can be accessed using the `$` symbol and treated like regular vectors.
+Individual columns (vectors) can be accessed using the `$` symbol and treated like regular vectors.
 
 ```{r}
 df$animal
 sum(df$is_mammal)
 ```
-
 
 
 
@@ -328,39 +379,54 @@ sum(df$is_mammal)
 df_lst <- as.list(df)
 df_lst
 as.data.frame(df_lst)
+
+# you can also use the double brackets to extract a column, similar to extracting an element from a list
+df$is_mammal
+df[["is_mammal"]] 
+df[[3]]
 ```
 
-## More operations on data.frames
+## Subsetting and working with data.frames
 
-Just like with vectors, we can also subset data.frames using logical vectors, positions, and names if they're are column and rownames. 
+Just like with vectors and matrices we can also subset data.frames using logical vectors, positions, and names if they have column and row names. 
 
 For the next exercises we will use the `mtcars` dataset built into R. It is data.frame with information about various vehicles from the 1970s. see `?mtcars` for a description.
 
+Here I am using the `head()` function to print only the first 6 rows (there is also a `tail()` function).
+
 ```{r}
-mtcars
+head(mtcars)
 ```
 We can subset or select data in the data.frame using the `[` notation, similar to matrices.
 
 `df[rows to keep, columns to keep]`
 
-```{r}
+```{r, eval = FALSE}
+# mimic the head() function, keep first 6 rows
+mtcars[1:6, ]
+
 # first row, columns 2 and 3
-df[1, 2:3]
+mtcars[1, 2:3]
 
 # all data from rows 2 and 4
-df[c(2, 4), ]
+mtcars[c(2, 4), ]
 
 # all data from columns 1 and 3
-df[, c(1, 3)]
+mtcars[, c(1, 3)]
+
+# extract first 2 columns with logical vector (rep() repeats elements)
+lgl_vec <- c(TRUE, TRUE, rep(FALSE, 9))
+mtcars[, lgl_vec]
+
 ```
 
-This data.frame has row names, which are names that denote individual rows and column names that indicate columns. We can subset columns and rows using these names.
+This data.frame has row names, which are names that denote individual rows and column names that indicate columns. The rownames are in a column on the far left with no column name. We can subset columns and rows using these names.
 
 ```{r}
 rownames(mtcars)[1:5]
 colnames(mtcars)[1:5]
 
-mtcars["Duster 360", c("cyl", "hp")]
+mtcars[c("Duster 360", "Datsun 710"), c("cyl", "hp")]
 ```
 
 
@@ -369,14 +435,12 @@ mtcars["Duster 360", c("cyl", "hp")]
 For cars with miles per gallon (`mpg`) of at least 30, how many cylinders (`cyl`) do they have?
 
 ```{r}
-mtcars[mtcars$mpg >= 30, "cyl"]
 
 ```
 
 Which car has the highest horsepower (`hp`)?
 
 ```{r}
-mtcars[mtcars$hp == max(mtcars$hp), ]
 ```
 
 
@@ -419,6 +483,66 @@ add_stuff <- function(x, y, z = 10) {
 add_stuff(2, 2)
 ```
 
+## Chaining operations with the pipe operator |>
+
+As we've seen it is common to combine multiple functions into a single expression, which can be hard to read.
+
+```{r}
+# calculate total area of 6 smallest states
+sum(head(sort(state.area)))
+```
+
+Instead we can use the pipe operator (`|>`) to pipe data from 1 function to another. The operator takes output from the left hand side and pipes it into the right hand side expression. 
+
+```{r}
+state.area |> sort() |> head() |> sum()
+
+# equivalently
+sort(state.area) |> head() |> sum()
+
+# equivalently
+sum(head(sort(state.area)))
+```
+
+
+Implicitly, the data coming from the pipe is passed as the first argument to the right hand side expression.
+
+`f(x, y) == x |> f(y)`
+
+The pipe allows complex operations to be conducted without having many intermediate variables or many unreadable nested parathenses. 
+
+If we need to pass the data to another argument or refer to the data we can use the `_` placeholder. When used in a function the `_` placeholder must be supplied with the argument name. 
+
+```{r, eval = FALSE}
+state.area |> sort(x = _) |> head(x = _) |> sum(x = _)
+
+# emulate head with selecting the fix 6 obs. 
+state.area |> sort() |> _[1:6] |> sum()
+
+```
+
+We still need to assign the result to a variable in order to store it. 
+
+```{r}
+total_area <- state.area |> sort() |> head() |> sum()
+```
+
+```{r}
+# this also works, but is discouraged...
+state.area |> sort() |> head() |> sum() -> total_area
+```
+
+Lastly, it is common to break up each function call into a separate line for readability
+
+```{r}
+total_area <- state.area |> 
+  sort() |> 
+  head() |> 
+  sum()
+```
+
+*The `magrittr` package first introduced the pipe operator, but it is different `%>%`. The two are similar, however the magrittr pipe uses `.` as a placeholder. You may see the `%>%` pipe in help and documentation.*
+
 ## Errors, warnings, and messages
 
 R expression can fail due to invalid syntax or other problems. If an expression fails, it generally will not return the expected value and an "error" will be issued.
@@ -430,7 +554,7 @@ w <- "0" / 1
 w # w does not exist
 ```
 
-In contrast, a R command may return a message or warning, both of which will not end the execution, but are providing some information about the command being run. Warnings generally should not be ignored as they often are pointing to issues you need to address.
+In contrast, a R command may return a message or warning, both of which will not terminate the execution, but are providing some information about the command being run. Warnings generally should not be ignored as they often are pointing to issues you need to address.
 
 ```{r}
 ww <- c(1, 2, 3) + c(1, 2)
@@ -443,7 +567,7 @@ Messages usually indicate something about the command being run, but are not ind
 message("we have processed X number of lines")
 ```
 
-Often in your analysis code it is useful to throw an error if something strange happens. `stopifnot()` is a useful command to do this. 
+Often in your analysis code it is useful to throw an error if something strange or unexpected happens. `stopifnot()` is a useful command to do this. 
 
 ```{r, eval = FALSE}
 stopifnot(1 + 1 == 2)
@@ -482,33 +606,6 @@ We will discuss in later classes how you can save and reload specific R objects 
 
 <br/>
 
-## Using R scripts
-
-R code can also be executed using R scripts, which  have the `.R` extension. R scripts can only contain R code, not plain text or markdown. R scripts are useful if you have code that you want to run but don't need the functionality of an Rmarkdown. You can also put custom R functions into an .R script and then use them in another document. The `source()` function will execute the R code in a Rscript.
-
-```{r, eval = FALSE}
-# can be a path to a .R file or a URL
-source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-10-03-intro-to-r-language/custom-functions.R")
-
-greeting("class")
-```
-
-
-## Using Rmarkdown to conduct data analysis
-
-* Rmarkdown is a reproducible framework to create, collaborate, and communicate your work. 
-* Rmarkdown supports a number of output formats including pdfs, word documents, slide shows, html, etc. 
-* An Rmarkdown document is a plain text file with the extension `.Rmd` and contains the following basic components: 
-    - An (optional) YAML header surrounded by ---s.
-    - Chunks of R code surrounded by ```.
-    - Text mixed with simple text formatting like # heading and _italics_.  
-    
-* Rmarkdown documents are executable documents. You can execute the code and render the markdown into html using the `render()` function, or alternatively by clicking the knit button in Rstudio.
-
-```{r, eval = FALSE}
-library(rmarkdown)
-render("your-rmarkdown.Rmd")
-```
 
 ## Organizing analyses 
 
@@ -665,8 +762,8 @@ Code -> Reindent lines
 
 The content of this lecture was inspired by and borrows concepts from the following excellent tutorials:
 
-https://github.com/sjaganna/molb7910-2019 
-https://github.com/matloff/fasteR 
-https://r4ds.had.co.nz/index.html 
-https://bookdown.org/rdpeng/rprogdatascience/
-http://adv-r.had.co.nz/Style.html 
+https://github.com/sjaganna/molb7910-2019  
+https://github.com/matloff/fasteR   
+https://r4ds.had.co.nz/index.html   
+https://bookdown.org/rdpeng/rprogdatascience/  
+http://adv-r.had.co.nz/Style.html   
