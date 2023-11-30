@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2023-11-29"/>
-<meta property="article:created" itemprop="dateCreated" content="2023-11-29"/>
+<meta property="article:published" itemprop="datePublished" content="2023-11-30"/>
+<meta property="article:created" itemprop="dateCreated" content="2023-11-30"/>
 <meta name="article:author" content="Kent Riemondy"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -111,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 2: R fundamentals part 2"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["11-29-2023"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 2: R fundamentals part 2"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["11-30-2023"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2125,7 +2125,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Class 2: R fundamentals part 2","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2023-11-29T00:00:00.000+00:00","citationText":"Riemondy, 2023"}
+{"title":"Class 2: R fundamentals part 2","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2023-11-30T00:00:00.000+00:00","citationText":"Riemondy, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2165,7 +2165,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="d-byline">
   Kent Riemondy <a href="https://github.com/kriemo" class="uri">https://github.com/kriemo</a> (RNA Bioscience Initiative)<a href="https://medschool.cuanschutz.edu/rbi" class="uri">https://medschool.cuanschutz.edu/rbi</a>
   
-<br/>11-29-2023
+<br/>11-30-2023
 </div>
 
 <div class="d-article">
@@ -2372,8 +2372,8 @@ e.g.:
 <pre><code>[1] FALSE</code></pre>
 </div>
 <h3 id="factors">Factors</h3>
-<p>When printing the <code>state.name</code> object you may have noticed the <code>Levels: Northeast South North Central West</code>. What is this?</p>
-<p><code>state.name</code> is a special type of integer vector called a <code>factor</code>. These are commonly used to represent categorical data, and allow one to define a custom order for a category. In various statistical models factors are treated differently from numeric data. In our class you will use them mostly when you are plotting.</p>
+<p>When printing the <code>state.region</code> object you may have noticed the <code>Levels: Northeast South North Central West</code>. What is this?</p>
+<p><code>state.region</code> is a special type of integer vector called a <code>factor</code>. These are commonly used to represent categorical data, and allow one to define a custom order for a category. In various statistical models factors are treated differently from numeric data. In our class you will use them mostly when you are plotting.</p>
 <p>Internally they are represented as integers, with levels that map a value to each integer value.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2752,16 +2752,28 @@ Datsun 710   4  93</code></pre>
 <h3 id="exercises">Exercises:</h3>
 <p>For cars with miles per gallon (<code>mpg</code>) of at least 30, how many cylinders (<code>cyl</code>) do they have?</p>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>n_cyl</span> <span class='op'>&lt;-</span> <span class='va'>mtcars</span><span class='op'>[</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>mpg</span> <span class='op'>&gt;</span> <span class='fl'>30</span>, <span class='st'>"cyl"</span><span class='op'>]</span></span>
+<span><span class='va'>n_cyl</span></span></code></pre>
+</div>
+<pre><code>[1] 4 4 4 4</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>n_cyl</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 4</code></pre>
 </div>
 <p>Which car has the highest horsepower (<code>hp</code>)?</p>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>top_hp_car</span> <span class='op'>&lt;-</span> <span class='va'>mtcars</span><span class='op'>[</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>hp</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>hp</span><span class='op'>)</span>, <span class='op'>]</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>top_hp_car</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] &quot;Maserati Bora&quot;</code></pre>
 </div>
 <p>The <code>data.frame</code> and related variants (e.g. tibble or data.table) are a workhorse data structure that we will return to again and again in the next classes.</p>
 <h2 id="functions-in-r">Functions in R</h2>
 <p>We have already used many functions e.g. <code>seq</code>, <code>typeof</code>, <code>matrix</code>, <code>as.data.frame</code>. Functions have rules for how arguments are specified.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(x, <span class="at">digits =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(x, <span class="at">digits =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><code>round</code>: function name<br />
 <code>x</code>: required argument<br />
 <code>digits</code>: optional argument (Defaults to 0)</p>
@@ -2899,8 +2911,9 @@ Datsun 710   4  93</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code> [1] &quot;add_stuff&quot;     &quot;animals&quot;       &quot;df&quot;            &quot;is_in_regions&quot;
- [5] &quot;lst&quot;           &quot;m&quot;             &quot;nums&quot;          &quot;res&quot;          
- [9] &quot;state.name&quot;    &quot;total_area&quot;    &quot;ww&quot;            &quot;x&quot;            </code></pre>
+ [5] &quot;lst&quot;           &quot;m&quot;             &quot;n_cyl&quot;         &quot;nums&quot;         
+ [9] &quot;res&quot;           &quot;state.name&quot;    &quot;top_hp_car&quot;    &quot;total_area&quot;   
+[13] &quot;ww&quot;            &quot;x&quot;            </code></pre>
 </div>
 <p>Objects can be removed from the environment, which can be helpful if you have a large memory object that is no longer needed.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2949,19 +2962,19 @@ Datsun 710   4  93</code></pre>
 <p>Noble WS. A quick guide to organizing computational biology projects. PLoS Comput Biol. 2009 Jul;5(7):e1000424. doi: 10.1371/journal.pcbi.1000424.</p>
 </blockquote>
 <p>Provide meaningful names for your files. Consider including ordinal values (e.g. 01, 02, 03) if analyses depend on previous results to indicate ordering of execution.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bad</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>models.R</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>analysis.R</span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>explore.R</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>analysis<span class="sc">-</span>redo<span class="sc">-</span>final<span class="sc">-</span>v2.R</span></code></pre></div>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># good</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>clean<span class="sc">-</span>data.R</span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">-</span>model.R</span>
-<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>plot<span class="sc">-</span>data.R</span></code></pre></div>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># better</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>01_clean<span class="sc">-</span>data.R</span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>02_fit<span class="sc">-</span>model.R</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>03_plot<span class="sc">-</span>data.R</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bad</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>models.R</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>analysis.R</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>explore.R</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>analysis<span class="sc">-</span>redo<span class="sc">-</span>final<span class="sc">-</span>v2.R</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># good</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>clean<span class="sc">-</span>data.R</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">-</span>model.R</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>plot<span class="sc">-</span>data.R</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># better</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>01_clean<span class="sc">-</span>data.R</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>02_fit<span class="sc">-</span>model.R</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>03_plot<span class="sc">-</span>data.R</span></code></pre></div>
 <h2 id="organizing-your-code">Organizing your code</h2>
 <blockquote>
 <p>“Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread.”</p>
@@ -2972,62 +2985,62 @@ Datsun 710   4  93</code></pre>
 <ol type="1">
 <li>Use comments to remind yourself what the code does. The <code>#</code> character tells R to ignore a line of text.</li>
 </ol>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert x to zscores</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>zs <span class="ot">&lt;-</span> (x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">/</span> <span class="fu">sd</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert x to zscores</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>zs <span class="ot">&lt;-</span> (x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">/</span> <span class="fu">sd</span>(x)</span></code></pre></div>
 <ol start="2" type="1">
 <li>Use comments to break up long scripts into logical blocks</li>
 </ol>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data ---------------------------</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;awesome-data.csv)</span></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="st">colnames(dat) &lt;- c(&quot;</span>sample<span class="st">&quot;, &quot;</span>color<span class="st">&quot;, &quot;</span>score<span class="st">&quot;, &quot;</span>prediction<span class="st">&quot;)</span></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="st">...</span></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="st">...</span></span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a><span class="st"># modify data -------------------------</span></span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="st">dat &lt;- mutate(dat, result = score + prediction)</span></span>
-<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a><span class="st">...</span></span>
-<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a><span class="st">...</span></span>
-<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a><span class="st"># Plot data ---------------------------</span></span>
-<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a><span class="st">ggplot(dat, aes(sample, score)) + </span></span>
-<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a><span class="st">  geom_point()</span></span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data ---------------------------</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;awesome-data.csv)</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="st">colnames(dat) &lt;- c(&quot;</span>sample<span class="st">&quot;, &quot;</span>color<span class="st">&quot;, &quot;</span>score<span class="st">&quot;, &quot;</span>prediction<span class="st">&quot;)</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="st">...</span></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="st">...</span></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="st"># modify data -------------------------</span></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a><span class="st">dat &lt;- mutate(dat, result = score + prediction)</span></span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a><span class="st">...</span></span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a><span class="st">...</span></span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a><span class="st"># Plot data ---------------------------</span></span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a><span class="st">ggplot(dat, aes(sample, score)) + </span></span>
+<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a><span class="st">  geom_point()</span></span></code></pre></div>
 <ol start="3" type="1">
 <li>Use sensible names for variables. Keep them short, but meaningful. Separate words with snake_case (e.g <code>plot_df</code>) or camelCase (<code>plotDf</code>) approach.</li>
 </ol>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># good</span></span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> width <span class="sc">*</span> height</span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> width <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> height</span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>measurement_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">area =</span> a, <span class="at">perimeter =</span> p)</span></code></pre></div>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bad</span></span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x1 <span class="sc">*</span> x2</span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x2</span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> y, <span class="at">b =</span> yy)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># good</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> width <span class="sc">*</span> height</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> width <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> height</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>measurement_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">area =</span> a, <span class="at">perimeter =</span> p)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bad</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x1 <span class="sc">*</span> x2</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x2</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> y, <span class="at">b =</span> yy)</span></code></pre></div>
 <ol start="4" type="1">
 <li>Space is free in code, use it liberally. Add spaces around operators.</li>
 </ol>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>average <span class="ot">&lt;-</span> <span class="fu">mean</span>(feet <span class="sc">/</span> <span class="dv">12</span> <span class="sc">+</span> inches, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>average<span class="ot">&lt;-</span><span class="fu">mean</span>(feet<span class="sc">/</span><span class="dv">12</span><span class="sc">+</span>inches,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>average <span class="ot">&lt;-</span> <span class="fu">mean</span>(feet <span class="sc">/</span> <span class="dv">12</span> <span class="sc">+</span> inches, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>average<span class="ot">&lt;-</span><span class="fu">mean</span>(feet<span class="sc">/</span><span class="dv">12</span><span class="sc">+</span>inches,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <ol start="5" type="1">
 <li>Split up complicated operations or long function calls into multiple lines. In general you can add a newline after a comma or a pipe operation (<code>%&gt;%</code>). Indenting the code can also help with readability.</li>
 </ol>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># good</span></span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">complicated_function</span>(x,</span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">minimizer =</span> <span class="fl">1.4</span>, </span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">sigma =</span> <span class="dv">100</span>,</span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">scale_values =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">verbose =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>                             <span class="at">additional_args =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="dv">100</span>,</span>
-<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">fun =</span> rnorm))</span>
-<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a><span class="co"># bad</span></span>
-<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">complicated_function</span>(x, <span class="at">minimizer =</span> <span class="fl">1.4</span>, <span class="at">sigma =</span> <span class="dv">100</span>, <span class="at">scale_values =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">additional_args =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="dv">100</span>, <span class="at">fun =</span> rnorm))</span></code></pre></div>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">#good</span></span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>plot_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;awesome_data.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample, scores, condition) <span class="sc">%&gt;%</span></span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">norm_scores =</span> scores <span class="sc">/</span> <span class="fu">sum</span>(scores))</span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="co">#bad</span></span>
-<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>plot_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;awesome_data.csv&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(sample, scores, condition) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">norm_scores =</span> scores <span class="sc">/</span> <span class="fu">sum</span>(scores)) </span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># good</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">complicated_function</span>(x,</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">minimizer =</span> <span class="fl">1.4</span>, </span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">sigma =</span> <span class="dv">100</span>,</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">scale_values =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">verbose =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>                             <span class="at">additional_args =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="dv">100</span>,</span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">fun =</span> rnorm))</span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a><span class="co"># bad</span></span>
+<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">complicated_function</span>(x, <span class="at">minimizer =</span> <span class="fl">1.4</span>, <span class="at">sigma =</span> <span class="dv">100</span>, <span class="at">scale_values =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">additional_args =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="dv">100</span>, <span class="at">fun =</span> rnorm))</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co">#good</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>plot_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;awesome_data.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample, scores, condition) <span class="sc">%&gt;%</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">norm_scores =</span> scores <span class="sc">/</span> <span class="fu">sum</span>(scores))</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="co">#bad</span></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>plot_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;awesome_data.csv&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(sample, scores, condition) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">norm_scores =</span> scores <span class="sc">/</span> <span class="fu">sum</span>(scores)) </span></code></pre></div>
 <p>Rstudio has a shortcuts to help format code</p>
 <p>Code -&gt; Reformat code</p>
 <p>Code -&gt; Reindent lines</p>
@@ -3038,7 +3051,7 @@ Datsun 710   4  93</code></pre>
 <a href="https://r4ds.had.co.nz/index.html" class="uri">https://r4ds.had.co.nz/index.html</a><br />
 <a href="https://bookdown.org/rdpeng/rprogdatascience/" class="uri">https://bookdown.org/rdpeng/rprogdatascience/</a><br />
 <a href="http://adv-r.had.co.nz/Style.html" class="uri">http://adv-r.had.co.nz/Style.html</a></p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
