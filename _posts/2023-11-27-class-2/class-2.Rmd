@@ -153,9 +153,9 @@ any(is.na(state.region))
 
 ### Factors
 
-When printing the `state.name` object you may have noticed the `Levels: Northeast South North Central West`. What is this?
+When printing the `state.region` object you may have noticed the `Levels: Northeast South North Central West`. What is this?
 
-`state.name` is a special type of integer vector called a `factor`. These are commonly used to represent categorical data, and allow one to define a custom order for a category. In various statistical models factors are treated differently from numeric data. In our class you will use them mostly when you are plotting. 
+`state.region` is a special type of integer vector called a `factor`. These are commonly used to represent categorical data, and allow one to define a custom order for a category. In various statistical models factors are treated differently from numeric data. In our class you will use them mostly when you are plotting. 
 
 Internally they are represented as integers, with levels that map a value to each integer value.
 
@@ -435,12 +435,16 @@ mtcars[c("Duster 360", "Datsun 710"), c("cyl", "hp")]
 For cars with miles per gallon (`mpg`) of at least 30, how many cylinders (`cyl`) do they have?
 
 ```{r}
-
+n_cyl <- mtcars[mtcars$mpg > 30, "cyl"]
+n_cyl
+unique(n_cyl)
 ```
 
 Which car has the highest horsepower (`hp`)?
 
 ```{r}
+top_hp_car <- mtcars[mtcars$hp == max(mtcars$hp), ]
+rownames(top_hp_car)
 ```
 
 

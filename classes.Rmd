@@ -6,4 +6,5 @@ listing:
     - 2023-11-06-install-r
     - 2023-11-27-class-1-introduction-to-the-r-statistical-programming-language
     - 2023-11-27-class-2
+    - 2023-11-30-class-3-data-wrangling-with-the-tidyverse
 ---
