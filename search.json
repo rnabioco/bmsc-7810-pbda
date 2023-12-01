@@ -5,21 +5,21 @@
       "title": "Practical Biological Data Analysis",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2023-12-01T06:03:38+00:00"
+      "last_modified": "2023-12-01T06:32:28+00:00"
     },
     {
       "path": "index.html",
       "title": "Practical Biological Data Analysis",
       "author": [],
       "contents": "\nPractical Biological Data Analysis with R and RStudio\nParticipation in this course requires completion of an assignment prior to the course start date (see the Prerequisites section).\nOverview\nIn this short course you will learn to analyze and visualize complex data sets using the R statistical programming language and the RStudio IDE. We will focus on key analysis skills and foundational programming concepts necessary for the efficient and reproducible analysis of biological data sets.\nOrganization and Contacts\nKent Riemondy (Director, Instructor): kent.riemondy@cuanschutz.edu\nMichael Kaufman (Instructor): michael.kaufman@cuanschutz.edu\nRyan Sheridan (Instructor): ryan.sheridan@cuanschutz.edu\nKristen Wells-Wrasman (Instructor): kristen.wells-wrasman@cuanschutz.edu\nThe course (2 credit hours) consists of 13 two hour classes held Mon through Fri from Nov 29 through Dec 15 from 8:00 -10:00 am. The course will be held in Research 1 North (P18) in the P18-CTL-1309 Computer lab. All classes will be recorded and made available through Canvas.\nVirtual office hours will also be provided outside of course hours.\nGoals\nBuild competence in R so that students use R for data analysis rather than using interactive applications such as Excel or Prism.\nDevelop reproducible and efficient data analysis habits.\nIntroduce data visualization techniques for complex datasets.\nPrerequisites\nA personal computer with a common operating system ( macOS, Linux, or Windows), and internet access is necessary to participate in this class. Tablets or iPads will not be supported. Please reach out to us ASAP if you do not have access to a computer, or if you have concerns about the suitability of your device. There will be a required prerequisite assignment to be completed prior to the start of the course. The assignment will involve installing necessary software, and completion of material providing basic familiarity with R and interacting with the Rstudio IDE. Office hours will be provided prior to the course to assist with any issues that arise with completing the prerequisite assignment.\nAssignments\nStudent’s grades will be determined by completion of the prerequisite assignment (10%), class participation (10%), and 4 homework assignments (80%), to be completed by the end of the course.\nCourse assistance\nWe will provide a Slack workspace for discussion during and after classes, to collaborate, and to get help. In addition the course instructors will hold virtual office hours to provide assistance outside of the course. Please email the course instructors via (rbi.fellows@cuanschutz.edu) to schedule a time.\n\n\n\n",
-      "last_modified": "2023-12-01T06:03:38+00:00"
+      "last_modified": "2023-12-01T06:32:29+00:00"
     },
     {
       "path": "schedule.html",
       "title": "Schedule",
       "author": [],
       "contents": "\nClass Schedule\nClass 1: Wednesday, Nov. 29\nIntroduction to the R statistical programming language\n\nClass 2: Thursday, Nov. 30\nR fundamentals\n\nClass 3: Friday, Dec. 1\nData wrangling with the tidyverse\n\nClass 4: Monday, Dec. 4\nReshaping data into a tidy format\n\nClass 5: Tuesday, Dec. 5\nIntroduction to ggplot2 (pt.1)\n\nClass 6: Wednesday, Dec. 6\nIntroduction to ggplot2 (pt.2)\n\nClass 7: Thursday, Dec. 7\nData analysis vignette\n\nClass 8: Friday, Dec. 8\nIntroduction to matrix operations\n\nClass 9: Monday, Dec. 11\nIntroduction to clustering techniques\n\nClass 10: Tuesday, Dec. 12\nIntroduction to visualizing data with heatmaps\n\nClass 11: Wednesday, Dec. 13\nProgramming fundamentals in R (pt. 1)\n\nClass 12: Thursday, Dec. 14\nProgramming fundamentals in R (pt. 2)\n\nClass 13: Friday, Dec. 15\nCourse wrap up\n\nProblem Sets\nProblem set 1: Due Friday Dec 1 (midnight)\nProblem set 2: Due Tuesday Dec 5 (midnight)\nProblem set 3: Due Friday Dec. 8 (midnight)\nProblem set 4: Due Wednesday Dec. 13 (midnight)\n\n\n\n",
-      "last_modified": "2023-12-01T06:03:39+00:00"
+      "last_modified": "2023-12-01T06:32:29+00:00"
     }
   ],
   "collections": ["posts/posts.json"]
