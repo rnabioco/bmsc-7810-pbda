@@ -20,10 +20,10 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ```{r, echo = FALSE}
 # conditionally download all of the files used in rmarkdown from github 
-source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/download_files.R")
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-01-class-4-reshaping-data-into-a-tidy-format/download_files.R")
 ```
 
-*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/class3.Rmd)*
+*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2023-12-01-class-4-reshaping-data-into-a-tidy-format/class4.Rmd)*
 
 
 ## Goals for today
@@ -40,7 +40,9 @@ source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/20
 
 ## Wide versus long data formats
 
-Data can be represented in multiple formats. Today we will discuss two common tabular formats for organizing data for analysis in R. Consider the following dataset, which contains GDP estimates per person for countries throughout history. This representation of the data is commonly referred to as 'wide' data format, which is a matrix-like format containing samples or features as rows or columns, with values associated with each sample and feature. 
+Data can be represented in multiple formats. Today we will discuss two common tabular formats for organizing data for analysis.
+
+Consider the following dataset, which contains GDP estimates per person for countries throughout history. This representation of the data is commonly referred to as 'wide' data format, which is a matrix-like format containing samples or features as rows or columns, with values associated with each sample and feature. 
 
 ```{r, echo = FALSE}
 library(readr)
@@ -52,25 +54,28 @@ The wide matrix-like format is very useful and a common format used for statisti
 
 Representing data in a matrix has a few practical implications:  
 
-1) There is only 1 type of data stored in matrix (e.g. each cell is the same unit of observation, the GDP per person). To store more values you need multiple matrices.  
+1) There is only 1 type of data stored in a matrix-like representation (e.g. each cell is the same unit of observation, the GDP per person). To store additional related data types (e.g. the country population) you need to place each new value in an independent matrix.  
 
-2) The format is not easily manipulated with dplyr/tidyverse.
+2) The matrix-like format does not easily lend itself to more complicated summaries. For example, what if we wanted to average the GDP values for each decade or century? We would write rather complicated code to parse out subsets of columns for each time period, average them, then merge them into a summary table. 
 
-Data in a matrix can be instead formatted in a long (aka "tidy") format.
+Data in a matrix can be instead formatted into a long (also sometimes called "tidy") format. 
 
 ```{r, echo = FALSE}
-tidyr::pivot_longer(gdp_data, cols = -country, names_to = "year", values_to = "gdp")
+tidyr::pivot_longer(gdp_data, 
+                    cols = -country, 
+                    names_to = "year", 
+                    values_to = "gdp")
 ```
 
-The long format of this data simplifies the many columns of a matrix into a 3 column data.frame containing 3 variables (`country`, `year`, and `gdp`).
+The long format of this data convert the many columns of a matrix into a 3 column data.frame containing 3 variables (`country`, `year`, and `gdp`). 
 
 ## Tidy data format
 
 >“Tidy datasets are all alike, but every messy dataset is messy in its own way.” –– Hadley Wickham
 
-Tidy data is a concept introduced by Hadley Wickham, chief scientist at Rstudio, and developer of many of the tidyverse packages. A tidy dataset is structured in a manner to be most effectively processed in R using the tidyverse. It makes the data easier to plot, easier to perform computations and perform complex tasks.  
+A tidy dataset is structured in a manner to be most effectively processed in R using the tidyverse. It makes the data easier to plot, easier to perform computations and perform complex tasks.  
 
-Most data tables that you've worked with are probably not tidy. It takes experience to understand the best way to format the data. As you work more in R and the tidyverse this will become more natural. 
+Most data tables that you've worked with are probably not tidy. It takes experience to understand the best way to format the data for data processing. As you work more in R and the tidyverse this will become more natural. 
 
 Tidy data has the following attributes:
 
@@ -86,14 +91,14 @@ What is a variable, what is an observation, and what is a value?
 
 3) A variable contains all values that measure the same attribute (e.g. height, temperature, duration, magnitude) across units.  
 
-4) An observation contains all values measured on the same unit (e.g. the same individual,  day, country, gene).  
+4) An observation contains all values measured on the same unit (e.g. the same individual, the same day, the same country, the samegene).  
 
 
 ```{r, echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/tidydata.png")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-01-class-4-reshaping-data-into-a-tidy-format/img/tidydata.png")
 ```
 
-Shown below is a simple data table in a tidy format, provided by the tidyr package. 
+Shown below is a simple data table in a tidy format, provided by the `tidyr` package. This data table shows the # of TB cases documented by the WHO in a few countries in the years 1999 and 2000.
 
 ```{r}
 library(tidyr)
@@ -102,12 +107,12 @@ table1
 
 The same data, represented in wide, matrix-like format, would require 2 tables:
 
-e.g a matrix with the `cases` values per country.
+e.g a table with the `cases` values per country.
 
 ```{r}
 table4a
 ```
-e.g a matrix with the `population` values per country   
+e.g a table with the `population` values per country   
 
 ```{r}
 table4b
@@ -124,8 +129,10 @@ What advantages does the tidy format provide?
 
 Some disadvantages: 
 
-1) Not space efficient   
+1) Not space efficient  
+
 2) Not intuitive   
+
 3) Doesn't interface well with traditional machine learning and statistical approaches.  
 
 
@@ -133,10 +140,9 @@ Some disadvantages:
 
 The [`tidyr`](https://tidyr.tidyverse.org/) package provides functionality to convert datasets into tidy formats. 
 
-- pivot_longer(): convert wide data to long data  
-- pivot_wider(): convert long data to wide data  
-- separate(): split a single column into multiple columns  
-- unite(): combine multiple columns into single columns  
+- `pivot_longer()`: convert wide data to long data  
+- `pivot_wider()`: convert long data to wide data  
+- `separate()`: split a single column into multiple columns  
 
 ## Reshaping wide data to long
 
@@ -145,7 +151,7 @@ The `pivot_longer` function requires specifying the columns to pivot using the [
 `pivot_longer(tbl, cols = <...>)`
 
 ```{r, echo = FALSE, fig.cap= "Tables from tidyr cheatsheet from https://posit.co/wp-content/uploads/2022/10/tidyr.pdf" }
-knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/pivot_longer.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2023-12-01-class-4-reshaping-data-into-a-tidy-format/img/pivot_longer.png")
 ```
 
 
@@ -161,7 +167,7 @@ pivot_longer(table4a, cols = -country) # pivot all columns not matching country
 `values_from`: the column whose values will be in the new columns.  
 
 ```{r, echo = FALSE }
-knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/pivot_wider.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2023-12-01-class-4-reshaping-data-into-a-tidy-format/img/pivot_wider.png")
 ```
 
 ```{r}
@@ -180,86 +186,42 @@ pivot_wider(table2, names_from = type, values_from = count)
 `sep`: the separator used to split values in the `col` column. Can be a character (`_`) or a integer to indicate the character position to split (2).  
 
 ```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/separate.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2023-12-01-class-4-reshaping-data-into-a-tidy-format/img/separate.png")
 ```
 
 ```{r}
 separate(table3, col = rate, into = c("cases", "pop"), sep = "/")
 ```
 
-## unite 
-
-`unite` is the inverse operation of `separate` and will join multiple columns together. You can also use `str_c` from stringr or `paste()` from base R with mutate.
-
-```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/unite.png")
-```
-
-```{r}
-unite(table5, "year", century:year, sep = "")
-#mutate(table5, year = str_c(century, year))
-```
-
 ## Exercises
 
-Use the [gapminder GDP dataset](https://www.gapminder.org/data/documentation/gd001/) to perform the following tasks and answer the following quesitons:
+Use the [gapminder GDP dataset](https://www.gapminder.org/data/documentation/gd001/) to perform the following tasks and answer the following questions:
 
 1) Convert the GDP dataset into tidy format. 
 
-```{r}
+```{r, eval = FALSE}
 library(tidyverse)
 gdp_data <- read_csv("data/income_per_person.csv")
-pivot_longer(gdp_data, cols = `1799`:`2049`)
-gdp_tidy <- pivot_longer(gdp_data, 
-                         cols = -country, 
-                         names_to = "year", 
-                         values_to = "gdp")
-gdp_tidy
+...
 ```
 
 2) Which country had the highest GDP per person in 1985?  
 
 ```{r}
-# using the wide data
-slice_max(gdp_data, `1985`)
 
-# using the long tidy data
-gdp_tidy %>% 
-  filter(year == "1985") %>% 
-  arrange(desc(gdp)) %>% 
-  slice(1)
 ```
 
 3) What was the mean worldwide GDP in the year 1999?  
 
 ```{r}
-# using the tidy data
-gdp_tidy %>% 
-  filter(year == "1999") %>% 
-  summarize(mean_gdp = mean(gdp))
 
-gdp_tidy %>% 
-  filter(year == "1999") %>% 
-  pull(gdp) %>% 
-  mean()
-
-# using the wide data
-gdp_data$`1999` %>% 
-  mean()
-
-mean(gdp_data$`1999`)
 ```
 
 4) Which country had the highest average GDP in the 19th century?
 
 ```{r}
-gdp_tidy %>% 
-  filter(str_detect(year, "^18")) %>% 
-  group_by(country) %>% 
-  summarize(avg_gdp = mean(gdp)) %>% 
-  arrange(desc(avg_gdp))
-```
 
+```
 
 
 ## Binds/Joins
@@ -268,42 +230,42 @@ gdp_tidy %>%
 
 
 ```{r, echo = FALSE, fig.cap = "from the dplyr cheatsheet at https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf"}
-knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/bind_cols.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2023-12-01-class-4-reshaping-data-into-a-tidy-format/img/bind_cols.png")
 ```
 
 `bind_cols(tbl_1, tbl_2, ...)`
 
-`bind_cols` will bind the columns from 2 or more tables into 1 table. Note that with column binds you need to ensure that each table has the same number of rows.
+`bind_cols` will bind the columns from 2 or more tables into 1 table. Note that with column binds you need to ensure that each table has the same number of rows, and that the rows correspond to the same observations.
 
 ```{r}
 library(dplyr)
-tbl1 <- tibble(x = 1:3)
-tbl2 <- tibble(y = 3:5)
+tbl1 <- data.frame(x = 1:3)
+tbl2 <- data.frame(y = 3:5)
 bind_cols(tbl1, tbl2)
 ```
 
 ### row binds
 
-`bind_rows` binds rows from multiple tables into one table. Unlike with `bind_cols` the number of columns doesn't need to match when using `bind_rows`. 
+`bind_rows` binds rows from multiple tables into one table. Similarly to `bind_cols` you will want the columns to match between the tables, so that the observations are consistent with the variables. 
 
 `bind_rows(tbl_1, tbl_2, ..., .id = NULL)`
 
 ```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-11-15-class-3-reshaping-data-into-a-tidy-format/img/bind_rows.png")
+knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2023-12-01-class-4-reshaping-data-into-a-tidy-format/img/bind_rows.png")
 ```
 
 ```{r}
-one <- starwars[1:4, 1:4]
-two <- starwars[9:12, 1:4]
+df_1 <- data.frame(x = 1:5, y = LETTERS[1:5])
+df_2 <- data.frame(x = 11:15, y = LETTERS[6:10])
 
-bind_rows(one, two)
+bind_rows(df_1, df_2)
 ```
 
 You can also use a list of `data.frames` with `bind_rows`. If the list is named, you can use the `.id` argument to store a column specifying the name of the data.frame in the output. 
 
 ```{r}
-lst_of_dfs <- list(a = one,
-                   b = two)
+lst_of_dfs <- list(one = df_1,
+                   two = df_2)
 bind_rows(lst_of_dfs)
 
 bind_rows(lst_of_dfs, .id = "source_table")
@@ -311,52 +273,72 @@ bind_rows(lst_of_dfs, .id = "source_table")
 
 ## Joins
 
-Join operations are used to join one table with another table by matching the values shared in particular columns. They are used join datasets with a shared variable. 
+Join operations are used to join one table with another table by matching the values shared in particular columns. Join operations enable linking of multiple datasets that contain shared values. 
 
 There are multiple way to join two tables, depending on how you want to handle different combinations of values present in two tables.
 
-From the dplyr documentation:
+Assume we have two data.frames called x and y
 
-```
-The mutating joins add columns from y to x, matching rows based on the keys:
+The following joins add columns from y to x, matching rows based on the matching values in shared columns.
 
-inner_join(): includes all rows in x and y.
+`inner_join(x, y)`: includes all rows in x and y.
 
-left_join(): includes all rows in x.
+`left_join(x, y)`: includes all rows in x.
 
-right_join(): includes all rows in y.
+`right_join(x, y)`: includes all rows in y.
 
-full_join(): includes all rows in x or y.
+`full_join(x, y)`: includes all rows in x or y.
 
 If a row in x matches multiple rows in y, all the rows in y will 
 be returned once for each matching row in x.
-```
 
 Consider the following simple tables:
 
 ```{r}
-band_members
+animal_class <- data.frame(
+  name    = c("cat", "pike", "bear", "dog"),
+  genus   = c("Felis", "Esox", "Ursus", "Canis"),
+  class   = c("Mammalia", "Actinopterygii", "Mammalia", "Mammalia")
+)
+
+animal_class
 ```
 
 ```{r}
-band_instruments
+animal_species <- data.frame(
+  name    = c("bluejay", "cat", "pike", "bear"),
+  species = c("cristata", "catus", "lucius", "arctos")
+)
+animal_species
 ```
 
-Exercise:
-
-- Perform an inner, left, and full join of the `band_members` and `band_instruments`:
+```{r}
+# join on name column, keeping values from name columns present in both data.frames
+inner_join(animal_class, animal_species)
+```
 
 ```{r}
-inner_join(band_members, band_instruments)
-left_join(band_members, band_instruments)
-full_join(band_members, band_instruments)
+# join on name column, keeping values all values from animal_class data.frame
+left_join(animal_class, animal_species)
+```
+
+```{r}
+# join on name column, keeping values all values from animal_class and animal_species data.frame
+full_join(animal_class, animal_species)
 ```
 
 The `Joining, by = "name"` message indicates which columns were used to determine matching rows between the two tables. This is auto-detected based on shared column names. You can use the `by` argument to explicitly specify the columns you'd like to join, which is useful if the columns of interest have different names in the two tables. 
 
+```{r}
+# same as above, but being explicitly about the column to use for joining.
+
+# note that for joins you DO need to use quotes for the columns
+inner_join(animal_class, animal_species, by = "name")
+```
+
 ## Missing data
 
-Join operations will often generate missing data (e.g. NAs). 
+Join operations will often generate missing data (e.g. `NA` values). 
 
 ### Zeroes, `NA`, `NaN` and `NULL`
 
@@ -421,7 +403,7 @@ group_by(starwars, species) %>%
 
 ### Replacing `NA` values
 
-Let's replace the NA vaues in `hair_color` with a string `missing data`.
+Let's replace the NA values in `hair_color` with a string `missing data`.
 
 ```{r}
 starwars %>% 
