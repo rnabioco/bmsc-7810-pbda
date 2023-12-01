@@ -48,27 +48,29 @@ library(tibble)
 
 A `tibble` is a re-imagining of the base R `data.frame`. It has a few differences from the `data.frame`.The biggest differences are that it doesn't have `row.names` and it has an enhanced `print` method. If interested in learning more, see the tibble [vignette](https://tibble.tidyverse.org/articles/tibble.html).
 
-Compare `data` to `data_tbl`.
+Compare `data_df` to `data_tbl`.
 
-**Note, by default Rstudio displays base R data.frames in a tibble-like format**
+
 
 ```{r, eval = FALSE}
-data <- data.frame(a = 1:3, 
-                   b = letters[1:3], 
-                   c = Sys.Date() - 1:3, 
-                   row.names = c("a", "b", "c"))
-data_tbl <- as_tibble(data)
+data_df <- data.frame(a = 1:3, 
+                      b = letters[1:3], 
+                      c = c(TRUE, FALSE, TRUE), 
+                      row.names = c("ob_1", "ob_2", "ob_3"))
+data_df
+
+data_tbl <- as_tibble(data_df)
 data_tbl
 ```
 
-When you work with tidyverse functions it is a good practice to convert data.frames to tibbles.
+When you work with tidyverse functions it is a good practice to convert data.frames to tibbles. In practice many functions will work interchangeably with either base data.frames or tibble, provided that they don't use row names.
 
-## Convertly a typical data.frame to a tibble
+## Converting a base R data.frame to a tibble
 
-If a data.frame has rownames, you can preserve these by moving them into a column before converting to a tibble using the `rownames_to_column()` from `tibble`.  
+If a data.frame has row names, you can preserve these by moving them into a column before converting to a tibble using the `rownames_to_column()` from `tibble`.  
 
 ```{r}
-head(mtcars )
+head(mtcars)
 ```
 
 ```{r}
@@ -84,28 +86,31 @@ mtcars_tbl <- as_tibble(mtcars)
 ```
 
 
-## Data import using readr
+## Data import 
+
+So far we have only worked with built in or hand generated datasets, now we will discuss how to read data files into R.  
 
 The [`readr`](https://readr.tidyverse.org/) package provides a series of functions for importing or writing data in common text formats.
 
-`read_csv()`: comma-separated values (CSV) files  
-`read_tsv()`: tab-separated values (TSV) files  
+`read_csv()`:   comma-separated values (CSV) files  
+`read_tsv()`:   tab-separated values (TSV) files  
 `read_delim()`: delimited files (CSV and TSV are important special cases)  
-`read_fwf()`: fixed-width files  
+`read_fwf()`:   fixed-width files  
 `read_table()`: whitespace-separated files  
 
-These functions are faster and have better defaults than the base R equivalents (e.g. `read.table`). These functions also directly output tibbles compatible with the tidyverse. 
+These functions are quicker and have better defaults than the base R equivalents (e.g. `read.table` or `read.csv`). These functions also directly output tibbles rather than base R data.drames
 
 The [readr checksheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf) provides a concise overview of the functionality in the package. 
 
-To illustrate how to use readr we will load a `.csv` file containing information about flights from 2014. 
+To illustrate how to use readr we will load a `.csv` file containing information about airline flights from 2014. 
 
-First we will download the data. You can download this data manually from [github](https://github.com/arunsrinivasan/flights). Instead we will use R to download the dataset using the `download.file()` base R function.
+First we will download the data files. You can download this data manually from [github](https://github.com/arunsrinivasan/flights). However we will use R to download the dataset using the `download.file()` base R function.
 
 ```{r}
+# test if file exists, if it doesn't then download the file.
 if(!file.exists("flights14.csv")) {
-  url <- "https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv" 
-  download.file(url, "flights14.csv")
+  file_url <- "https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv" 
+  download.file(file_url, "flights14.csv")
 }  
 ```
 
@@ -117,6 +122,7 @@ flights
 ```
 
 There are a few commonly used arguments:
+
 `col_names`: if the data doesn't have column names, you can provide them (or skip them).   
 
 `col_types`: set this if the data type of a column is incorrectly inferred by readr  
@@ -134,7 +140,7 @@ The readr functions will also automatically uncompress gzipped or zipped dataset
 read_csv("https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv")
 ```
 
-There are equivalent functions for writing data from R to files:
+There are equivalent functions for writing data.frames from R to files:
 `write_csv`, `write_tsv`, `write_delim`.
 
 ## Data import/export for excel files
@@ -145,9 +151,9 @@ The `openxlsx` package, which is not part of tidyverse but is on [CRAN](https://
 
 ## Data import/export of R objects
 
-Often it is useful to store R objects as files on disk. These could be large processed datasets, intermediate results, or complex data structures that are not easily stored in rectangular text formats. 
+Often it is useful to store R objects as files on disk so that the R objects can be reloaded into R. These could be large processed datasets, intermediate results, or complex data structures that are not easily stored in rectangular text formats such as csv files. 
 
-R provides the `readRDS()` and `saveRDS()` functions for storing data in binary formats. 
+R provides the `saveRDS()` and `readRDS()` functions for storing and retrieving data in binary formats. 
 
 ```{r}
 saveRDS(flights, "flights.rds") # save single object into a file
@@ -174,54 +180,58 @@ load("robjs.rda")
 `View()` can be used to open an excel like view of a data.frame. This is a good way to quickly look at the data. `glimpse()` or `str()` give an additional view of the data. 
 
 ```r
-View(mtcars)
-str(mtcars)
-glimpse(mtcars)
+View(flights)
+str(flights)
+glimpse(flights)
 ```
 
 Additional R functions to help with exploring data.frames (and tibbles):
 
 ```{r, eval = FALSE}
-dim(mtcars) # of rows and columns
-nrow(mtcars)
-ncol(mtcars)
+dim(flights) # of rows and columns
+nrow(flights)
+ncol(flights)
 
-head(mtcars) # first 6 lines
-tail(mtcars) # last 6 lines
+head(flights) # first 6 lines
+tail(flights) # last 6 lines
 
-colnames(mtcars) # column names
-rownames(mtcars) # row names (not present in tibble)
+colnames(flights) # column names
+rownames(flights) # row names (not present in tibble)
 ```
 
 Useful base R functions for exploring values
 
 ```{r, eval = FALSE}
-summary(mtcars$gear) # get summary stats on column
+summary(flights$distance) # get summary stats on column
 
-unique(mtcars$cyl) # find unique values in column cyl
+unique(flights$carrier) # find unique values in column cyl
 
-table(mtcars$cyl) # get frequency of each value in column cyl
-table(mtcars$gear, mtcars$cyl) # get frequency of each combination of values
+table(flights$carrier) # get frequency of each value in column cyl
+table(flights$origin, flights$dest) # get frequency of each combination of values
 ```
 
 
 
-## Grammar for data manipulation: dplyr
+## dplyr, a grammar for data manipulation
 
 ### Base R versus dplyr
 
 In the first two lectures we introduced how to subset vectors, data.frames, and matrices 
 using base R functions. These approaches are flexible, succinct, and stable, meaning that
-these approaches will likely be supported by R in the future. 
+these approaches will be supported and work in R in the future. 
 
-Some criticisms of using base R are that the syntax is hard to read, it tends to be verbose, and difficult to learn. Dplyr, and other tidyverse packages, offer alternative approaches which many find easier to use. It is however necessary to know some base R in order to effectively use R.
+Some criticisms of using base R are that the syntax is hard to read, it tends to be verbose, and it is difficult to learn. dplyr, and other tidyverse packages, offer alternative approaches which many find easier to use. 
 
 Some key differences between base R and the approaches in dplyr (and tidyverse)
 
-* Use of the tibble version of data.frame
-* dplyr functions operates on data.frame/tibbles rather than individual vectors
-* dplyr allows you to specifcy column names without quotes
-* dplyr uses different functions (verbs) to accomplish the different tasks performed by the bracket approach `[`
+* Use of the tibble version of data.frame  
+
+* dplyr functions operate on data.frame/tibbles rather than individual vectors  
+
+* dplyr allows you to specify column names without quotes  
+
+* dplyr uses different functions (verbs) to accomplish the various tasks performed by the bracket `[` base R syntax  
+
 * dplyr and related functions recognized "grouped" operations on data.frames, enabling operations on different groups of rows in a data.frame
 
 
@@ -230,18 +240,18 @@ Some key differences between base R and the approaches in dplyr (and tidyverse)
 `dplyr` provides a suite of functions for manipulating data 
 in tibbles. 
 
-*Rows:    
+Operations on Rows:    
   - `filter()` chooses rows based on column values  
-  - `slice()` chooses rows based on location  
   - `arrange()` changes the order of the rows  
   - `distinct()` selects distinct/unique rows  
+  - `slice()` chooses rows based on location  
   
-*Columns:  
+Operations on Columns:  
   - `select()` changes whether or not a column is included  
   - `rename()` changes the name of columns    
   - `mutate()` changes the values of columns and creates new columns  
   
-Groups of rows:  
+Operations on groups of rows:  
   - `summarise()` collapses a group into a single row  
 
 
@@ -249,11 +259,11 @@ Groups of rows:
 
 Returning to our `flights` data. Let's use `filter()` to select certain rows. 
 
-`filter(tibble, conditional_expression, ...)`
+`filter(tibble, <expression that produces a logical vector>, ...)`
 
 
 ```{r}
-filter(flights, dest == "LAX") #select rows where the `dest` column is equal to `LAX
+filter(flights, dest == "LAX") # select rows where the `dest` column is equal to `LAX
 ```
 
 ```{r, eval = FALSE}
@@ -286,26 +296,23 @@ Try it out:
 
 - Use filter to find flights to DEN with a delayed departure (`dep_delay`).
 
-```{r}
-filter(flights, dest == "DEN", dep_delay > 0)
+```{r, eval = FALSE}
+...
 ```
 
 ### arrange rows 
 
-`arrange()` can be used to sort the data based on values in a single or multiple columns
+`arrange()` can be used to sort the data based on values in a single column or multiple columns
 
 `arrange(tibble, <columns_to_sort_by>)`  
 
-
-For example, let's find the  flight with the shortest amount of air time by arranging the table based on the `air_time` (flight time in minutes).  
-
+For example, let's find the flight with the shortest amount of air time by arranging the table based on the `air_time` (flight time in minutes).  
 
 ```{r}
-arrange(flights, air_time) 
 ```
 
 ```{r, eval = FALSE}
-arrange(flights, air_time, distance) # sort first on distance, then on air_time
+arrange(flights, air_time, distance) # sort first on air_time, then on distance
 
  # to sort in decreasing order, wrap the column name in `desc()`.
 arrange(flights, desc(air_time), distance)
@@ -313,10 +320,10 @@ arrange(flights, desc(air_time), distance)
 
 Try it out:
 
-- Use arrange to rank the data by flight distance (`distance`), rank in ascending order. What flight has the shortest distance?
+- Use arrange to determine which flight has the shortest distance?
 
 ```{r}
-arrange(flights, distance) |> slice(1) 
+
 ```
 
 ## Column operations
@@ -330,6 +337,7 @@ arrange(flights, distance) |> slice(1)
 ```{r}
 select(flights, origin, dest)
 ```
+
 the `:` operator can select a range of columns, such as the columns from `air_time` to `hour`. The `!` operator selects columns not listed. 
 
 ```{r, eval = FALSE}
@@ -337,7 +345,7 @@ select(flights, air_time:hour)
 select(flights, !(air_time:hour))
 ```
 
-There is a  suite of utilities in the tidyverse to help with select columns based on conditions: `matches()`, `starts_with()`, `ends_with()`, `contains()`, `any_of()`, and `all_of()`. `everything()` is also useful as a placeholder for all columns not explicitly listed. See help ?select
+There is a suite of utilities in the tidyverse to help with select columns with names that: `matches()`, `starts_with()`, `ends_with()`, `contains()`, `any_of()`, and `all_of()`. `everything()` is also useful as a placeholder for all columns not explicitly listed. See help ?select
 
 ```{r, eval = FALSE}
 # keep columns that have "delay" in the name
@@ -375,9 +383,9 @@ Multiple new columns can be made, and you can refer to columns made in preceding
 
 ```{r, eval = FALSE}
 mutate(flights, 
-       total_delay = dep_delay + arr_delay,
-       rank_delay = rank(total_delay)) |> 
-  select(total_delay, rank_delay)
+       delay = dep_delay + arr_delay,
+       delay_in_hours = delay / 60) |> 
+  select(delay, delay_in_hours)
 ```
 
 Try it out:
@@ -407,7 +415,7 @@ We can establish groups within the data using `group_by()`. The functions `mutat
 
 Common approaches:
 group_by -> summarize: calculate summaries per group
-group_by -> mutate: calculate summaries per group and add as new column to original tibble
+group_by -> mutate:    calculate summaries per group and add as new column to original tibble
 
 `group_by(tibble, <columns_to_establish_groups>)`
 
@@ -429,7 +437,7 @@ group_by(flights, carrier, origin, dest) |>
             mean_air_time = mean(air_time))  
 ```
 
-Here are some questions that we can answer using grouped operations in a few lines of dplyr code. Use pipes. 
+Here are some questions that we can answer using grouped operations in a few lines of dplyr code. 
 
 - What is the average flight `air_time` between each origin airport and destination airport?
 
@@ -438,17 +446,17 @@ group_by(flights, origin, dest) |>
   summarize(avg_air_time = mean(air_time))
 ```
 
-- What are the fastest and longest cities to fly between on average? 
+- Which cites take the longest (`air_time`) to fly between between on average? the shortest?
 
 ```{r}
 group_by(flights, origin, dest) |> 
   summarize(avg_air_time = mean(air_time)) |> 
-  arrange(avg_air_time) |> 
+  arrange(desc(avg_air_time)) |> 
   head(1)
 
 group_by(flights, origin, dest) |> 
   summarize(avg_air_time = mean(air_time)) |> 
-  arrange(desc(avg_air_time)) |> 
+  arrange(avg_air_time) |> 
   head(1)
 ```
 
@@ -457,24 +465,14 @@ Try it out:
 - Which carrier has the fastest flight (`air_time`) on average from JFK to LAX?
 
 ```{r, echo = FALSE}
-filter(flights, origin == "JFK", dest == "LAX") |> 
-  group_by(carrier) |> 
-  summarize(flight_time = mean(air_time)) |> 
-  arrange(flight_time) |> 
-  head()
+
 ```
 
 - Which month has the longest departure delays on average when flying from JFK to HNL?
 
 ```{r, echo = FALSE}
-filter(flights, origin == "JFK", dest == "HNL")  |> 
-  group_by(month) |> 
-  summarize(mean_dep_delay = mean(dep_delay)) |> 
-  arrange(desc(mean_dep_delay))
+
 ```
-
-
-
 
 ## String manipulation
 

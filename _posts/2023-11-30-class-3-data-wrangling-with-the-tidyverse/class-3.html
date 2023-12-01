@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["flights14.csv","robjs.rda"]}
+  {"type":"character","attributes":{},"value":["class-3_files/anchor-4.2.2/anchor.min.js","class-3_files/bowser-1.9.3/bowser.min.js","class-3_files/distill-2.2.21/template.v2.js","class-3_files/header-attrs-2.25/header-attrs.js","class-3_files/jquery-3.6.0/jquery-3.6.0.js","class-3_files/jquery-3.6.0/jquery-3.6.0.min.js","class-3_files/jquery-3.6.0/jquery-3.6.0.min.map","class-3_files/popper-2.6.0/popper.min.js","class-3_files/tippy-6.2.7/tippy-bundle.umd.min.js","class-3_files/tippy-6.2.7/tippy-light-border.css","class-3_files/tippy-6.2.7/tippy.css","class-3_files/tippy-6.2.7/tippy.umd.min.js","class-3_files/webcomponents-2.0.0/webcomponents.js","flights14.csv","robjs.rda"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1549,12 +1549,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="#introduction-to-the-tidyverse" id="toc-introduction-to-the-tidyverse">Introduction to the tidyverse</a></li>
 <li><a href="#loading-r-packages" id="toc-loading-r-packages">loading R packages</a></li>
 <li><a href="#tibble-versus-data.frame" id="toc-tibble-versus-data.frame">tibble versus data.frame</a></li>
-<li><a href="#convertly-a-typical-data.frame-to-a-tibble" id="toc-convertly-a-typical-data.frame-to-a-tibble">Convertly a typical data.frame to a tibble</a></li>
-<li><a href="#data-import-using-readr" id="toc-data-import-using-readr">Data import using readr</a></li>
+<li><a href="#converting-a-base-r-data.frame-to-a-tibble" id="toc-converting-a-base-r-data.frame-to-a-tibble">Converting a base R data.frame to a tibble</a></li>
+<li><a href="#data-import" id="toc-data-import">Data import</a></li>
 <li><a href="#data-importexport-for-excel-files" id="toc-data-importexport-for-excel-files">Data import/export for excel files</a></li>
 <li><a href="#data-importexport-of-r-objects" id="toc-data-importexport-of-r-objects">Data import/export of R objects</a></li>
 <li><a href="#exploring-data" id="toc-exploring-data">Exploring data</a></li>
-<li><a href="#grammar-for-data-manipulation-dplyr" id="toc-grammar-for-data-manipulation-dplyr">Grammar for data manipulation: dplyr</a>
+<li><a href="#dplyr-a-grammar-for-data-manipulation" id="toc-dplyr-a-grammar-for-data-manipulation">dplyr, a grammar for data manipulation</a>
 <ul>
 <li><a href="#base-r-versus-dplyr" id="toc-base-r-versus-dplyr">Base R versus dplyr</a></li>
 <li><a href="#dplyr-function-overview" id="toc-dplyr-function-overview">dplyr function overview</a></li>
@@ -1595,24 +1595,25 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <h2 id="tibble-versus-data.frame">tibble versus data.frame</h2>
 <p>A <code>tibble</code> is a re-imagining of the base R <code>data.frame</code>. It has a few differences from the <code>data.frame</code>.The biggest differences are that it doesn’t have <code>row.names</code> and it has an enhanced <code>print</code> method. If interested in learning more, see the tibble <a href="https://tibble.tidyverse.org/articles/tibble.html">vignette</a>.</p>
-<p>Compare <code>data</code> to <code>data_tbl</code>.</p>
-<p><strong>Note, by default Rstudio displays base R data.frames in a tibble-like format</strong></p>
+<p>Compare <code>data_df</code> to <code>data_tbl</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, </span>
-<span>                   b <span class='op'>=</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, </span>
-<span>                   c <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, </span>
-<span>                   row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span><span class='op'>)</span><span class='op'>)</span></span>
-<span><span class='va'>data_tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, </span>
+<span>                      b <span class='op'>=</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, </span>
+<span>                      c <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span>, </span>
+<span>                      row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ob_1"</span>, <span class='st'>"ob_2"</span>, <span class='st'>"ob_3"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>data_df</span></span>
+<span></span>
+<span><span class='va'>data_tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='va'>data_df</span><span class='op'>)</span></span>
 <span><span class='va'>data_tbl</span></span></code></pre>
 </div>
 </div>
-<p>When you work with tidyverse functions it is a good practice to convert data.frames to tibbles.</p>
-<h2 id="convertly-a-typical-data.frame-to-a-tibble">Convertly a typical data.frame to a tibble</h2>
-<p>If a data.frame has rownames, you can preserve these by moving them into a column before converting to a tibble using the <code>rownames_to_column()</code> from <code>tibble</code>.</p>
+<p>When you work with tidyverse functions it is a good practice to convert data.frames to tibbles. In practice many functions will work interchangeably with either base data.frames or tibble, provided that they don’t use row names.</p>
+<h2 id="converting-a-base-r-data.frame-to-a-tibble">Converting a base R data.frame to a tibble</h2>
+<p>If a data.frame has row names, you can preserve these by moving them into a column before converting to a tibble using the <code>rownames_to_column()</code> from <code>tibble</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span> <span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -1649,22 +1650,24 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>mtcars_tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<h2 id="data-import-using-readr">Data import using readr</h2>
+<h2 id="data-import">Data import</h2>
+<p>So far we have only worked with built in or hand generated datasets, now we will discuss how to read data files into R.</p>
 <p>The <a href="https://readr.tidyverse.org/"><code>readr</code></a> package provides a series of functions for importing or writing data in common text formats.</p>
 <p><code>read_csv()</code>: comma-separated values (CSV) files<br />
 <code>read_tsv()</code>: tab-separated values (TSV) files<br />
 <code>read_delim()</code>: delimited files (CSV and TSV are important special cases)<br />
 <code>read_fwf()</code>: fixed-width files<br />
 <code>read_table()</code>: whitespace-separated files</p>
-<p>These functions are faster and have better defaults than the base R equivalents (e.g. <code>read.table</code>). These functions also directly output tibbles compatible with the tidyverse.</p>
+<p>These functions are quicker and have better defaults than the base R equivalents (e.g. <code>read.table</code> or <code>read.csv</code>). These functions also directly output tibbles rather than base R data.drames</p>
 <p>The <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf">readr checksheet</a> provides a concise overview of the functionality in the package.</p>
-<p>To illustrate how to use readr we will load a <code>.csv</code> file containing information about flights from 2014.</p>
-<p>First we will download the data. You can download this data manually from <a href="https://github.com/arunsrinivasan/flights">github</a>. Instead we will use R to download the dataset using the <code>download.file()</code> base R function.</p>
+<p>To illustrate how to use readr we will load a <code>.csv</code> file containing information about airline flights from 2014.</p>
+<p>First we will download the data files. You can download this data manually from <a href="https://github.com/arunsrinivasan/flights">github</a>. However we will use R to download the dataset using the <code>download.file()</code> base R function.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'>if</span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span><span class='op'>(</span><span class='st'>"flights14.csv"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>url</span> <span class='op'>&lt;-</span> <span class='st'>"https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv"</span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span><span class='op'>(</span><span class='va'>url</span>, <span class='st'>"flights14.csv"</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># test if file exists, if it doesn't then download the file.</span></span>
+<span><span class='kw'>if</span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span><span class='op'>(</span><span class='st'>"flights14.csv"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>file_url</span> <span class='op'>&lt;-</span> <span class='st'>"https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv"</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span><span class='op'>(</span><span class='va'>file_url</span>, <span class='st'>"flights14.csv"</span><span class='op'>)</span></span>
 <span><span class='op'>}</span>  </span></code></pre>
 </div>
 </div>
@@ -1690,22 +1693,22 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
 # ℹ 253,306 more rows
 # ℹ 1 more variable: hour &lt;dbl&gt;</code></pre>
 </div>
-<p>There are a few commonly used arguments:
-<code>col_names</code>: if the data doesn’t have column names, you can provide them (or skip them).</p>
+<p>There are a few commonly used arguments:</p>
+<p><code>col_names</code>: if the data doesn’t have column names, you can provide them (or skip them).</p>
 <p><code>col_types</code>: set this if the data type of a column is incorrectly inferred by readr</p>
 <p><code>comment</code>: if there are comment lines in the file, such as a header line prefixed with <code>#</code>, you want to skip, set this to <code>#</code>.</p>
 <p><code>skip</code>: # of lines to skip before reading in the data.</p>
 <p><code>n_max</code>: maximum number of lines to read, useful for testing reading in large datasets.</p>
 <p>The readr functions will also automatically uncompress gzipped or zipped datasets, and additionally can read data directly from a URL.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv&quot;</span>)</span></code></pre></div>
-<p>There are equivalent functions for writing data from R to files:
+<p>There are equivalent functions for writing data.frames from R to files:
 <code>write_csv</code>, <code>write_tsv</code>, <code>write_delim</code>.</p>
 <h2 id="data-importexport-for-excel-files">Data import/export for excel files</h2>
 <p>The <code>readxl</code> package can read data from excel files and is included in the tidyverse. The <code>read_excel()</code> function is the main function for reading data.</p>
 <p>The <code>openxlsx</code> package, which is not part of tidyverse but is on <a href="https://ycphs.github.io/openxlsx/index.html">CRAN</a>, can write excel files. The <code>write.xlsx()</code> function is the main function for writing data to excel spreadsheets.</p>
 <h2 id="data-importexport-of-r-objects">Data import/export of R objects</h2>
-<p>Often it is useful to store R objects as files on disk. These could be large processed datasets, intermediate results, or complex data structures that are not easily stored in rectangular text formats.</p>
-<p>R provides the <code>readRDS()</code> and <code>saveRDS()</code> functions for storing data in binary formats.</p>
+<p>Often it is useful to store R objects as files on disk so that the R objects can be reloaded into R. These could be large processed datasets, intermediate results, or complex data structures that are not easily stored in rectangular text formats such as csv files.</p>
+<p>R provides the <code>saveRDS()</code> and <code>readRDS()</code> functions for storing and retrieving data in binary formats.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='st'>"flights.rds"</span><span class='op'>)</span> <span class='co'># save single object into a file</span></span>
@@ -1743,68 +1746,68 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
 </div>
 <h2 id="exploring-data">Exploring data</h2>
 <p><code>View()</code> can be used to open an excel like view of a data.frame. This is a good way to quickly look at the data. <code>glimpse()</code> or <code>str()</code> give an additional view of the data.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(mtcars)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mtcars)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mtcars)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(flights)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(flights)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(flights)</span></code></pre></div>
 <p>Additional R functions to help with exploring data.frames (and tibbles):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># of rows and columns</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>flights</span><span class='op'>)</span> <span class='co'># of rows and columns</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>flights</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>flights</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># first 6 lines</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># last 6 lines</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>flights</span><span class='op'>)</span> <span class='co'># first 6 lines</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>flights</span><span class='op'>)</span> <span class='co'># last 6 lines</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># column names</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># row names (not present in tibble)</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>flights</span><span class='op'>)</span> <span class='co'># column names</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>flights</span><span class='op'>)</span> <span class='co'># row names (not present in tibble)</span></span></code></pre>
 </div>
 </div>
 <p>Useful base R functions for exploring values</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>gear</span><span class='op'>)</span> <span class='co'># get summary stats on column</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flights</span><span class='op'>$</span><span class='va'>distance</span><span class='op'>)</span> <span class='co'># get summary stats on column</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>)</span> <span class='co'># find unique values in column cyl</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>flights</span><span class='op'>$</span><span class='va'>carrier</span><span class='op'>)</span> <span class='co'># find unique values in column cyl</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>)</span> <span class='co'># get frequency of each value in column cyl</span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>gear</span>, <span class='va'>mtcars</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>)</span> <span class='co'># get frequency of each combination of values</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>flights</span><span class='op'>$</span><span class='va'>carrier</span><span class='op'>)</span> <span class='co'># get frequency of each value in column cyl</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>flights</span><span class='op'>$</span><span class='va'>origin</span>, <span class='va'>flights</span><span class='op'>$</span><span class='va'>dest</span><span class='op'>)</span> <span class='co'># get frequency of each combination of values</span></span></code></pre>
 </div>
 </div>
-<h2 id="grammar-for-data-manipulation-dplyr">Grammar for data manipulation: dplyr</h2>
+<h2 id="dplyr-a-grammar-for-data-manipulation">dplyr, a grammar for data manipulation</h2>
 <h3 id="base-r-versus-dplyr">Base R versus dplyr</h3>
 <p>In the first two lectures we introduced how to subset vectors, data.frames, and matrices
 using base R functions. These approaches are flexible, succinct, and stable, meaning that
-these approaches will likely be supported by R in the future.</p>
-<p>Some criticisms of using base R are that the syntax is hard to read, it tends to be verbose, and difficult to learn. Dplyr, and other tidyverse packages, offer alternative approaches which many find easier to use. It is however necessary to know some base R in order to effectively use R.</p>
+these approaches will be supported and work in R in the future.</p>
+<p>Some criticisms of using base R are that the syntax is hard to read, it tends to be verbose, and it is difficult to learn. dplyr, and other tidyverse packages, offer alternative approaches which many find easier to use.</p>
 <p>Some key differences between base R and the approaches in dplyr (and tidyverse)</p>
 <ul>
-<li>Use of the tibble version of data.frame</li>
-<li>dplyr functions operates on data.frame/tibbles rather than individual vectors</li>
-<li>dplyr allows you to specifcy column names without quotes</li>
-<li>dplyr uses different functions (verbs) to accomplish the different tasks performed by the bracket approach <code>[</code></li>
-<li>dplyr and related functions recognized “grouped” operations on data.frames, enabling operations on different groups of rows in a data.frame</li>
+<li><p>Use of the tibble version of data.frame</p></li>
+<li><p>dplyr functions operate on data.frame/tibbles rather than individual vectors</p></li>
+<li><p>dplyr allows you to specify column names without quotes</p></li>
+<li><p>dplyr uses different functions (verbs) to accomplish the various tasks performed by the bracket <code>[</code> base R syntax</p></li>
+<li><p>dplyr and related functions recognized “grouped” operations on data.frames, enabling operations on different groups of rows in a data.frame</p></li>
 </ul>
 <h3 id="dplyr-function-overview">dplyr function overview</h3>
 <p><code>dplyr</code> provides a suite of functions for manipulating data
 in tibbles.</p>
-<p>*Rows:<br />
+<p>Operations on Rows:<br />
 - <code>filter()</code> chooses rows based on column values<br />
-- <code>slice()</code> chooses rows based on location<br />
 - <code>arrange()</code> changes the order of the rows<br />
-- <code>distinct()</code> selects distinct/unique rows</p>
-<p>*Columns:<br />
+- <code>distinct()</code> selects distinct/unique rows<br />
+- <code>slice()</code> chooses rows based on location</p>
+<p>Operations on Columns:<br />
 - <code>select()</code> changes whether or not a column is included<br />
 - <code>rename()</code> changes the name of columns<br />
 - <code>mutate()</code> changes the values of columns and creates new columns</p>
-<p>Groups of rows:<br />
+<p>Operations on groups of rows:<br />
 - <code>summarise()</code> collapses a group into a single row</p>
 <h3 id="filter-rows">Filter rows</h3>
 <p>Returning to our <code>flights</code> data. Let’s use <code>filter()</code> to select certain rows.</p>
-<p><code>filter(tibble, conditional_expression, ...)</code></p>
+<p><code>filter(tibble, &lt;expression that produces a logical vector&gt;, ...)</code></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='va'>dest</span> <span class='op'>==</span> <span class='st'>"LAX"</span><span class='op'>)</span> <span class='co'>#select rows where the `dest` column is equal to `LAX</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='va'>dest</span> <span class='op'>==</span> <span class='st'>"LAX"</span><span class='op'>)</span> <span class='co'># select rows where the `dest` column is equal to `LAX</span></span></code></pre>
 </div>
 <pre><code># A tibble: 14,434 × 11
     year month   day dep_delay arr_delay carrier origin dest  air_time distance
@@ -1855,51 +1858,19 @@ in tibbles.</p>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='va'>dest</span> <span class='op'>==</span> <span class='st'>"DEN"</span>, <span class='va'>dep_delay</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>...</span></span></code></pre>
 </div>
-<pre><code># A tibble: 3,060 × 11
-    year month   day dep_delay arr_delay carrier origin dest  air_time distance
-   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
- 1  2014     1     1        45        37 B6      JFK    DEN        237     1626
- 2  2014     1     1         6       -13 DL      JFK    DEN        235     1626
- 3  2014     1     1        13        16 DL      LGA    DEN        242     1620
- 4  2014     1     1        35        47 F9      LGA    DEN        246     1620
- 5  2014     1     1         2        19 WN      EWR    DEN        259     1605
- 6  2014     1     1        17        60 WN      LGA    DEN        245     1620
- 7  2014     1     1         3        12 WN      LGA    DEN        260     1620
- 8  2014     1     1        10         3 UA      EWR    DEN        224     1605
- 9  2014     1     1        46        43 UA      LGA    DEN        235     1620
-10  2014     1     1        22         8 UA      EWR    DEN        237     1605
-# ℹ 3,050 more rows
-# ℹ 1 more variable: hour &lt;dbl&gt;</code></pre>
 </div>
 <h3 id="arrange-rows">arrange rows</h3>
-<p><code>arrange()</code> can be used to sort the data based on values in a single or multiple columns</p>
+<p><code>arrange()</code> can be used to sort the data based on values in a single column or multiple columns</p>
 <p><code>arrange(tibble, &lt;columns_to_sort_by&gt;)</code></p>
 <p>For example, let’s find the flight with the shortest amount of air time by arranging the table based on the <code>air_time</code> (flight time in minutes).</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='va'>air_time</span><span class='op'>)</span> </span></code></pre>
-</div>
-<pre><code># A tibble: 253,316 × 11
-    year month   day dep_delay arr_delay carrier origin dest  air_time distance
-   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
- 1  2014     2    21        46        40 EV      EWR    BDL         20      116
- 2  2014     6    20        -6        -2 US      LGA    BOS         20      184
- 3  2014     1    16        -3       -12 EV      EWR    BDL         21      116
- 4  2014     1    16        10        14 EV      EWR    BDL         21      116
- 5  2014     2    19        19         0 EV      EWR    BDL         21      116
- 6  2014     2    26        38        20 EV      EWR    BDL         21      116
- 7  2014     3     4        17        -4 EV      EWR    BDL         21      116
- 8  2014     6     5       105        93 EV      EWR    BDL         21      116
- 9  2014     6     5        16         4 EV      EWR    BDL         21      116
-10  2014     6    26        19        13 EV      EWR    BDL         21      116
-# ℹ 253,306 more rows
-# ℹ 1 more variable: hour &lt;dbl&gt;</code></pre>
+
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='va'>air_time</span>, <span class='va'>distance</span><span class='op'>)</span> <span class='co'># sort first on distance, then on air_time</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='va'>air_time</span>, <span class='va'>distance</span><span class='op'>)</span> <span class='co'># sort first on air_time, then on distance</span></span>
 <span></span>
 <span> <span class='co'># to sort in decreasing order, wrap the column name in `desc()`.</span></span>
 <span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>air_time</span><span class='op'>)</span>, <span class='va'>distance</span><span class='op'>)</span></span></code></pre>
@@ -1907,17 +1878,10 @@ in tibbles.</p>
 </div>
 <p>Try it out:</p>
 <ul>
-<li>Use arrange to rank the data by flight distance (<code>distance</code>), rank in ascending order. What flight has the shortest distance?</li>
+<li>Use arrange to determine which flight has the shortest distance?</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='va'>distance</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> </span></code></pre>
-</div>
-<pre><code># A tibble: 1 × 11
-   year month   day dep_delay arr_delay carrier origin dest  air_time distance
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-1  2014     1    30         9        17 US      EWR    PHL         46       80
-# ℹ 1 more variable: hour &lt;dbl&gt;</code></pre>
+
 </div>
 <h2 id="column-operations">Column operations</h2>
 <h3 id="select-columns">select columns</h3>
@@ -1949,7 +1913,7 @@ in tibbles.</p>
 <span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='op'>!</span><span class='op'>(</span><span class='va'>air_time</span><span class='op'>:</span><span class='va'>hour</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p>There is a suite of utilities in the tidyverse to help with select columns based on conditions: <code>matches()</code>, <code>starts_with()</code>, <code>ends_with()</code>, <code>contains()</code>, <code>any_of()</code>, and <code>all_of()</code>. <code>everything()</code> is also useful as a placeholder for all columns not explicitly listed. See help ?select</p>
+<p>There is a suite of utilities in the tidyverse to help with select columns with names that: <code>matches()</code>, <code>starts_with()</code>, <code>ends_with()</code>, <code>contains()</code>, <code>any_of()</code>, and <code>all_of()</code>. <code>everything()</code> is also useful as a placeholder for all columns not explicitly listed. See help ?select</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># keep columns that have "delay" in the name</span></span>
@@ -2012,9 +1976,9 @@ in tibbles.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>flights</span>, </span>
-<span>       total_delay <span class='op'>=</span> <span class='va'>dep_delay</span> <span class='op'>+</span> <span class='va'>arr_delay</span>,</span>
-<span>       rank_delay <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rank.html'>rank</a></span><span class='op'>(</span><span class='va'>total_delay</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>total_delay</span>, <span class='va'>rank_delay</span><span class='op'>)</span></span></code></pre>
+<span>       delay <span class='op'>=</span> <span class='va'>dep_delay</span> <span class='op'>+</span> <span class='va'>arr_delay</span>,</span>
+<span>       delay_in_hours <span class='op'>=</span> <span class='va'>delay</span> <span class='op'>/</span> <span class='fl'>60</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>delay</span>, <span class='va'>delay_in_hours</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <p>Try it out:</p>
@@ -2080,7 +2044,7 @@ group_by -&gt; mutate: calculate summaries per group and add as new column to or
 <span>            mean_air_time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>air_time</span><span class='op'>)</span><span class='op'>)</span>  </span></code></pre>
 </div>
 </div>
-<p>Here are some questions that we can answer using grouped operations in a few lines of dplyr code. Use pipes.</p>
+<p>Here are some questions that we can answer using grouped operations in a few lines of dplyr code.</p>
 <ul>
 <li>What is the average flight <code>air_time</code> between each origin airport and destination airport?</li>
 </ul>
@@ -2106,20 +2070,9 @@ group_by -&gt; mutate: calculate summaries per group and add as new column to or
 # ℹ 211 more rows</code></pre>
 </div>
 <ul>
-<li>What are the fastest and longest cities to fly between on average?</li>
+<li>Which cites take the longest (<code>air_time</code>) to fly between between on average? the shortest?</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='va'>origin</span>, <span class='va'>dest</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>avg_air_time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>air_time</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>avg_air_time</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span></code></pre>
-</div>
-<pre><code># A tibble: 1 × 3
-# Groups:   origin [1]
-  origin dest  avg_air_time
-  &lt;chr&gt;  &lt;chr&gt;        &lt;dbl&gt;
-1 EWR    AVP             25</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='va'>origin</span>, <span class='va'>dest</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>avg_air_time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>air_time</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
@@ -2131,38 +2084,30 @@ group_by -&gt; mutate: calculate summaries per group and add as new column to or
   origin dest  avg_air_time
   &lt;chr&gt;  &lt;chr&gt;        &lt;dbl&gt;
 1 JFK    HNL           625.</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>flights</span>, <span class='va'>origin</span>, <span class='va'>dest</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>avg_air_time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>air_time</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>avg_air_time</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 1 × 3
+# Groups:   origin [1]
+  origin dest  avg_air_time
+  &lt;chr&gt;  &lt;chr&gt;        &lt;dbl&gt;
+1 EWR    AVP             25</code></pre>
 </div>
 <p>Try it out:</p>
 <ul>
 <li>Which carrier has the fastest flight (<code>air_time</code>) on average from JFK to LAX?</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code># A tibble: 5 × 2
-  carrier flight_time
-  &lt;chr&gt;         &lt;dbl&gt;
-1 DL             328.
-2 UA             328.
-3 B6             328.
-4 AA             330.
-5 VX             333.</code></pre>
+
 </div>
 <ul>
 <li>Which month has the longest departure delays on average when flying from JFK to HNL?</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code># A tibble: 10 × 2
-   month mean_dep_delay
-   &lt;dbl&gt;          &lt;dbl&gt;
- 1     2         52.9  
- 2     1         41.2  
- 3     7          2.48 
- 4     9          1.04 
- 5     8          1.03 
- 6     3         -0.130
- 7    10         -1.73 
- 8     6         -1.76 
- 9     5         -3.52 
-10     4         -4.5  </code></pre>
+
 </div>
 <h2 id="string-manipulation">String manipulation</h2>
 <p><code>stringr</code> is a package for working with strings (i.e. character vectors). It provides a consistent syntax for string manipulation and can perform many routine tasks:</p>
@@ -2309,7 +2254,7 @@ loaded via a namespace (and not attached):
 <a href="https://github.com/matloff/fasteR" class="uri">https://github.com/matloff/fasteR</a>
 <a href="https://r4ds.had.co.nz/index.html" class="uri">https://r4ds.had.co.nz/index.html</a>
 <a href="https://bookdown.org/rdpeng/rprogdatascience/" class="uri">https://bookdown.org/rdpeng/rprogdatascience/</a></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
