@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-10-04-class-2/class-2.Rmd)*
+*The Rmarkdown for this class is [on github]( https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-11-30-class-3-data-wrangling-with-the-tidyverse/class-3.Rmd)*
 
 ## Introduction to the tidyverse
 
