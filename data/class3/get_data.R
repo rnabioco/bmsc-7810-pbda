@@ -6,15 +6,24 @@ library(data.table)
 convert_num_units <- function(x,
                               units = c("k", "m", "b", "t"),
                               multipliers = c(1e3, 1e6, 1e9, 1e12)){
-  has_unit <- str_detect(x, str_c(units, collapse = "|"))
-  xx <- vector("numeric", length(x))
-  xx[!has_unit] <- as.numeric(x[!has_unit])
+  n_na <- sum(is.na(x))
+  units <- str_to_upper(units)
+  units_le <- str_c(units, "$")
+  unit_regex <- regex(str_c(units_le, collapse = "|"),
+                      ignore_case = TRUE)
 
-  num <- as.numeric(str_remove(x[has_unit], str_c(units, collapse = "|")))
-  ui <- match(str_match(x[has_unit], str_c(units, collapse = "|")), units)
+  has_unit <- str_detect(x, unit_regex)
+  no_unit <- which(!has_unit)
+  has_unit <- which(has_unit)
+  xx <- rep(NA, length(x))
+  xx[no_unit] <- as.numeric(x[no_unit])
 
+  num <- as.numeric(str_remove(x[has_unit], unit_regex))
+  unit_matches <- str_match(x[has_unit], unit_regex)
+  unit_matches <- str_to_upper(unit_matches)
+  ui <- match(unit_matches, units)
   xx[has_unit] <- num * multipliers[ui]
-  if(any(is.na(xx))) warning("NAs introducted in coercion, check units")
+  if(sum(is.na(xx)) > n_na) warning("NAs introducted in coercion, check units")
   xx
 }
 
@@ -26,6 +35,13 @@ gdp_data[2:ncol(gdp_data)] <- lapply(gdp_data[2:ncol(gdp_data)], convert_num_uni
 gdp_data <- as_tibble(gdp_data)
 write_csv(gdp_data, "data/class3/income_per_person.csv")
 
+# population per country downloaded from http://gapm.io/dpop
+
+og_pop_data <- read_csv(here("data/class3/messy_country_pop.csv"))
+pop_data <- as.data.frame(og_pop_data)
+pop_data[2:ncol(pop_data)] <- lapply(pop_data[2:ncol(pop_data)], convert_num_units)
+pop_data <- as_tibble(pop_data)
+write_csv(gdp_data, "data/class3/country_population.csv")
 
 # ----------
 # fly proteomics data

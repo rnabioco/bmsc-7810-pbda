@@ -13,8 +13,6 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
-                      message = FALSE, 
-                      warning = FALSE,
                       R.options = list(width = 80))
 ```
 
@@ -29,8 +27,8 @@ source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/20
 ## Goals for today
 
 - Discuss wide and long (tidy) data representations for analysis 
-- Introduce tidyr for "tidying" rectangular data
-- Joining related tables with dplyr
+- Introduce the `tidyr` package for "tidying" rectangular data
+- Joining related tables with `dplyr`
 - Strategies for missing data
 
 
@@ -42,38 +40,47 @@ source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/20
 
 Data can be represented in multiple formats. Today we will discuss two common tabular formats for organizing data for analysis.
 
-Consider the following dataset, which contains GDP estimates per person for countries throughout history. This representation of the data is commonly referred to as 'wide' data format, which is a matrix-like format containing samples or features as rows or columns, with values associated with each sample and feature. 
+Consider the following dataset, which contains population estimates for countries throughout history. This representation of data is commonly referred to as 'wide' data format, which is a matrix-like format containing samples as rows and features as columns, with values associated with each observation of a sample and feature. 
 
-```{r, echo = FALSE}
+```{r}
 library(readr)
-gdp_data <- read_csv("data/income_per_person.csv")
-gdp_data
+pop_wide <- read_csv("data/country_population.csv")
+pop_wide
 ```
 
 The wide matrix-like format is very useful and a common format used for statistics and machine learning. Matrices can take advantage of optimized numerical routines and are the data representation of mathematical matrices. We will work with matrices later in class, particularly with their use to generate heatmaps. 
 
-Representing data in a matrix has a few practical implications:  
+Representing data in a matrix however has a few practical implications:  
 
-1) There is only 1 type of data stored in a matrix-like representation (e.g. each cell is the same unit of observation, the GDP per person). To store additional related data types (e.g. the country population) you need to place each new value in an independent matrix.  
+1) There is only 1 type of data stored in a matrix-like representation (e.g. each cell is the same unit of observation, the population per country). To store additional related data types (e.g. the countries GDP each year) you need to place each new value in an independent matrix.  
 
-2) The matrix-like format does not easily lend itself to more complicated summaries. For example, what if we wanted to average the GDP values for each decade or century? We would write rather complicated code to parse out subsets of columns for each time period, average them, then merge them into a summary table. 
+2) The matrix-like format does not easily lend itself to more complicated summaries. For example, what if we wanted to average the GDP values for each decade or century? We would have to write rather complicated code to parse out subsets of columns for each time period, average them, then merge them into a summary matrix. 
 
-Data in a matrix can be instead formatted into a long (also sometimes called "tidy") format. 
+Data in a matrix can be instead formatted into a long (also called "tidy") format. 
 
-```{r, echo = FALSE}
-tidyr::pivot_longer(gdp_data, 
-                    cols = -country, 
-                    names_to = "year", 
-                    values_to = "gdp")
+```r
+#> # A tibble: 10 × 3
+#>    country     year  population
+#>    <chr>       <chr>      <dbl>
+#>  1 Afghanistan 1800     3280000
+#>  2 Afghanistan 1801     3280000
+#>  3 Afghanistan 1802     3280000
+#>  4 Afghanistan 1803     3280000
+#>  5 Afghanistan 1804     3280000
+#>  6 Afghanistan 1805     3280000
+#>  7 Afghanistan 1806     3280000
+#>  8 Afghanistan 1807     3280000
+#>  9 Afghanistan 1808     3280000
+#> 10 Afghanistan 1809     3280000
 ```
 
-The long format of this data convert the many columns of a matrix into a 3 column data.frame containing 3 variables (`country`, `year`, and `gdp`). 
+The long format of this data convert the many columns of a matrix into a 3 column data.frame containing 3 variables (`country`, `year`, and `population`). 
 
 ## Tidy data format
 
 >“Tidy datasets are all alike, but every messy dataset is messy in its own way.” –– Hadley Wickham
 
-A tidy dataset is structured in a manner to be most effectively processed in R using the tidyverse. It makes the data easier to plot, easier to perform computations and perform complex tasks.  
+A tidy dataset is structured in a manner to be most effectively processed in R using the tidyverse. For example, with the population dataset, instead of having to provide logic to process 100s of columns, instead there are only 3 columns.
 
 Most data tables that you've worked with are probably not tidy. It takes experience to understand the best way to format the data for data processing. As you work more in R and the tidyverse this will become more natural. 
 
@@ -85,20 +92,20 @@ Tidy data has the following attributes:
 
 What is a variable, what is an observation, and what is a value?
 
-1) A value is a number or word.  
+1) A value is a number or word, e.g. the population.   
 
-2) Every value belongs to a variable and an observation  
+2) Every value belongs to a variable and an observation, e.g. the population value observed in Austria in the year 1910.  
 
-3) A variable contains all values that measure the same attribute (e.g. height, temperature, duration, magnitude) across units.  
+3) A variable contains all values that measure the same attribute (e.g. height, temperature, duration, magnitude) across units.  (e.g. Austria is a value of the country variable, 1910 is a value of the year variable).
 
-4) An observation contains all values measured on the same unit (e.g. the same individual, the same day, the same country, the samegene).  
+4) An observation contains all values measured on the same unit across attributes (e.g observations about Austria in 1910).  
 
 
 ```{r, echo = FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-01-class-4-reshaping-data-into-a-tidy-format/img/tidydata.png")
 ```
 
-Shown below is a simple data table in a tidy format, provided by the `tidyr` package. This data table shows the # of TB cases documented by the WHO in a few countries in the years 1999 and 2000.
+Shown below is a simplified data table in a tidy format, provided by the `tidyr` package. This data table shows the # of TB cases documented by the WHO in a few countries in the years 1999 and 2000.
 
 ```{r}
 library(tidyr)
@@ -121,11 +128,11 @@ table4b
 What advantages does the tidy format provide? 
 
 1) Easy to generate summaries of the data. 
-   e.g. via group_by() -> summarize()  
+   e.g. via `group_by()` -> `summarize()`
    
 2) Easy to plot the data using the ggplot2 framework (more on that in later classes)
 
-3) Very easy to join multiple data tables based on key values.
+3) Very easy to join multiple related data frames based on key values.
 
 Some disadvantages: 
 
@@ -154,11 +161,36 @@ The `pivot_longer` function requires specifying the columns to pivot using the [
 knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2023-12-01-class-4-reshaping-data-into-a-tidy-format/img/pivot_longer.png")
 ```
 
+```{r}
+table4a
+```
 
 ```{r}
 pivot_longer(table4a, cols = `1999`:`2000`) # pivot columns from 1999 -> 2000
 pivot_longer(table4a, cols = -country) # pivot all columns not matching country
 ```
+
+Let's try it out on the `pop_wide` population data
+
+```{r}
+pop_long <- pivot_longer(pop_wide, cols = -country)
+
+pop_long <- pivot_longer(pop_wide, 
+                         cols = -country, 
+                         names_to = "year",
+                         values_to = "population")
+```
+
+
+Why is the useful? Well now we can quickly use `dplyr` to answer questions, such 
+as what is the average population per country across all years?
+
+```{r}
+library(dplyr)
+group_by(pop_long, country) |> 
+  summarize(mean_population = mean(population))
+```
+
 ## Reshaping long data to wide
 
 `pivot_wider(tbl, names_from = <...>, values_from = <...>)`
@@ -169,11 +201,19 @@ pivot_longer(table4a, cols = -country) # pivot all columns not matching country
 ```{r, echo = FALSE }
 knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2023-12-01-class-4-reshaping-data-into-a-tidy-format/img/pivot_wider.png")
 ```
+```{r}
+table2
+```
 
 ```{r}
 pivot_wider(table2, names_from = type, values_from = count)
 ```
 
+Try it out with the `pop_long` population  data. 
+
+```{r}
+
+```
 
 ## Separate
 
@@ -190,44 +230,41 @@ knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_po
 ```
 
 ```{r}
+table3
+```
+
+```{r}
 separate(table3, col = rate, into = c("cases", "pop"), sep = "/")
 ```
 
 ## Exercises
 
-Use the [gapminder GDP dataset](https://www.gapminder.org/data/documentation/gd001/) to perform the following tasks and answer the following questions:
+Use the [gapminder population dataset](https://www.gapminder.org/data/documentation/gd003/) (`pop_long`) to perform the following tasks and answer the following questions:
 
-1) Convert the GDP dataset into tidy format. 
 
-```{r, eval = FALSE}
-library(tidyverse)
-gdp_data <- read_csv("data/income_per_person.csv")
-...
-```
-
-2) Which country had the highest GDP per person in 1985?  
+1) Which country had the highest population in 1810?  
 
 ```{r}
 
 ```
 
-3) What was the mean worldwide GDP in the year 1999?  
+2) What was the world population in the year 1840?  
 
 ```{r}
 
 ```
 
-4) Which country had the highest average GDP in the 19th century?
+3) Which country had the lowest average population in the 19th century (years 1800-1899)?
 
 ```{r}
 
+  
 ```
 
 
-## Binds/Joins
+## Using binds and joins to aggregate multiple data.frames 
 
 ### column binds
-
 
 ```{r, echo = FALSE, fig.cap = "from the dplyr cheatsheet at https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf"}
 knitr::include_graphics("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2023-12-01-class-4-reshaping-data-into-a-tidy-format/img/bind_cols.png")
@@ -266,6 +303,7 @@ You can also use a list of `data.frames` with `bind_rows`. If the list is named,
 ```{r}
 lst_of_dfs <- list(one = df_1,
                    two = df_2)
+
 bind_rows(lst_of_dfs)
 
 bind_rows(lst_of_dfs, .id = "source_table")
@@ -275,7 +313,7 @@ bind_rows(lst_of_dfs, .id = "source_table")
 
 Join operations are used to join one table with another table by matching the values shared in particular columns. Join operations enable linking of multiple datasets that contain shared values. 
 
-There are multiple way to join two tables, depending on how you want to handle different combinations of values present in two tables.
+There are multiple way to join two tables, depending on how you want to handle different combinations of values present or missing in two tables.
 
 Assume we have two data.frames called x and y
 
@@ -292,49 +330,56 @@ The following joins add columns from y to x, matching rows based on the matching
 If a row in x matches multiple rows in y, all the rows in y will 
 be returned once for each matching row in x.
 
-Consider the following simple tables:
+Consider our `pop_long` data.frame. What if we wanted to add additional variables to the data.frame, such as the estimated GDP? 
 
 ```{r}
-animal_class <- data.frame(
-  name    = c("cat", "pike", "bear", "dog"),
-  genus   = c("Felis", "Esox", "Ursus", "Canis"),
-  class   = c("Mammalia", "Actinopterygii", "Mammalia", "Mammalia")
-)
-
-animal_class
+pop_long[1:5, ]
 ```
 
+First we'll read in an additional dataset from `Gapminder` that contains GDP estimates per country over time. Note that these datafiles have been preprocessed using code [here](https://github.com/rnabioco/bmsc-7810-pbda/blob/main/data/class3/get_data.R)
+
 ```{r}
-animal_species <- data.frame(
-  name    = c("bluejay", "cat", "pike", "bear"),
-  species = c("cristata", "catus", "lucius", "arctos")
-)
-animal_species
+# read in and convert to long format
+gdp_wide <- read_csv("data/income_per_person.csv")
+gdp_long <- pivot_longer(gdp_wide, 
+                         -country, 
+                         names_to = "year",
+                         values_to = "GDP")
+gdp_long
 ```
 
+Now we can use various joins to merge these data.frames into 1 data.frame.
+
 ```{r}
-# join on name column, keeping values from name columns present in both data.frames
-inner_join(animal_class, animal_species)
+# join on country and year columns, keeping rows with values present in both tables
+inner_join(gdp_long, pop_long)
 ```
 
-```{r}
-# join on name column, keeping values all values from animal_class data.frame
-left_join(animal_class, animal_species)
-```
+The `Joining, by = join_by(country, year)` message indicates that the "country" and "year" columns were used to determine matching rows between the two tables. This is auto-detected based on shared column names in the two data.frames. 
+
+You can use the `by` argument to explicitly specify the columns you'd like to join, which is useful if the columns of interest have different names in the two tables. 
 
 ```{r}
-# join on name column, keeping values all values from animal_class and animal_species data.frame
-full_join(animal_class, animal_species)
-```
-
-The `Joining, by = "name"` message indicates which columns were used to determine matching rows between the two tables. This is auto-detected based on shared column names. You can use the `by` argument to explicitly specify the columns you'd like to join, which is useful if the columns of interest have different names in the two tables. 
-
-```{r}
-# same as above, but being explicitly about the column to use for joining.
+# same as above, but being explicit about the columns to use for joining.
 
 # note that for joins you DO need to use quotes for the columns
-inner_join(animal_class, animal_species, by = "name")
+inner_join(gdp_long, pop_long, by = c("country", "year"))
+
+# unless you use the `join_by` helper
+inner_join(gdp_long, pop_long, by = join_by(country, year))
 ```
+
+```{r}
+# join on country and year columns, keeping values all values from gdp_long data.frame
+left_join(gdp_long, pop_long)
+```
+
+```{r}
+# join on country and year columns, keeping values all values from gdp_long and pop_long data.frame
+full_join(gdp_long, pop_long)
+```
+
+
 
 ## Missing data
 
@@ -350,10 +395,17 @@ Join operations will often generate missing data (e.g. `NA` values).
 
 + `NULL` means "undefined" and is only used in a programming context (i.e., a function that returns `NULL`). You can't put `NULL` values in a data frame.
 
-Let's examine a data frame with some missing data.
+Let's examine the output from the `full_join()` operation above which generated NA values.
 
 ```{r complete}
-starwars
+country_stats <- full_join(gdp_long, pop_long)
+country_stats
+```
+#### Quick check for `NA` values
+
+```{r}
+sum(is.na(country_stats))
+any(is.na(country_stats))
 ```
 
 ### `filter` with `is.na()`
@@ -361,11 +413,11 @@ starwars
 You can identify variables with `NA` values by combining `filter()` and `is.na()`.
 
 ```{r filter_na, eval = FALSE}
-# find rows where mass is NA
-filter(starwars, is.na(mass))
+# find rows where GDP is NA
+filter(country_stats, is.na(GDP))
 
-# find rows where mass is *not* NA
-filter(starwars, !is.na(mass))
+# find rows where GDP is *not* NA
+filter(country_stats, !is.na(GDP))
 ```
 
 ### `na.omit()`
@@ -373,95 +425,116 @@ filter(starwars, !is.na(mass))
 You can remove **all** rows containing `NA` values with `na.omit()`.
 
 ```{r na.omit, eval = FALSE}
-na.omit(starwars)
+na.omit(country_stats)
 ```
 
 ### Computing with `NA` values
 
-Exclude `NA` values from operations with `na.rm = TRUE`.
+Instead of removing `NA` values we can instead just exclude `NA` values from operations with a common optional argument `na.rm = TRUE`.
 
 ```{r stat_na, eval = FALSE}
-starwars$mass
+x <- c(1, NA, 3)
+sum(x)
+sum(x, na.rm = TRUE)
+
 # if NAs are present, the result is NA
-sum(starwars$mass)
-# solution: drop NAs from the calculation
-sum(starwars$mass, na.rm = TRUE)
+sum(country_stats$GDP)
+
+# solution: exclude NAs from the calculation
+sum(country_stats$GDP, na.rm = TRUE)
 ```
 
 ```{r, eval = FALSE}
-group_by(starwars, species) %>% 
-  summarize(avg_mass = mean(mass, na.rm = TRUE))
+group_by(country_stats, country) %>% 
+  summarize(avg_GDP = mean(GDP, na.rm = TRUE))
 ```
 
-Also you can remove `NaN` values by detecting for their presence using `is.nan()`. These values occur because a few species don't have any characters with values for the mass column, and computing the mean of an empty vector is NaN.
+Also you can remove `NaN` values by detecting for their presence using `is.nan()`. These values often occur when a summary operation (e.g. mean or sum) is performed on a vector with 0 elements.
 
 ```{r}
-group_by(starwars, species) %>% 
-  summarize(avg_mass = mean(mass, na.rm = TRUE)) %>% 
-  filter(!is.nan(avg_mass))
+x <- 1:10
+# none are TRUE
+x <- x[x > 100]
+x
+length(x)
+mean(x)
+
+mean(c(1, NaN), na.rm = TRUE)
 ```
 
 ### Replacing `NA` values
 
-Let's replace the NA values in `hair_color` with a string `missing data`.
+Let's replace the NA values in the `population` column with a number, such as -1234.
+
+This is an operation that is easy to do with base R `[]` approach.
 
 ```{r}
-starwars %>% 
-  mutate(new_hair_color = ifelse(is.na(hair_color), 
-                                 "missing data",
-                                 hair_color)) %>% 
-  select(hair_color, new_hair_color)
+# use is.na to identify NA values to replace with -1234
+country_stats$population[is.na(country_stats$population)] <- -1234
+
+country_stats[1:10, ]
 ```
 
-We can also replace with values from another column, such as `species`.
+Alternatively you can use the `ifelse()` base R function.
 
 ```{r}
-starwars %>% 
-  mutate(new_hair_color = ifelse(is.na(hair_color), 
-                                 species,
-                                 hair_color)) %>% 
-  select(hair_color, new_hair_color)
+x <- 1:10
+
+ifelse(x < 5, # an expression producing a logical vector 
+       5,     # if TRUE, replace with this expression
+       x)     # if FALSE replace with this expression
 ```
 
-`ifelse` is a base R function that operates on vectors and is useful when you want to replace single values. 
+Replace `-1234` with `NA` using base R `$` notation to identify columns.
+
+```{r}
+country_stats$population <- ifelse(country_stats$population == -1234,
+                                   NA,
+                                   country_stats$population)
+country_stats[1:10, ]
+```
+
+The same can also be done with dplyr, in this case replacing `NA` values again with -1234.
+
+```{r}
+mutate(country_stats, 
+       population = ifelse(is.na(population), 
+                           -1234,
+                           population)) 
+```
 
 ### case_when()
 
-If you want to perform more complex operations use `case_when()` from dplyr. `case_when()` is equivalent to performing multiple nested ifelse() operations, whereby if the first operation is **not** TRUE, then check for the second condition, repeating for each condition until there are no more statements.
+If you want to perform more complex operations use `case_when()` from dplyr. `case_when()` is equivalent to performing multiple nested `ifelse()` operations, whereby if the first operation is **not** TRUE, then check for the second condition, repeating for each condition until there are no more statements.
 
 the syntax for case when is :
 
 ```r
-`case_when(conditional statement ~ "value in result",
-           conditional statement #2 ~ "another value in result",
+`case_when(conditional statement ~ "value in result if TRUE",
+           conditional statement #2 ~ "another value in result if",
            TRUE ~ "default if neither conditional statement 1 or 2 are TRUE")`
 ```
         
-Here is an example from the documentation. Make a new column called `type`. Return "large" if the height or mass of a character is > 200. If that is not true, then return "robot" if the species is "Droid". If that is not TRUE, then default to returning "other".
+For a use case, imagine that we wanted to add a new column called `era`, which signified if the year was in the `past`, `present` or `future.` 
 
 ```{r}
-starwars %>%
-  select(name:mass, species) %>%
-  mutate(type = case_when(height > 200 | mass > 200 ~ "large",
-                          species == "Droid"        ~ "robot",
-                          TRUE                      ~ "other"))
+country_stats |>
+  mutate(
+    era = case_when(year < 2023 ~ "past",
+                    year == 2023 ~ "present",
+                    year > 2023 ~ "future")
+    )
+
+# same as above, using TRUE on the left side provides a default value.
+country_stats |>
+  mutate(
+    era = case_when(year < 2023 ~ "past",
+                    year == 2023 ~ "present",
+                    TRUE ~ "future")
+    ) 
+
 ```
 
-### Using group_by() to replace NAs with summaries from the data
-
-Lastly, it may be beneficial to replace the NA values with a summary value representative of the data. This is an example of data "imputation". 
-
-For example we might decide that we want to replace NA values in the "mass" column with the average mass of the species of the character.
-
-Using group_by() + mutate() is a useful paradigm for performing this operation:  
-
-```{r}
-starwars %>% 
-  select(name, mass, species) %>% 
-  group_by(species) %>% 
-  mutate(avg_mass = mean(mass, na.rm = TRUE)) %>% 
-  mutate(imputed_mass = ifelse(is.na(mass), avg_mass, mass))
-```
 
 
 <details><summary>Show session info</summary>
@@ -479,5 +552,5 @@ Tutorial organization:
 https://github.com/sjaganna/molb7910-2019 
 
 R tutorials and documentation:
-https://github.com/tidyverse/dplyr 
-https://r4ds.had.co.nz/index.html 
+https://github.com/tidyverse/dplyr  
+https://r4ds.had.co.nz/index.html  

@@ -4,6 +4,7 @@ dir.create(data_dir, showWarnings = FALSE)
 
 files_to_dl <- list(
   "income_per_person.csv" = "https://github.com/rnabioco/bmsc-7810-pbda/raw/main/data/class3/income_per_person.csv",
+  "country_population.csv" = "https://github.com/rnabioco/bmsc-7810-pbda/raw/main/data/class3/country_population.csv",
   "dmel_tx_info.csv.gz" = "https://github.com/rnabioco/bmsc-7810-pbda/raw/main/data/class3/dmel_tx_info.csv.gz",
   "dmel_peptides_lifecycle.csv.gz" = "https://github.com/rnabioco/bmsc-7810-pbda/raw/main/data/class3/dmel_peptides_lifecycle.csv.gz"
 )
