@@ -212,7 +212,7 @@ pivot_wider(table2, names_from = type, values_from = count)
 Try it out with the `pop_long` population  data. 
 
 ```{r}
-
+pivot_wider(pop_long, names_from = year, values_from = population)
 ```
 
 ## Separate
@@ -245,20 +245,47 @@ Use the [gapminder population dataset](https://www.gapminder.org/data/documentat
 1) Which country had the highest population in 1810?  
 
 ```{r}
+filter(pop_long, year == "1810") |>
+  arrange(desc(population)) |>
+  head(1) |>
+  _$country
 
+# or
+filter(pop_long, year == "1810") |>
+  arrange(desc(population)) |>
+  head(1) |>
+  pull(country)
 ```
 
 2) What was the world population in the year 1840?  
 
 ```{r}
-
+filter(pop_long, year == "1840") |>
+  summarize(world_pop = sum(population)) |>
+  _$world_pop
 ```
 
 3) Which country had the lowest average population in the 19th century (years 1800-1899)?
 
 ```{r}
 
+filter(pop_long, year %in% as.character(1800:1899)) |>
+  group_by(country) |>
+  summarize(mean_pop = mean(population)) |>
+  arrange(mean_pop) |>
+  head(1) |>
+  _$country
   
+# or
+library(stringr) # or library(tidyverse)
+mutate(pop_long,
+       century = as.numeric(str_sub(year, 1, 2)) + 1) |>
+  filter(century == 19) |>
+  group_by(country) |>
+  summarize(mean_pop = mean(population)) |>
+  arrange(mean_pop) |>
+  head(1) |>
+  _$country
 ```
 
 
