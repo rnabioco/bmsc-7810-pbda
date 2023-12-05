@@ -16,7 +16,7 @@ editor_options:
 ---
 
 **The Rmarkdown for this document is**
-<https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2023-12-03-class-5-intro-to-ggplot2/class-5-intro-to-ggplot2.Rmd>
+<https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2023-12-05-class-5-intro-to-ggplot2/class-5-intro-to-ggplot2.Rmd>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
