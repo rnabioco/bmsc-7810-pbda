@@ -1,0 +1,170 @@
+---
+title: "Problem Set 3"
+author: "Insert your name here"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
+```{r setup}
+library(tidyverse)
+```
+
+### Problem Set
+
+Each problem below is worth **2 points**.
+
+For this problem set, you are allowed to help each other.
+However, please list who you've worked with and do not post answers in slack.
+
+There are many ways to get the same result.
+Try your best to answer the question by fulfilling.
+Different plot outputs that still fulfill the task asked for will still be given full credit.
+Some questions require a brief written response.
+Use the plot to make your best answer and write in the provided area below the plot.
+Some questions may use arguments or functions we haven't introduced in class.
+This is a great time to use the help functions of RStudio `?`.
+
+**The problem set is due midnight on Dec 8th**
+
+### Grading rubric
+
+-   Everything is good: 2 points.
+-   Runs, but wrong answer: 1.5 points
+-   Reasonable attempt: 1 points
+
+### Question 1: - Easy Peasy
+
+Create a histogram chart using ggplot2 and the `mtcars` dataset showing the number of cars with different numbers of cylinders.
+Adjust the bin value to match the number of cylinder value choices in the dataset.
+Add a title and relabel the x axis with a more descriptive label.
+
+```{r}
+
+```
+
+### Question 2: - Not too Bad
+
+Use ggplot2 and the `mtcars` dataset to create a scatter plot showing the relationship between a car's weight and horsepower.
+Annotate the plot by labeling the data point with the car name that represents the car with the highest horsepower.
+Place a rectangle annotation around the data points that represent the cars with a weight higher than 5.
+Label this rectangle with text that says "extremely heavy".
+Add a title and relabel the x and y axis with more descriptive labels.
+
+```{r}
+
+```
+
+### Question 3: - The Mean One
+
+Using the `iris` dataset to plot the points of the the petal length for each species.
+Make sure to add some jitter as we have done in class.
+Now manually calculate the mean of the petal length column of each species independently using the `mean()` function.
+Use this value to manually annotate the y position to represent the mean using a red `point` for each species.
+Do not use `stat_summary` for this question.
+
+```{r}
+
+```
+
+### Question 4: - The Straightforward One
+
+As we mentioned in class there was an interesting relationship between the quality of cut and the price of the diamond.
+Let us revisit that observation in a different way.
+First, use the diamonds dataset from the ggplot2 package. Create a histogram (`geom_histogram`) to visualize the distribution of diamond prices, setting a `binwidth` of 100 for detailed granularity. This will give you an initial overview of the overall price distribution.
+
+Next, to specifically examine how this distribution varies with the quality of the cut, employ `facet_wrap` to create separate histograms for each cut category. This will allow us to compare the price distributions across different cut qualities side-by-side.
+
+Add a dashed `geom_vline` layer to each facet to mark the median price for each cut category. This will provide a quick visual reference for comparing median prices across cuts.
+
+```{r}
+
+```
+
+Are the counts of ideal cut diamonds price skewed towards high or low price?
+Answer: 
+
+### Question 5: - The Normal One
+
+The price of the diamonds compared to the cut was not enough to understand the its relationship given that ideal cut should represent the best diamonds.
+We suspect that the size of the diamond may be a confounding factor.
+We can normalize the price to the carat which represents the diamond size.
+Repeat the same plot from Question 4 with the following exceptions: Divide the `price` by the `carat`, set the `binwidth` to 0.01, and overwrite the default scale for the x axis to make it on `log10` scale.
+
+```{r}
+
+```
+
+What was the effect of normalizing the data by carat?
+Answer: 
+
+### Question 6: - Vroom Vroom
+
+Here we will use a new dataset called `mpg`.
+This one is built in so you should be able to access it and find the help and description with `?mpg`.
+Using this dataset you will analyze fuel efficiency of several types of cars more modern than from the `mtcars` dataset.
+Using a boxplot, plot the `mpg` dataset showing the type of drive train the car uses relative to the highway miles per gallon.
+Color (or fill) the plot based upon the type of car. Place the legend at the bottom of the plot. (Hint: use the `theme()` function using the `legend.position` argument. Don't be afraid to search the help!)
+
+```{r}
+
+```
+
+Which type of drive train would appear to be the most fuel efficient?
+Answer: 
+
+Which of the types of cars use this drive train in this example?
+Answer:
+
+### Question 7: - Shape Up
+
+Using a `subset` of the `mpg` dataset, create a `scatterplot` to analyze the relationship between engine displacement (displ) and highway miles per gallon (hwy). Create the subset focusing on the following five types of cars: 'compact', 'midsize', 'suv', 'pickup', and 'minivan'. Utilize the `shape` aesthetic to differentiate these car types on the `scatterplot`. Then, add a `geom_smooth()` layer to observe the general trend across these car types, using a linear model method (`lm`). Place the legend at the bottom of the plot as we did in the previous problem.
+
+```{r}
+
+```
+
+### Question 8: - Emissions Scandal
+
+Let us compare the `mpg` data for the two time points within the dataset (1999 and 2008).
+Plot a boxplot for the model of car and the highway miles per gallon.
+Add a `facet_wrap` layer for the year and set the number of rows to 2.
+Make sure the plot is legible. Modify the `r{}` code chunk header or swap the coordinates if needed.
+Extra challenge if you can figure out how to use the `theme()` function with the `axis.text.x` argument to make the axis labels more readable.
+
+```{r}
+
+```
+
+Which car had the best median highway fuel efficiency in 1999?
+Answer: 
+
+Which car had the best median highway fuel efficiency in 2008?
+Answer: 
+
+### Question 9: - Publish it!
+
+It is time to create a publication ready plot.
+Go back to questions 6, 7, and 8.
+Store each of these plots as R objects p1, p2, and p3, respectively.
+Make sure that those plots still display in their respective questions.
+Now using the `patchwork` library, stitch the plots together such that p1 and p2 are in the same row on the top and p3 is in a row by itself below.
+Make sure to add the plot annotations for the subplot letters and add an appropriate title.
+Use the `plot_layout()` function from patchwork and modify the argument `heights` to ensure that no subplot is squished. Also be sure to modify the cell `fig.height` or `fig.width` if necessary.
+Make sure that `patchwork` is installed with `install.packages("patchwork")` if needed and that it is loaded into your environment with `library(patchwork)`.
+
+```{r}
+
+```
+
+### Question 10: - It's All About Appearances
+
+Please make the most convoluted, distorted, unreadable, useless, ugliest plot possible.
+Use any dataset you wish.
+Be creative and utilize any of the plot layers and options at your disposal.
+Enjoy getting credit for making a visual disaster.
+
+```{r}
+
+```
