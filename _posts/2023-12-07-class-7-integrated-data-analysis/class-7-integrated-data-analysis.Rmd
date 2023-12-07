@@ -1,0 +1,305 @@
+---
+title: "Class 7: Integrated Data Analysis"
+author:
+  - name: "Michael Kaufman"
+    url: https://github.com/mlkaufman
+    affiliation: "RNA Bioscience Initiative"
+    affiliation_url: https://medschool.cuanschutz.edu/rbi
+    orcid_id: 0000-0003-2441-5836
+output:
+  distill::distill_article:
+    self_contained: false
+draft: false 
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+**The Rmarkdown for this document is:** https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2023-12-07-class-7-integrated-data-analysis/class-7-integrated-data-analysis.Rmd
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+## Goals for today
+- Learn new ways to get data
+- Using a webscraping library
+- Using the NCBI API
+- A look at interactive plots
+
+## Importing Data from Varying Sources
+
+- CSV Files: Use read.csv() from base R or read_csv() from readr package.
+- Excel Files: read_excel() from the readxl package.
+- Databases: DBI and RSQLite or RMySQL for SQL databases.
+- SPSS, Stata, SAS Files: Use haven package to read these file formats.
+- Google Sheets: The googlesheets4 package for Google Sheets integration.
+- Web Scraping:  rvest for scraping HTML/XML data.
+- Web APIs: Use httr for generic API requests and jsonlite for parsing JSON. Also NCBI specific rentrenz
+
+
+## Web Scraping
+
+Web scraping is the process of extracting data from websites. This technique involves programmatically accessing web pages and then extracting useful information from them. We can then put that data into a dataframe.
+
+```{r}
+# Load libraries
+#install.packages("rvest")
+library(rvest)
+library(ggplot2)
+library(dplyr)
+
+# URL of the Wikipedia page
+
+# Read HTML content from the URL
+page <- read_html(url)
+
+# Extract the second large table on the page:
+# - `html_nodes("table.wikitable")` finds all nodes in the HTML that are tables with the class 'wikitable'
+# - `.[2]` selects the second node in the list (i.e., the second table)
+# - `html_table(fill = TRUE)` converts the HTML table into a data frame; `fill = TRUE` ensures that all rows have the same length
+buildings_table <- page %>% 
+  html_nodes("table.wikitable") %>% 
+  .[2] %>%  # Select the second table
+  html_table(fill = TRUE) %>% 
+  .[[1]]
+
+# Handle duplicate column names in the table:
+# - The code identifies columns named "Height[14]" and renames them to "Height_m" and "Height_ft"
+# - This is necessary because R does not allow duplicate column names in data frames
+colnames(buildings_table)[colnames(buildings_table) == "Height[14]"] <- c("Height_m", "Height_ft")
+
+# Process and clean the data:
+# - `select` is used to choose and rename certain columns from the table for further analysis
+# - `mutate` creates a new column `Height_m` where the height values are converted to numeric, removing any non-numeric characters
+# - `filter` removes rows where Height_m is NA (not available)
+# - Here, `Height_m` is intended to represent building heights in meters
+buildings_data <- buildings_table %>%
+  select(Rank, Building = Name, City, Country, Height_m, Floors, Year) %>%
+  mutate(Height_m = as.numeric(gsub("[^0-9\\.]", "", Height_m))) %>%
+  filter(!is.na(Height_m))
+
+
+```
+
+```{r}
+head(buildings_data)
+```
+
+
+```{r fig.height=10, fig.width=15}
+# plot the heights of the tallest buildings
+
+ggplot(buildings_data, aes(x = reorder(Building, Height_m), y = Height_m)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Height of the World's Tallest Buildings", x = "Building", y = "Height (m)")
+
+```
+
+```{r}
+# distribution
+ggplot(buildings_data, aes(x = Height_m)) +
+  geom_histogram(bins = 30, fill = "blue", color = "black") +
+  labs(title = "Distribution of Building Heights", x = "Height (m)", y = "Count")
+```
+
+```{r}
+# height across years
+ggplot(buildings_data, aes(x = Year, y = Height_m)) +
+  geom_point() +
+  labs(title = "Building Height Over Years", x = "Year", y = "Height (m)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+#angle = 45 rotates the x-axis text labels by 45 degrees.
+#hjust = 1 aligns the labels at the end, which can help with readability after rotation.
+
+```
+
+```{r}
+# heights by country
+ggplot(buildings_data, aes(x = Country, y = Height_m)) +
+  geom_boxplot() +
+  coord_flip() +  # for better readability of country names
+  labs(title = "Building Heights by Country", x = "Country", y = "Height (m)")
+```
+
+```{r}
+# cumulative height
+buildings_data |>
+  arrange(Year) |>
+  mutate(CumulativeHeight = cumsum(Height_m)) |>
+  ggplot(aes(x = Year, y = CumulativeHeight)) +
+  geom_line(color = "red") +
+  labs(title = "Cumulative Height of Buildings Over Years", x = "Year", y = "Cumulative Height (m)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+```{r}
+# number by country
+buildings_data |>
+  count(Country) |>
+  ggplot(aes(x = reorder(Country, n), y = n)) +
+  geom_bar(stat = "identity", fill = "blue") +
+  coord_flip() +
+  labs(title = "Number of Tall Buildings by Country", x = "Country", y = "Number of Buildings")
+
+```
+## Working with the NCBI Web APIs
+
+Accessing PubMed data in R can be efficiently done using the rentrez package, which is an R client for the NCBI Entrez API. Entrez is NCBI's integrated database search system that covers various databases, including PubMed.
+
+
+```{r}
+#install.packages("rentrez")
+library(rentrez)
+
+entrez_dbs() #list of available databases
+```
+
+### Pubmed Database
+
+```{r}
+entrez_db_summary("pubmed")
+```
+```{r}
+entrez_db_searchable("pubmed")	
+```
+
+
+```{r}
+search_results <- entrez_search(db="pubmed", term="RNA sequencing", retmax = 20)
+
+search_results
+```
+
+```{r}
+search_results$ids
+```
+
+
+```{r}
+# Fetch details of the articles
+article_summaries <- entrez_summary(db="pubmed", id=search_results$ids[1:20])
+article_summaries
+```
+
+```{r}
+records <- extract_from_esummary(article_summaries, c("pubdate", "pmcrefcount",  "title", "fulljournalname"))
+
+records_df <- as.data.frame(t(records))
+colnames(records_df) <- c("pubdate", "pmcrefcount", "title", "fulljournalname")
+
+records_df$pmcrefcount <- as.numeric(as.character(records_df$pmcrefcount))
+records_df$fulljournalname <- unlist(records_df$fulljournalname)
+records_df$pubdate <- unlist(records_df$pubdate)
+records_df$title <- unlist(records_df$title)
+
+# Remove rows with NA in 'pmcrefcount' or 'fulljournalname'
+records_df <- records_df %>% filter(!is.na(pmcrefcount) & !is.na(fulljournalname))
+```
+
+```{r}
+records_df
+```
+
+
+
+```{r}
+# Plotting the total citations per journal
+ggplot(records_df, aes(x = fulljournalname, y = pmcrefcount)) +
+  geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Citations per Journal", x = "Journal", y = "Total Citations") +
+  coord_flip()
+```
+
+### NCBI Gene Database
+
+```{r}
+entrez_db_summary("gene")	
+```
+
+```{r}
+entrez_db_searchable("gene")
+```
+```{r}
+search_results <- entrez_search(db="gene",term = "transcription factor", retmax = 20)
+
+search_results$ids
+```
+
+```{r}
+gene_summaries <- entrez_summary(db="gene", id=search_results$ids[1:20])
+gene_summaries
+```
+
+```{r}
+records <- extract_from_esummary(gene_summaries, c("name",  "description"))
+
+records_df <- as.data.frame(t(records))
+colnames(records_df) <- c("name",  "description")
+
+records_df$name <- unlist(records_df$name)
+records_df$description <- unlist(records_df$description)
+```
+
+```{r}
+records_df
+```
+
+### NCBI Protein Sequences
+
+```{r}
+search_results <- entrez_search(db="protein", term="BRCA1[Gene Name] AND human[Organism]")
+protein_ids <- search_results$ids
+
+protein_sequences <- entrez_fetch(db="protein", id=protein_ids, rettype="fasta")
+
+head(protein_sequences)
+
+```
+
+
+```{r}
+# Splitting the fetched data into individual sequences
+sequences <- unlist(strsplit(protein_sequences, ">"))
+sequences <- sequences[nzchar(sequences)] # Remove empty elements
+
+# Function to parse a single FASTA formatted sequence
+parse_fasta <- function(fasta) {
+  lines <- strsplit(fasta, "\n")[[1]]
+  header <- lines[1]
+  sequence <- paste(lines[-1], collapse = "")
+  return(list(header = header, sequence = sequence))
+}
+
+# Parse all sequences
+parsed_sequences <- lapply(sequences, parse_fasta)
+
+# Extracting headers and sequences
+headers <- sapply(parsed_sequences, function(x) x$header)
+sequences <- sapply(parsed_sequences, function(x) x$sequence)
+
+# Create a dataframe
+df <- data.frame(Header = headers, Sequence = sequences)
+
+df
+
+```
+
+## Shiny - Interactive Plots
+
+
+<https://shiny.posit.co/>
+<https://shiny.posit.co/r/gallery/>
+<https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html>
+
+Explain SessionInfo:
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
