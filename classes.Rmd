@@ -11,4 +11,5 @@ listing:
     - 2023-12-05-class-5-intro-to-ggplot2
     - 2023-12-06-class-6-intro-to-ggplot2-part2
     - 2023-12-07-class-7-integrated-data-analysis
+    - 2023-12-08-class-8-matricies
 ---
