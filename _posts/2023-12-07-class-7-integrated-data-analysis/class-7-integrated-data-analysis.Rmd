@@ -51,6 +51,7 @@ library(ggplot2)
 library(dplyr)
 
 # URL of the Wikipedia page
+url <- "https://en.wikipedia.org/wiki/List_of_tallest_buildings"
 
 # Read HTML content from the URL
 page <- read_html(url)
