@@ -1,5 +1,5 @@
 library(here)
-data_dir <- here("class_7-9_data")
+data_dir <- here("class_8-10_data")
 dir.create(data_dir, showWarnings = FALSE)
 
 files_to_dl <- list(

@@ -1,5 +1,5 @@
 ---
-title: "Class 7: Introduction to matricies"
+title: "Class 8: Introduction to matricies"
 author:
   - name: "Kristen Wells"
     url: https://github.com/kwells4
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
 
-*The Rmarkdown for this class is [on github](https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-10-class-7-matricies/class7_matricies.Rmd)*
+*The Rmarkdown for this class is [on github](https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-08-class-8-matricies/class8_matricies.Rmd)*
 
 ## Goals for this class
 * Learn what is a matrix
@@ -38,7 +38,7 @@ Before we get started, let's download all of the files you will need for the nex
 
 ```{r}
 # conditionally download all of the files used in rmarkdown from github 
-source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-10-class-7-matricies/download_files.R")
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-08-class-8-matricies/download_files.R")
 ```
 
 ## What is a matrix?
@@ -124,7 +124,7 @@ What value is in row 2 and column 3 of `new_mat`?
 
 ```{r}
 # TODO find the value in the matrix at row 2 and column 3
-new_mat[2,3]
+
 ```
 
 **If we can make a matrix from a data frame, what's the difference?**
@@ -261,7 +261,7 @@ Multiply, subtract, and divide the two matrices `M1` and `M2`
 
 ```{r}
 # TODO multiply, subtract and divide M1 and M2
-M1 * M2
+
 ```
 
 ### Matrix multiplication
@@ -295,7 +295,7 @@ For this next section, let's use some data that I downloaded from the social sec
 We can now read in the data and convert it to a matrix
 
 ```{r}
-names_mat <- read.csv(here("class_7-9_data", "boy_name_counts.csv"),
+names_mat <- read.csv(here("class_8-10_data", "boy_name_counts.csv"),
                            row.names = 1) %>%
   as.matrix()
 
@@ -368,7 +368,7 @@ Find the maximum value in the for "Noah"
 
 ```{r}
 # TODO Find the maximum value for Noah and the whole matrix
-max(names_mat["Noah",])
+
 ```
 
 We can also find the mean, median, and standard deviation of any part of the matrix
@@ -561,18 +561,7 @@ Can you make the same plot as above but use our normalized values?
 ```{r}
 # TODO make plot above with normalized values
 # Hint start with normalized_dat
-pivot_columns <- colnames(normalized_dat)
 
-normalized_mat <- normalized_dat %>%
-  data.frame %>%
-  rownames_to_column("name") %>%
-  pivot_longer(cols = all_of(pivot_columns),
-               values_to = "count", names_to = "state")
-
-ggplot(normalized_mat, aes(x = name, y = count, fill = name)) +
-  geom_violin() + 
-  theme(axis.text.x = element_text(angle = 90,
-                                   vjust = 0.5, hjust=1))
 ```
 
 ## I'm a biologist, why should I care?

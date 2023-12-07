@@ -1,5 +1,5 @@
 ---
-title: "Class 8: Introduction to clustering and PCA"
+title: "Class 9: Introduction to clustering and PCA"
 author:
   - name: "Kristen Wells"
     url: https://github.com/kwells4
@@ -16,7 +16,7 @@ draft: false
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
-*The Rmarkdown for this class is [on github](https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/class-8-clustering.Rmd)*
+*The Rmarkdown for this class is [on github](https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-11-class-9-clustering/class-9-clustering.Rmd)*
 
 ## Goals for this class
 * Learn about different types of clustering
@@ -38,7 +38,7 @@ Before we get started, let's download all of the files you will need for the nex
 
 ```{r}
 # conditionally download all of the files used in rmarkdown from github 
-source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-10-class-7-matricies/download_files.R")
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-08-class-8-matricies/download_files.R")
 ```
 
 ## What is clustering
@@ -60,7 +60,7 @@ k-means clustering uses the distance between points as a measure of similarity. 
 Consider the dataset below
 
 ```{r, echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/img/unclustered.jpg")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-11-class-9-clustering/img/unclustered.jpg")
 ```
 
 In the figure above you would probably say that there are 3 clear clusters. Let's start by giving a k of 3.
@@ -69,7 +69,7 @@ First the centroids are placed randomly and the distance from each point to each
 
 
 ```{r, echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/img/clustering1.jpg")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-11-class-9-clustering/img/clustering1.jpg")
 ```
 
 Next, the mean distance from all points belonging to a cluster to that cluser's centroid is calculated.
@@ -79,7 +79,7 @@ Then, the "centroids" are moved to that mean value that was calculated and the p
 This is done until the distance between the centroid and the nearest points doesn't change. All points that are closest to the centroid are placed in that cluster
 
 ```{r, echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/img/final_clustering.jpg")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-11-class-9-clustering/img/final_clustering.jpg")
 ```
 
 Let's try clustering on our own example:
@@ -162,17 +162,7 @@ Repeat the process above, but compute for 4 clusters
 
 ```{r}
 # TODO find k = 4 clusters
-set.seed(123)
-kres <- kmeans(test_data, centers = 4, nstart = 25)
 
-plot_df <- cbind(test_data, "cluster" = kres$cluster)
-
-
-plot_df$cluster <- factor(plot_df$cluster)
-plot_df$cluster
-
-ggplot(plot_df, aes(x = x_val, y = y_val, color = cluster)) +
-  geom_point()
 ```
 
 
@@ -223,13 +213,13 @@ Basically, hierarchical clustering starts by treating each sample as a "cluster"
 Steps 1 and two are repeated until only one large cluster remains
 
 ```{r, echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/img/Hierarchical-clustering-3-1.jpg")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-11-class-9-clustering/img/Hierarchical-clustering-3-1.jpg")
 ```
 
 Each merging step is used to build a dendrogram
 
 ```{r, echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-15-class-8-clustering/img/dendrogram.jpg")
+knitr::include_graphics("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-11-class-9-clustering/img/dendrogram.jpg")
 ```
 
 To get an idea of how this is working, we can use the same toy data we generated above
@@ -292,13 +282,7 @@ Repeat finding clusters using different points on the tree. For example, what if
 
 ```{r}
 # TODO repeat finding clusters with different numbers of clusters
-new_clusters <- cutree(hc, k = 4)
 
-plot_df <- cbind(test_data, "cluster" = new_clusters)
-
-plot_df$cluster <- factor(plot_df$cluster)
-ggplot2::ggplot(plot_df, aes(x = x_val, y = y_val, color = cluster)) +
-  geom_point(size = 2)
 ```
 
 **Question**
@@ -316,7 +300,7 @@ The overall goal of PCA is to find linear models that best fit the data.
 Let's walk through PCA (following the tutorial in Modern Statistics for Modern Biology) with only Alabama and Colorado to see how it works.
 
 ```{r}
-names_mat <- read.csv(here("class_7-9_data", "boy_name_counts.csv"),
+names_mat <- read.csv(here("class_8-10_data", "boy_name_counts.csv"),
                       row.names = 1) %>%
   as.matrix()
 
@@ -506,20 +490,6 @@ Try with 4 clusters, what names cluster together?
 
 ```{r}
 # TODO Repeat with 4 clusters and repeat what names cluster together
-set.seed(123)
-four_clusters <- kmeans(normalized_mat, centers = 4, nstart = 25)
-
-four_clusters$cluster
-
-plot_data <- cbind(pca_vals, "cluster" = four_clusters$cluster)
-
-plot_data$cluster <- factor(plot_data$cluster)
-
-plot_data %>%
-  tibble::rownames_to_column("name") %>%
-  ggplot(aes(x = PC1, y = PC2, color = cluster, label = name)) +
-  geom_point(size = 2) +
-  geom_text(hjust=1, vjust=0)
 
 ```
 

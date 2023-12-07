@@ -1,5 +1,5 @@
 ---
-title: "Class 9: Introduction to heatmaps"
+title: "Class 10: Introduction to heatmaps"
 author:
   - name: "Kristen Wells"
     url: https://github.com/kwells4
@@ -12,7 +12,7 @@ output:
 draft: false 
 ---
 
-*The Rmarkdown for this class is [on github](https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-16-class-9-heatmap/class-9-heatmap.Rmd)*
+*The Rmarkdown for this class is [on github](https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-12-class-10-heatmap/class-10-heatmap.Rmd)*
 
 ## Goals for this class
 * Learn how to make a heat map using `pheatmap`
@@ -35,18 +35,18 @@ Before we get started, let's download all of the files you will need for the nex
 
 ```{r}
 # conditionally download all of the files used in rmarkdown from github 
-source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-10-class-7-matricies/download_files.R")
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-08-class-8-matricies/download_files.R")
 ```
 
 ## Making a heatmap
 Today we are going to continue working with the same data we used to talk about matrices and clustering, the top 100 boy and girl names by state for 2020.
 
 ```{r}
-male_names_mat <- read.csv(here("class_7-9_data", "boy_name_counts.csv"),
+male_names_mat <- read.csv(here("class_8-10_data", "boy_name_counts.csv"),
                            row.names = 1) %>%
   as.matrix()
 
-female_names_mat <- read.csv(here("class_7-9_data", "girl_name_counts.csv"),
+female_names_mat <- read.csv(here("class_8-10_data", "girl_name_counts.csv"),
                              row.names = 1) %>%
   as.matrix()
 ```
