@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2023-12-03"/>
-<meta property="article:created" itemprop="dateCreated" content="2023-12-03"/>
+<meta property="article:published" itemprop="datePublished" content="2023-12-05"/>
+<meta property="article:created" itemprop="dateCreated" content="2023-12-05"/>
 <meta name="article:author" content="Kent Riemondy"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -111,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 4: Reshaping data into a tidy format"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["12-03-2023"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Class 4: Reshaping data into a tidy format"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Kent Riemondy"]},{"type":"character","attributes":{},"value":["https://github.com/kriemo"]},{"type":"character","attributes":{},"value":["RNA Bioscience Initiative"]},{"type":"character","attributes":{},"value":["https://medschool.cuanschutz.edu/rbi"]},{"type":"character","attributes":{},"value":["0000-0003-0750-1273"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["12-05-2023"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2125,7 +2125,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Class 4: Reshaping data into a tidy format","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2023-12-03T00:00:00.000+00:00","citationText":"Riemondy, 2023"}
+{"title":"Class 4: Reshaping data into a tidy format","authors":[{"author":"Kent Riemondy","authorURL":"https://github.com/kriemo","affiliation":"RNA Bioscience Initiative","affiliationURL":"https://medschool.cuanschutz.edu/rbi","orcidID":"0000-0003-0750-1273"}],"publishedDate":"2023-12-05T00:00:00.000+00:00","citationText":"Riemondy, 2023"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2165,7 +2165,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="d-byline">
   Kent Riemondy <a href="https://github.com/kriemo" class="uri">https://github.com/kriemo</a> (RNA Bioscience Initiative)<a href="https://medschool.cuanschutz.edu/rbi" class="uri">https://medschool.cuanschutz.edu/rbi</a>
   
-<br/>12-03-2023
+<br/>12-05-2023
 </div>
 
 <div class="d-article">
@@ -2447,7 +2447,29 @@ as what is the average population per country across all years?</p>
 </div>
 <p>Try it out with the <code>pop_long</code> population data.</p>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span><span class='va'>pop_long</span>, names_from <span class='op'>=</span> <span class='va'>year</span>, values_from <span class='op'>=</span> <span class='va'>population</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 197 × 302
+   country `1800` `1801` `1802` `1803` `1804` `1805` `1806` `1807` `1808` `1809`
+   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Afghan… 3.28e6 3.28e6 3.28e6 3.28e6 3.28e6 3.28e6 3.28e6 3.28e6 3.28e6 3.28e6
+ 2 Angola  1.57e6 1.57e6 1.57e6 1.57e6 1.57e6 1.57e6 1.57e6 1.57e6 1.57e6 1.57e6
+ 3 Albania 4   e5 4.02e5 4.04e5 4.05e5 4.07e5 4.09e5 4.11e5 4.13e5 4.14e5 4.16e5
+ 4 Andorra 2.65e3 2.65e3 2.65e3 2.65e3 2.65e3 2.65e3 2.65e3 2.65e3 2.65e3 2.65e3
+ 5 UAE     4.02e4 4.02e4 4.02e4 4.02e4 4.02e4 4.02e4 4.02e4 4.02e4 4.02e4 4.02e4
+ 6 Argent… 5.34e5 5.20e5 5.06e5 4.92e5 4.79e5 4.66e5 4.53e5 4.41e5 4.29e5 4.17e5
+ 7 Armenia 4.13e5 4.13e5 4.13e5 4.13e5 4.13e5 4.13e5 4.13e5 4.13e5 4.13e5 4.13e5
+ 8 Antigu… 3.7 e4 3.7 e4 3.7 e4 3.7 e4 3.7 e4 3.7 e4 3.7 e4 3.7 e4 3.7 e4 3.7 e4
+ 9 Austra… 2   e5 2.05e5 2.11e5 2.16e5 2.22e5 2.27e5 2.33e5 2.39e5 2.46e5 2.52e5
+10 Austria 3   e6 3.02e6 3.04e6 3.05e6 3.07e6 3.09e6 3.11e6 3.12e6 3.14e6 3.16e6
+# ℹ 187 more rows
+# ℹ 291 more variables: `1810` &lt;dbl&gt;, `1811` &lt;dbl&gt;, `1812` &lt;dbl&gt;, `1813` &lt;dbl&gt;,
+#   `1814` &lt;dbl&gt;, `1815` &lt;dbl&gt;, `1816` &lt;dbl&gt;, `1817` &lt;dbl&gt;, `1818` &lt;dbl&gt;,
+#   `1819` &lt;dbl&gt;, `1820` &lt;dbl&gt;, `1821` &lt;dbl&gt;, `1822` &lt;dbl&gt;, `1823` &lt;dbl&gt;,
+#   `1824` &lt;dbl&gt;, `1825` &lt;dbl&gt;, `1826` &lt;dbl&gt;, `1827` &lt;dbl&gt;, `1828` &lt;dbl&gt;,
+#   `1829` &lt;dbl&gt;, `1830` &lt;dbl&gt;, `1831` &lt;dbl&gt;, `1832` &lt;dbl&gt;, `1833` &lt;dbl&gt;,
+#   `1834` &lt;dbl&gt;, `1835` &lt;dbl&gt;, `1836` &lt;dbl&gt;, `1837` &lt;dbl&gt;, `1838` &lt;dbl&gt;, …</code></pre>
 </div>
 <h2 id="separate">Separate</h2>
 <p><code>separate</code> is useful for dealing with data in which a single column contains multiple variables.</p>
@@ -2492,19 +2514,59 @@ as what is the average population per country across all years?</p>
 <li>Which country had the highest population in 1810?</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pop_long</span>, <span class='va'>year</span> <span class='op'>==</span> <span class='st'>"1810"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>population</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='va'>_</span><span class='op'>$</span><span class='va'>country</span></span></code></pre>
+</div>
+<pre><code>[1] &quot;China&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># or</span></span>
+<span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pop_long</span>, <span class='va'>year</span> <span class='op'>==</span> <span class='st'>"1810"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>population</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] &quot;China&quot;</code></pre>
 </div>
 <ol start="2" type="1">
 <li>What was the world population in the year 1840?</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pop_long</span>, <span class='va'>year</span> <span class='op'>==</span> <span class='st'>"1840"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>world_pop <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>population</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='va'>_</span><span class='op'>$</span><span class='va'>world_pop</span></span></code></pre>
+</div>
+<pre><code>[1] 1224001525</code></pre>
 </div>
 <ol start="3" type="1">
 <li>Which country had the lowest average population in the 19th century (years 1800-1899)?</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>pop_long</span>, <span class='va'>year</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='fl'>1800</span><span class='op'>:</span><span class='fl'>1899</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_pop <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>population</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>mean_pop</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='va'>_</span><span class='op'>$</span><span class='va'>country</span></span></code></pre>
+</div>
+<pre><code>[1] &quot;Holy See&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># or</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://stringr.tidyverse.org'>stringr</a></span><span class='op'>)</span> <span class='co'># or library(tidyverse)</span></span>
+<span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>pop_long</span>,</span>
+<span>       century <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_sub.html'>str_sub</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>century</span> <span class='op'>==</span> <span class='fl'>19</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_pop <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>population</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>mean_pop</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='va'>_</span><span class='op'>$</span><span class='va'>country</span></span></code></pre>
+</div>
+<pre><code>[1] &quot;Holy See&quot;</code></pre>
 </div>
 <h2 id="using-binds-and-joins-to-aggregate-multiple-data.frames">Using binds and joins to aggregate multiple data.frames</h2>
 <h3 id="column-binds">column binds</h3>
@@ -2928,9 +2990,9 @@ be returned once for each matching row in x.</p>
 <h3 id="case_when">case_when()</h3>
 <p>If you want to perform more complex operations use <code>case_when()</code> from dplyr. <code>case_when()</code> is equivalent to performing multiple nested <code>ifelse()</code> operations, whereby if the first operation is <strong>not</strong> TRUE, then check for the second condition, repeating for each condition until there are no more statements.</p>
 <p>the syntax for case when is :</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">case_when(conditional statement ~ &quot;value in result if TRUE&quot;,</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="at">           conditional statement #2 ~ &quot;another value in result if&quot;,</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="at">           TRUE ~ &quot;default if neither conditional statement 1 or 2 are TRUE&quot;)</span><span class="st">`</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">case_when(conditional statement ~ &quot;value in result if TRUE&quot;,</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="at">           conditional statement #2 ~ &quot;another value in result if&quot;,</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="at">           TRUE ~ &quot;default if neither conditional statement 1 or 2 are TRUE&quot;)</span><span class="st">`</span></span></code></pre></div>
 <p>For a use case, imagine that we wanted to add a new column called <code>era</code>, which signified if the year was in the <code>past</code>, <code>present</code> or <code>future.</code></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -3005,20 +3067,20 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] dplyr_1.1.3 tidyr_1.3.0 readr_2.1.4
+[1] stringr_1.5.1 dplyr_1.1.4   tidyr_1.3.0   readr_2.1.4  
 
 loaded via a namespace (and not attached):
- [1] bit_4.0.5         jsonlite_1.8.7    compiler_4.3.1    highr_0.10       
+ [1] bit_4.0.5         jsonlite_1.8.8    compiler_4.3.1    highr_0.10       
  [5] crayon_1.5.2      tidyselect_1.2.0  parallel_4.3.1    jquerylib_0.1.4  
  [9] yaml_2.3.7        fastmap_1.1.1     R6_2.5.1          generics_0.1.3   
-[13] knitr_1.45        tibble_3.2.1      distill_1.6       bslib_0.5.1      
+[13] knitr_1.45        tibble_3.2.1      distill_1.6       bslib_0.6.1      
 [17] pillar_1.9.0      tzdb_0.4.0        rlang_1.1.2       utf8_1.2.4       
-[21] cachem_1.0.8      xfun_0.41         sass_0.4.7        bit64_4.0.5      
-[25] memoise_2.0.1     cli_3.6.1         withr_2.5.2       magrittr_2.0.3   
-[29] digest_0.6.33     vroom_1.6.4       rstudioapi_0.15.0 hms_1.1.3        
-[33] lifecycle_1.0.4   vctrs_0.6.4       downlit_0.4.3     evaluate_0.23    
-[37] glue_1.6.2        fansi_1.0.5       purrr_1.0.2       rmarkdown_2.25   
-[41] tools_4.3.1       pkgconfig_2.0.3   htmltools_0.5.7  </code></pre>
+[21] stringi_1.8.2     cachem_1.0.8      xfun_0.41         sass_0.4.7       
+[25] bit64_4.0.5       memoise_2.0.1     cli_3.6.1         withr_2.5.2      
+[29] magrittr_2.0.3    digest_0.6.33     vroom_1.6.4       rstudioapi_0.15.0
+[33] hms_1.1.3         lifecycle_1.0.4   vctrs_0.6.5       downlit_0.4.3    
+[37] evaluate_0.23     glue_1.6.2        fansi_1.0.5       purrr_1.0.2      
+[41] rmarkdown_2.25    tools_4.3.1       pkgconfig_2.0.3   htmltools_0.5.7  </code></pre>
 </div>
 </details>
 <h2 class="appendix" id="acknowledgements-and-additional-references">Acknowledgements and additional references</h2>
@@ -3028,7 +3090,7 @@ loaded via a namespace (and not attached):
 <p>R tutorials and documentation:
 <a href="https://github.com/tidyverse/dplyr" class="uri">https://github.com/tidyverse/dplyr</a><br />
 <a href="https://r4ds.had.co.nz/index.html" class="uri">https://r4ds.had.co.nz/index.html</a></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
