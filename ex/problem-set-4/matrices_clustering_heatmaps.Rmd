@@ -1,0 +1,144 @@
+---
+title: "Problem Set 4"
+author: "Insert your name here"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r load-packages}
+library(tidyverse)
+library(pheatmap)
+library(viridis)
+library(MetBrewer)
+library(here)
+```
+
+### Problem Set
+
+Each problem below is worth **2 points**.
+
+For this problem set, you are allowed to help each other. However, please list who you've worked with and do not post answers in slack. 
+
+**The problem set is due 5pm on Dec 15th**
+
+### Grading rubric
+
+- Everything is good: 2 points.
+- Runs, but wrong answer: 1.5 points
+- Reasonable attempt: 1 points
+
+
+We will be using all of the same files you already downloaded for class. If you already have these files, you don't need to run this script.
+
+```{r, eval = FALSE}
+# conditionally download all of the files used in rmarkdown from github 
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-10-class-7-matricies/download_files.R")
+```
+
+### Question 1: - Explore the data
+
+A) How many girls named Olivia were born in Maryland?
+B) How many girls named Olivia were born in Colorado?
+
+```{r}
+# Load in data
+female_names_mat <- read.csv(here("class_7-9_data", "girl_name_counts.csv"),
+                             row.names = 1) %>%
+  as.matrix()
+
+# TODO find the number of girls named Olivia in Maryland and Colorado
+
+```
+
+### Question 2: - Functions to explore the data
+
+A) How many total girls were included in the data from Maine? *Hint use `colSums` followed by indexing*
+B) How many girls name Isabella were included in the full dataset? *Hint use `rowSums` followed by indexing*
+
+```{r}
+# TODO Find the total girls from Maine. Find the total girls named Isabella
+
+```
+
+### Question 3: - Combining functions to explore the data
+
+What is the most popular girls name? *Hint use `rowSums` followed by `which.max`*
+
+```{r}
+# TODO find the most popular girls name
+
+```
+
+### Question 4: - Perform more copmlicated functions
+
+Normalize the female names *Hint divide each value by the total values for the state like we did in the matricies exercise for the male names. Remeber to transpose the matrix to divide by colSums*
+
+```{r}
+# TODO normalize the data
+
+```
+
+### Question 5: - Statistics
+
+A) What is the mean and standard deviation of the name Zoey across states? *use the normalized values*
+B) Use a T test to determine if Isabella and Riley are significantly different in their usage. Which name is more popular? *remember to use the normalized values*
+
+
+```{r}
+# TODO find mean, median, and standard deviation. Perform a T test
+
+```
+
+### Question 6: - K means clustering
+
+Cluster the female names with k means into 4 groups, report the cluster for each name. You can just report the clusters by printing the result in the `cluster` slot of the output from `kmeans`
+
+```{r}
+# TODO find 4 clusters using k means
+
+```
+
+### Question 7: - Hierarchical clustering
+
+Repeat with 4 clusters using `hclust`, report cluster for each name. You can just print the output of `cutree`. Were the clusters the same?
+
+```{r}
+# TODO find 4 clusters using hclust
+
+```
+
+### Question 8: - Making a heatmap
+
+Make a heatmap of the female names only. Remember to first scale the data. Use any coloring palettes you want (not the defaults).
+
+```{r, fig.height = 8}
+# TODO make a heatmap
+
+```
+
+
+### Question 9: - Annotating the heatmap
+
+To your heatmap made above, add annotations for the states using the `state_info.csv` file. Use any coloring palettes you want (not the defaults).
+
+```{r, fig.height = 8}
+# Load in states data
+state_info <- read.csv(here("class_7-9_data", "state_info.csv"), row.names = 1)
+
+# TODO annotate with the state information
+
+```
+
+### Question 10: - Cluster the heatmap
+
+Cluster and separate to the number of clusters you feel best fits the data.
+
+```{r, fig.height = 8}
+# TODO cluster the heatmap
+
+```
