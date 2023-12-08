@@ -404,7 +404,7 @@ Although it's good to know the inner workings of PCA, we can simply run this PCA
 Now that we have learned about some of the clustering techniques, we are going to continue working with the same data we used to talk about matrices, the top 100 boy and girl names by state for 2020. We will want to use the normalized data for these examples.
 
 ```{r}
-names_mat <- read.csv(here("class_7-9_data", "boy_name_counts.csv"),
+names_mat <- read.csv(here("class_8-10_data", "boy_name_counts.csv"),
                       row.names = 1) %>%
   as.matrix()
 
