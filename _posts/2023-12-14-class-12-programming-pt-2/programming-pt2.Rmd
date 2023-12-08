@@ -197,13 +197,13 @@ brauer_gene_exp <- read_csv("data/brauer_gene_exp.csv.gz")
 # This is the function we wrote last class
 plot_expr <- function(input, sys_name, ...) {
   
-  gg_data <- input %>%
+  gg_data <- input |>
     filter(systematic_name == sys_name)
   
   plot_title <- gg_data$name[1]
   plot_sub <- gg_data$MF[1]
   
-  gg_data %>%
+  gg_data |>
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(...) +
     labs(title = plot_title, subtitle = plot_sub) +
@@ -243,7 +243,7 @@ out <- vector("list", length(vec_in))                    # output
 
 for (i in seq_along(vec_in)) {
 
-  out[[i]] <- brauer_gene_exp %>%
+  out[[i]] <- brauer_gene_exp |>
     plot_expr(sys_name = vec_in[i])
 
 }

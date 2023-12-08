@@ -184,10 +184,10 @@ brauer_gene_exp <- read_csv("data/brauer_gene_exp.csv.gz")
 ```
 
 ```{r, fig.width = 6, fig.height = 4.5, echo = F}
-gg_data <- brauer_gene_exp %>%
+gg_data <- brauer_gene_exp |>
   filter(systematic_name == "YDL104C")               # Filter for gene of interest
 
-gg_data %>%
+gg_data |>
   ggplot(aes(rate, expression, color = nutrient)) +  # Create scatter plot
   geom_point(size = 2) +
   facet_wrap(~ nutrient) +                           # Create separate plot for each nutrient
@@ -213,10 +213,10 @@ plot_expr <- function(input, sys_name = "YNL049C") {
 
 ```{r}
 plot_expr <- function(input, sys_name = "YNL049C") {
-  gg_data <- input %>%
+  gg_data <- input |>
     filter(systematic_name == sys_name)
   
-  gg_data %>%
+  gg_data |>
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(size = 2) +
     facet_wrap(~ nutrient) +
@@ -234,8 +234,8 @@ p <- plot_expr(
   sys_name = "YDL104C"
 )
 
-# You can also use the %>% pipe with your custom functions
-p <- brauer_gene_exp %>%
+# You can also use the |> pipe with your custom functions
+p <- brauer_gene_exp |>
   plot_expr(sys_name = "YDL104C")
 
 p
@@ -250,13 +250,13 @@ p
 
 ```{r}
 plot_expr <- function(input, sys_name) {
-  gg_data <- input %>%
+  gg_data <- input |>
     filter(systematic_name == sys_name)
   
   plot_title <- gg_data$name[1]
   plot_sub <- gg_data$MF[1]
   
-  gg_data %>%
+  gg_data |>
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(size = 2) +
     labs(title = plot_title, subtitle = plot_sub) +
@@ -271,7 +271,7 @@ plot_expr <- function(input, sys_name) {
 <br>
 
 ```{r, fig.width = 6, fig.height = 4.5}
-brauer_gene_exp %>%
+brauer_gene_exp |>
   plot_expr("YDL104C")
 ```
 
@@ -349,7 +349,7 @@ x %in% y | x is present in y
 
 ```{r, eval = F}
 plot_expr <- function(input, sys_name) {
-  gg_data <- input %>%
+  gg_data <- input |>
     filter(systematic_name == sys_name)
   
   plot_title <- gg_data$name[1]
@@ -357,7 +357,7 @@ plot_expr <- function(input, sys_name) {
   
   ????
   
-  gg_data %>%
+  gg_data |>
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(size = 2) +
     labs(title = plot_title, subtitle = plot_sub) +
@@ -371,7 +371,7 @@ plot_expr <- function(input, sys_name) {
 
 ```{r}
 plot_expr <- function(input, sys_name) {
-  gg_data <- input %>%
+  gg_data <- input |>
     filter(systematic_name == sys_name)
   
   plot_title <- gg_data$name[1]
@@ -381,7 +381,7 @@ plot_expr <- function(input, sys_name) {
     plot_title <- sys_name
   }
   
-  gg_data %>%
+  gg_data |>
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(size = 2) +
     labs(title = plot_title, subtitle = plot_sub) +
@@ -395,7 +395,7 @@ plot_expr <- function(input, sys_name) {
 <br>
 
 ```{r, fig.width = 6, fig.height = 4.5}
-brauer_gene_exp %>%
+brauer_gene_exp |>
   plot_expr("YNL095C")
 ```
 
@@ -469,7 +469,7 @@ plot_expr <- function(input, sys_name) {
     stop("sys_name must be a string!")
   }
   
-  gg_data <- input %>%
+  gg_data <- input |>
     filter(systematic_name == sys_name)
   
   plot_title <- gg_data$name[1]
@@ -479,7 +479,7 @@ plot_expr <- function(input, sys_name) {
     plot_title <- sys_name
   }
   
-  gg_data %>%
+  gg_data |>
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(size = 2) +
     labs(title = plot_title, subtitle = plot_sub) +
@@ -487,7 +487,7 @@ plot_expr <- function(input, sys_name) {
     theme(legend.position = "none")
 }
 
-brauer_gene_exp %>%
+brauer_gene_exp |>
   plot_expr("YDL104C")
 ```
 
@@ -506,7 +506,7 @@ plot_expr <- function(input, sys_name) {
     stop( ???? )
   }
   
-  gg_data <- input %>%
+  gg_data <- input |>
     filter(systematic_name == sys_name)
   
   plot_title <- gg_data$name[1]
@@ -516,7 +516,7 @@ plot_expr <- function(input, sys_name) {
     plot_title <- sys_name
   }
   
-  gg_data %>%
+  gg_data |>
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(size = 2) +
     labs(title = plot_title, subtitle = plot_sub) +
@@ -539,7 +539,7 @@ plot_expr <- function(input, sys_name) {
     stop("sys_name not found in input data!")
   }
   
-  gg_data <- input %>%
+  gg_data <- input |>
     filter(systematic_name == sys_name)
   
   plot_title <- gg_data$name[1]
@@ -549,7 +549,7 @@ plot_expr <- function(input, sys_name) {
     plot_title <- sys_name
   }
   
-  gg_data %>%
+  gg_data |>
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(size = 2) +
     labs(title = plot_title, subtitle = plot_sub) +
@@ -588,8 +588,8 @@ rescale_vec(a, na.rm = T)
 ```{r, fig.width = 6, fig.height = 4.5}
 # A cumbersome way
 plot_expr <- function(input, sys_name, pt_size = 2, pt_shape = 1, pt_alpha = 1) {
-  input %>%
-    filter(systematic_name == sys_name) %>%
+  input |>
+    filter(systematic_name == sys_name) |>
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(size = pt_size, shape = pt_shape, alpha = pt_alpha) +
     facet_wrap(~ nutrient) +
@@ -598,8 +598,8 @@ plot_expr <- function(input, sys_name, pt_size = 2, pt_shape = 1, pt_alpha = 1) 
 
 # With the ellipsis
 plot_expr <- function(input, sys_name, ...) {
-  input %>%
-    filter(systematic_name == sys_name) %>%
+  input |>
+    filter(systematic_name == sys_name) |>
     ggplot(aes(rate, expression, color = nutrient)) +
     geom_point(...) +
     facet_wrap(~ nutrient) +
