@@ -1,8 +1,8 @@
 ---
-title: "Class 10: Programming in R (part 1)"
+title: "Class 11: Programming in R (part 1)"
 author:
   - name: Ryan Sheridan and Kent Riemondy
-date: 2022-12-05
+date: 2023-12-13
 output:
   distill::distill_article:
     self_contained: false
@@ -14,21 +14,22 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.align = "left"
 )
+
 library(tidyverse)
 ```
 
 
-*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-12-05-class-10-programming-in-r-part-1/programming-in-r-pt1.Rmd)*
-
+*The Rmarkdown for this class is [on github](https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2023-12-13-class-11-programming-pt-1/programming-pt1.Rmd)*
 
 ```{r}
-# conditionally download all of the files used in rmarkdown from github 
-source("https://github.com/rnabioco/bmsc-7810-pbda/raw/main/_posts/2022-12-05-class-10-programming-in-r-part-1/download-files.R")
+# Conditionally download files from github
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-13-class-11-programming-pt-1/download_files.R")
 ```
 
 <br>
 
 ## What is a function?
+
 As an analyst you will eventually find yourself in the position of wanting to reuse a block of code. There are two general ways to do this:
 
 1. copy-and-paste
@@ -52,20 +53,22 @@ library(tidyverse)
 ```{r}
 # An example: you want to rescale a numeric vector so all values are between 0 and 1
 a <- rnorm(n = 10)
+
 a
 rng <- range(a)
+
 (a - rng[1]) / (rng[2] - rng[1])
-
-
 # What if we want to repeat this on other vectors?
 # One way is to copy and paste
 b <- rnorm(n = 10)
 c <- rnorm(n = 10)
-rng <- range(b)
+
+rng   <- range(b)
 new_b <- (b - rng[1]) / (rng[2] - rng[1])
 
-rng <- range(c)
+rng   <- range(c)
 new_c <- (c - rng[1]) / (rng[2] - rng[1])
+
 # A better way is to write a function...
 ```
 
@@ -74,6 +77,7 @@ new_c <- (c - rng[1]) / (rng[2] - rng[1])
 <br>
 
 ## How to write a function
+
 There are three general steps for writing functions:
 
 1. Pick a name
@@ -85,8 +89,10 @@ There are three general steps for writing functions:
 rescale_vec <- function(x) {
   
   rng <- range(x)
+  
   (x - rng[1]) / (rng[2] - rng[1])
 }
+
 rescale_vec(b)
 rescale_vec(c)
 ```
@@ -94,7 +100,6 @@ rescale_vec(c)
 <br>
 
 *Write functions for the following bits of code* 
-
 
 ```{r, eval = F}
 # function 1
@@ -108,7 +113,8 @@ sqrt(sum((x - mean(x))^2) / (length(x) - 1))
 ```
 
 <details>
-  <summary>Show answer</summary>
+<summary>Show answer</summary>
+  
 ```{r}
 calc_sd <- function(x) {
   sqrt(sum((x - mean(x))^2) / (length(x) - 1))
@@ -126,9 +132,8 @@ calc_sd <- function(x) {
 
 <br>
 
-
-
 ## The function execution environment
+
 - When running a function an execution environment is created, which is separate from the global environment
 - The execution environment contains objects created within the function
 - When R searches for an object referenced by a function, the execution environment takes precedence
@@ -151,12 +156,15 @@ sum_nums(10)
 <br>
 
 *Can code executed within a function modify an object present in the global environment?*
+
 ```{r}
 sum_nums <- function(x) {
   a <- x + a
 }
+
 # When we run sum_nums(), will this overwrite our original vector?
 sum_nums(10)
+
 # No! (not when using the '<-' assignment operator)
 a
 ```
@@ -175,10 +183,10 @@ The `brauer_gene_exp` data contains a data set from a [manuscript](https://www.n
 brauer_gene_exp <- read_csv("data/brauer_gene_exp.csv.gz")
 ```
 
-
 ```{r, fig.width = 6, fig.height = 4.5, echo = F}
 gg_data <- brauer_gene_exp %>%
   filter(systematic_name == "YDL104C")               # Filter for gene of interest
+
 gg_data %>%
   ggplot(aes(rate, expression, color = nutrient)) +  # Create scatter plot
   geom_point(size = 2) +
@@ -188,9 +196,7 @@ gg_data %>%
 
 <br>
 
-
 What if you want to create this plot for other genes? *Write a function the takes a data.frame and systematic_name as inputs and creates scatter plots for each nutrient*  
-
 
 ```{r, eval = F}
 # Fill in the function body
@@ -202,9 +208,9 @@ plot_expr <- function(input, sys_name = "YNL049C") {
 }
 ```
 
-
 <details>
 <summary>Show answer</summary>
+
 ```{r}
 plot_expr <- function(input, sys_name = "YNL049C") {
   gg_data <- input %>%
@@ -217,18 +223,21 @@ plot_expr <- function(input, sys_name = "YNL049C") {
     theme(legend.position = "none")
 }
 ```
+
 </details>
 
-
+<br>
 
 ```{r, fig.width = 6, fig.height = 4.5}
 p <- plot_expr(
   input = brauer_gene_exp, 
   sys_name = "YDL104C"
 )
+
 # You can also use the %>% pipe with your custom functions
 p <- brauer_gene_exp %>%
   plot_expr(sys_name = "YDL104C")
+
 p
 ```
 
@@ -238,6 +247,7 @@ p
 
 <details>
 <summary>Show answer</summary>
+
 ```{r}
 plot_expr <- function(input, sys_name) {
   gg_data <- input %>%
@@ -255,8 +265,10 @@ plot_expr <- function(input, sys_name) {
     theme(legend.position = "none")
 }
 ```
+
 </details>
 
+<br>
 
 ```{r, fig.width = 6, fig.height = 4.5}
 brauer_gene_exp %>%
@@ -275,6 +287,7 @@ Instead R adopts a "copy-on-modify" approach with objects. Objects are only copi
 
 ```{r, eval = FALSE}
 change_to_char <- function(large_object) {
+  
   # large object is not a copy, but a reference
   large_object
   
@@ -284,6 +297,7 @@ change_to_char <- function(large_object) {
 }
 
 mat <- matrix(1:100, nrow = 10)
+
 # not copied
 a <- mat
 
@@ -294,6 +308,10 @@ mat[1:5, 1:5]
 mat2 <- as.character(mat)
 mat2 <- as.data.frame(mat)
 ```
+
+<br>
+
+<br>
 
 ## Conditional statements
 
@@ -329,7 +347,6 @@ x %in% y | x is present in y
 
 *Add an `if` statement to our plotting function to account for a missing gene name*  
 
-
 ```{r, eval = F}
 plot_expr <- function(input, sys_name) {
   gg_data <- input %>%
@@ -351,6 +368,7 @@ plot_expr <- function(input, sys_name) {
 
 <details>
 <summary>Show answer</summary>
+
 ```{r}
 plot_expr <- function(input, sys_name) {
   gg_data <- input %>%
@@ -371,8 +389,10 @@ plot_expr <- function(input, sys_name) {
     theme(legend.position = "none")
 }
 ```
+
 </details>
 
+<br>
 
 ```{r, fig.width = 6, fig.height = 4.5}
 brauer_gene_exp %>%
@@ -394,6 +414,7 @@ if (condition_1) {
 } else {
   executed when condition_1 and condition_2 are FALSE
 }
+
 # The 'and' operator
 if (condition_1 && condition_2) {
   executed when condition_1 and condition_2 are TRUE
@@ -401,6 +422,7 @@ if (condition_1 && condition_2) {
 } else {
   executed when condition_1 or condition_2 are FALSE
 }
+
 # The 'or' operator
 if (condition_1 || condition_2) {
   executed when condition_1 or condition_2 are TRUE
@@ -416,17 +438,20 @@ if (condition_1 || condition_2) {
 
 ## Messages, warnings, and errors
 
-`stop()` `warning()`, `message()`, and `stopifnot()` are commonly used functions in R for reporting information and/or stopping execution based on a condition.
+`stop()`, `warning()`, `message()`, and `stopifnot()` are commonly used functions in R for reporting information and/or stopping execution based on a condition.
  
 ```{r, eval = FALSE}
 stop("information about error to user, stops execution")
 warning("information about warning to user, does not stop execution")
 message("information that is not an error or warning, does not stop execution")
-stopifnot(2 + 2 != 4) # shortcut for if(condition is FALSE) stop()
+stopifnot(2 + 2 != 4)  # shortcut for if (condition is FALSE) stop()
 ```
 
 See also `tryCatch()` for "catching" errors and performing alternative actions. 
 
+<br>
+
+<br>
 
 ## Checking inputs
 
@@ -436,8 +461,6 @@ When writing functions it can be useful to check input values to make sure they 
 - `is.numeric()`
 - `is.logical()`
 - `is.factor()`
-
-
 
 ```{r, fig.width = 6, fig.height = 4.5}
 plot_expr <- function(input, sys_name) {
@@ -463,6 +486,7 @@ plot_expr <- function(input, sys_name) {
     facet_wrap(~ nutrient) +
     theme(legend.position = "none")
 }
+
 brauer_gene_exp %>%
   plot_expr("YDL104C")
 ```
@@ -502,8 +526,9 @@ plot_expr <- function(input, sys_name) {
 ```
 
 <details>
-<summary>Show answer</summary>  
-```{r, echo = F}
+<summary>Show answer</summary>
+
+```{r}
 plot_expr <- function(input, sys_name) {
   
   if (!is.character(sys_name)) {
@@ -532,6 +557,7 @@ plot_expr <- function(input, sys_name) {
     theme(legend.position = "none")
 }
 ```
+
 </details>
 
 <br>
@@ -547,15 +573,17 @@ rescale_vec <- function(x, ...) {
   rng <- range(x, ...)
   (x - rng[1]) / (rng[2] - rng[1])
 }
+
 rescale_vec(a)
+
 a[1] <- NA
+
 rescale_vec(a, na.rm = T)
 ```
 
 <br>
 
 *Modify our plotting function so the user can change the point size, shape, and alpha*  
-
 
 ```{r, fig.width = 6, fig.height = 4.5}
 # A cumbersome way
@@ -567,6 +595,7 @@ plot_expr <- function(input, sys_name, pt_size = 2, pt_shape = 1, pt_alpha = 1) 
     facet_wrap(~ nutrient) +
     theme(legend.position = "none")
 }
+
 # With the ellipsis
 plot_expr <- function(input, sys_name, ...) {
   input %>%
@@ -576,6 +605,7 @@ plot_expr <- function(input, sys_name, ...) {
     facet_wrap(~ nutrient) +
     theme(legend.position = "none")
 }
+
 # Now we can easily change the point size and shape
 plot_expr(
   input = brauer_gene_exp,
@@ -589,19 +619,24 @@ plot_expr(
 <br>
 
 <br>
-</br>
 
 ## Saving your functions for later
+
 A good way to save commonly used functions is to keep them in a separate R script. You can load your functions using the `source()` command.  
 
 ```{r, eval = F}
 source("path/to/my_functions.R")
 ```
 
+<br>
 
-<details><summary>Show session info</summary>
+<br>
+
+<details>
+<summary>Show session info</summary>
 
 ```{r code}
 sessionInfo()
 ```
+
 </details>
