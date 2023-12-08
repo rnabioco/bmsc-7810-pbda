@@ -23,7 +23,7 @@ library(tidyverse)
 
 ```{r}
 # Conditionally download files from github
-source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-13-class-11-programming-pt-1/download_files.R")
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-13-class-11-programming-pt-1/download-files.R")
 ```
 
 <br>
