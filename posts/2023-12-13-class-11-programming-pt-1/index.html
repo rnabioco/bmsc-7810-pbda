@@ -2206,15 +2206,15 @@ document.addEventListener('DOMContentLoaded', function() {
 <span></span>
 <span><span class='va'>a</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] -1.5705683  0.4351164  1.3195600 -0.6617301 -0.4725234  0.6865979
-#&gt;  [7] -0.3130226 -0.0628920  0.1060156  0.4955234</code></pre>
+<pre><code>#&gt;  [1] -0.375738193  2.206017052  1.119596807 -1.368699695  2.067158551
+#&gt;  [6] -0.143291626  1.243639680  0.129434705 -1.358442998 -0.007440558</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>rng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='op'>(</span><span class='va'>a</span> <span class='op'>-</span> <span class='va'>rng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>/</span> <span class='op'>(</span><span class='va'>rng</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>rng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] 0.0000000 0.6939777 1.0000000 0.3144629 0.3799295 0.7809917
-#&gt;  [7] 0.4351176 0.5216641 0.5801071 0.7148789</code></pre>
+<pre><code>#&gt;  [1] 0.277773477 1.000000000 0.696082145 0.000000000 0.961155383
+#&gt;  [6] 0.342798648 0.730782202 0.419091779 0.002869233 0.380801958</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># What if we want to repeat this on other vectors?</span></span>
 <span><span class='co'># One way is to copy and paste</span></span>
@@ -2301,8 +2301,8 @@ Show answer
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Earlier we saved a numeric vector "a"</span></span>
 <span><span class='va'>a</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] -1.5705683  0.4351164  1.3195600 -0.6617301 -0.4725234  0.6865979
-#&gt;  [7] -0.3130226 -0.0628920  0.1060156  0.4955234</code></pre>
+<pre><code>#&gt;  [1] -0.375738193  2.206017052  1.119596807 -1.368699695  2.067158551
+#&gt;  [6] -0.143291626  1.243639680  0.129434705 -1.358442998 -0.007440558</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sum_nums</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span></span>
 <span>  <span class='va'>x</span> <span class='op'>+</span> <span class='va'>a</span></span>
@@ -2310,8 +2310,8 @@ Show answer
 <span><span class='co'># Yes!</span></span>
 <span><span class='fu'>sum_nums</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1]  8.429432 10.435116 11.319560  9.338270  9.527477 10.686598
-#&gt;  [7]  9.686977  9.937108 10.106016 10.495523</code></pre>
+<pre><code>#&gt;  [1]  9.624262 12.206017 11.119597  8.631300 12.067159  9.856708
+#&gt;  [7] 11.243640 10.129435  8.641557  9.992559</code></pre>
 </div>
 <p><br></p>
 <p><em>Can code executed within a function modify an object present in the global environment?</em></p>
@@ -2327,8 +2327,8 @@ Show answer
 <span><span class='co'># No! (not when using the '&lt;-' assignment operator)</span></span>
 <span><span class='va'>a</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] -1.5705683  0.4351164  1.3195600 -0.6617301 -0.4725234  0.6865979
-#&gt;  [7] -0.3130226 -0.0628920  0.1060156  0.4955234</code></pre>
+<pre><code>#&gt;  [1] -0.375738193  2.206017052  1.119596807 -1.368699695  2.067158551
+#&gt;  [6] -0.143291626  1.243639680  0.129434705 -1.358442998 -0.007440558</code></pre>
 </div>
 <p><br></p>
 <p><br></p>
@@ -2361,10 +2361,10 @@ Show answer
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>plot_expr</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>sys_name</span> <span class='op'>=</span> <span class='st'>"YNL049C"</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>systematic_name</span> <span class='op'>==</span> <span class='va'>sys_name</span><span class='op'>)</span></span>
 <span>  </span>
-<span>  <span class='va'>gg_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>gg_data</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>rate</span>, <span class='va'>expression</span>, color <span class='op'>=</span> <span class='va'>nutrient</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>nutrient</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -2381,8 +2381,8 @@ Show answer
 <span>  sys_name <span class='op'>=</span> <span class='st'>"YDL104C"</span></span>
 <span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'># You can also use the %&gt;% pipe with your custom functions</span></span>
-<span><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>brauer_gene_exp</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span><span class='co'># You can also use the |&gt; pipe with your custom functions</span></span>
+<span><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>brauer_gene_exp</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'>plot_expr</span><span class='op'>(</span>sys_name <span class='op'>=</span> <span class='st'>"YDL104C"</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>p</span></span></code></pre>
@@ -2398,13 +2398,13 @@ Show answer
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>plot_expr</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>sys_name</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>systematic_name</span> <span class='op'>==</span> <span class='va'>sys_name</span><span class='op'>)</span></span>
 <span>  </span>
 <span>  <span class='va'>plot_title</span> <span class='op'>&lt;-</span> <span class='va'>gg_data</span><span class='op'>$</span><span class='va'>name</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
 <span>  <span class='va'>plot_sub</span> <span class='op'>&lt;-</span> <span class='va'>gg_data</span><span class='op'>$</span><span class='va'>MF</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
 <span>  </span>
-<span>  <span class='va'>gg_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>gg_data</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>rate</span>, <span class='va'>expression</span>, color <span class='op'>=</span> <span class='va'>nutrient</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='va'>plot_title</span>, subtitle <span class='op'>=</span> <span class='va'>plot_sub</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -2418,7 +2418,7 @@ Show answer
 <p><br></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>brauer_gene_exp</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>brauer_gene_exp</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'>plot_expr</span><span class='op'>(</span><span class='st'>"YDL104C"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="programming-pt1_files/figure-html5/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
@@ -2529,7 +2529,7 @@ Show answer
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>plot_expr</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>sys_name</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>systematic_name</span> <span class='op'>==</span> <span class='va'>sys_name</span><span class='op'>)</span></span>
 <span>  </span>
 <span>  <span class='va'>plot_title</span> <span class='op'>&lt;-</span> <span class='va'>gg_data</span><span class='op'>$</span><span class='va'>name</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
@@ -2537,7 +2537,7 @@ Show answer
 <span>  </span>
 <span>  <span class='op'>?</span><span class='op'>?</span><span class='op'>?</span><span class='op'>?</span></span>
 <span>  </span>
-<span>  <span class='va'>gg_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>gg_data</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>rate</span>, <span class='va'>expression</span>, color <span class='op'>=</span> <span class='va'>nutrient</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='va'>plot_title</span>, subtitle <span class='op'>=</span> <span class='va'>plot_sub</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -2553,7 +2553,7 @@ Show answer
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>plot_expr</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>sys_name</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>systematic_name</span> <span class='op'>==</span> <span class='va'>sys_name</span><span class='op'>)</span></span>
 <span>  </span>
 <span>  <span class='va'>plot_title</span> <span class='op'>&lt;-</span> <span class='va'>gg_data</span><span class='op'>$</span><span class='va'>name</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
@@ -2563,7 +2563,7 @@ Show answer
 <span>    <span class='va'>plot_title</span> <span class='op'>&lt;-</span> <span class='va'>sys_name</span></span>
 <span>  <span class='op'>}</span></span>
 <span>  </span>
-<span>  <span class='va'>gg_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>gg_data</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>rate</span>, <span class='va'>expression</span>, color <span class='op'>=</span> <span class='va'>nutrient</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='va'>plot_title</span>, subtitle <span class='op'>=</span> <span class='va'>plot_sub</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -2576,7 +2576,7 @@ Show answer
 <p><br></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>brauer_gene_exp</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>brauer_gene_exp</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'>plot_expr</span><span class='op'>(</span><span class='st'>"YNL095C"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="programming-pt1_files/figure-html5/unnamed-chunk-20-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
@@ -2642,7 +2642,7 @@ Show answer
 <span>    <span class='kw'><a href='https://rdrr.io/r/base/stop.html'>stop</a></span><span class='op'>(</span><span class='st'>"sys_name must be a string!"</span><span class='op'>)</span></span>
 <span>  <span class='op'>}</span></span>
 <span>  </span>
-<span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>systematic_name</span> <span class='op'>==</span> <span class='va'>sys_name</span><span class='op'>)</span></span>
 <span>  </span>
 <span>  <span class='va'>plot_title</span> <span class='op'>&lt;-</span> <span class='va'>gg_data</span><span class='op'>$</span><span class='va'>name</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
@@ -2652,7 +2652,7 @@ Show answer
 <span>    <span class='va'>plot_title</span> <span class='op'>&lt;-</span> <span class='va'>sys_name</span></span>
 <span>  <span class='op'>}</span></span>
 <span>  </span>
-<span>  <span class='va'>gg_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>gg_data</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>rate</span>, <span class='va'>expression</span>, color <span class='op'>=</span> <span class='va'>nutrient</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='va'>plot_title</span>, subtitle <span class='op'>=</span> <span class='va'>plot_sub</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -2660,7 +2660,7 @@ Show answer
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span></span>
 <span><span class='op'>}</span></span>
 <span></span>
-<span><span class='va'>brauer_gene_exp</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span><span class='va'>brauer_gene_exp</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'>plot_expr</span><span class='op'>(</span><span class='st'>"YDL104C"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="programming-pt1_files/figure-html5/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
@@ -2678,7 +2678,7 @@ Show answer
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>( ???? )</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  gg_data <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  gg_data <span class="ot">&lt;-</span> input <span class="sc">|&gt;</span></span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(systematic_name <span class="sc">==</span> sys_name)</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  plot_title <span class="ot">&lt;-</span> gg_data<span class="sc">$</span>name[<span class="dv">1</span>]</span>
@@ -2688,7 +2688,7 @@ Show answer
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    plot_title <span class="ot">&lt;-</span> sys_name</span>
 <span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  gg_data <span class="sc">%&gt;%</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  gg_data <span class="sc">|&gt;</span></span>
 <span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(rate, expression, <span class="at">color =</span> nutrient)) <span class="sc">+</span></span>
 <span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> plot_title, <span class="at">subtitle =</span> plot_sub) <span class="sc">+</span></span>
@@ -2712,7 +2712,7 @@ Show answer
 <span>    <span class='kw'><a href='https://rdrr.io/r/base/stop.html'>stop</a></span><span class='op'>(</span><span class='st'>"sys_name not found in input data!"</span><span class='op'>)</span></span>
 <span>  <span class='op'>}</span></span>
 <span>  </span>
-<span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>gg_data</span> <span class='op'>&lt;-</span> <span class='va'>input</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>systematic_name</span> <span class='op'>==</span> <span class='va'>sys_name</span><span class='op'>)</span></span>
 <span>  </span>
 <span>  <span class='va'>plot_title</span> <span class='op'>&lt;-</span> <span class='va'>gg_data</span><span class='op'>$</span><span class='va'>name</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
@@ -2722,7 +2722,7 @@ Show answer
 <span>    <span class='va'>plot_title</span> <span class='op'>&lt;-</span> <span class='va'>sys_name</span></span>
 <span>  <span class='op'>}</span></span>
 <span>  </span>
-<span>  <span class='va'>gg_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>gg_data</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>rate</span>, <span class='va'>expression</span>, color <span class='op'>=</span> <span class='va'>nutrient</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='va'>plot_title</span>, subtitle <span class='op'>=</span> <span class='va'>plot_sub</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -2745,16 +2745,16 @@ Show answer
 <span></span>
 <span><span class='fu'>rescale_vec</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1] 0.0000000 0.6939777 1.0000000 0.3144629 0.3799295 0.7809917
-#&gt;  [7] 0.4351176 0.5216641 0.5801071 0.7148789</code></pre>
+<pre><code>#&gt;  [1] 0.277773477 1.000000000 0.696082145 0.000000000 0.961155383
+#&gt;  [6] 0.342798648 0.730782202 0.419091779 0.002869233 0.380801958</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span></span>
 <span><span class='va'>a</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>NA</span></span>
 <span></span>
 <span><span class='fu'>rescale_vec</span><span class='op'>(</span><span class='va'>a</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>#&gt;  [1]         NA 0.55360218 1.00000000 0.00000000 0.09549672 0.68053034
-#&gt;  [7] 0.17600023 0.30224655 0.38749789 0.58409089</code></pre>
+<pre><code>#&gt;  [1]          NA 1.000000000 0.696082145 0.000000000 0.961155383
+#&gt;  [6] 0.342798648 0.730782202 0.419091779 0.002869233 0.380801958</code></pre>
 </div>
 <p><br></p>
 <p><em>Modify our plotting function so the user can change the point size, shape, and alpha</em></p>
@@ -2762,8 +2762,8 @@ Show answer
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># A cumbersome way</span></span>
 <span><span class='va'>plot_expr</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>sys_name</span>, <span class='va'>pt_size</span> <span class='op'>=</span> <span class='fl'>2</span>, <span class='va'>pt_shape</span> <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>pt_alpha</span> <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>input</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>systematic_name</span> <span class='op'>==</span> <span class='va'>sys_name</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>input</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>systematic_name</span> <span class='op'>==</span> <span class='va'>sys_name</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>rate</span>, <span class='va'>expression</span>, color <span class='op'>=</span> <span class='va'>nutrient</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='va'>pt_size</span>, shape <span class='op'>=</span> <span class='va'>pt_shape</span>, alpha <span class='op'>=</span> <span class='va'>pt_alpha</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>nutrient</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -2772,8 +2772,8 @@ Show answer
 <span></span>
 <span><span class='co'># With the ellipsis</span></span>
 <span><span class='va'>plot_expr</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>sys_name</span>, <span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='va'>input</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>systematic_name</span> <span class='op'>==</span> <span class='va'>sys_name</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='va'>input</span> <span class='op'>|&gt;</span></span>
+<span>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>systematic_name</span> <span class='op'>==</span> <span class='va'>sys_name</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>rate</span>, <span class='va'>expression</span>, color <span class='op'>=</span> <span class='va'>nutrient</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>nutrient</span><span class='op'>)</span> <span class='op'>+</span></span>
