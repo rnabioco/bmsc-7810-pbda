@@ -37,7 +37,7 @@ We will be using all of the same files you already downloaded for class. If you 
 
 ```{r, eval = FALSE}
 # conditionally download all of the files used in rmarkdown from github 
-source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2022-11-10-class-7-matricies/download_files.R")
+source("https://raw.githubusercontent.com/rnabioco/bmsc-7810-pbda/main/_posts/2023-12-08-class-8-matricies/download_files.R")
 ```
 
 ### Question 1: - Explore the data
@@ -47,7 +47,7 @@ B) How many girls named Olivia were born in Colorado?
 
 ```{r}
 # Load in data
-female_names_mat <- read.csv(here("class_7-9_data", "girl_name_counts.csv"),
+female_names_mat <- read.csv(here("class_8-10_data", "girl_name_counts.csv"),
                              row.names = 1) %>%
   as.matrix()
 
