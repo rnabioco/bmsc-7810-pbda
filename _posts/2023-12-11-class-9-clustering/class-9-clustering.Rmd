@@ -162,6 +162,17 @@ Repeat the process above, but compute for 4 clusters
 
 ```{r}
 # TODO find k = 4 clusters
+set.seed(0)
+km.res4 <- kmeans(x = test_data, centers = 4, nstart = 25)
+
+cluster_k4 <- cbind(test_data, "cluster" = km.res4$cluster)
+
+cluster_k4$cluster <- km.res4$cluster
+
+cluster_k4$cluster <- factor(cluster_k4$cluster)
+
+ggplot(cluster_k4, aes(x = x_val, y = y_val, color = cluster)) +
+  geom_point(size = 2)
 
 ```
 
@@ -282,6 +293,18 @@ Repeat finding clusters using different points on the tree. For example, what if
 
 ```{r}
 # TODO repeat finding clusters with different numbers of clusters
+hc_clusters5 <- cutree(tree = hc, k = 5)
+
+hc_clusters5 <- cbind(test_data, cluster = hc_clusters5)
+
+hc_clusters5$cluster <- factor(hc_clusters5$cluster)
+
+hc_clusters5 %>%
+  dplyr::mutate(sample = rownames(.)) %>%
+  ggplot(aes(x = x_val, y = y_val, label = sample, color = cluster)) +
+    geom_point(size = 2) +
+    geom_text(hjust=2, vjust=0)
+
 
 ```
 
@@ -376,7 +399,7 @@ Let's run PCA and use matrix multiplication to visualize the first PC in our x-y
 
 ```{r}
 svda <- svd(as.matrix(normalized_dat))
-pc <- as.matrix(normalized_dat) %*% svda$v[, 1] %*% t(svda$v[, 1]) # Matrix multiplication
+pv <- as.matrix(normalized_dat) %*% svda$v[, 1] %*% t(svda$v[, 1]) # Matrix multiplication
 bp <- svda$v[2, 1] / svda$v[1, 1]
 ap <- mean(pc[, 2]) - bp * mean(pc[, 1])
 dim_plot + geom_segment(xend = pc[, 1], yend = pc[, 2]) +
@@ -470,7 +493,7 @@ ggplot(pca_cluster, aes(x = PC1, y = PC2, color = cluster)) +
   ylab(paste0("PC2: ",round(percentVar[2] * 100),"% variance"))
 ```
 
-Let's try again with 3 clusters
+Let's try again with 2 clusters
 
 ```{r}
 set.seed(123)
@@ -490,7 +513,16 @@ Try with 4 clusters, what names cluster together?
 
 ```{r}
 # TODO Repeat with 4 clusters and repeat what names cluster together
+set.seed(0)
+km.res4 <- kmeans(normalized_dat, centers = 4, nstart = 25)
 
+pca_cluster <- cbind(pca_vals, "cluster" = km.res4$cluster)
+
+pca_cluster$cluster <- factor(pca_cluster$cluster)
+ggplot(pca_cluster, aes(x = PC1, y = PC2, color = cluster)) +
+  geom_point(size = 2) +
+  xlab(paste0("PC1: ",round(percentVar[1] * 100),"% variance")) +
+  ylab(paste0("PC2: ",round(percentVar[2] * 100),"% variance"))
 ```
 
 
@@ -586,17 +618,17 @@ plot(hc)
 In the plot above we see 3 clear clusters
 
 ```{r}
-hc_clusters3 <- cutree(tree = hc, k =4)
+hc_clusters3 <- cutree(tree = hc, k =3)
 
 
 hc_clusters3 <- cbind(pca_vals, "cluster" = hc_clusters3)
 
 hc_clusters3$cluster <- factor(hc_clusters3$cluster)
 
-ggplot(hc_clusters3, aes(x = PC1, y = PC3, color = cluster)) +
+ggplot(hc_clusters3, aes(x = PC1, y = PC2, color = cluster)) +
   geom_point(size = 2) +
   xlab(paste0("PC1: ",round(percentVar[1] * 100),"% variance")) +
-  ylab(paste0("PC3: ",round(percentVar[3] * 100),"% variance"))
+  ylab(paste0("PC2: ",round(percentVar[2] * 100),"% variance"))
 ```
 
 **Exercise**

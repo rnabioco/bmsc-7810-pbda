@@ -67,7 +67,7 @@ Notice here we can only see the names for California
 
 ### Cleaning up by normalizing values
 
-It's pretty hard to see much strucutre in the data just using the raw values. Let's try with our normalized values
+It's pretty hard to see much structure in the data just using the raw values. Let's try with our normalized values
 
 ```{r, fig.height=10}
 normalized_mat <- t(t(names_mat) / colSums(names_mat))
@@ -260,7 +260,7 @@ Add your own colors to the row annotations
 We can also add annotations to the columns using the same approach. Let's load in some of the data I've compiled for the states
 
 ```{r}
-state_info <- read.csv(here("class_7-9_data", "state_info.csv"))
+state_info <- read.csv(here("class_8-10_data", "state_info.csv"))
 
 head(state_info)
 ```
