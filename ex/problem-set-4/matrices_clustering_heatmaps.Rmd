@@ -128,7 +128,7 @@ To your heatmap made above, add annotations for the states using the `state_info
 
 ```{r, fig.height = 8}
 # Load in states data
-state_info <- read.csv(here("class_7-9_data", "state_info.csv"), row.names = 1)
+state_info <- read.csv(here("class_8-10_data", "state_info.csv"), row.names = 1)
 
 # TODO annotate with the state information
 
