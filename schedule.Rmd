@@ -42,7 +42,7 @@ title: "Schedule"
   + Programming fundamentals in R (pt. 2)
 
 - Class 13: Friday, Dec. 15
-  + Course wrap up
+  + **Cancelled**
   
 # Problem Sets
 
