@@ -2,7 +2,7 @@
 title: "Class wrap up: Data analysis, tips and resources"
 author: 
   - name: "Rui Fu, Kent Riemondy"
-date: 2022-12-05
+date: 2023-12-14
 output:
   distill::distill_article:
     self_contained: false
@@ -24,11 +24,13 @@ library(here)
 
 
 
-## Rmarkdown 
+## Rmarkdown and Quarto
 
 Read the [Guide to RMarkdown](https://bookdown.org/yihui/rmarkdown/) for an exhaustive description of the various formats and options for using RMarkdown documents. Note that HTML for this class were all made from Rmd, using the [distill blog format](https://rstudio.github.io/distill/) 
 
-*The Rmarkdown for this class is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2022-12-05-a-collection-of-r-resources/resources.Rmd)*
+There is also a newer format, also built by Rstudio (now named Posit) called [Quarto](https://quarto.org/). Quarto documents are very similar to RMarkdown, have broader support for additional programming languages, and will likely eventually replace the Rmarkdown format. 
+
+*The Rmarkdown for this post is [on github]( https://github.com/rnabioco/bmsc-7810-pbda/blob/main/_posts/2023-12-14-class-wrap-up-data-analysis-tips-and-resources/resources.Rmd)*
 
 ### Caching
 
@@ -127,7 +129,9 @@ path_to_file <- here("data/class3/dmel_peptides_lifecycle.csv.gz")
 res <- microbenchmark::microbenchmark(
   base = read.csv(path_to_file),
   readr = readr::read_csv(path_to_file),
-  times = 5
+  data.table = data.table::fread(path_to_file),
+  times = 5,
+  unit = "ms"
 )
 print(res, signif = 2)
 ```
@@ -284,7 +288,7 @@ path/to/cool_function.R argument1 argument2 ...
 
 Git is a command line tool for version control, which allows us to:
 
-1. rolling back code to a previous state if needed
+1. roll back code to a previous state if needed
 
 2. branched development, tackling individual issues/tasks
 
@@ -313,14 +317,14 @@ This can be handled by Rstudio as well (new tab next to `Connections` and `Build
 
 ### Put your code on GitHub
 
-As you write more code, especially as functions and script pipelines, hosting and documenting them on GitHub is great way to make them portable and searchable. Even the free tier of GitHub accounts now has private repositories (repo).
+As you write more code, especially as functions and script pipelines, hosting and documenting them on GitHub is great way to make them portable and searchable. Even the free tier of GitHub accounts now has private repositories (repos).
 
 If you have any interest in a career in data science/informatics, GitHub is also a common showcase of what (and how well/often) you can code. After some accumulation of code, definitely put your GitHub link on your CV/resume.
 
 Check out the quickstart from github:
 https://docs.github.com/en/get-started/quickstart/hello-world 
 
-### Example repos (RBI) 
+### Example repos 
 
 - [this class](https://github.com/rnabioco/bmsc-7810-pbda)
 - [valr](https://github.com/rnabioco/valr)
@@ -359,7 +363,7 @@ emo::ji("smile")
 ![](https://bioconductor.org/images/logo_bioconductor.gif)  
 
 
-2,000+ R packages dedicated to bioinformatics. Included a coherent framework of data structures (e.g. SummarizedExperiment) built by dedicated Core members. Also includs many annotation and experimental datasets built into R packages and objects (See AnnotationHub and ExperimentHub) 
+2,000+ R packages dedicated to bioinformatics. Includes a coherent framework of data structures (e.g. SummarizedExperiment) built by dedicated Core members. Also includes many annotation and experimental datasets built into R packages and objects (See AnnotationHub and ExperimentHub) 
 
   - https://bioconductor.org/   
   - Use `BiocManager::install()` to install these packages  
@@ -390,8 +394,6 @@ emo::ji("smile")
 
 Rstudio links to common ones here: `Help` -> `Cheatsheets`. More are hosted online, such as for [regular expressions](https://rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf).
 
-Useful to keep your own stash too.
-  
   
 ##  Offline help
 

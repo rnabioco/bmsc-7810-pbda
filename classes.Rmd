@@ -16,4 +16,5 @@ listing:
     - 2023-12-12-class-10-heatmap
     - 2023-12-13-class-11-programming-pt-1
     - 2023-12-14-class-12-programming-pt-2
+    - 2023-12-14-class-wrap-up-data-analysis-tips-and-resources
 ---
